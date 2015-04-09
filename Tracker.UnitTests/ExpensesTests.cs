@@ -28,5 +28,20 @@ namespace Tracker.UnitTests
 
 	        Assert.Catch<ArgumentNullException>(() => expenses.Add(null));
         }
-    }
+
+	    //------------------------------------------------------------------
+	    [Test]
+	    public void Test ()
+	    {
+            Expenses expenses = new Expenses();
+
+			expenses.Save();
+
+		    Console.WriteLine((Record.Types)0);
+		    Console.WriteLine((Record.Types)1);
+		    Console.WriteLine((Record.Types)3);
+		    Console.WriteLine((Record.Types)4);
+
+		}
+	}
 }

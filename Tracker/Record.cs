@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using CodeContracts;
 
 namespace Tracker
 {
+	[Serializable]
     public class Record
     {
         //------------------------------------------------------------------
@@ -25,28 +27,44 @@ namespace Tracker
             Health,
             Housing,
             Permanent,
-            Income,
+			Other,
+			General,
+			Technic,
         }
 
-	    //------------------------------------------------------------------
-        public int ID { get; private set; }
-        public Types Type { get; private set; }
-        public decimal Amount { get; private set; }
-        public Categories Categorie { get; private set; }
-        public string Description { get; private set; }
-        public DateTime Date { get; private set; }
+		//------------------------------------------------------------------
+		[XmlAttribute]
+		public int ID { get; set; }
 
-        //------------------------------------------------------------------
-        public Record (int id, decimal amount, Types type, Categories categorie, string description, DateTime date)
+		[XmlAttribute]
+		public decimal Amount { get; set; }
+
+		[XmlAttribute]
+		public Types Type { get; set; }
+
+		[XmlAttribute]
+		public Categories Category { get; set; }
+
+		[XmlAttribute]
+		public string Description { get; set; }
+
+		[XmlAttribute(DataType = "date")]
+		public DateTime Date { get; set; }
+
+		//------------------------------------------------------------------
+		public Record () {}
+		
+		//------------------------------------------------------------------
+        public Record (int id, decimal amount, Types type, Categories category, string description, DateTime date) /*: this()*/
         {
 			Requires.True(amount > 1, "amount > 1");
 			Requires.NotNullOrEmpty(description, "Description");
-			Requires.True(date > DateTime.Now.AddHours(-1), "date > DateTime.Now");
+//			Requires.True(date > DateTime.Now.AddHours(-1), "date > DateTime.Now");
 
 	        ID = id;
             Type = type;
             Amount = amount;
-            Categorie = categorie;
+            Category = category;
             Description = description;
             Date = date;
         }
