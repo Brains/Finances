@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using Microsoft.Practices.Prism;
-using Microsoft.Practices.Prism.Modularity;
+﻿using System.Windows;
 using Microsoft.Practices.Prism.UnityExtensions;
-using Microsoft.Practices.ServiceLocation;
-using Tracker;
 
-namespace UI
+namespace Finances
 {
 	class Bootstrapper : UnityBootstrapper
 	{
@@ -30,14 +21,14 @@ namespace UI
 		//------------------------------------------------------------------
 		protected override void ConfigureModuleCatalog ()
 		{
-			Type tracker = typeof(TrackerModule);
-
-			ModuleCatalog.AddModule(
-			  new ModuleInfo()
-			  {
-				  ModuleName = tracker.Name,
-				  ModuleType = tracker.AssemblyQualifiedName,
-			  });
+//			Type tracker = typeof(TrackerModule);
+//
+//			ModuleCatalog.AddModule(
+//			  new ModuleInfo()
+//			  {
+//				  ModuleName = tracker.Name,
+//				  ModuleType = tracker.AssemblyQualifiedName,
+//			  });
 		}
 	}
 }
