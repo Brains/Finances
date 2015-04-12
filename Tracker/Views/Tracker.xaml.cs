@@ -10,6 +10,8 @@ namespace Tracker.Views
         public Tracker()
         {
             InitializeComponent();
+
+	        dataGrid.DataContext = new Expenses();
         }
     }
 }
