@@ -5,8 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Practices.Prism;
+using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.UnityExtensions;
 using Microsoft.Practices.ServiceLocation;
+using Tracker;
 
 namespace UI
 {
@@ -23,6 +25,19 @@ namespace UI
 		{
 			Application.Current.MainWindow = (Window) Shell;
 			Application.Current.MainWindow.Show();
+		}
+
+		//------------------------------------------------------------------
+		protected override void ConfigureModuleCatalog ()
+		{
+			Type tracker = typeof(Expenses);
+
+			ModuleCatalog.AddModule(
+			  new ModuleInfo()
+			  {
+				  ModuleName = tracker.Name,
+				  ModuleType = tracker.AssemblyQualifiedName,
+			  });
 		}
 	}
 }
