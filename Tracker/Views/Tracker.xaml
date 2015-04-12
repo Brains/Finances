@@ -1,0 +1,10 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="Tracker.Views.Tracker" Height="326" Width="380">
+	<DataGrid x:Name="dataGrid" ItemsSource="{Binding Path=Records}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="306" Width="360">
+		<DataGrid.Columns>
+			<DataGridTextColumn  Header="Name" Binding="{Binding Path=Amount}" Width="100"/>
+		</DataGrid.Columns>
+	</DataGrid>
+
+</UserControl>

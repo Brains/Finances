@@ -9,7 +9,7 @@ using CodeContracts;
 
 namespace Tracker
 {
-    public class Expenses
+    public class Expenses : IExpenses
     {
         //------------------------------------------------------------------
         public List<Record> Records { get; private set; }
@@ -88,5 +88,5 @@ namespace Tracker
 	    }
 
 	    #endregion
-    }
+	}
 }
