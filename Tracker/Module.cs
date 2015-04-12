@@ -2,21 +2,29 @@
 
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Regions;
+using Microsoft.Practices.Unity;
 
 namespace Tracker
 {
 	public class Module : IModule
 	{
+		private readonly IUnityContainer container;
 		private readonly IRegionViewRegistry regionViewRegistry;
 
-		public Module (IRegionViewRegistry registry)
+		//------------------------------------------------------------------
+		public Module (IUnityContainer container)
 		{
-			this.regionViewRegistry = registry;
+			this.container = container;
 		}
 
+		//------------------------------------------------------------------
 		public void Initialize ()
 		{
-			regionViewRegistry.RegisterViewWithRegion("MainRegion", typeof(global::Tracker.Views.Tracker));
+			container.RegisterType<IExpenses, Expenses>();
+
+			var regionManager = container.Resolve<IRegionManager>();
+
+			regionManager.RegisterViewWithRegion("MainRegion", () => this.container.Resolve<Views.Tracker>());
 		}
 	}
 }
