@@ -9,7 +9,6 @@ namespace Tracker
 	public class Module : IModule
 	{
 		private readonly IUnityContainer container;
-		private readonly IRegionViewRegistry regionViewRegistry;
 
 		//------------------------------------------------------------------
 		public Module (IUnityContainer container)
