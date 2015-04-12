@@ -1,6 +1,7 @@
 ﻿namespace Tracker
 {
-	public interface IExpenses {
+	public interface IExpenses
+	{
 		void Add (Record record);
 	}
 }
