@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Practices.Prism.Modularity;
+using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.Unity;
 
 namespace Tracker
 {
-	class TrackerModule : IModule
+	public class TrackerModule : IModule
 	{
 		private readonly IUnityContainer container;
 		//------------------------------------------------------------------
@@ -16,13 +17,17 @@ namespace Tracker
 		{
 			this.container = container;
 
-			container.RegisterType<>();
+			
 		}
 
 		//------------------------------------------------------------------
 		public void Initialize ()
 		{
-			throw new NotImplementedException();
+			container.RegisterType<IExpenses, Expenses>();
+
+			var regionManager = container.Resolve<IRegionManager>();
+
+			regionManager.RegisterViewWithRegion("MainRegion", () => this.container.Resolve<IExpenses>());
 		}
 	}
 }

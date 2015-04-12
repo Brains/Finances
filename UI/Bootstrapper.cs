@@ -30,7 +30,7 @@ namespace UI
 		//------------------------------------------------------------------
 		protected override void ConfigureModuleCatalog ()
 		{
-			Type tracker = typeof(Expenses);
+			Type tracker = typeof(TrackerModule);
 
 			ModuleCatalog.AddModule(
 			  new ModuleInfo()
