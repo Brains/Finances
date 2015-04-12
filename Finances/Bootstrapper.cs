@@ -1,5 +1,8 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.UnityExtensions;
+using Microsoft.Practices.ServiceLocation;
 
 namespace Finances
 {
@@ -7,13 +10,14 @@ namespace Finances
 	{
 		protected override DependencyObject CreateShell ()
 		{
-			return Shell;
-//			return ServiceLocator.Current.GetInstance<Shell>();
+			return ServiceLocator.Current.GetInstance<Shell>();
 		}
 
 		//------------------------------------------------------------------
 		protected override void InitializeShell ()
 		{
+			base.InitializeShell();
+
 			Application.Current.MainWindow = (Window) Shell;
 			Application.Current.MainWindow.Show();
 		}
@@ -21,14 +25,16 @@ namespace Finances
 		//------------------------------------------------------------------
 		protected override void ConfigureModuleCatalog ()
 		{
-//			Type tracker = typeof(TrackerModule);
-//
-//			ModuleCatalog.AddModule(
-//			  new ModuleInfo()
-//			  {
-//				  ModuleName = tracker.Name,
-//				  ModuleType = tracker.AssemblyQualifiedName,
-//			  });
+			base.ConfigureModuleCatalog();
+
+			Type tracker = typeof(Tracker.Module);
+
+			ModuleCatalog.AddModule(
+			  new ModuleInfo()
+			  {
+				  ModuleName = tracker.Name,
+				  ModuleType = tracker.AssemblyQualifiedName,
+			  });
 		}
 	}
 }
