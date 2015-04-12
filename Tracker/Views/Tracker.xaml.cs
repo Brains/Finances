@@ -11,7 +11,7 @@ namespace Tracker.Views
         {
             InitializeComponent();
 
-	        dataGrid.DataContext = new Expenses();
+	        Records.DataContext = new ViewModels.Tracker();
         }
     }
 }
