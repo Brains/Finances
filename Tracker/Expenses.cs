@@ -82,7 +82,7 @@ namespace Tracker
 	    //------------------------------------------------------------------
 	    DateTime RandomDay (Random random)
 	    {
-		    DateTime start = new DateTime(2014, 1, 1);
+		    DateTime start = new DateTime(2015, 3, 1);
 		    int range = (DateTime.Today - start).Days;
 		    return start.AddDays(random.Next(range));
 	    }
