@@ -79,6 +79,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\CategoryToIcon.cs" />
     <Compile Include="Converters\DateTimeToDateConverter.cs" />
     <Compile Include="Expenses.cs" />
     <Compile Include="IExpenses.cs" />
