@@ -13,7 +13,7 @@ namespace Tracker.Converters
 		{
 			string name = value.ToString();
 
-			var visual = Application.Current.TryFindResource(name) ;
+			var visual = Application.Current.FindResource(name);
 			return visual as Visual;
 		}
 
