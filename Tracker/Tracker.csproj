@@ -92,6 +92,10 @@
       <DependentUpon>Tracker.xaml</DependentUpon>
     </Compile>
     <Compile Include="Module.cs" />
+    <DesignDataWithDesignTimeCreatableTypes Include="Views\SampleData.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </DesignDataWithDesignTimeCreatableTypes>
     <Page Include="Views\Tracker.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
