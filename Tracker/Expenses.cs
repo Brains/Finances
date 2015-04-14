@@ -63,7 +63,7 @@ namespace Tracker
 
 		    Records.Add(new Record(
 			    random.Next(1000),
-			    random.Next(50, 700),
+			    random.Next(50, 2000),
 			    RandomEnumValue<Record.Types>(),
 				RandomEnumValue<Record.Categories>(),
 			    descriptions[random.Next(descriptions.Length)],

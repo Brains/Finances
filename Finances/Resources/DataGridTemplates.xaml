@@ -4,12 +4,15 @@
 	<!--	<CollectionViewSource x:Key="RecordsGrouped"  IsSourceGrouped="True" ItemsPath="Activities"/>-->
 
 	<!-- Converters -->
-	<converters:EnumToIcon x:Key="EnumToIcon" />
-	<converters:EnumToColor x:Key="EnumToColor" />
+	<converters:EnumToIcon x:Key = "EnumToIcon" />
+	<converters:EnumToColor x:Key = "EnumToColor" />
+	<converters:ValueToFontWeight x:Key = "ValueToFontWeight" />
 
 	<!-- Amount cell -->
 	<DataTemplate x:Key = "AmountColoredCellTemplate" >
-		<TextBlock Text = "{Binding Path=Amount}" FontSize = "16" FontWeight="SemiBold" Foreground ="{Binding Path=Type, Converter={StaticResource EnumToColor}}"/>
+		<TextBlock Text = "{Binding Path=Amount}"  FontSize = "20" Margin = "10,0,0,0"
+				   Foreground = "{Binding Path=Type, Converter={StaticResource EnumToColor}}"
+				   FontWeight = "{Binding Amount, Converter={StaticResource ValueToFontWeight}}"  />
 	</DataTemplate>
 
 	<!-- Type cell with Icon  -->
@@ -20,7 +23,7 @@
 					<VisualBrush Visual = "{Binding Path=Type, Converter={StaticResource EnumToIcon}}" Stretch = "Uniform" Opacity = "0.7" />
 				</Grid.Background>
 			</Grid>
-			<TextBlock Text = "{Binding Path=Type}" Margin = "10,0,0,0" Foreground="{Binding Path=Type, Converter={StaticResource EnumToColor}}"/>
+			<TextBlock Text = "{Binding Path=Type }" Foreground = "{Binding Path=Type, Converter={StaticResource EnumToColor}}" Margin = "10,0,0,0"/>
 		</StackPanel>
 	</DataTemplate>
 
@@ -29,7 +32,7 @@
 		<StackPanel Orientation = "Horizontal" >
 			<Grid Width = "16" Height = "16" >
 				<Grid.Background>
-					<VisualBrush Visual = "{Binding Path=Category, Converter={StaticResource EnumToIcon}}" Stretch = "Uniform"  Opacity = "0.7" />
+					<VisualBrush Visual = "{Binding Path=Category, Converter={StaticResource EnumToIcon}}" Stretch = "Uniform" Opacity = "0.7" />
 				</Grid.Background>
 			</Grid>
 			<TextBlock Text = "{Binding Path=Category}" Margin = "10,0,0,0" />
@@ -40,5 +43,5 @@
 	<DataTemplate x:Key = "GroupHeaderTemplate" >
 		<TextBlock Text = "{Binding Path=Name}" Foreground = "LightGray" Margin = "0,20,0,0" />
 	</DataTemplate>
-	
+
 </ResourceDictionary>
