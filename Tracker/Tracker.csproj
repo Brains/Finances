@@ -90,6 +90,9 @@
     <Compile Include="IExpenses.cs" />
     <Compile Include="Record.cs" />
     <Compile Include="ViewModels\Tracker.cs" />
+    <Compile Include="Views\AddRecord.xaml.cs">
+      <DependentUpon>AddRecord.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Tracker.xaml.cs">
       <DependentUpon>Tracker.xaml</DependentUpon>
     </Compile>
@@ -98,6 +101,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignDataWithDesignTimeCreatableTypes>
+    <Page Include="Views\AddRecord.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Tracker.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

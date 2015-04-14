@@ -24,6 +24,7 @@ namespace Tracker
 			var regionManager = container.Resolve<IRegionManager>();
 
 			regionManager.RegisterViewWithRegion("Tracker", () => this.container.Resolve<Views.Tracker>());
+			regionManager.RegisterViewWithRegion("AddRecord", () => this.container.Resolve<Views.AddRecord>());
 		}
 	}
 }
