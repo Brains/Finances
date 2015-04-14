@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finances", "Finances\Financ
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracker", "Tracker\Tracker.csproj", "{F31FA3EB-4F11-4A61-A67D-E6C77EEC470C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visualization", "Visualization\Visualization.csproj", "{35B3BC50-DADA-47A4-A37D-B26F4BB4724E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{F31FA3EB-4F11-4A61-A67D-E6C77EEC470C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F31FA3EB-4F11-4A61-A67D-E6C77EEC470C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F31FA3EB-4F11-4A61-A67D-E6C77EEC470C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35B3BC50-DADA-47A4-A37D-B26F4BB4724E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35B3BC50-DADA-47A4-A37D-B26F4BB4724E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35B3BC50-DADA-47A4-A37D-B26F4BB4724E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35B3BC50-DADA-47A4-A37D-B26F4BB4724E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
