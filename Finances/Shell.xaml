@@ -10,7 +10,7 @@
 			<RowDefinition Height="200" />
 		</Grid.RowDefinitions>
 
-		<TabControl Grid.Row="0" Grid.Column="0" SelectedIndex="0" TabStripPlacement="Left">
+		<TabControl Grid.Row="0" Grid.Column="0" SelectedIndex="1" TabStripPlacement="Left">
 			<TabItem Name="Tracker" Header="Tracker" cal:RegionManager.RegionName="Tracker"></TabItem>
 			<TabItem Name="Visualization" Header="Visualization" cal:RegionManager.RegionName="Visualization"></TabItem>
 		</TabControl>
