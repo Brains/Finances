@@ -6,13 +6,13 @@
 	<!-- Converters -->
 	<converters:EnumToIcon x:Key="EnumToIcon" />
 	<converters:EnumToColor x:Key="EnumToColor" />
-	
-	<!-- GroupHeaderTemplate -->
-	<DataTemplate x:Key = "GroupHeaderTemplate" >
-		<TextBlock Text = "{Binding Path=Name}" Foreground = "LightGray" Margin = "0,20,0,0" />
+
+	<!-- Amount cell -->
+	<DataTemplate x:Key = "AmountColoredCellTemplate" >
+		<TextBlock Text = "{Binding Path=Amount}" FontSize = "16" FontWeight="SemiBold" Foreground ="{Binding Path=Type, Converter={StaticResource EnumToColor}}"/>
 	</DataTemplate>
 
-	<!-- Cell With Type Icon Template -->
+	<!-- Type cell with Icon  -->
 	<DataTemplate x:Key = "CellWithTypeIconTemplate" >
 		<StackPanel Orientation = "Horizontal" >
 			<Grid Width = "16" Height = "16" >
@@ -24,7 +24,7 @@
 		</StackPanel>
 	</DataTemplate>
 
-	<!-- Cell With Category Icon Template -->
+	<!--Category cell with Icon-->
 	<DataTemplate x:Key = "CellWithCategoryIconTemplate" >
 		<StackPanel Orientation = "Horizontal" >
 			<Grid Width = "16" Height = "16" >
@@ -36,9 +36,9 @@
 		</StackPanel>
 	</DataTemplate>
 
-	<!-- Cell With Category Icon Template -->
-	<DataTemplate x:Key = "AmountColoredCellTemplate" >
-		<TextBlock Text = "{Binding Path=Amount}" Foreground ="{Binding Path=Type, Converter={StaticResource EnumToColor}}"/>
+	<!-- GroupHeaderTemplate -->
+	<DataTemplate x:Key = "GroupHeaderTemplate" >
+		<TextBlock Text = "{Binding Path=Name}" Foreground = "LightGray" Margin = "0,20,0,0" />
 	</DataTemplate>
-
+	
 </ResourceDictionary>

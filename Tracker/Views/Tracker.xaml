@@ -11,14 +11,11 @@
 	
 	<Grid Margin = "10" >
 		<DataGrid x:Name = "Records" DataContext = "{StaticResource Tracker}" ItemsSource = "{Binding Records}" AutoGenerateColumns = "False"
-		          FontSize = "14.667" Height = "604" HorizontalAlignment = "Left" VerticalAlignment = "Top" GridLinesVisibility = "None"
-		          Foreground = "#FF3A3A3A" Width = "602" >
+		          FontSize = "16" Height = "604" HorizontalAlignment = "Left" VerticalAlignment = "Top" GridLinesVisibility = "None"
+		          Foreground = "#FF3A3A3A" Width = "602" FontFamily="Segoe UI" FontWeight="Light" >
 			<DataGrid.Columns>
-				<!--			<DataGridTextColumn Header = "Amount" Binding = "{Binding Amount}" Width = "Auto" />-->
 				<DataGridTemplateColumn Header = "Amount" Width = "100" IsReadOnly = "True" CellTemplate = "{StaticResource AmountColoredCellTemplate}" />
-				<!--			<DataGridComboBoxColumn Header = "Type" ItemsSource = "{Binding Path=Type}" Width = "Auto" />-->
 				<DataGridTemplateColumn Header = "Type" Width = "150" IsReadOnly = "True" CellTemplate = "{StaticResource CellWithTypeIconTemplate}" />
-				<!--			<DataGridTextColumn Header = "Category" Binding = "{Binding Path=Category}" Width = "Auto" />-->
 				<DataGridTemplateColumn Header = "Category" Width = "150" IsReadOnly = "True" CellTemplate = "{StaticResource CellWithCategoryIconTemplate}" />
 				<DataGridTextColumn Header = "Description" Binding = "{Binding Description}" Width = "Auto" Foreground = "#FF636363" />
 			</DataGrid.Columns>
