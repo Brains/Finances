@@ -6,7 +6,7 @@ using System.Windows.Media;
 
 namespace Tracker.Converters
 {
-	public class CategoryToIcon : IValueConverter
+	public class EnumToIcon : IValueConverter
 	{
 		//------------------------------------------------------------------
 		public object Convert (object value, Type targetType, object parameter, CultureInfo culture)

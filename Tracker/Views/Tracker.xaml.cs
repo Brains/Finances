@@ -2,12 +2,10 @@
 
 namespace Tracker.Views
 {
-    /// <summary>
-    /// Interaction logic for Tracker.xaml
-    /// </summary>
-    public partial class Tracker : UserControl
+    public partial class Tracker
     {
-        public Tracker()
+	    //------------------------------------------------------------------
+		public Tracker()
         {
 			Resources.Add("Tracker", new ViewModels.Tracker());
 
