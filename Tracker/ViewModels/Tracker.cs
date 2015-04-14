@@ -25,6 +25,8 @@ namespace Tracker.ViewModels
 		{
 			ICollectionView view = CollectionViewSource.GetDefaultView(Records);
 
+			view.SortDescriptions.Clear();
+            view.SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Ascending));
 			view.GroupDescriptions.Clear();
 			view.GroupDescriptions.Add(new PropertyGroupDescription("Date", new Converters.DateTimeToDateConverter()));
 		}
