@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracker", "Tracker\Tracker.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visualization", "Visualization\Visualization.csproj", "{35B3BC50-DADA-47A4-A37D-B26F4BB4724E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visualization.Tests", "Tests\Visualization.Tests\Visualization.Tests.csproj", "{5CB3BA1F-00E9-4721-896F-91396853682C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,11 +37,16 @@ Global
 		{35B3BC50-DADA-47A4-A37D-B26F4BB4724E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35B3BC50-DADA-47A4-A37D-B26F4BB4724E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35B3BC50-DADA-47A4-A37D-B26F4BB4724E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CB3BA1F-00E9-4721-896F-91396853682C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CB3BA1F-00E9-4721-896F-91396853682C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CB3BA1F-00E9-4721-896F-91396853682C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CB3BA1F-00E9-4721-896F-91396853682C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{2C80B2A4-7B0D-4ACF-98C1-D1C7BB3C42FF} = {00D6A4C7-E74F-4098-A434-241C05E06E06}
+		{5CB3BA1F-00E9-4721-896F-91396853682C} = {00D6A4C7-E74F-4098-A434-241C05E06E06}
 	EndGlobalSection
 EndGlobal
