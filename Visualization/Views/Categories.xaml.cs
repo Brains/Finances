@@ -15,7 +15,7 @@ namespace Visualization.Views
         {
 			InitializeComponent();
 
-	        Chart.DataContext = new ViewModels.Categories();
+	        DataContext = new ViewModels.Categories();
         }
 
 
