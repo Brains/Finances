@@ -5,54 +5,53 @@
                     xmlns:chartingToolkit = "clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit" >
 
 	<Style x:Key = "LegendStyle" TargetType = "visualizationToolkit:Legend" >
-		<Setter Property="Background" Value="White"></Setter>
-		<Setter Property="BorderThickness" Value="0"></Setter>
+		<Setter Property = "Background" Value = "White" />
+		<Setter Property = "BorderThickness" Value = "0" />
 	</Style>
 
 	<Style x:Key = "PlotAreaStyle" TargetType = "{x:Type Grid}" >
 		<Setter Property = "Background" Value = "White" />
 	</Style>
 
-	
-	
-	
+
 	<ControlTemplate x:Key = "ChartTemplate" TargetType = "chartingToolkit:Chart" >
-		
+
 		<Border Background = "{TemplateBinding Control.Background}" BorderBrush = "{TemplateBinding Control.BorderBrush}"
 		        BorderThickness = "{TemplateBinding Control.BorderThickness}" Padding = "{TemplateBinding Control.Padding}" >
-			
+
 			<Grid>
 				<Grid.RowDefinitions>
 					<RowDefinition Height = "Auto" />
 					<RowDefinition Height = "*" />
 				</Grid.RowDefinitions>
-				
+
+				<!-- Title -->
 				<visualizationToolkit:Title Content = "{TemplateBinding chartingToolkit:Chart.Title}"
 				                            Style = "{TemplateBinding chartingToolkit:Chart.TitleStyle}" />
-				
+
 				<Grid Grid.Row = "1" Margin = "0,15" >
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width = "*" />
 						<ColumnDefinition Width = "Auto" />
 					</Grid.ColumnDefinitions>
-					
-					<visualizationToolkit:Legend Name = "Legend" Grid.Column = "1"
-					                             Style = "{StaticResource LegendStyle}" />
-<!--					                             Style = "{TemplateBinding chartingToolkit:Chart.LegendStyle}" />-->
-					
+
+					<!-- Legend -->
+					<visualizationToolkit:Legend Name = "Legend" Grid.Column = "1" Style = "{StaticResource LegendStyle}" />
+					<!--					                             Style = "{TemplateBinding chartingToolkit:Chart.LegendStyle}" />-->
+
+					<!-- Chart Area -->
 					<primitives:EdgePanel Name = "ChartArea" Style = "{TemplateBinding chartingToolkit:Chart.ChartAreaStyle}" >
+
+						<!-- Plot Area -->
 						<Grid Panel.ZIndex = "-1" Style = "{StaticResource PlotAreaStyle}" />
-						<!--<Border Panel.ZIndex="10"
-                                    BorderBrush="#FF919191"
-                                    BorderThickness="1" />-->
 
 					</primitives:EdgePanel>
 				</Grid>
-				
+
 			</Grid>
-			
+
 		</Border>
-		
+
 	</ControlTemplate>
 
 
