@@ -8,9 +8,7 @@
              xmlns:system = "clr-namespace:System;assembly=mscorlib"
              d:DataContext = "{d:DesignData Source=SampleData.xaml}"
              x:Class = "Visualization.Views.Categories"
-             mc:Ignorable = "d"
-             Height = "556.553"
-             Width = "799.433" >
+             mc:Ignorable = "d" >
 
 	<UserControl.Resources>
 		<ResourceDictionary>
@@ -21,7 +19,7 @@
 	</UserControl.Resources>
 
 	<ScrollViewer>
-		<Grid Height="1402">
+		<Grid>
 			<Grid.RowDefinitions>
 				<RowDefinition />
 				<RowDefinition />

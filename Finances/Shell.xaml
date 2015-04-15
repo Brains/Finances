@@ -6,8 +6,8 @@
 	Title="Finances" Height="800" Width="1000">
 	<Grid>
 		<Grid.RowDefinitions >
-			<RowDefinition Height="600" />
-			<RowDefinition Height="200" />
+			<RowDefinition Height="4*" />
+			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 
 		<TabControl Grid.Row="0" Grid.Column="0" SelectedIndex="1" TabStripPlacement="Left">

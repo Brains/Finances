@@ -3,22 +3,22 @@
              xmlns:converters = "clr-namespace:Tracker.Converters"
              d:DataContext = "{d:DesignData Source=/Views/SampleData.xaml}" mc:Ignorable = "d" x:Class = "Tracker.Views.Tracker"
              
-			 ScrollViewer.CanContentScroll = "True" Height = "800" Width = "800" HorizontalAlignment = "Left" VerticalAlignment = "Top" >
+			 ScrollViewer.CanContentScroll = "True" >
 
 	<UserControl.Resources>
 		<converters:EnumToColor x:Key="EnumToColors" />
 
 	</UserControl.Resources>
 	
-	<Grid Margin = "10" >
+	<Grid Margin = "0" >
 		<DataGrid x:Name = "Records" DataContext = "{StaticResource Tracker}" ItemsSource = "{Binding Records}" AutoGenerateColumns = "False"
-		          FontSize = "16" Height = "604" HorizontalAlignment = "Left" VerticalAlignment = "Top" GridLinesVisibility = "None"
-		          Foreground = "#FF3A3A3A" Width = "602" FontFamily="Segoe UI" FontWeight="Light">
+		          FontSize = "16" GridLinesVisibility = "None"
+		          Foreground = "#FF3A3A3A" FontFamily="Segoe UI" FontWeight="Light" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" ColumnWidth="Auto">
 			<DataGrid.Columns>
-				<DataGridTemplateColumn Header = "Amount" Width = "150" IsReadOnly = "True" CellTemplate = "{StaticResource AmountColoredCellTemplate}" />
-				<DataGridTemplateColumn Header = "Type" Width = "150" IsReadOnly = "True" CellTemplate = "{StaticResource CellWithTypeIconTemplate}" />
-				<DataGridTemplateColumn Header = "Category" Width = "150" IsReadOnly = "True" CellTemplate = "{StaticResource CellWithCategoryIconTemplate}" />
-				<DataGridTextColumn Header = "Description" Binding = "{Binding Description}" Width = "Auto" Foreground = "#FF636363" />
+				<DataGridTemplateColumn Header = "Amount" Width = "0.5*" IsReadOnly = "True" CellTemplate = "{StaticResource AmountColoredCellTemplate}" MaxWidth="250" />
+				<DataGridTemplateColumn Header = "Type" Width = "*" IsReadOnly = "True" CellTemplate = "{StaticResource CellWithTypeIconTemplate}" MaxWidth="250" />
+				<DataGridTemplateColumn Header = "Category" Width = "*" IsReadOnly = "True" CellTemplate = "{StaticResource CellWithCategoryIconTemplate}" MaxWidth="250" />
+				<DataGridTextColumn Header = "Description" Binding = "{Binding Description}" Width = "*" Foreground = "#FF636363" MaxWidth="250" />
 			</DataGrid.Columns>
 			<DataGrid.GroupStyle>
 				<GroupStyle HeaderTemplate = "{StaticResource GroupHeaderTemplate}" />
