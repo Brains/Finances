@@ -2,7 +2,8 @@
              xmlns:d = "http://schemas.microsoft.com/expression/blend/2008" xmlns:mc = "http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:converters = "clr-namespace:Tracker.Converters"
              d:DataContext = "{d:DesignData Source=/Views/SampleData.xaml}" mc:Ignorable = "d" x:Class = "Tracker.Views.Tracker"
-             ScrollViewer.CanContentScroll = "True" Height = "800" Width = "800" HorizontalAlignment = "Left" VerticalAlignment = "Top" >
+             
+			 ScrollViewer.CanContentScroll = "True" Height = "800" Width = "800" HorizontalAlignment = "Left" VerticalAlignment = "Top" >
 
 	<UserControl.Resources>
 		<converters:EnumToColor x:Key="EnumToColors" />
