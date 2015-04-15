@@ -3,23 +3,23 @@
              xmlns:local = "clr-namespace:Visualization"
              xmlns:charting = "clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
              xmlns:Primitives = "clr-namespace:System.Windows.Controls.DataVisualization.Charting.Primitives;assembly=System.Windows.Controls.DataVisualization.Toolkit"
-             x:Class = "Visualization.Views.Categories" mc:Ignorable = "d" Height = "556.553" Width = "799.433" >
-
+             xmlns:system = "clr-namespace:System;assembly=mscorlib" 
+			 d:DataContext = "{d:DesignData Source=SampleData.xaml}" 
+			 x:Class = "Visualization.Views.Categories" mc:Ignorable = "d" 
+			 Height = "556.553" Width = "799.433" >
+	
 	<UserControl.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source = "Palette.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
-
 	</UserControl.Resources>
 
-	<Grid>
-
-		<charting:Chart x:Name = "Chart" BorderBrush = "{x:Null}" Foreground = "Black"
-						Palette="{StaticResource Works}" Template="{DynamicResource ChartTemplate}" >
-			<charting:PieSeries ItemsSource = "{Binding}" DependentValuePath = "Value" IndependentValuePath = "Key" Title = "Test"
-			                    IsSelectionEnabled = "True" />
+	<Grid >
+		<charting:Chart x:Name = "Chart" BorderBrush = "{x:Null}" Foreground = "Black" Palette = "{StaticResource Works}"
+		                Template = "{DynamicResource ChartTemplate}" >
+			<charting:PieSeries ItemsSource = "{Binding Data}" DependentValuePath = "Value" IndependentValuePath = "Key" Title = "Test" IsSelectionEnabled = "True" />
 		</charting:Chart>
 
 	</Grid>
