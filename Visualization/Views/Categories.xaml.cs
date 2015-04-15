@@ -15,13 +15,6 @@ namespace Visualization.Views
         {
 			InitializeComponent();
 
-//			Chart.DataContext = new KeyValuePair<string, int>[] {
-//									new KeyValuePair<string, int>("Dog", 30),
-//									new KeyValuePair<string, int>("Cat", 25),
-//									new KeyValuePair<string, int>("Rat", 5),
-//									new KeyValuePair<string, int>("Hampster", 8),
-//									new KeyValuePair<string, int>("Rabbit", 12) };
-
 	        Chart.DataContext = new ViewModels.Categories();
         }
 
