@@ -1,14 +1,10 @@
-﻿<UserControl xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
+﻿<UserControl xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc = "http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d = "http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local = "clr-namespace:Visualization"
+             xmlns:d = "http://schemas.microsoft.com/expression/blend/2008" xmlns:local = "clr-namespace:Visualization"
              xmlns:charting = "clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
              xmlns:Primitives = "clr-namespace:System.Windows.Controls.DataVisualization.Charting.Primitives;assembly=System.Windows.Controls.DataVisualization.Toolkit"
-             xmlns:system = "clr-namespace:System;assembly=mscorlib"
-             d:DataContext = "{d:DesignData Source=SampleData.xaml}"
-             x:Class = "Visualization.Views.Categories"
-             mc:Ignorable = "d" >
+             xmlns:system = "clr-namespace:System;assembly=mscorlib" d:DataContext = "{d:DesignData Source=SampleData.xaml}"
+             x:Class = "Visualization.Views.Categories" mc:Ignorable = "d" >
 
 	<UserControl.Resources>
 		<ResourceDictionary>
@@ -28,41 +24,31 @@
 			</Grid.RowDefinitions>
 
 			<!--Line-->
-			<charting:Chart x:Name = "ExpencesByDate"
-			                Grid.Row = "0"
-			                Palette = "{StaticResource Works}"
-			                Template = "{StaticResource ChartTemplate}"
-			                Foreground = "DimGray" MinHeight="400" >
-				<charting:LineSeries ItemsSource = "{Binding ExpencesByDate}"
-				                     DependentValuePath = "Value"
-				                     IndependentValuePath = "Key" 
-									 DataPointStyle="{StaticResource GoogleLineDataPointStyle}"/>
+			<charting:Chart x:Name = "ExpencesByDate" Grid.Row = "0" Palette = "{StaticResource FlatColorsPalette}" Template = "{StaticResource ChartTemplate}"
+			                Foreground = "DimGray" MinHeight = "400" >
+				<charting:LineSeries ItemsSource = "{Binding ExpencesByDate}" DependentValuePath = "Value" IndependentValuePath = "Key"
+				                     DataPointStyle = "{StaticResource GoogleLineDataPointStyle}" />
+				<charting:Chart.Axes>
+					<charting:DateTimeAxis Orientation = "X" ShowGridLines = "True" IntervalType = "Days" Interval = "20"
+					                       GridLineStyle = "{DynamicResource GridLineStyle}" />
+					<charting:LinearAxis Orientation = "Y" ShowGridLines = "True" Interval = "1000" 
+					                       GridLineStyle = "{DynamicResource GridLineStyle}" />
+				</charting:Chart.Axes>
 			</charting:Chart>
 
 			<!--Columns-->
-			<charting:Chart x:Name = "ExpencesByType"
-			                Grid.Row = "1"
-			                Palette = "{StaticResource Works}"
-			                Template = "{StaticResource ChartTemplate}"
-			                Foreground = "DimGray" MinHeight="400" >
-				<charting:ColumnSeries ItemsSource = "{Binding ExpencesByDate}"
-				                       DependentValuePath = "Value"
-				                       IndependentValuePath = "Key"
+			<charting:Chart x:Name = "ExpencesByType" Grid.Row = "1" Palette = "{StaticResource FlatColorsPalette}" Template = "{StaticResource ChartTemplate}"
+			                Foreground = "DimGray" MinHeight = "400" >
+				<charting:ColumnSeries ItemsSource = "{Binding ExpencesByDate}" DependentValuePath = "Value" IndependentValuePath = "Key"
 				                       DataPointStyle = "{StaticResource ColorByGradeColumn}" />
+			</charting:Chart>
+			
 			<!--Pie-->
+			<charting:Chart x:Name = "Chart" Grid.Row = "2" Foreground = "DimGray" Palette = "{StaticResource FlatColorsPalette}"
+			                Template = "{StaticResource ChartTemplate}" MinHeight = "300" Style = "{StaticResource GoogleChart}" >
+				<charting:PieSeries ItemsSource = "{Binding ExpencesByCategory}" DependentValuePath = "Value" IndependentValuePath = "Key"
+				                    Title = "Test" IsSelectionEnabled = "True" />
 			</charting:Chart>
-			<charting:Chart x:Name = "Chart"
-			                Grid.Row = "2"
-			                Foreground = "DimGray"
-			                Palette = "{StaticResource Works}"
-			                Template = "{StaticResource ChartTemplate}" MinHeight="300" >
-				<charting:PieSeries ItemsSource = "{Binding ExpencesByCategory}"
-					DependentValuePath = "Value"
-					IndependentValuePath = "Key"
-					Title = "Test"
-					IsSelectionEnabled = "True" />
-			</charting:Chart>
-
 		</Grid>
 	</ScrollViewer>
 </UserControl>

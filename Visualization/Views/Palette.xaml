@@ -87,9 +87,7 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
-
-
-	<visualization:ResourceDictionaryCollection x:Key = "Works" >
+	<visualization:ResourceDictionaryCollection x:Key = "FlatColorsPalette" >
 		<ResourceDictionary>
 			<Style x:Key = "DataPointStyle"
 			       TargetType = "Control" >
@@ -140,6 +138,10 @@
 			</Style>
 		</ResourceDictionary>
 	</visualization:ResourceDictionaryCollection>
+	<Style x:Key="GridLineStyle" TargetType="{x:Type Line}">
+		<Setter Property="StrokeThickness" Value="0.2"/>
+		<Setter Property="Stroke" Value="Gray"/>
+	</Style>
 
 
 </ResourceDictionary>
