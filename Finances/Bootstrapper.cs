@@ -28,13 +28,10 @@ namespace Finances
 			base.ConfigureModuleCatalog();
 
 			Type tracker = typeof(Tracker.Module);
+			ModuleCatalog.AddModule(new ModuleInfo("Tracker", tracker.AssemblyQualifiedName));
 
-			ModuleCatalog.AddModule(
-			  new ModuleInfo()
-			  {
-				  ModuleName = tracker.Name,
-				  ModuleType = tracker.AssemblyQualifiedName,
-			  });
+			Type visualization = typeof(Visualization.Module);
+			ModuleCatalog.AddModule(new ModuleInfo("Visualization", visualization.AssemblyQualifiedName));
 		}
 	}
 }
