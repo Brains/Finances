@@ -4,7 +4,7 @@ using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.Unity;
 
-namespace Tracker
+namespace Visualization
 {
 	public class Module : IModule
 	{
@@ -19,12 +19,9 @@ namespace Tracker
 		//------------------------------------------------------------------
 		public void Initialize ()
 		{
-			container.RegisterType<IExpenses, Expenses>();
-
 			var regionManager = container.Resolve<IRegionManager>();
 
-			regionManager.RegisterViewWithRegion("Tracker", () => this.container.Resolve<Views.Tracker>());
-			regionManager.RegisterViewWithRegion("AddRecord", () => this.container.Resolve<Views.AddRecord>());
+			regionManager.RegisterViewWithRegion("Visualization", () => this.container.Resolve<Views.Categories>());
 		}
 	}
 }

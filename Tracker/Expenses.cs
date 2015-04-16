@@ -19,10 +19,12 @@ namespace Tracker
         {
             Records = new List<Record> ();
 
-	        foreach (var index in Enumerable.Range(0, 100))
-	        {
-				CreateRandomRecord();
-			}
+			Load();
+
+//	        foreach (var index in Enumerable.Range(0, 100))
+//	        {
+//				CreateRandomRecord();
+//			}
 
 		}
 
@@ -48,9 +50,23 @@ namespace Tracker
 			}
 		}
 
-	    #region Random
+		//------------------------------------------------------------------
+		public void Load ()
+		{
+			XmlSerializer serializer = new XmlSerializer(Records.GetType());
 
-	    readonly Random random = new Random();
+			using (StreamReader stream = new StreamReader("Records.xml"))
+			using (var writer = XmlReader.Create(stream))
+			{
+				Records = (List<Record>) serializer.Deserialize(writer);
+			}
+		}
+
+
+
+		#region Random
+
+		readonly Random random = new Random();
 
 	    //------------------------------------------------------------------
 	    private void CreateRandomRecord ()
@@ -82,7 +98,7 @@ namespace Tracker
 	    //------------------------------------------------------------------
 	    DateTime RandomDay (Random random)
 	    {
-		    DateTime start = new DateTime(2015, 3, 1);
+		    DateTime start = new DateTime(2015, 2, 1);
 		    int range = (DateTime.Today - start).Days;
 		    return start.AddDays(random.Next(range));
 	    }

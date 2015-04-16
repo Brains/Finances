@@ -161,6 +161,10 @@
       <Project>{f31fa3eb-4f11-4a61-a67d-e6c77eec470c}</Project>
       <Name>Tracker</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Visualization\Visualization.csproj">
+      <Project>{35b3bc50-dada-47a4-a37d-b26f4bb4724e}</Project>
+      <Name>Visualization</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
