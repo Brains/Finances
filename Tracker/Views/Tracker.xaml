@@ -14,11 +14,16 @@
 		<DataGrid x:Name = "Records" DataContext = "{StaticResource Tracker}" ItemsSource = "{Binding Records}" AutoGenerateColumns = "False"
 		          FontSize = "16" GridLinesVisibility = "None"
 		          Foreground = "#FF3A3A3A" FontFamily="Segoe UI" FontWeight="Light" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" ColumnWidth="Auto">
+		<DataGrid x:Name = "Records" ItemsSource = "{Binding Records}" AutoGenerateColumns = "False" IsReadOnly="True"
+		          FontSize = "16" GridLinesVisibility = "None" Foreground = "#FF3A3A3A" FontFamily = "Segoe UI" FontWeight = "Light"
+		          VerticalContentAlignment = "Stretch" HorizontalContentAlignment = "Stretch" ColumnWidth = "*" BorderThickness="3" Background="{x:Null}" BorderBrush="{x:Null}" >
 			<DataGrid.Columns>
-				<DataGridTemplateColumn Header = "Amount" Width = "0.5*" IsReadOnly = "True" CellTemplate = "{StaticResource AmountColoredCellTemplate}" MaxWidth="250" />
-				<DataGridTemplateColumn Header = "Type" Width = "*" IsReadOnly = "True" CellTemplate = "{StaticResource CellWithTypeIconTemplate}" MaxWidth="250" />
-				<DataGridTemplateColumn Header = "Category" Width = "*" IsReadOnly = "True" CellTemplate = "{StaticResource CellWithCategoryIconTemplate}" MaxWidth="250" />
-				<DataGridTextColumn Header = "Description" Binding = "{Binding Description}" Width = "*" Foreground = "#FF636363" MaxWidth="250" />
+				<DataGridTemplateColumn Header = "Amount" Width = "0.5*" 
+				                        CellTemplate = "{StaticResource AmountColoredCellTemplate}" MaxWidth = "250" />
+				<DataGridTemplateColumn Header = "Type" CellTemplate = "{StaticResource CellWithTypeIconTemplate}"
+				                        MaxWidth = "250" />
+				<DataGridTemplateColumn Header = "Category" CellTemplate = "{StaticResource CellWithCategoryIconTemplate}" MaxWidth = "250" />
+				<DataGridTextColumn Header = "Description" Binding = "{Binding Description}" Foreground = "#FF636363" MaxWidth = "250" />
 			</DataGrid.Columns>
 			<DataGrid.GroupStyle>
 				<GroupStyle HeaderTemplate = "{StaticResource GroupHeaderTemplate}" />

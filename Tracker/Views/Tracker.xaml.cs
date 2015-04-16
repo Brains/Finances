@@ -7,9 +7,9 @@ namespace Tracker.Views
 	    //------------------------------------------------------------------
 		public Tracker()
         {
-			Resources.Add("Tracker", new ViewModels.Tracker());
-
 			InitializeComponent();
+
+			DataContext = new ViewModels.Tracker();
         }
     }
 }
