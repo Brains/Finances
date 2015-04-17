@@ -89,11 +89,6 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converters\EnumToColor.cs" />
-    <Compile Include="Converters\EnumToIcon.cs" />
-    <Compile Include="Converters\DateTimeToDateConverter.cs" />
-    <Compile Include="Converters\NumbersValidationRule.cs" />
-    <Compile Include="Converters\ValueToFontWeight.cs" />
     <Compile Include="Expenses.cs" />
     <Compile Include="IExpenses.cs" />
     <Compile Include="Record.cs" />
@@ -102,19 +97,32 @@
     <Compile Include="Views\AddRecord.xaml.cs">
       <DependentUpon>AddRecord.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Converters\DateTimeToDateConverter.cs" />
+    <Compile Include="Views\Converters\EnumToColor.cs" />
+    <Compile Include="Views\Converters\EnumToIcon.cs" />
+    <Compile Include="Views\Converters\NumbersValidationRule.cs" />
+    <Compile Include="Views\Converters\ValueToFontWeight.cs" />
     <Compile Include="Views\Records.xaml.cs">
       <DependentUpon>Records.xaml</DependentUpon>
     </Compile>
     <Compile Include="Module.cs" />
-    <DesignDataWithDesignTimeCreatableTypes Include="Views\SampleData.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </DesignDataWithDesignTimeCreatableTypes>
     <Page Include="Views\AddRecord.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Records.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Resources\DataGridTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Resources\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Resources\SampleData.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

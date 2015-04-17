@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using Tracker.Views.Converters;
 
 namespace Tracker.ViewModels
 {
@@ -32,7 +33,7 @@ namespace Tracker.ViewModels
 			view.SortDescriptions.Clear();
             view.SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Descending));
 			view.GroupDescriptions.Clear();
-			view.GroupDescriptions.Add(new PropertyGroupDescription("Date", new Converters.DateTimeToDateConverter()));
+			view.GroupDescriptions.Add(new PropertyGroupDescription("Date", new DateTimeToDateConverter()));
 		}
 	}
 }
