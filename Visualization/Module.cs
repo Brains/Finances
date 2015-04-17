@@ -21,7 +21,7 @@ namespace Visualization
 		{
 			var regionManager = container.Resolve<IRegionManager>();
 
-			regionManager.RegisterViewWithRegion("Visualization", () => this.container.Resolve<Views.Categories>());
+			regionManager.RegisterViewWithRegion("Visualization", () => this.container.Resolve<Views.Charts>());
 		}
 	}
 }

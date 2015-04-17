@@ -34,9 +34,9 @@ namespace Visualization.Tests
 		[Test]
 		public void Test ()
 		{
-			Categories categories = new Categories();
+			Charts charts = new Charts(new Expenses());
 
-			var actual = categories.GetDatesData(Records);
+			var actual = charts.GetDatesData(Records);
 
 			Dictionary<string, int> expected = new Dictionary<string, int> {["Expense"] = 25685, ["Income"] = 28785};
 			Expect(actual, EquivalentTo(expected));

@@ -12,21 +12,24 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Practices.Unity;
 
 namespace Tracker.Views
 {
-	/// <summary>
-	/// Interaction logic for AddRecord.xaml
-	/// </summary>
-	public partial class AddRecord : UserControl
+	public partial class AddRecord
 	{
 		public AddRecord ()
 		{
 			InitializeComponent();
-
-			DataContext = new ViewModels.AddRecord();
-            type.ItemsSource = Enum.GetValues(typeof(Record.Types)).Cast<Record.Types>();
-            category.ItemsSource = Enum.GetValues(typeof(Record.Categories)).Cast<Record.Categories>();
 		}
+
+		[InjectionConstructor]
+		//------------------------------------------------------------------
+		public AddRecord (ViewModels.AddRecord viewModel) : this()
+	    {
+			DataContext = viewModel;
+			type.ItemsSource = Enum.GetValues(typeof(Record.Types)).Cast<Record.Types>();
+			category.ItemsSource = Enum.GetValues(typeof(Record.Categories)).Cast<Record.Categories>();
+        }
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -8,25 +9,28 @@ using System.Windows.Data;
 
 namespace Tracker.ViewModels
 {
-	class Tracker
+	public class Records
 	{
-		public List<Record> Records { get; set; }
-		//------------------------------------------------------------------
-		public Tracker ()
-		{
-			Expenses expenses = new Expenses();
-			Records = expenses.Records;
+		// Model
+		private readonly IExpenses expenses;
 
-			MakeGrouping();
+		public ObservableCollection<Record> RecordsList => expenses.Records;
+
+		//------------------------------------------------------------------
+		public Records (IExpenses expenses)
+		{
+			this.expenses = expenses;
+
+			Group();
 		}
 
 		//------------------------------------------------------------------
-		private void MakeGrouping ()
+		private void Group ()
 		{
-			ICollectionView view = CollectionViewSource.GetDefaultView(Records);
+			ICollectionView view = CollectionViewSource.GetDefaultView(RecordsList);
 
 			view.SortDescriptions.Clear();
-            view.SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Ascending));
+            view.SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Descending));
 			view.GroupDescriptions.Clear();
 			view.GroupDescriptions.Add(new PropertyGroupDescription("Date", new Converters.DateTimeToDateConverter()));
 		}

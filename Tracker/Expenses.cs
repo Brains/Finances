@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Xml;
@@ -11,32 +12,27 @@ namespace Tracker
 {
     public class Expenses : IExpenses
     {
-        //------------------------------------------------------------------
-        public List<Record> Records { get; private set; }
+		readonly Random random = new Random();
+
+		//------------------------------------------------------------------
+		public ObservableCollection<Record> Records { get; private set; }
 
         //------------------------------------------------------------------
         public Expenses ()
         {
-            Records = new List<Record> ();
+            Records = new ObservableCollection<Record>();
 
 			Load();
-
-//	        foreach (var index in Enumerable.Range(0, 100))
-//	        {
-//				CreateRandomRecord();
-//			}
-
 		}
 
 		//------------------------------------------------------------------
 
 	    //------------------------------------------------------------------
-		public void Add (Record record)
-        {
-            Requires.NotNull(record, "record");
-
-            Records.Add (record);
-        }
+		public void Add (int amount, Record.Types type, Record.Categories category, string description)
+		{
+			Record record = new Record(random.Next(1000), amount, type, category, description, DateTime.Now);
+			Records.Add (record);
+		}
 
 	    //------------------------------------------------------------------
 	    public void Save ()
@@ -58,16 +54,13 @@ namespace Tracker
 			using (StreamReader stream = new StreamReader("Records.xml"))
 			using (var writer = XmlReader.Create(stream))
 			{
-				Records = (List<Record>) serializer.Deserialize(writer);
+				Records = (ObservableCollection<Record>) serializer.Deserialize(writer);
 			}
 		}
 
 
 
 		#region Random
-
-		readonly Random random = new Random();
-
 	    //------------------------------------------------------------------
 	    private void CreateRandomRecord ()
 	    {

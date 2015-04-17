@@ -1,7 +1,7 @@
-﻿<models:Tracker
+﻿<models:Records
 	xmlns="clr-namespace:Tracker"
 	xmlns:models="clr-namespace:Tracker.ViewModels">
-	<models:Tracker.Records>
+	<models:Records.RecordsList>
 		<Record ID="349" Amount="251" Type="Income" Category="Permanent" Description="Техника" Date="2015-03-29" />
 		<Record ID="399" Amount="447" Type="Expense" Category="Food" Description="Novus" Date="2014-05-11" />
 		<Record ID="478" Amount="298" Type="Expense" Category="Technic" Description="Novus" Date="2014-01-16" />
@@ -55,7 +55,7 @@
 		<Record ID="38" Amount="604" Type="Debt" Category="Food" Description="Доктор" Date="2014-03-14" />
 		<Record ID="118" Amount="296" Type="Expense" Category="Permanent" Description="Computer" Date="2015-01-03" />
 		<Record ID="27" Amount="277" Type="Expense" Category="Food" Description="Препараты" Date="2014-07-16" />
-	</models:Tracker.Records>
+	</models:Records.RecordsList>
 
 
-</models:Tracker>
+</models:Records>
