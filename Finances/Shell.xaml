@@ -3,7 +3,7 @@
 					  xmlns:cal = "http://www.codeplex.com/prism"
                       xmlns:controls = "http://metro.mahapps.com/winfx/xaml/controls" Title = "Finances" Height = "800" Width = "1000" >
 	<TabControl SelectedIndex = "0" TabStripPlacement = "Left" >
-		<TabItem Name = "Tracker" Header = "Tracker" >
+		<TabItem Name = "Tracker" Header = "Tracker" Margin="10,28,10,-28" >
 			<Grid>
 				<Grid.RowDefinitions>
 					<RowDefinition Height = "10*" />
@@ -15,7 +15,7 @@
 				                VerticalContentAlignment = "Stretch" />
 			</Grid>
 		</TabItem>
-		<TabItem Name = "Visualization" Header = "Visualization" cal:RegionManager.RegionName = "Visualization" />
+		<TabItem Name = "Visualization" Header = "Charts      " cal:RegionManager.RegionName = "Visualization" Margin="10,45,10,-45" />
 	</TabControl>
 
 
