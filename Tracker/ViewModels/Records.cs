@@ -10,18 +10,20 @@ namespace Tracker.ViewModels
 {
 	class Records
 	{
-		public List<Record> RecordsList { get; set; }
-		//------------------------------------------------------------------
-		public Records ()
-		{
-			Expenses expenses = new Expenses();
-			RecordsList = expenses.Records;
+		// Model
+		private readonly IExpenses expenses;
 
-			MakeGrouping();
+		public List<Record> RecordsList => expenses.Records;
+		//------------------------------------------------------------------
+		public Records (IExpenses expenses)
+		{
+			this.expenses = expenses;
+
+			Group();
 		}
 
 		//------------------------------------------------------------------
-		private void MakeGrouping ()
+		private void Group ()
 		{
 			ICollectionView view = CollectionViewSource.GetDefaultView(RecordsList);
 

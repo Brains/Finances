@@ -10,6 +10,10 @@ namespace Tracker.ViewModels
 {
 	class AddRecord
 	{
+		// Model
+		private readonly IExpenses expenses;
+
+		// Record Fields
 		public string Amount { get; set; }
 		public string Description { get; set; }
         public Record.Types Type { get; set; }
@@ -17,15 +21,16 @@ namespace Tracker.ViewModels
 		public ICommand SubmitCommand { get; private set; }
 
 		//------------------------------------------------------------------
-		public AddRecord ()
+		public AddRecord (IExpenses expenses)
 		{
+			this.expenses = expenses;
 			SubmitCommand = new DelegateCommand<object>(OnSubmit);
 		}
 
 		//------------------------------------------------------------------
 		private void OnSubmit (object arg)
 		{
-
+			expenses.Add(int.Parse(Amount), Type, Category, Description);
 		}
 	}
 }
