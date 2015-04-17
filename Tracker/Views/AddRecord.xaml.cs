@@ -30,6 +30,6 @@ namespace Tracker.Views
 			DataContext = viewModel;
 			type.ItemsSource = Enum.GetValues(typeof(Record.Types)).Cast<Record.Types>();
 			category.ItemsSource = Enum.GetValues(typeof(Record.Categories)).Cast<Record.Categories>();
-		}
+        }
 	}
 }

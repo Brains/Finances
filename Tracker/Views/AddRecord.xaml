@@ -43,12 +43,12 @@
 			<StackPanel Grid.Column = "1" >
 				<Label Content = "Type" />
 				<ComboBox x:Name = "type" MinHeight = "26" IsSynchronizedWithCurrentItem = "False" SelectedIndex = "0" HorizontalAlignment = "Center"
-				          VerticalAlignment = "Center" MinWidth = "50" FontSize="16" />
+				          VerticalAlignment = "Center" MinWidth = "50" FontSize="16" SelectedItem="{Binding Type}" />
 			</StackPanel>
 			<StackPanel Grid.Column = "2" >
 				<Label Content = "Category" />
 				<ComboBox x:Name = "category" SelectedIndex = "0" HorizontalAlignment = "Center" VerticalAlignment = "Center" MinWidth = "50"
-				          FontSize = "16" />
+				          FontSize = "16" SelectedItem="{Binding Category}"/>
 			</StackPanel>
 			<StackPanel Grid.Column = "3" >
 				<Label Content = "Description" />
