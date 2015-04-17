@@ -41,7 +41,8 @@
 			<StackPanel Grid.Column = "0" >
 				<Label Content = "Amount" />
 				<TextBox x:Name = "amount" TextWrapping = "Wrap" RenderTransformOrigin = "0.5,0.5" MinWidth = "50"
-				         HorizontalAlignment = "Center" VerticalAlignment = "Center" FontSize = "16" >
+				         HorizontalAlignment = "Center" VerticalAlignment = "Center" FontSize = "16" 
+						 controls:TextBoxHelper.Watermark="100">
 					<TextBox.Text>
 						<Binding Path = "Amount" > 
 							<Binding.ValidationRules>
@@ -64,7 +65,7 @@
 			<StackPanel Grid.Column = "3" >
 				<Label Content = "Description" />
 				<TextBox x:Name = "description" Text = "{Binding Description}" TextWrapping = "Wrap" MinWidth = "60" HorizontalAlignment = "Center"
-				         VerticalAlignment = "Center" FontSize = "16" />
+				         VerticalAlignment = "Center" FontSize = "16" controls:TextBoxHelper.Watermark="Blood"/>
 			</StackPanel>
 			<Button Grid.Column = "4" x:Name = "button" Content = "Submit" Margin = "10" Command = "{Binding SubmitCommand}"
 			        HorizontalAlignment = "Center" VerticalAlignment = "Center" Padding = "5" Style = "{StaticResource AccentedSquareButtonStyle}"
