@@ -13,7 +13,7 @@
 				<ResourceDictionary Source = "pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
 				<ResourceDictionary Source = "pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
 				<ResourceDictionary Source = "pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
-				<ResourceDictionary Source = "pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+				<ResourceDictionary Source = "pack://application:,,,/MahApps.Metro;component/Styles/Accents/lime.xaml" />
 				<ResourceDictionary Source = "pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 			<Style TargetType = "Label" >
@@ -28,7 +28,7 @@
 		</ResourceDictionary>
 	</UserControl.Resources>
 
-	<Border BorderThickness = "0,5,0,0" BorderBrush = "{StaticResource HighlightBrush}" Margin = "0,0,0,0" Padding = "0,10,0,0" >
+	<Border BorderThickness = "0,5,0,0" BorderBrush = "{StaticResource AccentColorBrush}" Margin = "0,0,0,0" Padding = "0,10,0,0" >
 		<Grid TextElement.FontSize = "18" TextBlock.FontSize = "18" >
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width = "*" />
