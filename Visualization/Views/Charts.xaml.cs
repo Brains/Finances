@@ -4,20 +4,24 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Microsoft.Practices.Unity;
 using Tracker;
 
 namespace Visualization.Views
 {
-    public partial class Categories : UserControl
+    public partial class Charts : UserControl
     {
 	    //------------------------------------------------------------------
-        public Categories()
+        public Charts()
         {
 			InitializeComponent();
-
-	        DataContext = new ViewModels.Categories();
         }
 
-
-    }
+		[InjectionConstructor]
+	    //------------------------------------------------------------------
+	    public Charts (ViewModels.Charts viewModel) : this()
+	    {
+		    DataContext = viewModel;
+	    }
+	}
 }
