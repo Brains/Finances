@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 namespace Tracker.ViewModels
 {
-	class Records
+	public class Records
 	{
 		// Model
 		private readonly IExpenses expenses;
@@ -28,7 +28,7 @@ namespace Tracker.ViewModels
 			ICollectionView view = CollectionViewSource.GetDefaultView(RecordsList);
 
 			view.SortDescriptions.Clear();
-            view.SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Ascending));
+            view.SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Descending));
 			view.GroupDescriptions.Clear();
 			view.GroupDescriptions.Add(new PropertyGroupDescription("Date", new Converters.DateTimeToDateConverter()));
 		}

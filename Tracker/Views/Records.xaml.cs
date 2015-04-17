@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using Microsoft.Practices.Unity;
 
 namespace Tracker.Views
 {
@@ -8,8 +9,13 @@ namespace Tracker.Views
 		public Records()
         {
 			InitializeComponent();
-
-			DataContext = new ViewModels.Records();
         }
+
+		[InjectionConstructor]
+	    //------------------------------------------------------------------
+	    public Records (ViewModels.Records viewModel) : this()
+	    {
+		    DataContext = viewModel;
+	    }
     }
 }
