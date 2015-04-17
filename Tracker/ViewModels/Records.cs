@@ -8,14 +8,14 @@ using System.Windows.Data;
 
 namespace Tracker.ViewModels
 {
-	class Tracker
+	class Records
 	{
-		public List<Record> Records { get; set; }
+		public List<Record> RecordsList { get; set; }
 		//------------------------------------------------------------------
-		public Tracker ()
+		public Records ()
 		{
 			Expenses expenses = new Expenses();
-			Records = expenses.Records;
+			RecordsList = expenses.Records;
 
 			MakeGrouping();
 		}
@@ -23,7 +23,7 @@ namespace Tracker.ViewModels
 		//------------------------------------------------------------------
 		private void MakeGrouping ()
 		{
-			ICollectionView view = CollectionViewSource.GetDefaultView(Records);
+			ICollectionView view = CollectionViewSource.GetDefaultView(RecordsList);
 
 			view.SortDescriptions.Clear();
             view.SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Ascending));

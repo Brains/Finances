@@ -2,14 +2,14 @@
 
 namespace Tracker.Views
 {
-    public partial class Tracker
+    public partial class Records
     {
 	    //------------------------------------------------------------------
-		public Tracker()
+		public Records()
         {
 			InitializeComponent();
 
-			DataContext = new ViewModels.Tracker();
+			DataContext = new ViewModels.Records();
         }
     }
 }
