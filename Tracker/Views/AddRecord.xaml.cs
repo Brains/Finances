@@ -23,6 +23,10 @@ namespace Tracker.Views
 		public AddRecord ()
 		{
 			InitializeComponent();
+
+			DataContext = new ViewModels.AddRecord();
+            type.ItemsSource = Enum.GetValues(typeof(Record.Types)).Cast<Record.Types>();
+            category.ItemsSource = Enum.GetValues(typeof(Record.Categories)).Cast<Record.Categories>();
 		}
 	}
 }
