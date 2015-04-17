@@ -6,7 +6,7 @@
 	
 	<DataGrid x:Name = "Records" ItemsSource = "{Binding Records}" AutoGenerateColumns = "False" IsReadOnly="True"
 	          FontSize = "16" GridLinesVisibility = "None" Foreground = "#FF3A3A3A" FontFamily = "Segoe UI" FontWeight = "Light"
-	          VerticalContentAlignment = "Stretch" HorizontalContentAlignment = "Stretch" ColumnWidth = "*" BorderThickness="3" Background="{x:Null}" BorderBrush="{x:Null}" >
+	          VerticalContentAlignment = "Stretch" HorizontalContentAlignment = "Stretch" ColumnWidth = "*" BorderThickness="0" Background="{x:Null}" BorderBrush="{x:Null}" >
 		<DataGrid.Columns>
 			<DataGridTemplateColumn Header = "Amount" Width = "0.5*" 
 			                        CellTemplate = "{StaticResource AmountColoredCellTemplate}" MaxWidth = "250" />
