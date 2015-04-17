@@ -92,6 +92,7 @@
     <Compile Include="Converters\EnumToColor.cs" />
     <Compile Include="Converters\EnumToIcon.cs" />
     <Compile Include="Converters\DateTimeToDateConverter.cs" />
+    <Compile Include="Converters\NumbersValidationRule.cs" />
     <Compile Include="Converters\ValueToFontWeight.cs" />
     <Compile Include="Expenses.cs" />
     <Compile Include="IExpenses.cs" />
