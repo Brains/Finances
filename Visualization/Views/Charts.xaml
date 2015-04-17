@@ -1,29 +1,16 @@
 ﻿<UserControl xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc = "http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d = "http://schemas.microsoft.com/expression/blend/2008" xmlns:local = "clr-namespace:Visualization"
+             xmlns:d = "http://schemas.microsoft.com/expression/blend/2008"
              xmlns:charting = "clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
-             xmlns:Primitives = "clr-namespace:System.Windows.Controls.DataVisualization.Charting.Primitives;assembly=System.Windows.Controls.DataVisualization.Toolkit"
-             xmlns:system = "clr-namespace:System;assembly=mscorlib" xmlns:visualizationToolkit="clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit" d:DataContext = "{d:DesignData Source=SampleData.xaml}"
+             d:DataContext = "{d:DesignData Source=Views/Resources/SampleData.xaml}"
              x:Class = "Visualization.Views.Charts" mc:Ignorable = "d" >
 
 	<UserControl.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source = "Palette.xaml" />
-				<ResourceDictionary Source = "Resources/LinearChart.xaml" />
+				<ResourceDictionary Source = "Resources/Palette.xaml" />
+				<ResourceDictionary Source = "Resources/Styles.xaml" />
 			</ResourceDictionary.MergedDictionaries>
-			<Style x:Key = "AxisLabels" TargetType = "{x:Type Control}" >
-				<Setter Property="Foreground" Value="Red"/>
-				<Setter Property="charting:DateTimeAxisLabel.DaysIntervalStringFormat" Value="D:"/>
-			</Style>
-			
-			<ControlTemplate x:Key="DateTimeAxisControlTemplate" TargetType="{x:Type charting:DateTimeAxis}">
-				<Grid x:Name="AxisGrid" Background="{TemplateBinding Background}">
-					<visualizationToolkit:Title x:Name="AxisTitle" Style="{TemplateBinding TitleStyle}"
-												/>
-				</Grid>
-			</ControlTemplate>
-			
 		</ResourceDictionary>
 	</UserControl.Resources>
 
@@ -36,32 +23,32 @@
 			</Grid.RowDefinitions>
 
 			<!--Line-->
-			<charting:Chart x:Name = "ExpencesByDate" Grid.Row = "0" Palette = "{StaticResource FlatColorsPalette}" Template = "{StaticResource ChartTemplate}"
-				Foreground = "DimGray" MinHeight = "400" >
+			<charting:Chart x:Name = "ExpencesByDate" Grid.Row = "0" Palette = "{StaticResource FlatColorsPalette}"
+			                Template = "{StaticResource ChartTemplate}"
+			                Foreground = "DimGray" MinHeight = "400" >
 				<charting:Chart.Axes>
 					<charting:DateTimeAxis Orientation = "X" ShowGridLines = "True" IntervalType = "Days" Interval = "20"
-						GridLineStyle = "{DynamicResource GridLineStyle}" 
-										   
-						MinorTickMarkStyle="{StaticResource AxisLabels}" Template="{DynamicResource DateTimeAxisControlTemplate}" />
-					<charting:LinearAxis Orientation = "Y" ShowGridLines = "True" Interval = "1000" 
-						GridLineStyle = "{DynamicResource GridLineStyle}" />
+					                       GridLineStyle = "{DynamicResource GridLineStyle}" />
+					<charting:LinearAxis Orientation = "Y" ShowGridLines = "True" Interval = "1000"
+					                     GridLineStyle = "{DynamicResource GridLineStyle}" />
 				</charting:Chart.Axes>
 				<charting:LineSeries ItemsSource = "{Binding ExpencesByDate}" DependentValuePath = "Value" IndependentValuePath = "Key"
-					DataPointStyle = "{StaticResource GoogleLineDataPointStyle}" />
+				                     DataPointStyle = "{StaticResource LineDataPointStyle}" />
 			</charting:Chart>
 
 			<!--Columns-->
-			<charting:Chart x:Name = "ExpencesByType" Grid.Row = "1" Palette = "{StaticResource FlatColorsPalette}" Template = "{StaticResource ChartTemplate}"
-				Foreground = "DimGray" MinHeight = "400" >
+			<charting:Chart x:Name = "ExpencesByType" Grid.Row = "1" Palette = "{StaticResource FlatColorsPalette}"
+			                Template = "{StaticResource ChartTemplate}"
+			                Foreground = "DimGray" MinHeight = "400" >
 				<charting:ColumnSeries ItemsSource = "{Binding ExpencesByDate}" DependentValuePath = "Value" IndependentValuePath = "Key"
-					DataPointStyle = "{StaticResource ColorByGradeColumn}" />
+				                       DataPointStyle = "{StaticResource ColorByGradeColumn}" Title="Expences By Date"/>
 			</charting:Chart>
 
 			<!--Pie-->
 			<charting:Chart x:Name = "Chart" Grid.Row = "2" Foreground = "DimGray" Palette = "{StaticResource FlatColorsPalette}"
-				Template = "{StaticResource ChartTemplate}" MinHeight = "300" Style = "{StaticResource GoogleChart}" >
+			                Template = "{StaticResource ChartTemplate}" MinHeight = "500" >
 				<charting:PieSeries ItemsSource = "{Binding ExpencesByCategory}" DependentValuePath = "Value" IndependentValuePath = "Key"
-					Title = "Test" IsSelectionEnabled = "True" />
+				                    Title = "Expences By Category" IsSelectionEnabled = "True" />
 			</charting:Chart>
 		</Grid>
 	</ScrollViewer>

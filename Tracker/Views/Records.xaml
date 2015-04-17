@@ -3,10 +3,19 @@
              xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml" 
 			 xmlns:d = "http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc = "http://schemas.openxmlformats.org/markup-compatibility/2006"
-             d:DataContext = "{d:DesignData Source=/Views/SampleData.xaml}" 
+             d:DataContext = "{d:DesignData Source=/Views/Resources/SampleData.xaml}" 
 			 mc:Ignorable = "d" 
 			 ScrollViewer.CanContentScroll = "True" >
+	
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="Resources/DataGridTemplates.xaml"></ResourceDictionary>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</UserControl.Resources>
 
+	
 	<DataGrid x:Name = "RecordsGrid" ItemsSource = "{Binding RecordsList}" AutoGenerateColumns = "False" IsReadOnly = "True" FontSize = "16"
 	          GridLinesVisibility = "None" Foreground = "#FF3A3A3A" FontFamily = "Segoe UI" FontWeight = "Light"
 	          VerticalContentAlignment = "Stretch" HorizontalContentAlignment = "Stretch" ColumnWidth = "*" BorderThickness = "0"

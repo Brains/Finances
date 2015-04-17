@@ -1,7 +1,5 @@
 ﻿<ResourceDictionary xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:converters = "clr-namespace:Tracker.Converters;assembly=Tracker" >
-
-	<!--	<CollectionViewSource x:Key="RecordsGrouped"  IsSourceGrouped="True" ItemsPath="Activities"/>-->
+                    xmlns:converters = "clr-namespace:Tracker.Views.Converters">
 
 	<!-- Converters -->
 	<converters:EnumToIcon x:Key = "EnumToIcon" />
