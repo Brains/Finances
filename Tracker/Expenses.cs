@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Xml;
@@ -14,12 +15,12 @@ namespace Tracker
 		readonly Random random = new Random();
 
 		//------------------------------------------------------------------
-		public List<Record> Records { get; private set; }
+		public ObservableCollection<Record> Records { get; private set; }
 
         //------------------------------------------------------------------
         public Expenses ()
         {
-            Records = new List<Record> ();
+            Records = new ObservableCollection<Record>();
 
 			Load();
 		}
@@ -53,7 +54,7 @@ namespace Tracker
 			using (StreamReader stream = new StreamReader("Records.xml"))
 			using (var writer = XmlReader.Create(stream))
 			{
-				Records = (List<Record>) serializer.Deserialize(writer);
+				Records = (ObservableCollection<Record>) serializer.Deserialize(writer);
 			}
 		}
 

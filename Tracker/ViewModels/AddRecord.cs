@@ -30,6 +30,9 @@ namespace Tracker.ViewModels
 		//------------------------------------------------------------------
 		private void OnSubmit (object arg)
 		{
+			if (string.IsNullOrEmpty(Amount) || string.IsNullOrEmpty(Description))
+				return;
+
 			expenses.Add(int.Parse(Amount), Type, Category, Description);
 		}
 	}

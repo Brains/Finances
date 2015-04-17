@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,8 @@ namespace Tracker.ViewModels
 		// Model
 		private readonly IExpenses expenses;
 
-		public List<Record> RecordsList => expenses.Records;
+		public ObservableCollection<Record> RecordsList => expenses.Records;
+
 		//------------------------------------------------------------------
 		public Records (IExpenses expenses)
 		{

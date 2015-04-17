@@ -32,7 +32,7 @@ namespace Visualization.ViewModels
 
 
 		//------------------------------------------------------------------
-		public Dictionary<string, int> GetExpencesByCategory (List<Record> expenses)
+		public Dictionary<string, int> GetExpencesByCategory (IEnumerable<Record> expenses)
 		{
 			var query = from record in expenses
 				group record by record.Category
@@ -43,7 +43,7 @@ namespace Visualization.ViewModels
 		}
 
 		//------------------------------------------------------------------
-		public Dictionary<string, int> GetExpencesByType (List<Record> expenses)
+		public Dictionary<string, int> GetExpencesByType (IEnumerable<Record> expenses)
 		{
 			var query = from record in expenses
 				group record by record.Type
@@ -54,7 +54,7 @@ namespace Visualization.ViewModels
 		}
 
 		//------------------------------------------------------------------
-		public Dictionary<string, int> GetDatesData (List<Record> expenses)
+		public Dictionary<string, int> GetDatesData (IEnumerable<Record> expenses)
 		{
 			var query = from record in expenses
 				where record.Date.Month == 3
