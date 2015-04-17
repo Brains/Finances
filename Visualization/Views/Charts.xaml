@@ -4,7 +4,7 @@
              xmlns:charting = "clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
              xmlns:Primitives = "clr-namespace:System.Windows.Controls.DataVisualization.Charting.Primitives;assembly=System.Windows.Controls.DataVisualization.Toolkit"
              xmlns:system = "clr-namespace:System;assembly=mscorlib" xmlns:visualizationToolkit="clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit" d:DataContext = "{d:DesignData Source=SampleData.xaml}"
-             x:Class = "Visualization.Views.Categories" mc:Ignorable = "d" >
+             x:Class = "Visualization.Views.Charts" mc:Ignorable = "d" >
 
 	<UserControl.Resources>
 		<ResourceDictionary>

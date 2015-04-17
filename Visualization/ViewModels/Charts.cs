@@ -9,32 +9,27 @@ namespace Visualization.ViewModels
 {
 	// For XAML
 	//------------------------------------------------------------------
-	public class MarkupDictionary : Dictionary<string, int> {}
+//	public class MarkupDictionary : Dictionary<string, int> {}
 
-	public class Categories
+	public class Charts
 	{
+		private readonly IExpenses expenses;
 		//------------------------------------------------------------------
-		public Dictionary<string, int> ExpencesByCategory { get; }
-		public Dictionary<string, int> ExpencesByDate { get; }
-		public Dictionary<string, int> ExpencesByType { get; set; }
+		public Dictionary<string, int> ExpencesByCategory => GetExpencesByCategory(expenses.Records);
+		public Dictionary<string, int> ExpencesByDate => GetDatesData(expenses.Records);
+		public Dictionary<string, int> ExpencesByType => GetExpencesByType(expenses.Records);
 
 		//------------------------------------------------------------------
-		public Categories ()
+		public Charts (IExpenses expenses)
 		{
-			ExpencesByCategory = new Dictionary<string, int>();
-
-			var expenses = new Expenses().Records;
-
-			ExpencesByCategory = GetExpencesByCategory(expenses);
-			ExpencesByDate = GetDatesData(expenses);
-			ExpencesByType = GetExpencesByType(expenses);
+			this.expenses = expenses;
 		}
 
 
 		//------------------------------------------------------------------
-		public Dictionary<string, int> GetExpencesByCategory (List<Record> expenses)
+		public Dictionary<string, int> GetExpencesByCategory (IEnumerable<Record> records)
 		{
-			var query = from record in expenses
+			var query = from record in records
 				group record by record.Category
 				into grouped
 				select new {Key = grouped.Key, Value = grouped.Sum(record => record.Amount)};
@@ -43,9 +38,9 @@ namespace Visualization.ViewModels
 		}
 
 		//------------------------------------------------------------------
-		public Dictionary<string, int> GetExpencesByType (List<Record> expenses)
+		public Dictionary<string, int> GetExpencesByType (IEnumerable<Record> records)
 		{
-			var query = from record in expenses
+			var query = from record in records
 				group record by record.Type
 				into grouped
 				select new {Key = grouped.Key, Value = grouped.Sum(record => record.Amount)};
@@ -54,9 +49,9 @@ namespace Visualization.ViewModels
 		}
 
 		//------------------------------------------------------------------
-		public Dictionary<string, int> GetDatesData (List<Record> expenses)
+		public Dictionary<string, int> GetDatesData (IEnumerable<Record> records)
 		{
-			var query = from record in expenses
+			var query = from record in records
 				where record.Date.Month == 3
 				orderby record.Date.ToString("yy-MM-dd")
 				group record by record.Date.ToString("yy-MM-dd")

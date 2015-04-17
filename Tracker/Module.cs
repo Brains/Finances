@@ -19,11 +19,11 @@ namespace Tracker
 		//------------------------------------------------------------------
 		public void Initialize ()
 		{
-			container.RegisterType<IExpenses, Expenses>();
+			container.RegisterType<IExpenses, Expenses>(new ContainerControlledLifetimeManager());
 
 			var regionManager = container.Resolve<IRegionManager>();
 
-			regionManager.RegisterViewWithRegion("Tracker", () => this.container.Resolve<Views.Tracker>());
+			regionManager.RegisterViewWithRegion("Records", () => this.container.Resolve<Views.Records>());
 			regionManager.RegisterViewWithRegion("AddRecord", () => this.container.Resolve<Views.AddRecord>());
 		}
 	}
