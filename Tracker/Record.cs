@@ -16,20 +16,25 @@ namespace Tracker
 	    {
 		    Expense,
 		    Income,
-		    Balance,
+		    Shared,
 		    Debt,
-	    }
+		    Balance,
+		}
 
 		//------------------------------------------------------------------
 		public enum Categories
         {
-            Food,
-            Health,
-            Housing,
-            Permanent,
+			Food,
+			Domestic,
+			Health,
 			Other,
 			General,
-			Technic,
+			Women,
+
+			ODesk,
+			Deposit,
+
+			Max,
         }
 
 		//------------------------------------------------------------------
