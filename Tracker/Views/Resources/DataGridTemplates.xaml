@@ -1,5 +1,6 @@
-﻿<ResourceDictionary xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:converters = "clr-namespace:Tracker.Views.Converters">
+﻿<ResourceDictionary xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters = "clr-namespace:Tracker.Views.Converters" >
 
 	<!-- Converters -->
 	<converters:EnumToIcon x:Key = "EnumToIcon" />
@@ -8,38 +9,70 @@
 
 	<!-- Amount cell -->
 	<DataTemplate x:Key = "AmountColoredCellTemplate" >
-		<TextBlock Text = "{Binding Path=Amount}"  FontSize = "20" Margin = "10,0,0,0"
-				   Foreground = "{Binding Path=Type, Converter={StaticResource EnumToColor}}"
-				   FontWeight = "{Binding Amount, Converter={StaticResource ValueToFontWeight}}"  />
+		<TextBlock Text = "{Binding Path=Amount}"
+		           FontSize = "20"
+		           Margin = "10,0,0,0"
+		           Foreground = "{Binding Path=Type, Converter={StaticResource EnumToColor}}"
+		           FontWeight = "{Binding Amount, Converter={StaticResource ValueToFontWeight}}" />
 	</DataTemplate>
 
 	<!-- Type cell with Icon  -->
 	<DataTemplate x:Key = "CellWithTypeIconTemplate" >
 		<StackPanel Orientation = "Horizontal" >
-			<Grid Width = "16" Height = "16" >
+			<Grid Width = "16"
+			      Height = "16" >
 				<Grid.Background>
-					<VisualBrush Visual = "{Binding Path=Type, Converter={StaticResource EnumToIcon}}" Stretch = "Uniform" Opacity = "0.7" />
+					<VisualBrush Visual = "{Binding Path=Type, Converter={StaticResource EnumToIcon}}"
+					             Stretch = "Uniform"
+					             Opacity = "0.7" />
 				</Grid.Background>
 			</Grid>
-			<TextBlock Text = "{Binding Path=Type }" Foreground = "{Binding Path=Type, Converter={StaticResource EnumToColor}}" Margin = "10,0,0,0"/>
+			<TextBlock Text = "{Binding Path=Type }"
+			           Foreground = "{Binding Path=Type, Converter={StaticResource EnumToColor}}"
+			           Margin = "10,0,0,0" />
 		</StackPanel>
 	</DataTemplate>
 
 	<!--Category cell with Icon-->
 	<DataTemplate x:Key = "CellWithCategoryIconTemplate" >
 		<StackPanel Orientation = "Horizontal" >
-			<Grid Width = "16" Height = "16" >
+			<Grid Width = "16"
+			      Height = "16" >
 				<Grid.Background>
-					<VisualBrush Visual = "{Binding Path=Category, Converter={StaticResource EnumToIcon}}" Stretch = "Uniform" Opacity = "0.7" />
+					<VisualBrush Visual = "{Binding Path=Category, Converter={StaticResource EnumToIcon}}"
+					             Stretch = "Uniform"
+					             Opacity = "0.7" />
 				</Grid.Background>
 			</Grid>
-			<TextBlock Text = "{Binding Path=Category}" Margin = "10,0,0,0" />
+			<TextBlock Text = "{Binding Path=Category}"
+			           Margin = "10,0,0,0" />
 		</StackPanel>
 	</DataTemplate>
 
 	<!-- GroupHeaderTemplate -->
 	<DataTemplate x:Key = "GroupHeaderTemplate" >
-		<TextBlock Text = "{Binding Path=Name}" Foreground = "LightGray" Margin = "0,20,0,0" />
+		<TextBlock Text = "{Binding Path=Name}"
+		           Foreground = "LightGray"
+		           Margin = "0,20,0,0" />
 	</DataTemplate>
+
+
+	<!--New Template-->
+	<DataTemplate x:Key = "UnifiedTemplate" >
+		<StackPanel Orientation = "Horizontal" >
+			<Grid Width = "16"
+			      Height = "16" >
+				<Grid.Background>
+					<VisualBrush Visual = "{Binding Converter={StaticResource EnumToIcon}}"
+					             Stretch = "Uniform"
+					             Opacity = "0.7" />
+				</Grid.Background>
+			</Grid>
+			<TextBlock Text = "{Binding}"
+			           Foreground = "{Binding Converter={StaticResource EnumToColor}}"
+			           Margin = "10,0,0,0" />
+		</StackPanel>
+	</DataTemplate>
+
 
 </ResourceDictionary>

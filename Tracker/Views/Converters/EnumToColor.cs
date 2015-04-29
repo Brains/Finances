@@ -16,9 +16,11 @@ namespace Tracker.Views.Converters
 		{
 			Colors = new Dictionary<string, Brush>
 			{
+				["Default"] = (Brush) Application.Current.FindResource("DefaultColor"),
 				["Expense"] = (Brush) Application.Current.FindResource("ExpenseColor"),
 				["Income"] = (Brush) Application.Current.FindResource("IncomeColor"),
 				["Balance"] = (Brush) Application.Current.FindResource("BalanceColor"),
+				["Shared"] = (Brush) Application.Current.FindResource("SharedColor"),
 				["Debt"] = (Brush) Application.Current.FindResource("DebtColor"),
 			};
 		}
@@ -26,7 +28,12 @@ namespace Tracker.Views.Converters
 		//------------------------------------------------------------------
 		public object Convert (object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			return Colors[value.ToString()];
+			var key = value.ToString();
+
+			if (Colors.ContainsKey(key))
+				return Colors[key];
+
+			return Colors["Default"];
 		}
 
 		//------------------------------------------------------------------

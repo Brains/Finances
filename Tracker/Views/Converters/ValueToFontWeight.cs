@@ -14,7 +14,12 @@ namespace Tracker.Views.Converters
 		//------------------------------------------------------------------
 		public object Convert (object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			var number = decimal.ToInt32((decimal) value);
+			int number;
+			if (value is string)
+				int.TryParse((string) value, out number);
+			else
+				 number = decimal.ToInt32((decimal) value);
+
 			int index = Math.Abs(number) / Step;
 
 			if (index >= Weights.Count)
