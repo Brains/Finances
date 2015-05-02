@@ -28,7 +28,7 @@ namespace Tracker
 		//------------------------------------------------------------------
 
 	    //------------------------------------------------------------------
-		public void Add (int amount, Record.Types type, Record.Categories category, string description)
+		public void Add (decimal amount, Record.Types type, Record.Categories category, string description)
 		{
 			Record record = new Record(random.Next(1000), amount, type, category, description, DateTime.Now);
 			Records.Add (record);
