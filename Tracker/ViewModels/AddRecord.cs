@@ -21,10 +21,17 @@ namespace Tracker.ViewModels
 		public ICommand SubmitCommand { get; private set; }
 
 		//------------------------------------------------------------------
+		public IEnumerable<Record.Categories> RecordCategories { get; set; }
+		public IEnumerable<Record.Types> RecordTypes { get; set; }
+
+		//------------------------------------------------------------------
 		public AddRecord (IExpenses expenses)
 		{
 			this.expenses = expenses;
 			SubmitCommand = new DelegateCommand<object>(OnSubmit);
+
+			RecordTypes = Enum.GetValues(typeof(Record.Types)).Cast<Record.Types>();
+			RecordCategories = Enum.GetValues(typeof(Record.Categories)).Cast<Record.Categories>();
 		}
 
 		//------------------------------------------------------------------

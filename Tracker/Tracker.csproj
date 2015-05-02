@@ -93,6 +93,7 @@
     <Compile Include="IExpenses.cs" />
     <Compile Include="Record.cs" />
     <Compile Include="ViewModels\AddRecord.cs" />
+    <Compile Include="ViewModels\NewRecords.cs" />
     <Compile Include="ViewModels\Records.cs" />
     <Compile Include="Views\AddRecord.xaml.cs">
       <DependentUpon>AddRecord.xaml</DependentUpon>
@@ -113,6 +114,10 @@
     <Page Include="Views\Records.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Resources\AddRecordTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Resources\DataGridTemplates.xaml">
       <Generator>MSBuild:Compile</Generator>

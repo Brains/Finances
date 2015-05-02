@@ -25,11 +25,9 @@ namespace Tracker.Views
 
 		[InjectionConstructor]
 		//------------------------------------------------------------------
-		public AddRecord (ViewModels.AddRecord viewModel) : this()
+		public AddRecord (ViewModels.NewRecords viewModel) : this()
 	    {
 			DataContext = viewModel;
-			type.ItemsSource = Enum.GetValues(typeof(Record.Types)).Cast<Record.Types>();
-			category.ItemsSource = Enum.GetValues(typeof(Record.Categories)).Cast<Record.Categories>();
         }
 	}
 }
