@@ -15,9 +15,15 @@ namespace Tracker.UnitTests
 		//------------------------------------------------------------------
 		private static void AddRecords (string[] amounts, RecordsQueue queue)
 		{
-			queue.AddEmptyRecord().Amount = amounts[0];
-			queue.AddEmptyRecord().Amount = amounts[1];
-			queue.AddEmptyRecord().Amount = amounts[2];
+			queue.AddRecord().Amount = amounts[0];
+			queue.AddRecord().Amount = amounts[1];
+			queue.AddRecord().Amount = amounts[2];
+		}
+
+		//------------------------------------------------------------------
+		private static AddRecord CreateRecord (IExpenses expenses)
+		{
+			return new AddRecord(expenses) {Amount = "10", Description = "Test"};
 		}
 
 		//------------------------------------------------------------------
@@ -48,13 +54,43 @@ namespace Tracker.UnitTests
 		}
 
 		//------------------------------------------------------------------
-		[TestCase("100", "20", "10")]
-		public void Submit_Always_AddAllRecordsToExpences (params string[] amounts)
+		[Test]
+		public void Submit_Always_AddAllRecordsToExpences ()
 		{
 			var expenses = Substitute.For<IExpenses>();
 			RecordsQueue queue = new RecordsQueue(expenses);
-			AddRecords(amounts, queue);
 
+			queue.AddRecord(CreateRecord(expenses));
+			queue.AddRecord(CreateRecord(expenses));
+			queue.AddRecord(CreateRecord(expenses));
+
+			queue.Submit();
+
+			expenses.Received(3).Add(10, Record.Types.Expense, Record.Categories.Food, "Test");
+		}
+
+
+		//------------------------------------------------------------------
+		[Test]
+		public void AddRecord_Correct_AddsItToRecords ()
+		{
+			RecordsQueue queue = new RecordsQueue(null);
+
+			var record = new AddRecord(null);
+			queue.AddRecord(record);
+
+			Expect(queue.Records, Contains(record));
+		}
+
+		//------------------------------------------------------------------
+		[Test]
+		public void AddRecord_ByDefault_AddsNewToRecords()
+		{
+			RecordsQueue queue = new RecordsQueue(null);
+
+			queue.AddRecord();
+
+			Expect(queue.Records.Count, EqualTo(1));
 		}
 	}
 }

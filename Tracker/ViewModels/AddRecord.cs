@@ -28,14 +28,14 @@ namespace Tracker.ViewModels
 		public AddRecord (IExpenses expenses)
 		{
 			this.expenses = expenses;
-			SubmitCommand = new DelegateCommand<object>(OnSubmit);
+			SubmitCommand = new DelegateCommand<object>(arg => Submit());
 
 			RecordTypes = Enum.GetValues(typeof(Record.Types)).Cast<Record.Types>();
 			RecordCategories = Enum.GetValues(typeof(Record.Categories)).Cast<Record.Categories>();
 		}
 
 		//------------------------------------------------------------------
-		public void OnSubmit (object arg)
+		public void Submit ()
 		{
 			if (string.IsNullOrEmpty(Amount) || string.IsNullOrEmpty(Description))
 				return;

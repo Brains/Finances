@@ -21,7 +21,7 @@ namespace Tracker.UnitTests
 			model.Amount = "9";
 			model.Type = Record.Types.Shared;
 
-			model.OnSubmit(null);
+			model.Submit();
 
 			expenses.Received().Add(3, Record.Types.Shared, Record.Categories.Food, "Test");
 		}
@@ -34,7 +34,7 @@ namespace Tracker.UnitTests
 			AddRecord model = new AddRecord(expenses) { Description = "Test" };
 			model.Amount = "9";
 
-			model.OnSubmit(null);
+			model.Submit();
 
 			expenses.Received().Add(9, Record.Types.Expense, Record.Categories.Food, "Test");
 		}
@@ -49,7 +49,7 @@ namespace Tracker.UnitTests
 			model.Amount = shared;
 			model.Type = Record.Types.Shared;
 
-			model.OnSubmit(null);
+			model.Submit();
 
 			expenses.Received().Add(individual, Record.Types.Shared, Record.Categories.Food, "Test");
 		}

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Prism.Commands;
 
 namespace Tracker.ViewModels
@@ -20,17 +21,16 @@ namespace Tracker.ViewModels
 		public RecordsQueue(IExpenses expenses)
 		{
 			this.expenses = expenses;
-			AddRecordCommand = new DelegateCommand<object>(o => AddEmptyRecord());
+			AddRecordCommand = new DelegateCommand<object>(o => AddRecord());
 			Records = new ObservableCollection<AddRecord>();
         }
 
 		//------------------------------------------------------------------
-		public AddRecord AddEmptyRecord ()
+		public AddRecord AddRecord (AddRecord record = null)
 		{
-			var record = new AddRecord(expenses);
-			Records.Add(record);
+			Records.Add(record ?? new AddRecord(expenses));
 
-			return record;
+			return Records.Last();
 		}
 
 		//------------------------------------------------------------------
@@ -47,5 +47,11 @@ namespace Tracker.ViewModels
 		{
 			return Records.Select(record => decimal.Parse(record.Amount)).Sum();
 		}
+
+		//------------------------------------------------------------------
+		public void Submit()
+		{
+			Records.ForEach(record => record.Submit());
+        }
 	}
 }
