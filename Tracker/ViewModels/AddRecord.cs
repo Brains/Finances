@@ -51,7 +51,7 @@ namespace Tracker.ViewModels
 		//------------------------------------------------------------------
 		private decimal Parse (string amount)
 		{
-//			var amounts = amount.Split(',');
+//			var amounts = amount.Split('+');
 //			decimal[] decimals = amounts.Select(decimal.Parse).ToArray();
 //			decimals.Sum();
 
