@@ -15,7 +15,7 @@
 		         Margin = "10,28,10,-28" >
 			<Grid>
 				<Grid.RowDefinitions>
-					<RowDefinition Height = "10*" />
+					<RowDefinition Height = "*" />
 					<RowDefinition Height = "*" />
 				</Grid.RowDefinitions>
 				<ContentControl Grid.Row = "0"
@@ -25,7 +25,7 @@
 				                HorizontalContentAlignment = "Stretch" />
 				<ContentControl Grid.Row = "1"
 				                Name = "AddRecord"
-				                cal:RegionManager.RegionName = "AddRecord"
+				                cal:RegionManager.RegionName = "RecordsQueue"
 				                HorizontalContentAlignment = "Stretch"
 				                VerticalContentAlignment = "Stretch" />
 			</Grid>
