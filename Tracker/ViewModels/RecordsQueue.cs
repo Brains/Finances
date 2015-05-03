@@ -9,24 +9,24 @@ using Microsoft.Practices.Prism.Commands;
 
 namespace Tracker.ViewModels
 {
-	public class NewRecords
+	public class RecordsQueue
 	{
 		private IExpenses expenses;
-		public ObservableCollection<AddRecord> AddRecordItems { get; set; }
-		public ICommand AddNewRecordItem { get; private set; }
+		public ObservableCollection<AddRecord> Records { get; set; }
+		public ICommand AddRecordCommand { get; private set; }
 
 		//------------------------------------------------------------------
-		public NewRecords(IExpenses expenses)
+		public RecordsQueue(IExpenses expenses)
 		{
 			this.expenses = expenses;
-			AddNewRecordItem = new DelegateCommand<object>(Add);
-			AddRecordItems = new ObservableCollection<AddRecord>();
+			AddRecordCommand = new DelegateCommand<object>(Add);
+			Records = new ObservableCollection<AddRecord>();
         }
 
 		//------------------------------------------------------------------
 		private void Add (object obj)
 		{
-			AddRecordItems.Add(new AddRecord(expenses));
+			Records.Add(new AddRecord(expenses));
 		}
 	}
 }

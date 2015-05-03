@@ -93,10 +93,10 @@
     <Compile Include="IExpenses.cs" />
     <Compile Include="Record.cs" />
     <Compile Include="ViewModels\AddRecord.cs" />
-    <Compile Include="ViewModels\NewRecords.cs" />
+    <Compile Include="ViewModels\RecordsQueue.cs" />
     <Compile Include="ViewModels\Records.cs" />
-    <Compile Include="Views\AddRecord.xaml.cs">
-      <DependentUpon>AddRecord.xaml</DependentUpon>
+    <Compile Include="Views\RecordsQueue.xaml.cs">
+      <DependentUpon>RecordsQueue.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Converters\DateTimeToDateConverter.cs" />
     <Compile Include="Views\Converters\EnumToColor.cs" />
@@ -108,16 +108,16 @@
     </Compile>
     <Compile Include="Module.cs" />
     <Page Include="Views\AddRecord.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\RecordsQueue.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Records.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Resources\AddRecordTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Resources\DataGridTemplates.xaml">
       <Generator>MSBuild:Compile</Generator>
