@@ -40,21 +40,29 @@ namespace Tracker.ViewModels
 			if (string.IsNullOrEmpty(Amount) || string.IsNullOrEmpty(Description))
 				return;
 
-			decimal amount = decimal.Parse(Amount);
+			decimal amount = Parse(Amount);
 
 			if (Type == Record.Types.Shared)
-				DivideShared(ref amount);
+				Divide(ref amount);
 
 			expenses.Add(amount, Type, Category, Description);
 		}
 
 		//------------------------------------------------------------------
-		private decimal DivideShared(ref decimal amount)
+		private decimal Parse (string amount)
+		{
+//			var amounts = amount.Split(',');
+//			decimal[] decimals = amounts.Select(decimal.Parse).ToArray();
+//			decimals.Sum();
+
+			return decimal.Parse(amount);
+		}
+
+		//------------------------------------------------------------------
+		private void Divide(ref decimal amount)
 		{
 			decimal customers = 3;
 			amount = Math.Round(amount / customers);
-
-			return amount;
 		}
 	}
 }
