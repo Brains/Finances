@@ -8,7 +8,7 @@ using Microsoft.Practices.Prism.Commands;
 
 namespace Tracker.ViewModels
 {
-	public class AddRecord
+	public class RecordForm
 	{
 		// Model
 		private readonly IExpenses expenses;
@@ -25,7 +25,7 @@ namespace Tracker.ViewModels
 		public IEnumerable<Record.Types> RecordTypes { get; set; }
 
 		//------------------------------------------------------------------
-		public AddRecord (IExpenses expenses)
+		public RecordForm (IExpenses expenses)
 		{
 			this.expenses = expenses;
 

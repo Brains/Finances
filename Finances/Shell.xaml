@@ -25,7 +25,7 @@
 				                HorizontalContentAlignment = "Stretch" />
 				<ContentControl Grid.Row = "1"
 				                Name = "AddRecord"
-				                cal:RegionManager.RegionName = "RecordsQueue"
+				                cal:RegionManager.RegionName = "RecordFormsQueue"
 				                HorizontalContentAlignment = "Stretch"
 				                VerticalContentAlignment = "Stretch" />
 			</Grid>

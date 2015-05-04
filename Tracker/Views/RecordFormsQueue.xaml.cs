@@ -16,16 +16,16 @@ using Microsoft.Practices.Unity;
 
 namespace Tracker.Views
 {
-	public partial class RecordsQueue
+	public partial class RecordFormsQueue
 	{
-		public RecordsQueue ()
+		public RecordFormsQueue ()
 		{
 			InitializeComponent();
 		}
 
 		[InjectionConstructor]
 		//------------------------------------------------------------------
-		public RecordsQueue (ViewModels.RecordsQueue viewModel) : this()
+		public RecordFormsQueue (ViewModels.RecordFormsQueue viewModel) : this()
 	    {
 			DataContext = viewModel;
         }

@@ -13,17 +13,17 @@ namespace Tracker.UnitTests
 	class RecordsQueueTests : AssertionHelper
 	{
 		//------------------------------------------------------------------
-		private static void AddRecords (string[] amounts, RecordsQueue queue)
+		private static void AddRecords (string[] amounts, RecordFormsQueue queue)
 		{
-			queue.AddRecord().Amount = amounts[0];
-			queue.AddRecord().Amount = amounts[1];
-			queue.AddRecord().Amount = amounts[2];
+			queue.AddForm().Amount = amounts[0];
+			queue.AddForm().Amount = amounts[1];
+			queue.AddForm().Amount = amounts[2];
 		}
 
 		//------------------------------------------------------------------
-		private static AddRecord CreateRecord (IExpenses expenses)
+		private static RecordForm CreateRecord (IExpenses expenses)
 		{
-			return new AddRecord(expenses) {Amount = "10", Description = "Test"};
+			return new RecordForm(expenses) {Amount = "10", Description = "Test"};
 		}
 
 		//------------------------------------------------------------------
@@ -32,7 +32,7 @@ namespace Tracker.UnitTests
 		[TestCase("111", "256", "48", "97")]
 		public void SubstractFromPrimary_Always_SubtractsFromFirstRecordAllSubsequentRecordsAmount(string expected, params string[] amounts)
 		{
-			RecordsQueue queue = new RecordsQueue(null);
+			RecordFormsQueue queue = new RecordFormsQueue(null);
 			AddRecords(amounts, queue);
 
 			queue.SubstractFromPrimary();
@@ -45,7 +45,7 @@ namespace Tracker.UnitTests
 		[TestCase(370, "210", "90", "70")]
 		public void Total_ByDefault_ReturnsTotalAmountForAllRecords (decimal expected, params string[] amounts)
 		{
-			RecordsQueue queue = new RecordsQueue(null);
+			RecordFormsQueue queue = new RecordFormsQueue(null);
 			AddRecords(amounts, queue);
 
 			var total = queue.Total();
@@ -58,11 +58,11 @@ namespace Tracker.UnitTests
 		public void Submit_Always_AddAllRecordsToExpences ()
 		{
 			var expenses = Substitute.For<IExpenses>();
-			RecordsQueue queue = new RecordsQueue(expenses);
+			RecordFormsQueue queue = new RecordFormsQueue(expenses);
 
-			queue.AddRecord(CreateRecord(expenses));
-			queue.AddRecord(CreateRecord(expenses));
-			queue.AddRecord(CreateRecord(expenses));
+			queue.AddForm(CreateRecord(expenses));
+			queue.AddForm(CreateRecord(expenses));
+			queue.AddForm(CreateRecord(expenses));
 
 			queue.Submit();
 
@@ -74,10 +74,10 @@ namespace Tracker.UnitTests
 		[Test]
 		public void AddRecord_Correct_AddsItToRecords ()
 		{
-			RecordsQueue queue = new RecordsQueue(null);
+			RecordFormsQueue queue = new RecordFormsQueue(null);
 
-			var record = new AddRecord(null);
-			queue.AddRecord(record);
+			var record = new RecordForm(null);
+			queue.AddForm(record);
 
 			Expect(queue.Records, Contains(record));
 		}
@@ -86,9 +86,9 @@ namespace Tracker.UnitTests
 		[Test]
 		public void AddRecord_ByDefault_AddsNewToRecords()
 		{
-			RecordsQueue queue = new RecordsQueue(null);
+			RecordFormsQueue queue = new RecordFormsQueue(null);
 
-			queue.AddRecord();
+			queue.AddForm();
 
 			Expect(queue.Records.Count, EqualTo(1));
 		}

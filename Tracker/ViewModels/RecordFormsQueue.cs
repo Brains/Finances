@@ -12,53 +12,57 @@ using Microsoft.Practices.Prism.Commands;
 
 namespace Tracker.ViewModels
 {
-	public class RecordsQueue
+	public class RecordFormsQueue
 	{
 		private IExpenses expenses;
-		public ObservableCollection<AddRecord> Records { get; set; }
+		public ObservableCollection<RecordForm> Forms { get; set; }
 		public ICommand AddRecordCommand { get; private set; }
 		public ICommand SubmitCommand { get; private set; }
 
 		//------------------------------------------------------------------
-		public RecordsQueue(IExpenses expenses)
+		public RecordFormsQueue(IExpenses expenses)
 		{
 			this.expenses = expenses;
-			AddRecordCommand = new DelegateCommand<object>(o => AddRecord());
+			AddRecordCommand = new DelegateCommand<object>(o => AddForm());
 			SubmitCommand = new DelegateCommand<object>(o => Submit());
-			Records = new ObservableCollection<AddRecord>();
+			Forms = new ObservableCollection<RecordForm>();
         }
 
 		//------------------------------------------------------------------
-		public AddRecord AddRecord (AddRecord record = null)
+		public RecordForm AddForm (RecordForm recordForm = null)
 		{
-			Records.Add(record ?? new AddRecord(expenses));
+			var form = recordForm ?? new RecordForm(expenses);
 
-			if (Records.Count == 1)
-				Records.Last().Border = new Thickness(0);
+			if (Forms) 
 
-			return Records.Last();
+
+			Forms.Add(form);
+
+			
+
+			return Forms.Last();
 		}
 
 		//------------------------------------------------------------------
 		public void SubstractFromPrimary ()
 		{
-			var primary = decimal.Parse(Records.First().Amount);
+			var primary = decimal.Parse(Forms.First().Amount);
 			var secondaries = Total() - primary;
 
-			Records.First().Amount = (primary - secondaries).ToString(CultureInfo.InvariantCulture);
+			Forms.First().Amount = (primary - secondaries).ToString(CultureInfo.InvariantCulture);
 		}
 
 		//------------------------------------------------------------------
 		public decimal Total()
 		{
-			return Records.Select(record => decimal.Parse(record.Amount)).Sum();
+			return Forms.Select(record => decimal.Parse(record.Amount)).Sum();
 		}
 
 		//------------------------------------------------------------------
 		public void Submit()
 		{
 			SubstractFromPrimary();
-            Records.ForEach(record => record.Submit());
+            Forms.ForEach(record => record.Submit());
         }
 	}
 }
