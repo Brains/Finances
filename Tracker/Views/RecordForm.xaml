@@ -32,7 +32,7 @@
 	</Style>
 
 
-	<DataTemplate x:Key = "AddRecordTemplate" >
+	<DataTemplate x:Key = "FormTemplate" >
 		<Border BorderThickness = "{Binding Border}"
 		        BorderBrush = "{StaticResource AccentColorBrush}"
 		        Margin = "0,0,0,0"

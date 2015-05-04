@@ -32,7 +32,7 @@ namespace Tracker.ViewModels
 			RecordTypes = Enum.GetValues(typeof(Record.Types)).Cast<Record.Types>();
 			RecordCategories = Enum.GetValues(typeof(Record.Categories)).Cast<Record.Categories>();
 
-			Border = new Thickness(5, 0, 0, 0);
+			Border = new Thickness(0, 0, 0, 0);
 		}
 
 		//------------------------------------------------------------------
@@ -64,6 +64,12 @@ namespace Tracker.ViewModels
 		{
 			decimal customers = 3;
 			amount = Math.Round(amount / customers);
+		}
+
+		//------------------------------------------------------------------
+		public void MarkPrimary ()
+		{
+			Border = new Thickness(0, 0, 0, 3);
 		}
 	}
 }
