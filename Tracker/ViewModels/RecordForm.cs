@@ -69,7 +69,7 @@ namespace Tracker.ViewModels
 		//------------------------------------------------------------------
 		public void MarkPrimary ()
 		{
-			Border = new Thickness(0, 0, 0, 3);
+			Border = new Thickness(0, 0, 0, 2);
 		}
 	}
 }
