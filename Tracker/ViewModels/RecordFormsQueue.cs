@@ -29,18 +29,16 @@ namespace Tracker.ViewModels
         }
 
 		//------------------------------------------------------------------
-		public RecordForm AddForm (RecordForm recordForm = null)
+		public RecordForm AddForm ()
 		{
-			var form = recordForm ?? new RecordForm(expenses);
+			var form = new RecordForm(expenses);
 
-			if (Forms) 
-
+			if (Forms.Count == 0) 
+				form.MarkPrimary();
 
 			Forms.Add(form);
 
-			
-
-			return Forms.Last();
+			return form;
 		}
 
 		//------------------------------------------------------------------
