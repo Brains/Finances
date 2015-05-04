@@ -24,22 +24,19 @@
 		<Border BorderThickness = "{Binding Border}"
 		        BorderBrush = "{StaticResource AccentColorBrush}"
 		        Margin = "10"
-		        Padding = "0,10,0,0" >
+		        Padding = "10" >
 			<Grid>
 
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width = "*" />
-					<ColumnDefinition Width = "*" />
-					<ColumnDefinition Width = "*" />
-					<ColumnDefinition Width = "*" />
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
 				</Grid.ColumnDefinitions>
 
 				<TextBox Grid.Column = "0"
 				         TextWrapping = "Wrap"
 				         RenderTransformOrigin = "0.5,0.5"
-				         MinWidth = "50"
-				         HorizontalAlignment = "Center"
-				         VerticalAlignment = "Center"
 				         FontSize = "{StaticResource FontSize}"
 				         Foreground = "{Binding Path=Type, Converter={StaticResource EnumToColor}}"
 				         FontWeight = "{Binding Path=Text, RelativeSource={RelativeSource Self}, Converter={StaticResource ValueToFontWeight}}"
@@ -47,12 +44,10 @@
 				</TextBox>
 
 				<ComboBox Grid.Column = "1"
-				          MinHeight = "26"
 				          IsSynchronizedWithCurrentItem = "False"
 				          SelectedIndex = "0"
 				          HorizontalAlignment = "Center"
 				          VerticalAlignment = "Center"
-				          MinWidth = "50"
 				          FontSize = "{StaticResource FontSize}"
 				          ItemTemplate = "{StaticResource UnifiedTemplate}"
 				          SelectedItem = "{Binding Type}"
@@ -62,7 +57,6 @@
 				          SelectedIndex = "0"
 				          HorizontalAlignment = "Center"
 				          VerticalAlignment = "Center"
-				          MinWidth = "50"
 				          FontSize = "{StaticResource FontSize}"
 				          ItemTemplate = "{StaticResource UnifiedTemplate}"
 				          SelectedItem = "{Binding Category}"
@@ -71,7 +65,6 @@
 				<TextBox Grid.Column = "3"
 				         Text = "{Binding Description}"
 				         TextWrapping = "Wrap"
-				         MinWidth = "60"
 				         HorizontalAlignment = "Center"
 				         VerticalAlignment = "Center"
 				         FontSize = "{StaticResource FontSize}"

@@ -15,8 +15,8 @@
 		         Margin = "10,28,10,-28" >
 			<Grid>
 				<Grid.RowDefinitions>
-					<RowDefinition Height = "*" />
-					<RowDefinition Height = "*" />
+					<RowDefinition  />
+					<RowDefinition Height = "Auto" />
 				</Grid.RowDefinitions>
 				<ContentControl Grid.Row = "0"
 				                Name = "Records"
