@@ -24,16 +24,16 @@
 		<Setter Property = "HorizontalAlignment"
 		        Value = "Right" />
 	</Style>
-	
-	
+
+
 	<Style TargetType = "StackPanel" >
 		<Setter Property = "Orientation"
 		        Value = "Horizontal" />
 	</Style>
 
 
-	<DataTemplate DataType = "{x:Type local:AddRecord}" >
-		<Border BorderThickness = "5,0,0,0"
+	<DataTemplate x:Key = "AddRecordTemplate" >
+		<Border BorderThickness = "{Binding Border}"
 		        BorderBrush = "{StaticResource AccentColorBrush}"
 		        Margin = "0,0,0,0"
 		        Padding = "0,10,0,0" >
@@ -47,7 +47,7 @@
 					<ColumnDefinition Width = "*" />
 				</Grid.ColumnDefinitions>
 
-				<StackPanel Grid.Column = "0" >
+				<StackPanel Grid.Column = "0" Style="{StaticResource {x:Type StackPanel}}">
 					<Label Content = "Amount" />
 					<TextBox x:Name = "amount"
 					         TextWrapping = "Wrap"
@@ -67,7 +67,7 @@
 						</TextBox.Text>
 					</TextBox>
 				</StackPanel>
-				<StackPanel Grid.Column = "1" >
+				<StackPanel Grid.Column = "1" Style="{StaticResource {x:Type StackPanel}}">
 					<Label Content = "Type" />
 					<ComboBox x:Name = "type"
 					          MinHeight = "26"
@@ -81,7 +81,7 @@
 					          ItemTemplate = "{StaticResource UnifiedTemplate}"
 					          ItemsSource = "{Binding RecordTypes}" />
 				</StackPanel>
-				<StackPanel Grid.Column = "2" >
+				<StackPanel Grid.Column = "2" Style="{StaticResource {x:Type StackPanel}}">
 					<Label Content = "Category" />
 					<ComboBox x:Name = "category"
 					          SelectedIndex = "0"
@@ -93,7 +93,7 @@
 					          ItemTemplate = "{StaticResource UnifiedTemplate}"
 					          ItemsSource = "{Binding RecordCategories}" />
 				</StackPanel>
-				<StackPanel Grid.Column = "3" >
+				<StackPanel Grid.Column = "3" Style="{StaticResource {x:Type StackPanel}}">
 					<Label Content = "Description" />
 					<TextBox x:Name = "description"
 					         Text = "{Binding Description}"
@@ -104,17 +104,6 @@
 					         FontSize = "16"
 					         Foreground = "#FF636363" />
 				</StackPanel>
-				<Button Grid.Column = "4"
-				        x:Name = "button"
-				        Content = "Submit"
-				        Margin = "10"
-				        Command = "{Binding SubmitCommand}"
-				        HorizontalAlignment = "Center"
-				        VerticalAlignment = "Center"
-				        Padding = "5"
-				        Style = "{StaticResource AccentedSquareButtonStyle}"
-				        BorderThickness = "0"
-				        IsDefault = "True" />
 			</Grid>
 		</Border>
 	</DataTemplate>

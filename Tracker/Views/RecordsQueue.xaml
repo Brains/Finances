@@ -5,7 +5,7 @@
              xmlns:d = "http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable = "d" >
 
-	
+
 	<UserControl.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
@@ -15,14 +15,24 @@
 	</UserControl.Resources>
 
 
-	<StackPanel Orientation="Vertical">
+	<StackPanel Orientation = "Vertical" >
 		<Button Command = "{Binding AddRecordCommand}"
-		        Width = "40"
-		        Height = "30"
-		        Background = "#FFB2D651"
 		        Content = "Add"
-		        HorizontalAlignment = "Left" />
-		<ItemsControl ItemsSource = "{Binding Records}" HorizontalContentAlignment="Stretch"/>
+		        HorizontalAlignment = "Left" 
+		        Style = "{StaticResource AccentedSquareButtonStyle}"
+		        BorderThickness = "0"
+				Margin="5"
+				/>
+		<Button Content = "Submit"
+		        Command = "{Binding SubmitCommand}"
+		        HorizontalAlignment = "Left"
+		        Style = "{StaticResource AccentedSquareButtonStyle}"
+		        BorderThickness = "0"
+				Margin="5"
+		        IsDefault = "True" />
+		<ItemsControl ItemsSource = "{Binding Records}"
+		              ItemTemplate = "{StaticResource AddRecordTemplate}"
+		              HorizontalContentAlignment = "Stretch" />
 	</StackPanel>
 
 </UserControl>
