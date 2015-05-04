@@ -16,12 +16,14 @@
 		<ResourceDictionary Source = "Resources/Icons.xaml" />
 	</ResourceDictionary.MergedDictionaries>
 
+	
 	<system:Double x:Key = "FontSize" > 18 </system:Double>
 
+	
 	<DataTemplate x:Key = "FormTemplate" >
 		<Border BorderThickness = "{Binding Border}"
 		        BorderBrush = "{StaticResource AccentColorBrush}"
-		        Margin = "0,0,0,0"
+		        Margin = "10"
 		        Padding = "0,10,0,0" >
 			<Grid>
 
@@ -42,13 +44,6 @@
 				         Foreground = "{Binding Path=Type, Converter={StaticResource EnumToColor}}"
 				         FontWeight = "{Binding Path=Text, RelativeSource={RelativeSource Self}, Converter={StaticResource ValueToFontWeight}}"
 				         controls:TextBoxHelper.Watermark = "Amount" >
-					<TextBox.Text>
-						<Binding Path = "Amount" >
-							<Binding.ValidationRules>
-								<converters:NumbersValidationRule />
-							</Binding.ValidationRules>
-						</Binding>
-					</TextBox.Text>
 				</TextBox>
 
 				<ComboBox Grid.Column = "1"
