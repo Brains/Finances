@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
+using System.Windows;
 using Microsoft.Practices.Prism.Commands;
 
 namespace Tracker.ViewModels
@@ -18,7 +18,7 @@ namespace Tracker.ViewModels
 		public string Description { get; set; }
         public Record.Types Type { get; set; }
 		public Record.Categories Category { get; set; }
-		public ICommand SubmitCommand { get; private set; }
+		public Thickness Border { get; set; }
 
 		//------------------------------------------------------------------
 		public IEnumerable<Record.Categories> RecordCategories { get; set; }
@@ -28,10 +28,11 @@ namespace Tracker.ViewModels
 		public AddRecord (IExpenses expenses)
 		{
 			this.expenses = expenses;
-			SubmitCommand = new DelegateCommand<object>(arg => Submit());
 
 			RecordTypes = Enum.GetValues(typeof(Record.Types)).Cast<Record.Types>();
 			RecordCategories = Enum.GetValues(typeof(Record.Categories)).Cast<Record.Categories>();
+
+			Border = new Thickness(5, 0, 0, 0);
 		}
 
 		//------------------------------------------------------------------
