@@ -3,14 +3,37 @@
              xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc = "http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d = "http://schemas.microsoft.com/expression/blend/2008"
-             mc:Ignorable = "d" >
+             mc:Ignorable = "d"
+             FontFamily = "Segoe UI"
+             FontWeight = "Light" >
 
 
 	<UserControl.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source = "RecordForm.xaml" />
+				<ResourceDictionary Source = "pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
 			</ResourceDictionary.MergedDictionaries>
+
+			<Style x:Key = "FlatAccentButton"
+			       TargetType = "Button"
+			       BasedOn = "{StaticResource {x:Type Button}}" >
+				<Setter Property = "Foreground"
+				        Value = "White" />
+				<Setter Property = "Background"
+				        Value = "{StaticResource AccentColorBrush}" />
+				<Setter Property = "FontSize"
+				        Value = "{StaticResource FontSize}" />
+				<Setter Property = "MinWidth"
+				        Value = "80" />
+				<Setter Property = "Margin"
+				        Value = "5" />
+				<Setter Property = "HorizontalAlignment"
+				        Value = "Left" />
+				<Setter Property = "BorderThickness"
+				        Value = "0" />
+			</Style>
+
 		</ResourceDictionary>
 	</UserControl.Resources>
 
@@ -19,24 +42,36 @@
 	        BorderBrush = "{StaticResource AccentColorBrush}"
 	        Margin = "0,0,0,0"
 	        Padding = "0,10,0,0" >
-		<StackPanel Orientation = "Vertical" >
-			<Button Command = "{Binding AddRecordCommand}"
-			        Content = "Add"
-			        HorizontalAlignment = "Left"
-			        Style = "{StaticResource AccentedSquareButtonStyle}"
-			        BorderThickness = "0"
-			        Margin = "5" />
-			<Button Content = "Submit"
-			        Command = "{Binding SubmitCommand}"
-			        HorizontalAlignment = "Left"
-			        Style = "{StaticResource AccentedSquareButtonStyle}"
-			        BorderThickness = "0"
-			        Margin = "5"
-			        IsDefault = "True" />
-			<ItemsControl ItemsSource = "{Binding Forms}"
+		<Grid>
+
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition Width = "Auto" />
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+
+			<ItemsControl Grid.Column = "0"
+			              Grid.RowSpan = "2"
+			              ItemsSource = "{Binding Forms}"
 			              ItemTemplate = "{StaticResource FormTemplate}"
 			              HorizontalContentAlignment = "Stretch" />
-		</StackPanel>
+			<Button Grid.Row = "0"
+			        Grid.Column = "1"
+			        Content = "Submit"
+			        Command = "{Binding SubmitCommand}"
+			        VerticalAlignment = "Top"
+			        IsDefault = "True"
+			        Style = "{StaticResource FlatAccentButton}" />
+			<Button Grid.Row = "1"
+			        Grid.Column = "1"
+			        Command = "{Binding AddRecordCommand}"
+			        Content = "Add"
+			        VerticalAlignment = "Bottom"
+			        Style = "{StaticResource FlatAccentButton}" />
+		</Grid>
 	</Border>
 
 </UserControl>

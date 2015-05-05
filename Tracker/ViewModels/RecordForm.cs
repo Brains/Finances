@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,8 +17,9 @@ namespace Tracker.ViewModels
 		// Record Fields
 		public string Amount { get; set; }
 		public string Description { get; set; }
-        public Record.Types Type { get; set; }
+		public Record.Types Type { get; set; }
 		public Record.Categories Category { get; set; }
+		public Thickness Padding { get; set; }
 		public Thickness Border { get; set; }
 
 		//------------------------------------------------------------------
@@ -29,11 +31,13 @@ namespace Tracker.ViewModels
 		{
 			this.expenses = expenses;
 
-			RecordTypes = Enum.GetValues(typeof(Record.Types)).Cast<Record.Types>();
-			RecordCategories = Enum.GetValues(typeof(Record.Categories)).Cast<Record.Categories>();
+			RecordTypes = Enum.GetValues(typeof (Record.Types)).Cast<Record.Types>();
+			RecordCategories = Enum.GetValues(typeof (Record.Categories)).Cast<Record.Categories>();
 
-			Border = new Thickness(0, 0, 0, 0);
-		}
+			Padding = new Thickness(40, 5, 5, 5);
+			Border = new Thickness(0);
+			
+        }
 
 		//------------------------------------------------------------------
 		public void Submit ()
@@ -52,15 +56,20 @@ namespace Tracker.ViewModels
 		//------------------------------------------------------------------
 		private decimal Parse (string amount)
 		{
-//			var amounts = amount.Split('+');
-//			decimal[] decimals = amounts.Select(decimal.Parse).ToArray();
-//			decimals.Sum();
-
 			return decimal.Parse(amount);
 		}
 
 		//------------------------------------------------------------------
-		private void Divide(ref decimal amount)
+		private string ParseIncremental (string amount)
+		{
+			var amounts = amount.Split('+');
+			decimal[] decimals = amounts.Select(decimal.Parse).ToArray();
+
+			return decimals.Sum().ToString(CultureInfo.InvariantCulture);
+		}
+
+		//------------------------------------------------------------------
+		private void Divide (ref decimal amount)
 		{
 			decimal customers = 3;
 			amount = Math.Round(amount / customers);
@@ -69,7 +78,7 @@ namespace Tracker.ViewModels
 		//------------------------------------------------------------------
 		public void MarkPrimary ()
 		{
-			Border = new Thickness(0, 0, 0, 3);
+			Padding = new Thickness(5);
 		}
 	}
 }
