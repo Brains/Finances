@@ -95,6 +95,7 @@
     <Compile Include="ViewModels\RecordForm.cs" />
     <Compile Include="ViewModels\RecordFormsQueue.cs" />
     <Compile Include="ViewModels\Records.cs" />
+    <Compile Include="Views\Converters\AmountTextToDecimal.cs" />
     <Compile Include="Views\RecordFormsQueue.xaml.cs">
       <DependentUpon>RecordFormsQueue.xaml</DependentUpon>
     </Compile>

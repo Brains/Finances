@@ -17,6 +17,9 @@
 	</ResourceDictionary.MergedDictionaries>
 
 
+	<converters:AmountTextToDecimal x:Key = "AmountConverter" ></converters:AmountTextToDecimal>
+	
+	
 	<system:Double x:Key = "FontSize" > 18 </system:Double>
 
 
@@ -35,7 +38,7 @@
 				</Grid.ColumnDefinitions>
 
 				<TextBox Grid.Column = "0"
-				         Text = "{Binding Amount}"
+				         Text = "{Binding Amount, Converter={StaticResource AmountConverter}}"
 				         TextWrapping = "Wrap"
 				         HorizontalAlignment = "Center"
 				         VerticalAlignment = "Center"

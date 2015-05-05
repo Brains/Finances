@@ -44,16 +44,16 @@ namespace Tracker.ViewModels
 		//------------------------------------------------------------------
 		public void SubstractFromPrimary ()
 		{
-			var primary = decimal.Parse(Forms.First().Amount);
+			var primary =  Forms.First().Amount;
 			var secondaries = Total() - primary;
 
-			Forms.First().Amount = (primary - secondaries).ToString(CultureInfo.InvariantCulture);
+			Forms.First().Amount = (primary - secondaries);
 		}
 
 		//------------------------------------------------------------------
 		public decimal Total()
 		{
-			return Forms.Select(record => decimal.Parse(record.Amount)).Sum();
+			return Forms.Select(record => (record.Amount)).Sum();
 		}
 
 		//------------------------------------------------------------------

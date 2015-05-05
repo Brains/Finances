@@ -15,7 +15,7 @@ namespace Tracker.ViewModels
 		private readonly IExpenses expenses;
 
 		// Record Fields
-		public string Amount { get; set; }
+		public decimal Amount { get; set; }
 		public string Description { get; set; }
 		public Record.Types Type { get; set; }
 		public Record.Categories Category { get; set; }
@@ -42,10 +42,11 @@ namespace Tracker.ViewModels
 		//------------------------------------------------------------------
 		public void Submit ()
 		{
-			if (string.IsNullOrEmpty(Amount) || string.IsNullOrEmpty(Description))
-				return;
+//			if (string.IsNullOrEmpty(Amount) || string.IsNullOrEmpty(Description))
+//				return;
 
-			decimal amount = Parse(Amount);
+//			decimal amount = Parse(Amount);
+			decimal amount = (Amount);
 
 			if (Type == Record.Types.Shared)
 				Divide(ref amount);
@@ -57,15 +58,6 @@ namespace Tracker.ViewModels
 		private decimal Parse (string amount)
 		{
 			return decimal.Parse(amount);
-		}
-
-		//------------------------------------------------------------------
-		private string ParseIncremental (string amount)
-		{
-			var amounts = amount.Split('+');
-			decimal[] decimals = amounts.Select(decimal.Parse).ToArray();
-
-			return decimals.Sum().ToString(CultureInfo.InvariantCulture);
 		}
 
 		//------------------------------------------------------------------
