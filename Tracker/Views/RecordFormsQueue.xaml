@@ -12,7 +12,28 @@
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source = "RecordForm.xaml" />
+				<ResourceDictionary Source = "pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
 			</ResourceDictionary.MergedDictionaries>
+
+			<Style x:Key = "FlatAccentButton"
+			       TargetType = "Button"
+			       BasedOn = "{StaticResource {x:Type Button}}" >
+				<Setter Property = "Foreground"
+				        Value = "White" />
+				<Setter Property = "Background"
+				        Value = "{StaticResource AccentColorBrush}" />
+				<Setter Property = "FontSize"
+				        Value = "{StaticResource FontSize}" />
+				<Setter Property = "MinWidth"
+				        Value = "80" />
+				<Setter Property = "Margin"
+				        Value = "5" />
+				<Setter Property = "HorizontalAlignment"
+				        Value = "Left" />
+				<Setter Property = "BorderThickness"
+				        Value = "0" />
+			</Style>
+
 		</ResourceDictionary>
 	</UserControl.Resources>
 
@@ -41,23 +62,15 @@
 			        Grid.Column = "1"
 			        Content = "Submit"
 			        Command = "{Binding SubmitCommand}"
-			        HorizontalAlignment = "Left"
-			        VerticalAlignment="Top"
-					BorderThickness = "0"
-			        FontSize = "{StaticResource FontSize}"
-			        Margin = "5"
-					Foreground="{StaticResource AccentColorBrush}"
-			        IsDefault = "True"  />
+			        VerticalAlignment = "Top"
+			        IsDefault = "True"
+			        Style = "{StaticResource FlatAccentButton}" />
 			<Button Grid.Row = "1"
 			        Grid.Column = "1"
 			        Command = "{Binding AddRecordCommand}"
 			        Content = "Add"
-					HorizontalAlignment = "Left"
-			        VerticalAlignment="Bottom"
-			        BorderThickness = "0"
-			        FontSize = "{StaticResource FontSize}"
-					Foreground="{StaticResource AccentColorBrush}"
-			        Margin = "5" />
+			        VerticalAlignment = "Bottom"
+			        Style = "{StaticResource FlatAccentButton}" />
 		</Grid>
 	</Border>
 
