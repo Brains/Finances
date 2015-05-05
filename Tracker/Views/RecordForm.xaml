@@ -23,8 +23,8 @@
 	<DataTemplate x:Key = "FormTemplate" >
 		<Border BorderThickness = "{Binding Border}"
 		        BorderBrush = "Orange"
-		        Margin = "10"
-		        Padding = "10" >
+		        Margin = "5"
+		        Padding = "{Binding Padding}" >
 			<Grid>
 
 				<Grid.ColumnDefinitions>
