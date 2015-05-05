@@ -16,32 +16,34 @@
 		<ResourceDictionary Source = "Resources/Icons.xaml" />
 	</ResourceDictionary.MergedDictionaries>
 
-	
+
 	<system:Double x:Key = "FontSize" > 18 </system:Double>
 
-	
+
 	<DataTemplate x:Key = "FormTemplate" >
 		<Border BorderThickness = "{Binding Border}"
-		        BorderBrush = "{StaticResource AccentColorBrush}"
+		        BorderBrush = "Orange"
 		        Margin = "10"
 		        Padding = "10" >
 			<Grid>
 
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition/>
-					<ColumnDefinition/>
-					<ColumnDefinition/>
-					<ColumnDefinition/>
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition />
 				</Grid.ColumnDefinitions>
 
 				<TextBox Grid.Column = "0"
+				         Text = "{Binding Amount}"
 				         TextWrapping = "Wrap"
+				         HorizontalAlignment = "Center"
+				         VerticalAlignment = "Center"
 				         RenderTransformOrigin = "0.5,0.5"
 				         FontSize = "{StaticResource FontSize}"
 				         Foreground = "{Binding Path=Type, Converter={StaticResource EnumToColor}}"
 				         FontWeight = "{Binding Path=Text, RelativeSource={RelativeSource Self}, Converter={StaticResource ValueToFontWeight}}"
-				         controls:TextBoxHelper.Watermark = "Amount" >
-				</TextBox>
+				         controls:TextBoxHelper.Watermark = "Amount" />
 
 				<ComboBox Grid.Column = "1"
 				          IsSynchronizedWithCurrentItem = "False"

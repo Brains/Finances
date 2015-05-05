@@ -21,24 +21,44 @@
 	        BorderBrush = "{StaticResource AccentColorBrush}"
 	        Margin = "0,0,0,0"
 	        Padding = "0,10,0,0" >
-		<StackPanel Orientation = "Vertical" >
-			<Button Command = "{Binding AddRecordCommand}"
-			        Content = "Add"
-			        HorizontalAlignment = "Left"
-			        Style = "{StaticResource AccentedSquareButtonStyle}"
-			        BorderThickness = "0"
-			        Margin = "5" />
-			<Button Content = "Submit"
-			        Command = "{Binding SubmitCommand}"
-			        HorizontalAlignment = "Left"
-			        Style = "{StaticResource AccentedSquareButtonStyle}"
-			        BorderThickness = "0"
-			        Margin = "5"
-			        IsDefault = "True" />
-			<ItemsControl ItemsSource = "{Binding Forms}"
+		<Grid>
+
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition Width = "Auto" />
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+
+			<ItemsControl Grid.Column = "0"
+			              Grid.RowSpan = "2"
+			              ItemsSource = "{Binding Forms}"
 			              ItemTemplate = "{StaticResource FormTemplate}"
 			              HorizontalContentAlignment = "Stretch" />
-		</StackPanel>
+			<Button Grid.Row = "0"
+			        Grid.Column = "1"
+			        Content = "Submit"
+			        Command = "{Binding SubmitCommand}"
+			        HorizontalAlignment = "Left"
+			        VerticalAlignment="Top"
+					BorderThickness = "0"
+			        FontSize = "{StaticResource FontSize}"
+			        Margin = "5"
+					Foreground="{StaticResource AccentColorBrush}"
+			        IsDefault = "True"  />
+			<Button Grid.Row = "1"
+			        Grid.Column = "1"
+			        Command = "{Binding AddRecordCommand}"
+			        Content = "Add"
+					HorizontalAlignment = "Left"
+			        VerticalAlignment="Bottom"
+			        BorderThickness = "0"
+			        FontSize = "{StaticResource FontSize}"
+					Foreground="{StaticResource AccentColorBrush}"
+			        Margin = "5" />
+		</Grid>
 	</Border>
 
 </UserControl>
