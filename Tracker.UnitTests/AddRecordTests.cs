@@ -17,11 +17,11 @@ namespace Tracker.UnitTests
 		public void Submit_Shared_DividesAmountIntoThree()
 		{
 			var expenses = Substitute.For<IExpenses>();
-            AddRecord model = new AddRecord(expenses) {Description = "Test" };
-			model.Amount = "9";
+            RecordForm model = new RecordForm(expenses) {Description = "Test" };
+			model.Amount = 9;
 			model.Type = Record.Types.Shared;
 
-			model.OnSubmit(null);
+			model.Submit();
 
 			expenses.Received().Add(3, Record.Types.Shared, Record.Categories.Food, "Test");
 		}
@@ -31,25 +31,25 @@ namespace Tracker.UnitTests
 		public void Submit_NotShared_DontDividesAmount()
 		{
 			var expenses = Substitute.For<IExpenses>();
-			AddRecord model = new AddRecord(expenses) { Description = "Test" };
-			model.Amount = "9";
+			RecordForm model = new RecordForm(expenses) { Description = "Test" };
+			model.Amount = 9;
 
-			model.OnSubmit(null);
+			model.Submit();
 
 			expenses.Received().Add(9, Record.Types.Expense, Record.Categories.Food, "Test");
 		}
 
 		//------------------------------------------------------------------
-		[TestCase("10", 3)]
-		[TestCase("11", 4)]
-		public void Submit_Shared_RoundsCorrectlyAfterDividing(string shared, decimal individual)
+		[TestCase(10, 3)]
+		[TestCase(11, 4)]
+		public void Submit_Shared_RoundsCorrectlyAfterDividing(int shared, int individual)
 		{
 			var expenses = Substitute.For<IExpenses>();
-			AddRecord model = new AddRecord(expenses) { Description = "Test" };
-			model.Amount = shared;
+			RecordForm model = new RecordForm(expenses) { Description = "Test" };
 			model.Type = Record.Types.Shared;
+			model.Amount = shared;
 
-			model.OnSubmit(null);
+			model.Submit();
 
 			expenses.Received().Add(individual, Record.Types.Shared, Record.Categories.Food, "Test");
 		}

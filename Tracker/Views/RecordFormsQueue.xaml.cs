@@ -16,20 +16,18 @@ using Microsoft.Practices.Unity;
 
 namespace Tracker.Views
 {
-	public partial class AddRecord
+	public partial class RecordFormsQueue
 	{
-		public AddRecord ()
+		public RecordFormsQueue ()
 		{
 			InitializeComponent();
 		}
 
 		[InjectionConstructor]
 		//------------------------------------------------------------------
-		public AddRecord (ViewModels.AddRecord viewModel) : this()
+		public RecordFormsQueue (ViewModels.RecordFormsQueue viewModel) : this()
 	    {
 			DataContext = viewModel;
-			type.ItemsSource = Enum.GetValues(typeof(Record.Types)).Cast<Record.Types>();
-			category.ItemsSource = Enum.GetValues(typeof(Record.Categories)).Cast<Record.Categories>();
         }
 	}
 }
