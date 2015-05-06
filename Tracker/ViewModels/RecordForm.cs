@@ -61,7 +61,7 @@ namespace Tracker.ViewModels
 		//------------------------------------------------------------------
 		public void MarkPrimary ()
 		{
-			Padding = new Thickness(5);
+			Padding = new Thickness(5, 5, 40, 5);
 		}
 	}
 }
