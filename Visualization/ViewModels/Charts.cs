@@ -14,6 +14,7 @@ namespace Visualization.ViewModels
 	public class Charts
 	{
 		private readonly IExpenses expenses;
+
 		//------------------------------------------------------------------
 		public Dictionary<string, int> ExpencesByCategory => GetExpencesByCategory(expenses.Records);
 		public Dictionary<string, int> ExpencesByDate => GetDatesData(expenses.Records);
@@ -59,6 +60,16 @@ namespace Visualization.ViewModels
 				select new {Key = grouped.Key, Value = grouped.Sum(record => record.Amount)};
 
 			return query.ToDictionary(x => x.Key, x => (int) x.Value);
+		}
+
+		//------------------------------------------------------------------
+		public List<Record> GetRecordsFrom (DateTime date, IEnumerable<Record> records)
+		{
+			var query = from record in records
+				where record.Date > date
+				select record;
+
+			return query.ToList();
 		}
 	}
 }
