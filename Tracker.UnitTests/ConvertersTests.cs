@@ -31,13 +31,43 @@ namespace Tracker.UnitTests
 		[TestCase(1200, "Bold")]
 		[TestCase(1500, "Bold")]
 		//------------------------------------------------------------------
-		public void ValueToFontWeight_ReturnsRightFontWeights (decimal value, string expected)
+		public void ValueToFontWeight_Always_ReturnsRightFontWeights (decimal value, string expected)
 		{
 			ValueToFontWeight converter = new ValueToFontWeight();
 
 			var actual = converter.Convert(value, null, null, null);
 
 			Expect(actual.ToString(), EqualTo(expected));
+		}
+
+		//------------------------------------------------------------------
+		[TestCase(0, "")]
+		[TestCase(74, "74")]
+		[TestCase(-247, "-247")]
+		public void AmountTextToDecimal_Convert_DecimalToTextCorrectly(decimal value, string expected)
+		{
+			AmountTextToDecimal converter = new AmountTextToDecimal();
+
+			var actual = converter.Convert(value, null, null, null);
+
+			Expect(actual, EqualTo(expected));
+		}
+
+		//------------------------------------------------------------------
+		[TestCase("", 0)]
+		[TestCase(null, 0)]
+		[TestCase("13", 13)]
+		[TestCase("-247", -247)]
+		[TestCase("15+25+200", 240)]
+		[TestCase("15 + 25 + 200", 240)]
+		public void AmountTextToDecimal_ConvertBack_TextToDecimalCorrectly(string value, int expected)
+		{
+			AmountTextToDecimal converter = new AmountTextToDecimal();
+
+			var actual = converter.ConvertBack(value, null, null, null);
+
+			Expect(actual, EqualTo(expected));
+
 		}
 	}
 }

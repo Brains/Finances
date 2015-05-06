@@ -31,7 +31,7 @@ namespace Tracker.Views.Converters
 			string[] amounts = amount.Split('+');
 			decimal[] decimals = amounts.Select(decimal.Parse).ToArray();
 
-			return decimals.Sum().ToString(CultureInfo.InvariantCulture);
+			return decimals.Sum();
 		}
 	}
 }
