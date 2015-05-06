@@ -36,35 +36,26 @@ namespace Tracker.ViewModels
 
 			Padding = new Thickness(40, 5, 5, 5);
 			Border = new Thickness(0);
-			
         }
 
 		//------------------------------------------------------------------
 		public void Submit ()
 		{
-//			if (string.IsNullOrEmpty(Amount) || string.IsNullOrEmpty(Description))
-//				return;
-
-//			decimal amount = Parse(Amount);
-			decimal amount = (Amount);
+			if (string.IsNullOrEmpty(Description))
+				return;
 
 			if (Type == Record.Types.Shared)
-				Divide(ref amount);
+				Amount = Divide(Amount);
 
-			expenses.Add(amount, Type, Category, Description);
+			expenses.Add(Amount, Type, Category, Description);
 		}
 
 		//------------------------------------------------------------------
-		private decimal Parse (string amount)
-		{
-			return decimal.Parse(amount);
-		}
-
-		//------------------------------------------------------------------
-		private void Divide (ref decimal amount)
+		private decimal Divide (decimal amount)
 		{
 			decimal customers = 3;
-			amount = Math.Round(amount / customers);
+
+			return Math.Round(amount / customers);
 		}
 
 		//------------------------------------------------------------------

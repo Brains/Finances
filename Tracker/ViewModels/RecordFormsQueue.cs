@@ -42,25 +42,28 @@ namespace Tracker.ViewModels
 		}
 
 		//------------------------------------------------------------------
-		public void SubstractFromPrimary ()
+		public void SubstractSecondariesFromPrimary ()
 		{
 			var primary =  Forms.First().Amount;
 			var secondaries = Total() - primary;
 
-			Forms.First().Amount = (primary - secondaries);
+			Forms.First().Amount = primary - secondaries;
 		}
 
 		//------------------------------------------------------------------
 		public decimal Total()
 		{
-			return Forms.Select(record => (record.Amount)).Sum();
+			return Forms.Select(record => record.Amount).Sum();
 		}
 
 		//------------------------------------------------------------------
 		public void Submit()
 		{
-			SubstractFromPrimary();
+			SubstractSecondariesFromPrimary();
+
             Forms.ForEach(record => record.Submit());
+
+			Forms.Clear();
         }
 	}
 }

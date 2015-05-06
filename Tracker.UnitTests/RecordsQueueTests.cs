@@ -13,7 +13,7 @@ namespace Tracker.UnitTests
 	internal class RecordsQueueTests : AssertionHelper
 	{
 		//------------------------------------------------------------------
-		private static void AddRecords (string[] amounts, RecordFormsQueue queue)
+		private static void AddRecords (int[] amounts, RecordFormsQueue queue)
 		{
 			queue.AddForm().Amount = amounts[0];
 			queue.AddForm().Amount = amounts[1];
@@ -25,7 +25,7 @@ namespace Tracker.UnitTests
 		{
 			foreach (var form in forms)
 			{
-				form.Amount = "10";
+				form.Amount = 10;
 				form.Description = "Test";
 			}
 		}
@@ -42,23 +42,23 @@ namespace Tracker.UnitTests
 		}
 
 		//------------------------------------------------------------------
-		[TestCase ("70", "100", "20", "10")]
-		[TestCase ("120", "300", "120", "60")]
-		[TestCase ("111", "256", "48", "97")]
-		public void SubstractFromPrimary_Always_SubtractsFromFirstRecordAllSubsequentRecordsAmount (string expected, params string[] amounts)
+		[TestCase (70, 100, 20, 10)]
+		[TestCase (120, 300, 120, 60)]
+		[TestCase (111, 256, 48, 97)]
+		public void SubstractFromPrimary_Always_SubtractsFromFirstRecordAllSubsequentRecordsAmount (int expected, params int[] amounts)
 		{
 			RecordFormsQueue queue = new RecordFormsQueue(null);
 			AddRecords(amounts, queue);
 
-			queue.SubstractFromPrimary();
+			queue.SubstractSecondariesFromPrimary();
 
 			Expect(queue.Forms.First().Amount, EqualTo(expected));
 		}
 
 		//------------------------------------------------------------------
-		[TestCase (130, "100", "20", "10")]
-		[TestCase (370, "210", "90", "70")]
-		public void Total_ByDefault_ReturnsTotalAmountForAllRecords (decimal expected, params string[] amounts)
+		[TestCase (130, 100, 20, 10)]
+		[TestCase (370, 210, 90, 70)]
+		public void Total_ByDefault_ReturnsTotalAmountForAllRecords (int expected, params int[] amounts)
 		{
 			RecordFormsQueue queue = new RecordFormsQueue(null);
 			AddRecords(amounts, queue);

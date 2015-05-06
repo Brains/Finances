@@ -14,6 +14,9 @@ namespace Tracker.Views.Converters
 		{
 			decimal amount = (decimal) value;
 
+			if (amount == 0)
+				return string.Empty;
+
 			return amount.ToString(CultureInfo.InvariantCulture);
 		}
 
@@ -21,6 +24,10 @@ namespace Tracker.Views.Converters
 		public object ConvertBack (object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			string amount = (string) value;
+
+			if (string.IsNullOrEmpty(amount))
+				return default(decimal);
+
 			string[] amounts = amount.Split('+');
 			decimal[] decimals = amounts.Select(decimal.Parse).ToArray();
 

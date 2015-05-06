@@ -18,7 +18,7 @@ namespace Tracker.UnitTests
 		{
 			var expenses = Substitute.For<IExpenses>();
             RecordForm model = new RecordForm(expenses) {Description = "Test" };
-			model.Amount = "9";
+			model.Amount = 9;
 			model.Type = Record.Types.Shared;
 
 			model.Submit();
@@ -32,7 +32,7 @@ namespace Tracker.UnitTests
 		{
 			var expenses = Substitute.For<IExpenses>();
 			RecordForm model = new RecordForm(expenses) { Description = "Test" };
-			model.Amount = "9";
+			model.Amount = 9;
 
 			model.Submit();
 
@@ -40,14 +40,14 @@ namespace Tracker.UnitTests
 		}
 
 		//------------------------------------------------------------------
-		[TestCase("10", 3)]
-		[TestCase("11", 4)]
-		public void Submit_Shared_RoundsCorrectlyAfterDividing(string shared, decimal individual)
+		[TestCase(10, 3)]
+		[TestCase(11, 4)]
+		public void Submit_Shared_RoundsCorrectlyAfterDividing(int shared, int individual)
 		{
 			var expenses = Substitute.For<IExpenses>();
 			RecordForm model = new RecordForm(expenses) { Description = "Test" };
-			model.Amount = shared;
 			model.Type = Record.Types.Shared;
+			model.Amount = shared;
 
 			model.Submit();
 

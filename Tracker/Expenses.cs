@@ -25,8 +25,6 @@ namespace Tracker
 			Load();
 		}
 
-		//------------------------------------------------------------------
-
 	    //------------------------------------------------------------------
 		public void Add (decimal amount, Record.Types type, Record.Categories category, string description)
 		{
