@@ -11,7 +11,10 @@ namespace Tracker.Views.Converters
 		//------------------------------------------------------------------
 		public object Convert (object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			string name = value.ToString();
+			string name = value?.ToString();
+
+			if (string.IsNullOrEmpty(name))
+				return null;
 
 			var visual = Application.Current.FindResource(name);
 			return visual as Visual;
