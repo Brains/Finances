@@ -38,6 +38,9 @@
     <Reference Include="Microsoft.Practices.Unity">
       <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
+    <Reference Include="NodaTime">
+      <HintPath>..\packages\NodaTime.2.0.0-alpha20140808\lib\net35-Client\NodaTime.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime">
@@ -123,6 +126,10 @@
     <ProjectReference Include="..\Tracker\Tracker.csproj">
       <Project>{F31FA3EB-4F11-4A61-A67D-E6C77EEC470C}</Project>
       <Name>Tracker</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Trends\Trends.csproj">
+      <Project>{13fb303d-7ae5-48d6-a8da-602526ec2c32}</Project>
+      <Name>Trends</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

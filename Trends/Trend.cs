@@ -1,6 +1,6 @@
 ﻿namespace Trends
 {
-	class Trend
+	public class Trend
 	{
 	}
 }

@@ -1,12 +1,13 @@
 ﻿using System;
+using NodaTime;
 
 namespace Trends
 {
-	class Operation
+	public class Operation
 	{
 		public decimal Amount { get; set; }
-		public DateTime Start { get; set; }
-		public DateTime Recurrence { get; set; }
+		public LocalDate Start { get; set; }
+		public Period Period { get; set; }
 		public string Description { get; set; }
 	}
 }
