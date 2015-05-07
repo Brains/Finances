@@ -5,8 +5,6 @@ VisualStudioVersion = 14.0.22609.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{00D6A4C7-E74F-4098-A434-241C05E06E06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracker.UnitTests", "Tracker.UnitTests\Tracker.UnitTests.csproj", "{2C80B2A4-7B0D-4ACF-98C1-D1C7BB3C42FF}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finances", "Finances\Finances.csproj", "{3D9C8E22-6A8C-4651-9440-163A12EFA35C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracker", "Tracker\Tracker.csproj", "{F31FA3EB-4F11-4A61-A67D-E6C77EEC470C}"
@@ -14,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visualization", "Visualization\Visualization.csproj", "{35B3BC50-DADA-47A4-A37D-B26F4BB4724E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visualization.Tests", "Tests\Visualization.Tests\Visualization.Tests.csproj", "{5CB3BA1F-00E9-4721-896F-91396853682C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracker.UnitTests", "Tests\Tracker.UnitTests\Tracker.UnitTests.csproj", "{2C80B2A4-7B0D-4ACF-98C1-D1C7BB3C42FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
