@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NodaTime;
 using Tracker;
+using Trends;
 
 namespace Visualization.ViewModels
 {
@@ -18,6 +21,7 @@ namespace Visualization.ViewModels
 		public Dictionary<string, int> ExpencesByCategory => GetExpencesByCategory(expenses.Records);
 		public Dictionary<string, int> ExpencesByDate => GetDatesData(expenses.Records);
 		public Dictionary<string, int> ExpencesByType => GetExpencesByType(expenses.Records);
+		public Dictionary<string, int> Trend => GetTrend();
 
 		//------------------------------------------------------------------
 		public Charts (IExpenses expenses)
@@ -59,6 +63,18 @@ namespace Visualization.ViewModels
 				select new {Key = grouped.Key, Value = grouped.Sum(record => record.Amount)};
 
 			return query.ToDictionary(x => x.Key, x => (int) x.Value);
+		}
+
+		//------------------------------------------------------------------
+		public Dictionary<string, int> GetTrend ()
+		{
+			var trend = new Trend();
+
+			trend.LoadOperations();
+			trend.PutOperationsOnCalendar(new LocalDate(2015, 2, 1));
+			var grouped = trend.GroupByDate(trend.Calendar);
+
+			return grouped.ToDictionary(t => t.Date.ToString("MMM/d", CultureInfo.CurrentCulture), t => (int) t.Amount);
 		}
 	}
 }

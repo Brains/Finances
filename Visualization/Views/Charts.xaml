@@ -32,7 +32,7 @@
 <!--					<charting:LinearAxis Orientation = "Y" ShowGridLines = "True" Interval = "1000"-->
 <!--					                     GridLineStyle = "{DynamicResource GridLineStyle}" />-->
 <!--				</charting:Chart.Axes>-->
-				<charting:LineSeries ItemsSource = "{Binding ExpencesByCalendar}" DependentValuePath = "Value" IndependentValuePath = "Key"/>
+				<charting:LineSeries ItemsSource = "{Binding Trend}" DependentValuePath = "Value" IndependentValuePath = "Key"/>
 <!--				                     DataPointStyle = "{StaticResource LineDataPointStyle}" />-->
 			</charting:Chart>
 
