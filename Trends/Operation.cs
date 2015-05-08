@@ -51,10 +51,18 @@ namespace Trends
 		//------------------------------------------------------------------
 		public override string ToString ()
 		{
-			return $"Description: {Description}, Amount: {Amount}, Date: {Date} ";
+			return $"{Date.Month} {Date.Day}; {Amount}; {Description}";
 		}
 
 		//------------------------------------------------------------------
+		public static Transaction operator + (Transaction a, Transaction b)
+		{
+			CodeContracts.Requires.True(a.Date == b.Date, "a.Date == b.Date");
 
+			var amount = a.Amount + b.Amount;
+			var description = $"{a.Description}, {b.Description}";
+
+			return new Transaction(amount, a.Date, description);
+		}
 	}
 }
