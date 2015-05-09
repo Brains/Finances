@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using NodaTime;
 using NodaTime.Extensions;
@@ -8,17 +9,18 @@ namespace Trends
 {
 	public class Trend
 	{
+		private readonly List<decimal> funds;
+
 		//------------------------------------------------------------------
 		public List<Operation> Operations { get; set; }
 		public List<Transaction> Calendar { get; set; }
-		public List<decimal> Funds { get; set; }
 
 		//------------------------------------------------------------------
 		public Trend ()
 		{
 			Operations = new List<Operation>();
 			Calendar = new List<Transaction>();
-			Funds = new List<decimal>();
+			funds = new List<decimal>();
 		}
 
 		#region Public
@@ -29,6 +31,20 @@ namespace Trends
 			CalculateTransactionsCalendar(end);
 			AggregateTransactionsByDate();
 			CalculateFunds(startFunds);
+		}
+
+		//------------------------------------------------------------------
+		public List<Funds> GetFunds()
+		{
+			var output = new List<Funds>();
+
+			for (int index = 0; index < this.funds.Count; index++)
+			{
+				var transaction = Calendar[index];
+				output.Add(new Funds(funds[index], transaction.Date, transaction.Description));
+			}
+
+			return output;
 		}
 
 		//------------------------------------------------------------------
@@ -80,9 +96,9 @@ namespace Trends
 		{
 			Calendar.Aggregate(start, (a, b) =>
 			{
-				var funds = a + b.Amount;
-				Funds.Add(funds);
-				return funds;
+				var sum = a + b.Amount;
+				funds.Add(sum);
+				return sum;
 			});
 		}
 

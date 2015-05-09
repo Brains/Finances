@@ -101,7 +101,7 @@ namespace Trends.Tests
 
 		//------------------------------------------------------------------
 		[Test]
-		public void Calculate_WithStartFunds_AppliesEachTransactionOnFunds()
+		public void Calculate_WithStartFunds_AppliesEachTransactionOnFundsAmount()
 		{
 			var trend = new Trend();
 
@@ -112,12 +112,35 @@ namespace Trends.Tests
 			trend.Calendar.Add(new Transaction(-100, new LocalDate(2015, 1, 4), "5"));
 
 			trend.Calculate(1000, june);
+			var actual = trend.GetFunds().Select(funds => funds.Amount);
 
 			decimal[] expect = {900, 800, 700, 500};
-			Expect(trend.Funds, EquivalentTo(expect));
+			Expect(actual, EquivalentTo(expect));
 		}
 
+		//------------------------------------------------------------------
+		[Test]
+		public void GetFundsDictionary_Always_ReturnsCorrectDictionary()
+		{
+			var trend = new Trend();
+			trend.Calendar.Add(new Transaction(-100, new LocalDate(2015, 1, 1), "1"));
+			trend.Calendar.Add(new Transaction(-100, new LocalDate(2015, 1, 2), "2"));
+			trend.Calendar.Add(new Transaction(-100, new LocalDate(2015, 1, 3), "3"));
+			trend.Calendar.Add(new Transaction(-100, new LocalDate(2015, 1, 4), "4"));
+			trend.Calendar.Add(new Transaction(-100, new LocalDate(2015, 1, 4), "5"));
 
+			trend.Calculate(1000, june);
+			var actual = trend.GetFunds();
+
+			var expected = new List<Funds>
+			{
+				new Funds(900, new LocalDate(2015, 1, 1), "1"),
+				new Funds(800, new LocalDate(2015, 1, 2), "2"),
+				new Funds(700, new LocalDate(2015, 1, 3), "3"),
+				new Funds(500, new LocalDate(2015, 1, 4), "4, 5"),
+			};
+			Expect(actual, EqualTo(expected));
+		}
 
 	}
 }
