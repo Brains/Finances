@@ -12,6 +12,7 @@ namespace Trends.ViewModels
 		//------------------------------------------------------------------
 		public List<Operation> Operations { get; set; }
 		public List<Transaction> Calendar { get; set; }
+		public List<Funds> Funds { get; set; }
 
 		//------------------------------------------------------------------
 		public Trend ()
@@ -19,6 +20,10 @@ namespace Trends.ViewModels
 			Operations = new List<Operation>();
 			Calendar = new List<Transaction>();
 			funds = new List<decimal>();
+
+			LoadOperations();
+			Calculate(5000, new LocalDate(2015, 3, 1));
+			Funds = GetFunds();
 		}
 
 		#region Public
