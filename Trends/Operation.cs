@@ -65,4 +65,39 @@ namespace Trends
 			return new Transaction(amount, a.Date, description);
 		}
 	}
+
+	//------------------------------------------------------------------
+	public class Funds : IEquatable<Funds>
+	{
+
+
+		public decimal Amount { get; set; }
+		public LocalDate Date { get; set; }
+		public string Description { get; set; }
+
+		//------------------------------------------------------------------
+		public Funds (decimal amount, LocalDate date, string description)
+		{
+			Amount = amount;
+			Date = date;
+			Description = description;
+		}
+
+		//------------------------------------------------------------------
+		public override string ToString ()
+		{
+			return $"Amount: {Amount}, Date: {Date}, Description: {Description}";
+		}
+
+		//------------------------------------------------------------------
+		public bool Equals (Funds other)
+		{
+			return Amount == other.Amount 
+				&& Date.Equals(other.Date) 
+				&& string.Equals(Description, other.Description);
+		}
+
+		
+
+	}
 }
