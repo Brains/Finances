@@ -21,6 +21,16 @@ namespace Trends
 			Funds = new List<decimal>();
 		}
 
+		#region Public
+
+		//------------------------------------------------------------------
+		public void Calculate(decimal startFunds, LocalDate end)
+		{
+			CalculateTransactionsCalendar(end);
+			AggregateTransactionsByDate();
+			CalculateFunds(startFunds);
+		}
+
 		//------------------------------------------------------------------
 		public void LoadOperations ()
 		{
@@ -35,8 +45,10 @@ namespace Trends
 			Operations.Add(new Operation(-1800, new LocalDate(2015, 1, 15), monthly, "House"));
 		}
 
+		#endregion
+
 		//------------------------------------------------------------------
-		public void CalculateTransactionsCalendar (LocalDate end)
+		private void CalculateTransactionsCalendar (LocalDate end)
 		{
 			foreach (var operation in Operations)
 			{
@@ -52,7 +64,7 @@ namespace Trends
 		}
 
 		//------------------------------------------------------------------
-		public void AggregateTransactionsByDate()
+		private void AggregateTransactionsByDate()
 		{
 			var query = from transaction in Calendar
 						orderby transaction
@@ -64,7 +76,7 @@ namespace Trends
 		}
 
 		//------------------------------------------------------------------
-		public void CalculateFunds (decimal start)
+		private void CalculateFunds (decimal start)
 		{
 			Calendar.Aggregate(start, (a, b) =>
 			{
@@ -81,7 +93,6 @@ namespace Trends
 
 			return clock.GetCurrentDate();
 		}
-
 	}
 
 
