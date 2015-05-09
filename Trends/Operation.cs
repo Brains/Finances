@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using NodaTime;
 
 namespace Trends
@@ -72,14 +73,14 @@ namespace Trends
 
 
 		public decimal Amount { get; set; }
-		public LocalDate Date { get; set; }
+		public string Date { get; set; }
 		public string Description { get; set; }
 
 		//------------------------------------------------------------------
 		public Funds (decimal amount, LocalDate date, string description)
 		{
 			Amount = amount;
-			Date = date;
+			Date = date.ToString("MMM/d", CultureInfo.CurrentCulture);
 			Description = description;
 		}
 

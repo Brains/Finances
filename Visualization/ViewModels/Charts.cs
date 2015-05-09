@@ -21,7 +21,7 @@ namespace Visualization.ViewModels
 		public Dictionary<string, int> ExpencesByCategory => GetExpencesByCategory(expenses.Records);
 		public Dictionary<string, int> ExpencesByDate => GetDatesData(expenses.Records);
 		public Dictionary<string, int> ExpencesByType => GetExpencesByType(expenses.Records);
-		public Dictionary<string, int> Trend => GetTrend();
+		public List<Funds> Trend => GetTrend();
 
 		//------------------------------------------------------------------
 		public Charts (IExpenses expenses)
@@ -66,16 +66,14 @@ namespace Visualization.ViewModels
 		}
 
 		//------------------------------------------------------------------
-		public Dictionary<string, int> GetTrend ()
+		public List<Funds> GetTrend ()
 		{
-			throw new NotImplementedException();
-			//			var trend = new Trend();
-			//
-			//			trend.LoadOperations();
-			//			trend.CalculateTransactionsCalendar(new LocalDate(2015, 2, 1));
-			//			var grouped = trend.AggregateTransactionsByDate(trend.Calendar);
+			var trend = new Trend();
+			
+			trend.LoadOperations();
+			trend.Calculate(5000, new LocalDate(2015, 3, 1));
 
-			//			return grouped.ToDictionary(t => t.Date.ToString("MMM/d", CultureInfo.CurrentCulture), t => (int) t.Amount);
+			return trend.GetFunds();
 		}
 	}
 }
