@@ -8,11 +8,9 @@
                       Width = "1000" 
 					  WindowState="Maximized"
 					  ShowIconOnTitleBar="True">
-	<TabControl SelectedIndex = "1"
-	            TabStripPlacement = "Left" >
+	<TabControl SelectedIndex = "2" TabStripPlacement="Left">
 		<TabItem Name = "Tracker"
-		         Header = "Tracker"
-		         Margin = "10,28,10,-28" >
+		         Header = "Tracker" >
 			<Grid>
 				<Grid.RowDefinitions>
 					<RowDefinition  />
@@ -31,9 +29,11 @@
 			</Grid>
 		</TabItem>
 		<TabItem Name = "Visualization"
-		         Header = "Charts      "
-		         cal:RegionManager.RegionName = "Visualization"
-		         Margin = "10,45,10,-45" />
+		         Header = "Charts"
+		         cal:RegionManager.RegionName = "Visualization" />
+		<TabItem Name="Trends"
+				 Header = "Trends"
+		         cal:RegionManager.RegionName = "Trends" />
 	</TabControl>
 
 
