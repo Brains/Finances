@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Collections.Generic;
 using System.Linq;
 using NodaTime;
 using NodaTime.Extensions;
 
-namespace Trends
+namespace Trends.ViewModels
 {
 	public class Trend
 	{

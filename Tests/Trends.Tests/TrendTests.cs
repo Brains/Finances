@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using NodaTime;
 using NUnit.Framework;
+using Trends.ViewModels;
 using static System.Console;
 
 namespace Trends.Tests
@@ -24,7 +25,7 @@ namespace Trends.Tests
 		[Test]
 		public void Calculate_Always_PlaceTransactionsWithRightDate()
 		{
-			var trend = new Trends.Trend();
+			var trend = new Trend();
             trend.Operations.Add(new Operation(100, new LocalDate(2015, 1, 1), Period.FromDays(3), "Test"));
 
 			trend.Calculate(1000, june);
@@ -42,7 +43,7 @@ namespace Trends.Tests
 		[Test]
 		public void Calculate_ToJuneMonth_PlaceTransactionsOnlyUntilJuneMonth()
 		{
-			var trend = new Trends.Trend();
+			var trend = new Trend();
 			trend.Operations.Add(new Operation(100, new LocalDate(2015, 1, 1), Period.FromDays(3), "Test"));
 
 			trend.Calculate(1000, june);
@@ -54,7 +55,7 @@ namespace Trends.Tests
 		[Test]
 		public void Calculate_Always_GroupsTransactionsWithSameDate()
 		{
-			var trend = new Trends.Trend();
+			var trend = new Trend();
 			var date = new LocalDate(2015, 1, 1);
 			trend.Calendar.Add(new Transaction(100, date, "1"));
 			trend.Calendar.Add(new Transaction(100, date, "2"));
@@ -70,7 +71,7 @@ namespace Trends.Tests
 		[Test]
 		public void Calculate_Always_AggregateTransactionsAmmountsAndDescriptions()
 		{
-			var trend = new Trends.Trend();
+			var trend = new Trend();
 			var date = new LocalDate(2015, 1, 1);
 			trend.Calendar.Add(new Transaction(100, date, "1"));
 			trend.Calendar.Add(new Transaction(100, date, "2"));
@@ -86,7 +87,7 @@ namespace Trends.Tests
 		[Test]
 		public void Calculate_Always_SortsItemsByDate()
 		{
-			var trend = new Trends.Trend();
+			var trend = new Trend();
 			trend.Calendar.Add(new Transaction(100, new LocalDate(2015, 1, 3), "3"));
 			trend.Calendar.Add(new Transaction(100, new LocalDate(2015, 1, 6), "6"));
 			trend.Calendar.Add(new Transaction(100, new LocalDate(2015, 1, 1), "1"));
