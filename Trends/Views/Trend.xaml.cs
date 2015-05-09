@@ -12,17 +12,24 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Practices.Unity;
 
 namespace Trends.Views
 {
-	/// <summary>
-	/// Interaction logic for Trend.xaml
-	/// </summary>
+	//------------------------------------------------------------------
 	public partial class Trend
 	{
+		//------------------------------------------------------------------
 		public Trend()
 		{
 			InitializeComponent();
+		}
+
+		[InjectionConstructor]
+		//------------------------------------------------------------------
+		public Trend(ViewModels.Trend viewModel) : this()
+	    {
+			DataContext = viewModel;
 		}
 	}
 }

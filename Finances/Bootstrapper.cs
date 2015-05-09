@@ -32,6 +32,9 @@ namespace Finances
 
 			Type visualization = typeof(Visualization.Module);
 			ModuleCatalog.AddModule(new ModuleInfo("Visualization", visualization.AssemblyQualifiedName));
+
+			Type trends = typeof(Trends.Module);
+			ModuleCatalog.AddModule(new ModuleInfo("Trends", trends.AssemblyQualifiedName));
 		}
 	}
 }
