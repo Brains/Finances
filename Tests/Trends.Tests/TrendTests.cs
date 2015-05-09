@@ -98,28 +98,23 @@ namespace Trends.Tests
 
 		//------------------------------------------------------------------
 		[Test]
-		public void Test ()
+		public void CalculateFunds_WithStartFunds_AppliesEachTransactionOnFunds()
 		{
-			var trend = new Trends.Trend();
+			var trend = new Trend();
 
-			trend.LoadOperations();
-			trend.PutOperationsOnCalendar(new LocalDate(2015, 6, 1));
-			var grouped = trend.GroupByDate(trend.Calendar);
+			trend.Calendar.Add(new Transaction(-100, new LocalDate(2015, 1, 1), "1"));
+			trend.Calendar.Add(new Transaction(-100, new LocalDate(2015, 1, 2), "2"));
+			trend.Calendar.Add(new Transaction(-100, new LocalDate(2015, 1, 3), "3"));
+			trend.Calendar.Add(new Transaction(-100, new LocalDate(2015, 1, 4), "4"));
+			trend.Calendar.Add(new Transaction(-100, new LocalDate(2015, 1, 4), "5"));
 
-			Out(grouped);
+			trend.Calendar=trend.AggregateTransactionsByDate();
+			trend.CalculateFunds(1000);
 
-			Expect(grouped, Is.Ordered.By("Date"));
-			Expect(grouped, Exactly(5).Property("Description").Contains("Mozy"));
+			decimal[] expect = {900, 800, 700, 500};
+			Expect(trend.Funds, EquivalentTo(expect));
 		}
 
-		//------------------------------------------------------------------
-		[Test]
-		public void Test2()
-		{
-			var date = new LocalDate(2015, 6, 1);
-
-			WriteLine(date.ToString("dd", CultureInfo.CurrentCulture));
-		}
 
 
 	}

@@ -68,13 +68,14 @@ namespace Visualization.ViewModels
 		//------------------------------------------------------------------
 		public Dictionary<string, int> GetTrend ()
 		{
-			var trend = new Trend();
+			throw new NotImplementedException();
+//			var trend = new Trend();
+//
+//			trend.LoadOperations();
+//			trend.CalculateTransactionsCalendar(new LocalDate(2015, 2, 1));
+//			var grouped = trend.AggregateTransactionsByDate(trend.Calendar);
 
-			trend.LoadOperations();
-			trend.PutOperationsOnCalendar(new LocalDate(2015, 2, 1));
-			var grouped = trend.GroupByDate(trend.Calendar);
-
-			return grouped.ToDictionary(t => t.Date.ToString("MMM/d", CultureInfo.CurrentCulture), t => (int) t.Amount);
+//			return grouped.ToDictionary(t => t.Date.ToString("MMM/d", CultureInfo.CurrentCulture), t => (int) t.Amount);
 		}
 	}
 }

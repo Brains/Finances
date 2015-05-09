@@ -67,6 +67,15 @@ namespace Trends
 		}
 
 		//------------------------------------------------------------------
+		public void CalculateFunds (decimal start)
+		{
+			Calendar.Aggregate(start, (a, b) =>
+			{
+				var funds = a + b.Amount;
+				Funds.Add(funds);
+				return funds;
+			});
+		}
 		private LocalDate GetCurrentDate()
 		{
 			ZonedClock clock = SystemClock.Instance.InUtc();
