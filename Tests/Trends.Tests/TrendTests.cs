@@ -20,12 +20,12 @@ namespace Trends.Tests
 
 		//------------------------------------------------------------------
 		[Test]
-		public void PutOperationsOnCalendar_Always_PlaceThemWithRightDate()
+		public void CalculateTransactionsCalendar_Always_PlaceThemWithRightDate()
 		{
 			var trend = new Trends.Trend();
             trend.Operations.Add(new Operation(100, new LocalDate(2015, 1, 1), Period.FromDays(3), "Test"));
 
-			trend.PutOperationsOnCalendar(new LocalDate(2015, 6, 1));
+			trend.CalculateTransactionsCalendar(new LocalDate(2015, 6, 1));
 
 			Expect(trend.Calendar, Has.Exactly(1).Property("Date").EqualTo(new LocalDate(2015, 1, 1)));
 			Expect(trend.Calendar, Has.Exactly(1).Property("Date").EqualTo(new LocalDate(2015, 1, 4)));
@@ -37,12 +37,12 @@ namespace Trends.Tests
 
 		//------------------------------------------------------------------
 		[Test]
-		public void PutOperationsOnCalendar_ToJuneMonth_PlaceThemOnlyUntilJuneMonth()
+		public void CalculateTransactionsCalendar_ToJuneMonth_PlaceThemOnlyUntilJuneMonth()
 		{
 			var trend = new Trends.Trend();
 			trend.Operations.Add(new Operation(100, new LocalDate(2015, 1, 1), Period.FromDays(3), "Test"));
 
-			trend.PutOperationsOnCalendar(new LocalDate(2015, 6, 1));
+			trend.CalculateTransactionsCalendar(new LocalDate(2015, 6, 1));
 
 			Expect(trend.Calendar, Has.All.Property("Date").Property("Month").LessThan(6));
 		}
@@ -57,10 +57,10 @@ namespace Trends.Tests
 			trend.Calendar.Add(new Transaction(100, date, "2"));
 			trend.Calendar.Add(new Transaction(100, date, "3"));
 
-			var grouped = trend.GroupByDate(trend.Calendar);
+			trend.AggregateTransactionsByDate();
 
-			Expect(grouped, Count.EqualTo(1));
-			Expect(grouped, All.Property("Date").EqualTo(date));
+			Expect(trend.Calendar, Count.EqualTo(1));
+			Expect(trend.Calendar, All.Property("Date").EqualTo(date));
 		}
 
 		//------------------------------------------------------------------
@@ -73,10 +73,10 @@ namespace Trends.Tests
 			trend.Calendar.Add(new Transaction(100, date, "2"));
 			trend.Calendar.Add(new Transaction(100, date, "3"));
 
-			var grouped = trend.GroupByDate(trend.Calendar);
+			trend.AggregateTransactionsByDate();
 
-			Expect(grouped, All.Property("Amount").EqualTo(300));
-			Expect(grouped, All.Property("Description").EqualTo("1, 2, 3"));
+			Expect(trend.Calendar, All.Property("Amount").EqualTo(300));
+			Expect(trend.Calendar, All.Property("Description").EqualTo("1, 2, 3"));
 		}
 
 		//------------------------------------------------------------------
@@ -91,9 +91,9 @@ namespace Trends.Tests
 			trend.Calendar.Add(new Transaction(100, new LocalDate(2015, 1, 2), "2"));
 			trend.Calendar.Add(new Transaction(100, new LocalDate(2015, 1, 4), "4"));
 
-			var grouped = trend.GroupByDate(trend.Calendar);
+			trend.AggregateTransactionsByDate();
 
-			Expect(grouped, Is.Ordered.By("Date"));
+			Expect(trend.Calendar, Is.Ordered.By("Date"));
 		}
 
 		//------------------------------------------------------------------
@@ -108,7 +108,7 @@ namespace Trends.Tests
 			trend.Calendar.Add(new Transaction(-100, new LocalDate(2015, 1, 4), "4"));
 			trend.Calendar.Add(new Transaction(-100, new LocalDate(2015, 1, 4), "5"));
 
-			trend.Calendar=trend.AggregateTransactionsByDate();
+			trend.AggregateTransactionsByDate();
 			trend.CalculateFunds(1000);
 
 			decimal[] expect = {900, 800, 700, 500};

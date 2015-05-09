@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NodaTime;
 using NodaTime.Extensions;
@@ -7,22 +8,24 @@ namespace Trends
 {
 	public class Trend
 	{
-		private readonly Period monthly = Period.FromMonths(1);
-
 		//------------------------------------------------------------------
 		public List<Operation> Operations { get; set; }
 		public List<Transaction> Calendar { get; set; }
+		public List<decimal> Funds { get; set; }
 
 		//------------------------------------------------------------------
 		public Trend ()
 		{
 			Operations = new List<Operation>();
 			Calendar = new List<Transaction>();
+			Funds = new List<decimal>();
 		}
 
 		//------------------------------------------------------------------
 		public void LoadOperations ()
 		{
+			var monthly = Period.FromMonths(1);
+
 			Operations.Add(new Operation(-300, new LocalDate(2015, 1, 1), Period.FromDays(3), "Food"));
 			Operations.Add(new Operation(-140, new LocalDate(2015, 1, 5), monthly, "Mozy"));
 			Operations.Add(new Operation(-30, new LocalDate(2015, 1, 5), monthly, "O3"));
@@ -33,13 +36,7 @@ namespace Trends
 		}
 
 		//------------------------------------------------------------------
-		public void FillCalendar ()
-		{
-			PutOperationsOnCalendar(new LocalDate(2015, 6, 1));
-		}
-
-		//------------------------------------------------------------------
-		public void PutOperationsOnCalendar (LocalDate end)
+		public void CalculateTransactionsCalendar (LocalDate end)
 		{
 			foreach (var operation in Operations)
 			{
@@ -55,7 +52,7 @@ namespace Trends
 		}
 
 		//------------------------------------------------------------------
-		public List<Transaction> GroupByDate(List<Transaction> calendar)
+		public void AggregateTransactionsByDate()
 		{
 			var query = from transaction in Calendar
 						orderby transaction
@@ -63,7 +60,7 @@ namespace Trends
 						into grouped
 						select grouped.Aggregate((a, b) => a + b);
 
-			return query.ToList();
+			Calendar = query.ToList();
 		}
 
 		//------------------------------------------------------------------
@@ -76,6 +73,8 @@ namespace Trends
 				return funds;
 			});
 		}
+
+		//------------------------------------------------------------------
 		private LocalDate GetCurrentDate()
 		{
 			ZonedClock clock = SystemClock.Instance.InUtc();
