@@ -4,9 +4,32 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Trends.Views"
+			  xmlns:charting = "clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-            
-    </Grid>
+
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source = "Resources/Styles.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</UserControl.Resources>
+	
+	
+	<Grid>
+		<!--Line-->
+		<charting:Chart x:Name = "ExpencesByDate" Grid.Row = "0"
+			                Template = "{StaticResource ChartTemplate}"
+			                Foreground = "DimGray" MinHeight = "400" >
+			<!--				<charting:Chart.Axes>-->
+			<!--					<charting:DateTimeAxis Orientation = "X" ShowGridLines = "True" IntervalType = "Days" Interval = "20"-->
+			<!--					                       GridLineStyle = "{DynamicResource GridLineStyle}" />-->
+			<!--					<charting:LinearAxis Orientation = "Y" ShowGridLines = "True" Interval = "1000"-->
+			<!--					                     GridLineStyle = "{DynamicResource GridLineStyle}" />-->
+			<!--				</charting:Chart.Axes>-->
+			<charting:LineSeries ItemsSource = "{Binding Funds}" DependentValuePath = "Amount" IndependentValuePath = "Date"/>
+			<!--				                     DataPointStyle = "{StaticResource LineDataPointStyle}" />-->
+		</charting:Chart>
+	</Grid>
 </UserControl>
