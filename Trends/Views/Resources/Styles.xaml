@@ -13,13 +13,13 @@
 		<Setter Property = "Template" >
 			<Setter.Value>
 				<ControlTemplate TargetType = "charting:LineDataPoint" >
-					<Grid x:Name = "Root" Opacity = "1" ToolTipService.InitialShowDelay="0" >
+					<Grid x:Name = "Root" Opacity = "1" ToolTipService.InitialShowDelay = "0" >
 						<ToolTipService.ToolTip>
 							<StackPanel Margin = "2,2,2,2" >
-								<ContentControl Content = "{TemplateBinding DependentValue}" ContentStringFormat = "{}{0}" 
-												Foreground="{TemplateBinding Background}" FontSize="16"/>
+								<ContentControl Content = "{TemplateBinding DependentValue}" ContentStringFormat = "{}{0}"
+								                Foreground = "{TemplateBinding Background}" FontSize = "16" />
 								<ContentControl Content = "{TemplateBinding IndependentValue}" ContentStringFormat = "{}{0:d MMMM}" />
-								<TextBlock Text = "{Binding Description}" Foreground="Gray"/>
+								<TextBlock Text = "{Binding Description}" Foreground = "Gray" />
 							</StackPanel>
 						</ToolTipService.ToolTip>
 						<Ellipse StrokeThickness = "{TemplateBinding BorderThickness}" Stroke = "{TemplateBinding BorderBrush}"
@@ -30,11 +30,26 @@
 		</Setter>
 	</Style>
 
+
+	<Style x:Key = "GooglePolylineStyle" TargetType = "Polyline" >
+		<Setter Property = "StrokeThickness" Value = "5" />
+		<Setter Property = "Stroke" Value = "Red" />
+	</Style>
+
+
+	<Style x:Key = "DateTimeAxisLabelStyle1" TargetType = "charting:DateTimeAxisLabel" >
+		<Setter Property = "DaysIntervalStringFormat" Value = "{}{0:d MMMM}" />
+		<Setter Property = "WeeksIntervalStringFormat" Value = "{}{0:d/MMMM}" />
+		<Setter Property="Foreground" Value="Gray"></Setter>
+	</Style>
+
+
 	<!--GridLineStyle-->
 	<Style x:Key = "GridLineStyle" TargetType = "{x:Type Line}" >
 		<Setter Property = "StrokeThickness" Value = "0.1" />
 		<Setter Property = "Stroke" Value = "Gray" />
 	</Style>
+
 
 	<!--LegendStyle-->
 	<Style x:Key = "LegendStyle" TargetType = "visualizationToolkit:Legend" >
@@ -42,11 +57,13 @@
 		<Setter Property = "BorderThickness" Value = "0" />
 	</Style>
 
+
 	<!--PlotAreaStyle-->
 	<Style x:Key = "PlotAreaStyle" TargetType = "{x:Type Grid}" >
 		<Setter Property = "Background" Value = "White" />
 		<Setter Property = "ShowGridLines" Value = "False" />
 	</Style>
+
 
 	<!--ChartTemplate-->
 	<ControlTemplate x:Key = "ChartTemplate" TargetType = "charting:Chart" >
@@ -66,7 +83,7 @@
 						<ColumnDefinition Width = "Auto" />
 					</Grid.ColumnDefinitions>
 					<!-- Legend -->
-<!--					<visualizationToolkit:Legend Name = "Legend" Grid.Column = "1" Style = "{StaticResource LegendStyle}" />-->
+					<!--					<visualizationToolkit:Legend Name = "Legend" Grid.Column = "1" Style = "{StaticResource LegendStyle}" />-->
 					<!-- Chart Area -->
 					<primitives:EdgePanel Name = "ChartArea" Style = "{TemplateBinding charting:Chart.ChartAreaStyle}" >
 						<!-- Plot Area -->
@@ -76,5 +93,6 @@
 			</Grid>
 		</Border>
 	</ControlTemplate>
+
 
 </ResourceDictionary>
