@@ -73,14 +73,17 @@ namespace Trends
 
 
 		public decimal Amount { get; set; }
-		public LocalDate Date { get; set; }
+		public DateTime Date { get; set; }
 		public string Description { get; set; }
 
 		//------------------------------------------------------------------
-		public Funds (decimal amount, LocalDate date, string description)
+		public Funds () {}
+
+		//------------------------------------------------------------------
+		public Funds (decimal amount, LocalDate date, string description) : this()
 		{
 			Amount = amount;
-			Date = date;
+			Date = DateTime.Parse(date.ToString());
 			Description = description;
 		}
 
