@@ -33,30 +33,4 @@ namespace Trends.Views
 			DataContext = viewModel;
 		}
 	}
-
-	namespace Design
-	{
-		public class Trend
-		{
-			//------------------------------------------------------------------
-			public List<Funds> Funds { get; set; }
-
-			//------------------------------------------------------------------
-			public Trend()
-			{
-				Funds = new List<Funds>
-				{
-					new Funds(5000, new LocalDate(2015, 1, 1), "Food"),
-					new Funds(4800, new LocalDate(2015, 1, 5), "Mozy"),
-					new Funds(5200, new LocalDate(2015, 1, 5), "O3"),
-					new Funds(4100, new LocalDate(2015, 1, 5), "Deposit"),
-					new Funds(3600, new LocalDate(2015, 1, 7), "Deposit"),
-					new Funds(4800, new LocalDate(2015, 1, 14), "Deposit"),
-					new Funds(4400, new LocalDate(2015, 1, 15), "House")
-				};
-
-			}
-		}
-	}
-
 }

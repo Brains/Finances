@@ -1,7 +1,6 @@
 ﻿<viewModels:Trend xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-              xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
-              xmlns:system = "clr-namespace:System;assembly=mscorlib" xmlns:trends = "clr-namespace:Trends"
-              xmlns:viewModels = "clr-namespace:Trends.ViewModels" >
+                  xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml" xmlns:trends = "clr-namespace:Trends"
+                  xmlns:viewModels = "clr-namespace:Trends.ViewModels" >
 	<viewModels:Trend.Funds>
 		<trends:Funds Amount = "5000" Description = "1" Date = "09/10/2015" />
 		<trends:Funds Amount = "4800" Description = "2" Date = "09/15/2015" />
