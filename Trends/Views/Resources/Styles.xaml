@@ -8,16 +8,18 @@
 	<Style x:Key = "LineDataPointStyle" TargetType = "charting:LineDataPoint" >
 		<Setter Property = "Background" Value = "#0077CC" />
 		<Setter Property = "BorderBrush" Value = "White" />
-		<Setter Property = "BorderThickness" Value = "2" />
+		<Setter Property = "BorderThickness" Value = "0" />
 		<Setter Property = "IsTabStop" Value = "False" />
 		<Setter Property = "Template" >
 			<Setter.Value>
 				<ControlTemplate TargetType = "charting:LineDataPoint" >
-					<Grid x:Name = "Root" Opacity = "1" >
+					<Grid x:Name = "Root" Opacity = "1" ToolTipService.InitialShowDelay="0" >
 						<ToolTipService.ToolTip>
 							<StackPanel Margin = "2,2,2,2" >
-								<ContentControl Content = "{TemplateBinding IndependentValue}" ContentStringFormat = "{}{0:MMMM d, yyyy}" />
-								<ContentControl Content = "{TemplateBinding DependentValue}" ContentStringFormat = "Visits {0:###,###,###}" />
+								<ContentControl Content = "{TemplateBinding DependentValue}" ContentStringFormat = "{}{0}" 
+												Foreground="{TemplateBinding Background}" FontSize="16"/>
+								<ContentControl Content = "{TemplateBinding IndependentValue}" ContentStringFormat = "{}{0:d MMMM}" />
+								<TextBlock Text = "{Binding Description}" Foreground="Gray"/>
 							</StackPanel>
 						</ToolTipService.ToolTip>
 						<Ellipse StrokeThickness = "{TemplateBinding BorderThickness}" Stroke = "{TemplateBinding BorderBrush}"
@@ -30,32 +32,25 @@
 
 	<!--GridLineStyle-->
 	<Style x:Key = "GridLineStyle" TargetType = "{x:Type Line}" >
-		<Setter Property = "StrokeThickness" Value = "0.2" />
+		<Setter Property = "StrokeThickness" Value = "0.1" />
 		<Setter Property = "Stroke" Value = "Gray" />
 	</Style>
 
 	<!--LegendStyle-->
-	<Style x:Key = "LegendStyle"
-	       TargetType = "visualizationToolkit:Legend" >
-		<Setter Property = "Background"
-		        Value = "White" />
-		<Setter Property = "BorderThickness"
-		        Value = "0" />
+	<Style x:Key = "LegendStyle" TargetType = "visualizationToolkit:Legend" >
+		<Setter Property = "Background" Value = "White" />
+		<Setter Property = "BorderThickness" Value = "0" />
 	</Style>
 
 	<!--PlotAreaStyle-->
-	<Style x:Key = "PlotAreaStyle"
-	       TargetType = "{x:Type Grid}" >
+	<Style x:Key = "PlotAreaStyle" TargetType = "{x:Type Grid}" >
 		<Setter Property = "Background" Value = "White" />
 		<Setter Property = "ShowGridLines" Value = "False" />
 	</Style>
 
 	<!--ChartTemplate-->
-	<ControlTemplate x:Key = "ChartTemplate"
-	                 TargetType = "charting:Chart" >
-		<Border Background = "{TemplateBinding Control.Background}"
-		        BorderBrush = "Transparent"
-		        BorderThickness = "0"
+	<ControlTemplate x:Key = "ChartTemplate" TargetType = "charting:Chart" >
+		<Border Background = "{TemplateBinding Control.Background}" BorderBrush = "Transparent" BorderThickness = "0"
 		        Padding = "{TemplateBinding Control.Padding}" >
 			<Grid>
 				<Grid.RowDefinitions>
@@ -63,18 +58,17 @@
 					<RowDefinition Height = "*" />
 				</Grid.RowDefinitions>
 				<!-- Title -->
-				<visualizationToolkit:Title Content = "{TemplateBinding charting:Chart.Title}" Style = "{TemplateBinding charting:Chart.TitleStyle}" />
-				<Grid Grid.Row = "1"
-				      Margin = "0,15" >
+				<visualizationToolkit:Title Content = "{TemplateBinding charting:Chart.Title}"
+				                            Style = "{TemplateBinding charting:Chart.TitleStyle}" />
+				<Grid Grid.Row = "1" Margin = "0,15" >
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width = "*" />
 						<ColumnDefinition Width = "Auto" />
 					</Grid.ColumnDefinitions>
 					<!-- Legend -->
-					<visualizationToolkit:Legend Name = "Legend" Grid.Column = "1" Style = "{StaticResource LegendStyle}" />
+<!--					<visualizationToolkit:Legend Name = "Legend" Grid.Column = "1" Style = "{StaticResource LegendStyle}" />-->
 					<!-- Chart Area -->
-					<primitives:EdgePanel Name = "ChartArea"
-					                      Style = "{TemplateBinding charting:Chart.ChartAreaStyle}" >
+					<primitives:EdgePanel Name = "ChartArea" Style = "{TemplateBinding charting:Chart.ChartAreaStyle}" >
 						<!-- Plot Area -->
 						<Grid Panel.ZIndex = "-1" Style = "{StaticResource PlotAreaStyle}" />
 					</primitives:EdgePanel>
