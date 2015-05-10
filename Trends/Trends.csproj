@@ -88,6 +88,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <DesignData Include="Views\Resources\Data.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </DesignData>
     <Page Include="Views\Resources\Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

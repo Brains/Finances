@@ -1,9 +1,9 @@
 ﻿<UserControl x:Class = "Trends.Views.Trend" xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc = "http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d = "http://schemas.microsoft.com/expression/blend/2008" xmlns:local = "clr-namespace:Trends.Views"
+             xmlns:d = "http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:charting = "clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
-             mc:Ignorable = "d" d:DesignHeight = "300" d:DesignWidth = "300" >
+             mc:Ignorable = "d" d:DesignHeight = "300" d:DesignWidth = "600" >
 
 	<UserControl.Resources>
 		<ResourceDictionary>
@@ -14,17 +14,20 @@
 	</UserControl.Resources>
 
 
-	<Grid>
+	<Grid 
+				d:DataContext = "{Binding Source={d:DesignData Source=Resources/Data.xaml}}" >
 		<!--Line-->
 		<charting:Chart x:Name = "ExpencesByDate" Grid.Row = "0" Template = "{StaticResource ChartTemplate}"
-		                Foreground = "DimGray" MinHeight = "400" >
+		                Foreground = "DimGray" MaxHeight = "800" >
 
 			<charting:LineSeries ItemsSource = "{Binding Funds}" DependentValuePath = "Amount" IndependentValuePath = "Date"
 			                     DataPointStyle = "{StaticResource LineDataPointStyle}" />
 
 			<charting:Chart.Axes>
-				<charting:DateTimeAxis Orientation = "X" ShowGridLines = "True" IntervalType = "Weeks" Interval = "2"
-				                       GridLineStyle = "{DynamicResource GridLineStyle}" />
+				<charting:DateTimeAxis Orientation = "X" ShowGridLines = "True" IntervalType = "Days" Interval = "5"
+				                       GridLineStyle = "{DynamicResource GridLineStyle}"
+				                       AxisLabelStyle = "{StaticResource DateTimeAxisLabelStyle1}" />
+
 				<charting:LinearAxis Orientation = "Y" ShowGridLines = "True" Interval = "300"
 				                     GridLineStyle = "{DynamicResource GridLineStyle}" />
 			</charting:Chart.Axes>
