@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Collections.Generic;
 using System.Linq;
 using NodaTime;
 using NUnit.Framework;
@@ -138,7 +136,7 @@ namespace Trends.Tests
 				new Funds(900, new LocalDate(2015, 1, 1), "1"),
 				new Funds(800, new LocalDate(2015, 1, 2), "2"),
 				new Funds(700, new LocalDate(2015, 1, 3), "3"),
-				new Funds(500, new LocalDate(2015, 1, 4), "4, 5"),
+				new Funds(500, new LocalDate(2015, 1, 4), "4, 5")
 			};
 			Expect(actual, EqualTo(expected));
 		}

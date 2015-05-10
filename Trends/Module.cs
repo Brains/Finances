@@ -21,7 +21,7 @@ namespace Trends
 		{
 			var regionManager = container.Resolve<IRegionManager>();
 
-			regionManager.RegisterViewWithRegion("Trends", () => this.container.Resolve<Views.Trend>());
-		}
+			regionManager.RegisterViewWithRegion("Trends", () => this.container.Resolve<Views.Trend>(new ParameterOverride("startFunds", 5000)));
+        }
 	}
 }

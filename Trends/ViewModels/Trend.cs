@@ -20,9 +20,14 @@ namespace Trends.ViewModels
 			Operations = new List<Operation>();
 			Calendar = new List<Transaction>();
 			funds = new List<decimal>();
+			Funds = new List<Funds>();
+		}
 
+		//------------------------------------------------------------------
+		public Trend (int startFunds) : this()
+		{
 			LoadOperations();
-			Calculate(5000, new LocalDate(2015, 3, 1));
+			Calculate(startFunds, new LocalDate(2015, 3, 1));
 			Funds = GetFunds();
 		}
 
