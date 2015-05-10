@@ -29,7 +29,7 @@ namespace Trends.ViewModels
 		#region Public
 
 		//------------------------------------------------------------------
-		public void Calculate(decimal startFunds, LocalDate end)
+		public void Calculate (decimal startFunds, LocalDate end)
 		{
 			CalculateTransactionsCalendar(end);
 			AggregateTransactionsByDate();
@@ -37,7 +37,7 @@ namespace Trends.ViewModels
 		}
 
 		//------------------------------------------------------------------
-		public List<Funds> GetFunds()
+		public List<Funds> GetFunds ()
 		{
 			var output = new List<Funds>();
 
@@ -83,13 +83,13 @@ namespace Trends.ViewModels
 		}
 
 		//------------------------------------------------------------------
-		private void AggregateTransactionsByDate()
+		private void AggregateTransactionsByDate ()
 		{
 			var query = from transaction in Calendar
-						orderby transaction
-						group transaction by transaction.Date
-						into grouped
-						select grouped.Aggregate((a, b) => a + b);
+				orderby transaction
+				group transaction by transaction.Date
+				into grouped
+				select grouped.Aggregate((a, b) => a + b);
 
 			Calendar = query.ToList();
 		}
@@ -106,13 +106,11 @@ namespace Trends.ViewModels
 		}
 
 		//------------------------------------------------------------------
-		private LocalDate GetCurrentDate()
+		private LocalDate GetCurrentDate ()
 		{
 			ZonedClock clock = SystemClock.Instance.InUtc();
 
 			return clock.GetCurrentDate();
 		}
 	}
-
-
 }
