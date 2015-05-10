@@ -7,7 +7,7 @@ namespace Trends.ViewModels
 {
 	public class Trend
 	{
-		private readonly List<decimal> funds;
+		private readonly List<decimal> money;
 
 		//------------------------------------------------------------------
 		public List<Operation> Operations { get; set; }
@@ -19,7 +19,7 @@ namespace Trends.ViewModels
 		{
 			Operations = new List<Operation>();
 			Calendar = new List<Transaction>();
-			funds = new List<decimal>();
+			money = new List<decimal>();
 			Funds = new List<Funds>();
 		}
 
@@ -46,10 +46,10 @@ namespace Trends.ViewModels
 		{
 			var output = new List<Funds>();
 
-			for (int index = 0; index < this.funds.Count; index++)
+			for (int index = 0; index < this.money.Count; index++)
 			{
 				var transaction = Calendar[index];
-				output.Add(new Funds(funds[index], transaction.Date, transaction.Description));
+				output.Add(new Funds(money[index], transaction.Date, transaction.Description));
 			}
 
 			return output;
@@ -105,7 +105,7 @@ namespace Trends.ViewModels
 			Calendar.Aggregate(start, (a, b) =>
 			{
 				var sum = a + b.Amount;
-				funds.Add(sum);
+				money.Add(sum);
 				return sum;
 			});
 		}
