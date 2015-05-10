@@ -52,7 +52,7 @@ namespace Trends
 		//------------------------------------------------------------------
 		public override string ToString ()
 		{
-			return $"{Date.Month} {Date.Day}; {Amount}; {Description}";
+			return $"{Date.ToString("d MMM yy", CultureInfo.CurrentCulture)}; {Amount}; {Description}";
 		}
 
 		//------------------------------------------------------------------

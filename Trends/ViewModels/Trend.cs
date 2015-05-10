@@ -27,16 +27,16 @@ namespace Trends.ViewModels
 		public Trend (int startFunds) : this()
 		{
 			LoadOperations();
-			Calculate(startFunds, new LocalDate(2015, 3, 1));
+			Calculate(startFunds, new LocalDate(2015, 4, 1), new LocalDate(2015, 6, 1));
 			Funds = GetFunds();
 		}
 
 		#region Public
 
 		//------------------------------------------------------------------
-		public void Calculate (decimal startFunds, LocalDate end)
+		public void Calculate (decimal startFunds, LocalDate start, LocalDate end)
 		{
-			CalculateTransactionsCalendar(end);
+			CalculateTransactionsCalendar(start, end);
 			AggregateTransactionsByDate();
 			CalculateFunds(startFunds);
 		}
@@ -72,7 +72,7 @@ namespace Trends.ViewModels
 		#endregion
 
 		//------------------------------------------------------------------
-		private void CalculateTransactionsCalendar (LocalDate end)
+		private void CalculateTransactionsCalendar (LocalDate start, LocalDate end)
 		{
 			foreach (var operation in Operations)
 			{
@@ -80,7 +80,8 @@ namespace Trends.ViewModels
 
 				while (date < end)
 				{
-					Calendar.Add(new Transaction(operation.Amount, date, operation.Description));
+					if (date >= start)
+						Calendar.Add(new Transaction(operation.Amount, date, operation.Description));
 
 					date = date + operation.Period;
 				}
