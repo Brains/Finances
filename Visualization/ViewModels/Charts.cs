@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using NodaTime;
 using Tracker;
 using Trends;
+using Trends.ViewModels;
 
 namespace Visualization.ViewModels
 {
@@ -21,7 +22,6 @@ namespace Visualization.ViewModels
 		public Dictionary<string, int> ExpencesByCategory => GetExpencesByCategory(expenses.Records);
 		public Dictionary<string, int> ExpencesByDate => GetDatesData(expenses.Records);
 		public Dictionary<string, int> ExpencesByType => GetExpencesByType(expenses.Records);
-		public List<Funds> Trend => GetTrend();
 
 		//------------------------------------------------------------------
 		public Charts (IExpenses expenses)
@@ -63,17 +63,6 @@ namespace Visualization.ViewModels
 				select new {Key = grouped.Key, Value = grouped.Sum(record => record.Amount)};
 
 			return query.ToDictionary(x => x.Key, x => (int) x.Value);
-		}
-
-		//------------------------------------------------------------------
-		public List<Funds> GetTrend ()
-		{
-			var trend = new Trend();
-			
-			trend.LoadOperations();
-			trend.Calculate(5000, new LocalDate(2015, 3, 1));
-
-			return trend.GetFunds();
 		}
 	}
 }

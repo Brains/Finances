@@ -52,7 +52,7 @@ namespace Trends
 		//------------------------------------------------------------------
 		public override string ToString ()
 		{
-			return $"{Date.Month} {Date.Day}; {Amount}; {Description}";
+			return $"{Date.ToString("d MMM yy", CultureInfo.CurrentCulture)}; {Amount}; {Description}";
 		}
 
 		//------------------------------------------------------------------
@@ -70,17 +70,18 @@ namespace Trends
 	//------------------------------------------------------------------
 	public class Funds : IEquatable<Funds>
 	{
-
-
 		public decimal Amount { get; set; }
-		public string Date { get; set; }
+		public DateTime Date { get; set; }
 		public string Description { get; set; }
 
 		//------------------------------------------------------------------
-		public Funds (decimal amount, LocalDate date, string description)
+		public Funds () {}
+
+		//------------------------------------------------------------------
+		public Funds (decimal amount, LocalDate date, string description) : this()
 		{
 			Amount = amount;
-			Date = date.ToString("MMM/d", CultureInfo.CurrentCulture);
+			Date = DateTime.Parse(date.ToString());
 			Description = description;
 		}
 

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Collections.Generic;
 using System.Linq;
 using NodaTime;
 using NUnit.Framework;
+using Trends.ViewModels;
 using static System.Console;
 
 namespace Trends.Tests
@@ -11,6 +10,7 @@ namespace Trends.Tests
 	[TestFixture]
 	class TrendTests : AssertionHelper
 	{
+		private readonly LocalDate january = new LocalDate(2015, 1, 1);
 		private readonly LocalDate june = new LocalDate(2015, 6, 1);
 
 		//------------------------------------------------------------------
@@ -24,10 +24,10 @@ namespace Trends.Tests
 		[Test]
 		public void Calculate_Always_PlaceTransactionsWithRightDate()
 		{
-			var trend = new Trends.Trend();
+			var trend = new Trend();
             trend.Operations.Add(new Operation(100, new LocalDate(2015, 1, 1), Period.FromDays(3), "Test"));
 
-			trend.Calculate(1000, june);
+			trend.Calculate(1000, january, june);
 
 			Expect(trend.Calendar, Has.Exactly(1).Property("Date").EqualTo(new LocalDate(2015, 1, 1)));
 			Expect(trend.Calendar, Has.Exactly(1).Property("Date").EqualTo(new LocalDate(2015, 1, 4)));
@@ -42,25 +42,26 @@ namespace Trends.Tests
 		[Test]
 		public void Calculate_ToJuneMonth_PlaceTransactionsOnlyUntilJuneMonth()
 		{
-			var trend = new Trends.Trend();
-			trend.Operations.Add(new Operation(100, new LocalDate(2015, 1, 1), Period.FromDays(3), "Test"));
+			var trend = new Trend();
+			trend.Operations.Add(new Operation(100, new LocalDate(2014, 1, 1), Period.FromDays(3), "Test"));
 
-			trend.Calculate(1000, june);
+			trend.Calculate(1000, january, june);
 
 			Expect(trend.Calendar, Has.All.Property("Date").Property("Month").LessThan(6));
+			Expect(trend.Calendar, Has.All.Property("Date").Property("Year").EqualTo(2015));
 		}
 
 		//------------------------------------------------------------------
 		[Test]
 		public void Calculate_Always_GroupsTransactionsWithSameDate()
 		{
-			var trend = new Trends.Trend();
+			var trend = new Trend();
 			var date = new LocalDate(2015, 1, 1);
 			trend.Calendar.Add(new Transaction(100, date, "1"));
 			trend.Calendar.Add(new Transaction(100, date, "2"));
 			trend.Calendar.Add(new Transaction(100, date, "3"));
 
-			trend.Calculate(1000, june);
+			trend.Calculate(1000, january, june);
 
 			Expect(trend.Calendar, Count.EqualTo(1));
 			Expect(trend.Calendar, All.Property("Date").EqualTo(date));
@@ -70,13 +71,13 @@ namespace Trends.Tests
 		[Test]
 		public void Calculate_Always_AggregateTransactionsAmmountsAndDescriptions()
 		{
-			var trend = new Trends.Trend();
+			var trend = new Trend();
 			var date = new LocalDate(2015, 1, 1);
 			trend.Calendar.Add(new Transaction(100, date, "1"));
 			trend.Calendar.Add(new Transaction(100, date, "2"));
 			trend.Calendar.Add(new Transaction(100, date, "3"));
 
-			trend.Calculate(1000, june);
+			trend.Calculate(1000, january, june);
 
 			Expect(trend.Calendar, All.Property("Amount").EqualTo(300));
 			Expect(trend.Calendar, All.Property("Description").EqualTo("1, 2, 3"));
@@ -86,7 +87,7 @@ namespace Trends.Tests
 		[Test]
 		public void Calculate_Always_SortsItemsByDate()
 		{
-			var trend = new Trends.Trend();
+			var trend = new Trend();
 			trend.Calendar.Add(new Transaction(100, new LocalDate(2015, 1, 3), "3"));
 			trend.Calendar.Add(new Transaction(100, new LocalDate(2015, 1, 6), "6"));
 			trend.Calendar.Add(new Transaction(100, new LocalDate(2015, 1, 1), "1"));
@@ -94,7 +95,7 @@ namespace Trends.Tests
 			trend.Calendar.Add(new Transaction(100, new LocalDate(2015, 1, 2), "2"));
 			trend.Calendar.Add(new Transaction(100, new LocalDate(2015, 1, 4), "4"));
 
-			trend.Calculate(1000, june);
+			trend.Calculate(1000, january, june);
 
 			Expect(trend.Calendar, Is.Ordered.By("Date"));
 		}
@@ -111,7 +112,7 @@ namespace Trends.Tests
 			trend.Calendar.Add(new Transaction(-100, new LocalDate(2015, 1, 4), "4"));
 			trend.Calendar.Add(new Transaction(-100, new LocalDate(2015, 1, 4), "5"));
 
-			trend.Calculate(1000, june);
+			trend.Calculate(1000, january, june);
 			var actual = trend.GetFunds().Select(funds => funds.Amount);
 
 			decimal[] expect = {900, 800, 700, 500};
@@ -120,7 +121,7 @@ namespace Trends.Tests
 
 		//------------------------------------------------------------------
 		[Test]
-		public void GetFundsDictionary_Always_ReturnsCorrectDictionary()
+		public void GetFunds_Always_ReturnsCorrectList()
 		{
 			var trend = new Trend();
 			trend.Calendar.Add(new Transaction(-100, new LocalDate(2015, 1, 1), "1"));
@@ -129,7 +130,7 @@ namespace Trends.Tests
 			trend.Calendar.Add(new Transaction(-100, new LocalDate(2015, 1, 4), "4"));
 			trend.Calendar.Add(new Transaction(-100, new LocalDate(2015, 1, 4), "5"));
 
-			trend.Calculate(1000, june);
+			trend.Calculate(1000, january, june);
 			var actual = trend.GetFunds();
 
 			var expected = new List<Funds>
@@ -137,7 +138,7 @@ namespace Trends.Tests
 				new Funds(900, new LocalDate(2015, 1, 1), "1"),
 				new Funds(800, new LocalDate(2015, 1, 2), "2"),
 				new Funds(700, new LocalDate(2015, 1, 3), "3"),
-				new Funds(500, new LocalDate(2015, 1, 4), "4, 5"),
+				new Funds(500, new LocalDate(2015, 1, 4), "4, 5")
 			};
 			Expect(actual, EqualTo(expected));
 		}
