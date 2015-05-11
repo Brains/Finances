@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NodaTime;
 using Tracker;
+using Trends;
+using Trends.ViewModels;
 
 namespace Visualization.ViewModels
 {
