@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace Visualization.ViewModels
 
 		//------------------------------------------------------------------
 		public Dictionary<string, int> ExpencesByCategory => GetExpencesByCategory(expenses.Records);
-		public Dictionary<string, int> ExpencesByDate => GetDatesData(expenses.Records);
+		public List<IGrouping<string, Record>> ExpencesByDate => GetRecordsGroupedByDate(expenses.Records);
 		public Dictionary<string, int> ExpencesByType => GetExpencesByType(expenses.Records);
 
 		//------------------------------------------------------------------
@@ -68,6 +69,19 @@ namespace Visualization.ViewModels
 			var query = from record in records
 				where record.Date > date
 				select record;
+
+			return query.ToList();
+		}
+
+		//------------------------------------------------------------------
+		private List<IGrouping<string, Record>> GetRecordsGroupedByDate(ObservableCollection<Record> records)
+		{
+			var query = from record in records
+				where record.Date.Month == 3
+				orderby record.Date.ToString("yy-MM-dd")
+				group record by record.Date.ToString("yy-MM-dd")
+				into grouped
+				select grouped;
 
 			return query.ToList();
 		}
