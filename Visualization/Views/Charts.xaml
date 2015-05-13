@@ -25,15 +25,14 @@
 			</Grid.RowDefinitions>
 
 			<!--Stacked Columns-->
-			<metro:StackedColumnChart Grid.Row="0" 
-									  SeriesSource="{Binding Path=ExpencesByDate}">
+			<metro:StackedColumnChart Grid.Row="0"
+			                          SeriesSource="{Binding ExpencesByDate}">
 				<metro:StackedColumnChart.SeriesTemplate>
 					<DataTemplate>
-						<metro:ChartSeries
-							SeriesTitle="{Binding Path=Key}"
-							DisplayMember="Category"
-							ValueMember="Amount"
-							ItemsSource="{Binding}" />
+						<metro:ChartSeries SeriesTitle="{Binding Key}"
+						                   DisplayMember="Category"
+						                   ValueMember="Amount"
+						                   ItemsSource="{Binding}" />
 					</DataTemplate>
 				</metro:StackedColumnChart.SeriesTemplate>
 			</metro:StackedColumnChart>

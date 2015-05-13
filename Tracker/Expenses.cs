@@ -14,10 +14,10 @@ namespace Tracker
     {
 		readonly Random random = new Random();
 
-		//------------------------------------------------------------------
+		
 		public ObservableCollection<Record> Records { get; private set; }
 
-        //------------------------------------------------------------------
+        
         public Expenses ()
         {
             Records = new ObservableCollection<Record>();
@@ -25,14 +25,13 @@ namespace Tracker
 			Load();
 		}
 
-	    //------------------------------------------------------------------
+	    
 		public void Add (decimal amount, Record.Types type, Record.Categories category, string description)
 		{
 			Record record = new Record(random.Next(1000), amount, type, category, description, DateTime.Now);
 			Records.Add (record);
 		}
-
-	    //------------------------------------------------------------------
+	    
 	    public void Save ()
 	    {
 			XmlSerializer serializer = new XmlSerializer(Records.GetType());
@@ -44,7 +43,6 @@ namespace Tracker
 			}
 		}
 
-		//------------------------------------------------------------------
 		public void Load ()
 		{
 			XmlSerializer serializer = new XmlSerializer(Records.GetType());
@@ -56,10 +54,8 @@ namespace Tracker
 			}
 		}
 
-
-
 		#region Random
-	    //------------------------------------------------------------------
+	    
 	    private void CreateRandomRecord ()
 	    {
 		    string[] descriptions =
@@ -77,7 +73,7 @@ namespace Tracker
 			    RandomDay(random)));
 	    }
 
-	    //------------------------------------------------------------------
+	    
 	    private T RandomEnumValue<T> () 
 	    {
 		    return Enum.GetValues(typeof (T))
@@ -86,7 +82,7 @@ namespace Tracker
 				.FirstOrDefault();
 	    }
 
-	    //------------------------------------------------------------------
+	    
 	    DateTime RandomDay (Random random)
 	    {
 		    DateTime start = new DateTime(2015, 2, 1);
