@@ -26,7 +26,9 @@
 
 			<!--Stacked Columns-->
 			<metro:StackedColumnChart Grid.Row="0"
-			                          SeriesSource="{Binding ExpencesByDate}">
+			                          SeriesSource="{Binding ExpencesByDate}"
+			                          ChartTitle="Expences by Date"
+			                          ChartSubTitle="Marth">
 				<metro:StackedColumnChart.SeriesTemplate>
 					<DataTemplate>
 						<metro:ChartSeries SeriesTitle="{Binding Key}"
@@ -40,14 +42,14 @@
 			<!--Pie-->
 			<metro:DoughnutChart x:Name="Chart"
 			                     Grid.Row="1"
-			                     Foreground="DimGray"
-			                     MinHeight="500"
-			                     InnerRadiusRatio="0.5">
+			                     InnerRadiusRatio="0.5"
+			                     ChartTitle="Expences by Categories"
+			                     ChartSubTitle="Marth">
 				<metro:DoughnutChart.Series>
 					<metro:ChartSeries ItemsSource="{Binding ExpencesByCategory}"
-					                   SeriesTitle="asdasdasd"
 					                   DisplayMember="Key"
-					                   ValueMember="Value" />
+					                   ValueMember="Value" 
+									   SeriesTitle="NoTitle"/>
 				</metro:DoughnutChart.Series>
 			</metro:DoughnutChart>
 		</Grid>

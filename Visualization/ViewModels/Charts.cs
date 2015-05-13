@@ -1,9 +1,13 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Tracker;
 
 namespace Visualization.ViewModels
@@ -45,17 +49,17 @@ namespace Visualization.ViewModels
 			return query.ToDictionary(x => x.Key.ToString(), x => (int) x.Value);
 		}
 		
-		public Dictionary<string, int> GetDatesData (IEnumerable<Record> records)
-		{
-			var query = from record in records
-				where record.Date.Month == 3
-				orderby record.Date.ToString("yy-MM-dd")
-				group record by record.Date.ToString("yy-MM-dd")
-				into grouped
-				select new {Key = grouped.Key, Value = grouped.Sum(record => record.Amount)};
-
-			return query.ToDictionary(x => x.Key, x => (int) x.Value);
-		}
+//		public Dictionary<string, int> GetDatesData (IEnumerable<Record> records)
+//		{
+//			var query = from record in records
+//				where record.Date.Month == 3
+//				orderby record.Date.ToString("yy-MM-dd")
+//				group record by record.Date.ToString("yy-MM-dd")
+//				into grouped
+//				select new {Key = grouped.Key, Value = grouped.Sum(record => record.Amount)};
+//
+//			return query.ToDictionary(x => x.Key, x => (int) x.Value);
+//		}
 		
 		public List<Record> GetRecordsFrom (DateTime date, IEnumerable<Record> records)
 		{
@@ -68,10 +72,12 @@ namespace Visualization.ViewModels
 		
 		private List<IGrouping<string, Record>> GetRecordsGroupedByDate(ObservableCollection<Record> records)
 		{
+			var format = "dd";
+
 			var query = from record in records
 				where record.Date.Month == 3
-				orderby record.Date.ToString("yy-MM-dd")
-				group record by record.Date.ToString("yy-MM-dd")
+				orderby record.Date.Date.ToString(CultureInfo.InvariantCulture)
+				group record by record.Date.ToString(format)
 				into grouped
 				select grouped;
 
