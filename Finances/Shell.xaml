@@ -8,7 +8,8 @@
                       Width = "1000" 
 					  WindowState="Maximized"
 					  ShowIconOnTitleBar="True">
-	<TabControl SelectedIndex = "2" TabStripPlacement="Left">
+	<TabControl SelectedIndex = "0"
+	            TabStripPlacement = "Left" >
 		<TabItem Name = "Tracker"
 		         Header = "Tracker" >
 			<Grid>

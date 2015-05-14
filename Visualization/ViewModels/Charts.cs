@@ -1,36 +1,35 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NodaTime;
+using System.Windows;
 using Tracker;
-using Trends;
-using Trends.ViewModels;
 
 namespace Visualization.ViewModels
 {
 	// For XAML
-	//------------------------------------------------------------------
+	
 //	public class MarkupDictionary : Dictionary<string, int> {}
 
 	public class Charts
 	{
 		private readonly IExpenses expenses;
-		//------------------------------------------------------------------
+
 		public Dictionary<string, int> ExpencesByCategory => GetExpencesByCategory(expenses.Records);
-		public Dictionary<string, int> ExpencesByDate => GetDatesData(expenses.Records);
+		public List<IGrouping<string, Record>> ExpencesByDate => GetRecordsGroupedByDate(expenses.Records);
 		public Dictionary<string, int> ExpencesByType => GetExpencesByType(expenses.Records);
 
-		//------------------------------------------------------------------
 		public Charts (IExpenses expenses)
 		{
 			this.expenses = expenses;
 		}
 
-
-		//------------------------------------------------------------------
 		public Dictionary<string, int> GetExpencesByCategory (IEnumerable<Record> records)
 		{
 			var query = from record in records
@@ -41,7 +40,6 @@ namespace Visualization.ViewModels
 			return query.ToDictionary(x => x.Key.ToString(), x => (int) x.Value);
 		}
 
-		//------------------------------------------------------------------
 		public Dictionary<string, int> GetExpencesByType (IEnumerable<Record> records)
 		{
 			var query = from record in records
@@ -52,17 +50,39 @@ namespace Visualization.ViewModels
 			return query.ToDictionary(x => x.Key.ToString(), x => (int) x.Value);
 		}
 
-		//------------------------------------------------------------------
-		public Dictionary<string, int> GetDatesData (IEnumerable<Record> records)
+//		public Dictionary<string, int> GetDatesData (IEnumerable<Record> records)
+//		{
+//			var query = from record in records
+//				where record.Date.Month == 3
+//				orderby record.Date.ToString("yy-MM-dd")
+//				group record by record.Date.ToString("yy-MM-dd")
+//				into grouped
+//				select new {Key = grouped.Key, Value = grouped.Sum(record => record.Amount)};
+//
+//			return query.ToDictionary(x => x.Key, x => (int) x.Value);
+//		}
+		
+		public List<Record> GetRecordsFrom (DateTime date, IEnumerable<Record> records)
 		{
 			var query = from record in records
-				where record.Date.Month == 3
-				orderby record.Date.ToString("yy-MM-dd")
-				group record by record.Date.ToString("yy-MM-dd")
-				into grouped
-				select new {Key = grouped.Key, Value = grouped.Sum(record => record.Amount)};
+				where record.Date > date
+				select record;
 
-			return query.ToDictionary(x => x.Key, x => (int) x.Value);
+			return query.ToList();
+		}
+		
+		private List<IGrouping<string, Record>> GetRecordsGroupedByDate(ObservableCollection<Record> records)
+		{
+			var format = "dd";
+
+			var query = from record in records
+				where record.Date.Month == 3
+				orderby record.Date.Date.ToString(CultureInfo.InvariantCulture)
+				group record by record.Date.ToString(format)
+				into grouped
+				select grouped;
+
+			return query.ToList();
 		}
 	}
 }

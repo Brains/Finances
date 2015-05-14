@@ -7,9 +7,4 @@
 		<system:Int32 x:Key="key1">111</system:Int32>
 		<system:Int32 x:Key="key2">222</system:Int32>
 	</viewModels:Charts.ExpencesByCategory>
-	<viewModels:Charts.ExpencesByDate>
-		<system:Int32 x:Key="key0">0</system:Int32>
-		<system:Int32 x:Key="key1">111</system:Int32>
-		<system:Int32 x:Key="key2">222</system:Int32>
-	</viewModels:Charts.ExpencesByDate>
 </viewModels:Charts> 

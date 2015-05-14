@@ -55,7 +55,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Records.xml">
+    <Content Include="..\..\Tracker\Records.xml">
+      <Link>Records.xml</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
