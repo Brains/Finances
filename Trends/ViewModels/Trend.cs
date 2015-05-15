@@ -27,7 +27,7 @@ namespace Trends.ViewModels
 		public Trend (int startFunds) : this()
 		{
 			LoadOperations();
-			Calculate(startFunds, new LocalDate(2015, 4, 1), new LocalDate(2015, 6, 1));
+			Calculate(7000, new LocalDate(2015, 5, 14), new LocalDate(2015, 7, 1));
 			Funds = GetFunds();
 		}
 
@@ -60,13 +60,14 @@ namespace Trends.ViewModels
 		{
 			var monthly = Period.FromMonths(1);
 
-			Operations.Add(new Operation(-300, new LocalDate(2015, 1, 1), Period.FromDays(3), "Food"));
-			Operations.Add(new Operation(-140, new LocalDate(2015, 1, 5), monthly, "Mozy"));
-			Operations.Add(new Operation(-30, new LocalDate(2015, 1, 5), monthly, "O3"));
-			Operations.Add(new Operation(1200, new LocalDate(2015, 1, 5), monthly, "Deposit"));
+			Operations.Add(new Operation(-300, new LocalDate(2015, 5, 15), Period.FromDays(3), "Food"));
+			Operations.Add(new Operation(-2000, new LocalDate(2015, 1, 15), monthly, "House"));
+			Operations.Add(new Operation(-1000, new LocalDate(2015, 5, 30), Period.FromDays(20), "Medications"));
+
+			Operations.Add(new Operation(1300, new LocalDate(2015, 1, 5), monthly, "Deposit"));
 			Operations.Add(new Operation(200, new LocalDate(2015, 1, 7), monthly, "Deposit"));
-			Operations.Add(new Operation(600, new LocalDate(2015, 1, 14), monthly, "Deposit"));
-			Operations.Add(new Operation(-1800, new LocalDate(2015, 1, 15), monthly, "House"));
+			Operations.Add(new Operation(900, new LocalDate(2015, 1, 17), monthly, "Deposit"));
+			Operations.Add(new Operation(300, new LocalDate(2015, 1, 19), monthly, "Deposit"));
 		}
 
 		#endregion
