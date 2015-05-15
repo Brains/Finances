@@ -6,6 +6,10 @@ namespace Trends
 {
 	public class Operation
 	{
+		private DateTime startDate;
+		private DatePeriod period;
+		private DateTime previousDate;
+
 		public decimal Amount { get; set; }
 		public LocalDate Start { get; set; }
 		public Period Period { get; set; }
@@ -19,6 +23,29 @@ namespace Trends
 			Start = start;
 		}
 
+		public Operation(DateTime startDate, DatePeriod period)
+		{
+			this.startDate = startDate;
+			this.previousDate = startDate;
+			this.period = period;
+		}
+
+		public DateTime NextDate()
+		{
+			previousDate = period.Next(previousDate);
+
+			return previousDate;
+		}
+
+		public DateTime NextDate(DateTime after)
+		{
+			DateTime current = DateTime.MinValue;
+
+			while (current <= after)
+				current = NextDate();
+
+			return current;
+		}
 	}
 
 
