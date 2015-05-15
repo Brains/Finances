@@ -61,7 +61,6 @@ namespace Trends.ViewModels
 			Operations.Add(new Operation(1300, new LocalDate(2015, 1, 5), monthly, "Deposit"));
 			Operations.Add(new Operation(200, new LocalDate(2015, 1, 7), monthly, "Deposit"));
 			Operations.Add(new Operation(900, new LocalDate(2015, 1, 17), monthly, "Deposit"));
-			Operations.Add(new Operation(300, new LocalDate(2015, 1, 19), monthly, "Deposit"));
 		}
 
 		#endregion
