@@ -13,7 +13,6 @@ namespace Finances
 			return ServiceLocator.Current.GetInstance<Shell>();
 		}
 
-		//------------------------------------------------------------------
 		protected override void InitializeShell ()
 		{
 			base.InitializeShell();
@@ -22,7 +21,6 @@ namespace Finances
 			Application.Current.MainWindow.Show();
 		}
 
-		//------------------------------------------------------------------
 		protected override void ConfigureModuleCatalog ()
 		{
 			base.ConfigureModuleCatalog();

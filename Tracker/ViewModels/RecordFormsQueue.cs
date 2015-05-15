@@ -19,7 +19,6 @@ namespace Tracker.ViewModels
 		public ICommand AddRecordCommand { get; private set; }
 		public ICommand SubmitCommand { get; private set; }
 
-		//------------------------------------------------------------------
 		public RecordFormsQueue(IExpenses expenses)
 		{
 			this.expenses = expenses;
@@ -28,7 +27,6 @@ namespace Tracker.ViewModels
 			Forms = new ObservableCollection<RecordForm>();
         }
 
-		//------------------------------------------------------------------
 		public RecordForm AddForm ()
 		{
 			var form = new RecordForm(expenses);
@@ -41,7 +39,6 @@ namespace Tracker.ViewModels
 			return form;
 		}
 
-		//------------------------------------------------------------------
 		public void SubstractSecondariesFromPrimary ()
 		{
 			var primary =  Forms.First().Amount;
@@ -50,13 +47,11 @@ namespace Tracker.ViewModels
 			Forms.First().Amount = primary - secondaries;
 		}
 
-		//------------------------------------------------------------------
 		public decimal Total()
 		{
 			return Forms.Select(record => record.Amount).Sum();
 		}
 
-		//------------------------------------------------------------------
 		public void Submit()
 		{
 			SubstractSecondariesFromPrimary();

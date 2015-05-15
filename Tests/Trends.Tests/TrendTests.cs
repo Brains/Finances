@@ -13,14 +13,12 @@ namespace Trends.Tests
 		private readonly LocalDate january = new LocalDate(2015, 1, 1);
 		private readonly LocalDate june = new LocalDate(2015, 6, 1);
 
-		//------------------------------------------------------------------
 		public void Out<T>(IEnumerable<T> list)
 		{
 			foreach (var item in list)
 				WriteLine(item);
 		}
 
-		//------------------------------------------------------------------
 		[Test]
 		public void Calculate_Always_PlaceTransactionsWithRightDate()
 		{
@@ -38,7 +36,6 @@ namespace Trends.Tests
 		}
 
 
-		//------------------------------------------------------------------
 		[Test]
 		public void Calculate_ToJuneMonth_PlaceTransactionsOnlyUntilJuneMonth()
 		{
@@ -51,7 +48,6 @@ namespace Trends.Tests
 			Expect(trend.Calendar, Has.All.Property("Date").Property("Year").EqualTo(2015));
 		}
 
-		//------------------------------------------------------------------
 		[Test]
 		public void Calculate_Always_GroupsTransactionsWithSameDate()
 		{
@@ -67,7 +63,6 @@ namespace Trends.Tests
 			Expect(trend.Calendar, All.Property("Date").EqualTo(date));
 		}
 
-		//------------------------------------------------------------------
 		[Test]
 		public void Calculate_Always_AggregateTransactionsAmmountsAndDescriptions()
 		{
@@ -83,7 +78,6 @@ namespace Trends.Tests
 			Expect(trend.Calendar, All.Property("Description").EqualTo("1, 2, 3"));
 		}
 
-		//------------------------------------------------------------------
 		[Test]
 		public void Calculate_Always_SortsItemsByDate()
 		{
@@ -100,7 +94,6 @@ namespace Trends.Tests
 			Expect(trend.Calendar, Is.Ordered.By("Date"));
 		}
 
-		//------------------------------------------------------------------
 		[Test]
 		public void Calculate_WithStartFunds_AppliesEachTransactionOnFundsAmount()
 		{
@@ -119,7 +112,6 @@ namespace Trends.Tests
 			Expect(actual, EquivalentTo(expect));
 		}
 
-		//------------------------------------------------------------------
 		[Test]
 		public void GetFunds_Always_ReturnsCorrectList()
 		{

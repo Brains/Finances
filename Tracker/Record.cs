@@ -21,7 +21,6 @@ namespace Tracker
 		    Balance,
 		}
 
-		//------------------------------------------------------------------
 		public enum Categories
         {
 			Food,
@@ -37,7 +36,6 @@ namespace Tracker
 			Max,
         }
 
-		//------------------------------------------------------------------
 		[XmlAttribute]
 		public int ID { get; set; }
 
@@ -56,10 +54,8 @@ namespace Tracker
 		[XmlAttribute(DataType = "date")]
 		public DateTime Date { get; set; }
 
-		//------------------------------------------------------------------
 		public Record () {}
 		
-		//------------------------------------------------------------------
         public Record (int id, decimal amount, Types type, Categories category, string description, DateTime date) /*: this()*/
         {
 			Requires.True(amount > 1, "amount > 1");

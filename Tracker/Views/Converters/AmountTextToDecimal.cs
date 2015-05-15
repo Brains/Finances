@@ -9,7 +9,6 @@ namespace Tracker.Views.Converters
 {
 	public class AmountTextToDecimal : IValueConverter
 	{
-		//------------------------------------------------------------------
 		public object Convert (object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			decimal amount = (decimal) value;
@@ -20,7 +19,6 @@ namespace Tracker.Views.Converters
 			return amount.ToString(CultureInfo.InvariantCulture);
 		}
 
-		//------------------------------------------------------------------
 		public object ConvertBack (object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			string amount = (string) value;

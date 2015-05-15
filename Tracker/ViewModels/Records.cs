@@ -17,7 +17,6 @@ namespace Tracker.ViewModels
 
 		public ObservableCollection<Record> RecordsList => expenses.Records;
 
-		//------------------------------------------------------------------
 		public Records (IExpenses expenses)
 		{
 			this.expenses = expenses;
@@ -25,7 +24,6 @@ namespace Tracker.ViewModels
 			Group();
 		}
 
-		//------------------------------------------------------------------
 		private void Group ()
 		{
 			ICollectionView view = CollectionViewSource.GetDefaultView(RecordsList);

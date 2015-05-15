@@ -22,11 +22,9 @@ namespace Tracker.ViewModels
 		public Thickness Padding { get; set; }
 		public Thickness Border { get; set; }
 
-		//------------------------------------------------------------------
 		public IEnumerable<Record.Categories> RecordCategories { get; set; }
 		public IEnumerable<Record.Types> RecordTypes { get; set; }
 
-		//------------------------------------------------------------------
 		public RecordForm (IExpenses expenses)
 		{
 			this.expenses = expenses;
@@ -38,7 +36,6 @@ namespace Tracker.ViewModels
 			Border = new Thickness(0);
         }
 
-		//------------------------------------------------------------------
 		public void Submit ()
 		{
 			if (string.IsNullOrEmpty(Description))
@@ -50,7 +47,6 @@ namespace Tracker.ViewModels
 			expenses.Add(Amount, Type, Category, Description);
 		}
 
-		//------------------------------------------------------------------
 		private decimal Divide (decimal amount)
 		{
 			decimal customers = 3;
@@ -58,7 +54,6 @@ namespace Tracker.ViewModels
 			return Math.Round(amount / customers);
 		}
 
-		//------------------------------------------------------------------
 		public void MarkPrimary ()
 		{
 			Padding = new Thickness(5, 5, 40, 5);

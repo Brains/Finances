@@ -11,7 +11,6 @@ namespace Tracker.Views.Converters
 	{
 		private static readonly Dictionary<string, Brush> Colors;
 
-		//------------------------------------------------------------------
 		static EnumToColor ()
 		{
 			Colors = new Dictionary<string, Brush>
@@ -25,7 +24,6 @@ namespace Tracker.Views.Converters
 			};
 		}
 
-		//------------------------------------------------------------------
 		public object Convert (object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			var key = value.ToString();
@@ -36,7 +34,6 @@ namespace Tracker.Views.Converters
 			return Colors["Default"];
 		}
 
-		//------------------------------------------------------------------
 		public object ConvertBack (object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			return DependencyProperty.UnsetValue;

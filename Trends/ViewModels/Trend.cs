@@ -9,12 +9,10 @@ namespace Trends.ViewModels
 	{
 		private readonly List<decimal> money;
 
-		//------------------------------------------------------------------
 		public List<Operation> Operations { get; set; }
 		public List<Transaction> Calendar { get; set; }
 		public List<Funds> Funds { get; set; }
 
-		//------------------------------------------------------------------
 		public Trend ()
 		{
 			Operations = new List<Operation>();
@@ -23,7 +21,6 @@ namespace Trends.ViewModels
 			Funds = new List<Funds>();
 		}
 
-		//------------------------------------------------------------------
 		public Trend (int startFunds) : this()
 		{
 			LoadOperations();
@@ -33,7 +30,6 @@ namespace Trends.ViewModels
 
 		#region Public
 
-		//------------------------------------------------------------------
 		public void Calculate (decimal startFunds, LocalDate start, LocalDate end)
 		{
 			CalculateTransactionsCalendar(start, end);
@@ -41,7 +37,6 @@ namespace Trends.ViewModels
 			CalculateFunds(startFunds);
 		}
 
-		//------------------------------------------------------------------
 		public List<Funds> GetFunds ()
 		{
 			var output = new List<Funds>();
@@ -55,7 +50,6 @@ namespace Trends.ViewModels
 			return output;
 		}
 
-		//------------------------------------------------------------------
 		public void LoadOperations ()
 		{
 			var monthly = Period.FromMonths(1);
@@ -72,7 +66,6 @@ namespace Trends.ViewModels
 
 		#endregion
 
-		//------------------------------------------------------------------
 		private void CalculateTransactionsCalendar (LocalDate start, LocalDate end)
 		{
 			foreach (var operation in Operations)
@@ -89,7 +82,6 @@ namespace Trends.ViewModels
 			}
 		}
 
-		//------------------------------------------------------------------
 		private void AggregateTransactionsByDate ()
 		{
 			var query = from transaction in Calendar
@@ -101,7 +93,6 @@ namespace Trends.ViewModels
 			Calendar = query.ToList();
 		}
 
-		//------------------------------------------------------------------
 		private void CalculateFunds (decimal start)
 		{
 			Calendar.Aggregate(start, (a, b) =>
@@ -112,7 +103,6 @@ namespace Trends.ViewModels
 			});
 		}
 
-		//------------------------------------------------------------------
 		private LocalDate GetCurrentDate ()
 		{
 			ZonedClock clock = SystemClock.Instance.InUtc();

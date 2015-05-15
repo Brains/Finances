@@ -12,7 +12,6 @@ namespace Tracker.UnitTests
 	[TestFixture]
 	class AddRecordTests : AssertionHelper
 	{
-		//------------------------------------------------------------------
 		[Test]
 		public void Submit_Shared_DividesAmountIntoThree()
 		{
@@ -26,7 +25,6 @@ namespace Tracker.UnitTests
 			expenses.Received().Add(3, Record.Types.Shared, Record.Categories.Food, "Test");
 		}
 
-		//------------------------------------------------------------------
 		[Test]
 		public void Submit_NotShared_DontDividesAmount()
 		{
@@ -39,7 +37,6 @@ namespace Tracker.UnitTests
 			expenses.Received().Add(9, Record.Types.Expense, Record.Categories.Food, "Test");
 		}
 
-		//------------------------------------------------------------------
 		[TestCase(10, 3)]
 		[TestCase(11, 4)]
 		public void Submit_Shared_RoundsCorrectlyAfterDividing(int shared, int individual)

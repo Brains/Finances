@@ -24,7 +24,6 @@ namespace Tracker.Views
 		}
 
 		[InjectionConstructor]
-		//------------------------------------------------------------------
 		public RecordFormsQueue (ViewModels.RecordFormsQueue viewModel) : this()
 	    {
 			DataContext = viewModel;

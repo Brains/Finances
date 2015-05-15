@@ -12,7 +12,6 @@ namespace Tracker.UnitTests
 	[TestFixture]
 	internal class RecordsQueueTests : AssertionHelper
 	{
-		//------------------------------------------------------------------
 		private static void AddRecords (int[] amounts, RecordFormsQueue queue)
 		{
 			queue.AddForm().Amount = amounts[0];
@@ -20,7 +19,6 @@ namespace Tracker.UnitTests
 			queue.AddForm().Amount = amounts[2];
 		}
 
-		//------------------------------------------------------------------
 		private static void FillForms (IEnumerable<RecordForm> forms)
 		{
 			foreach (var form in forms)
@@ -30,7 +28,6 @@ namespace Tracker.UnitTests
 			}
 		}
 
-		//------------------------------------------------------------------
 		[Test]
 		public void AddForm_ByDefault_AddsNewToRecords ()
 		{
@@ -41,7 +38,6 @@ namespace Tracker.UnitTests
 			Expect(queue.Forms.Count, EqualTo(1));
 		}
 
-		//------------------------------------------------------------------
 		[TestCase (70, 100, 20, 10)]
 		[TestCase (120, 300, 120, 60)]
 		[TestCase (111, 256, 48, 97)]
@@ -55,7 +51,6 @@ namespace Tracker.UnitTests
 			Expect(queue.Forms.First().Amount, EqualTo(expected));
 		}
 
-		//------------------------------------------------------------------
 		[TestCase (130, 100, 20, 10)]
 		[TestCase (370, 210, 90, 70)]
 		public void Total_ByDefault_ReturnsTotalAmountForAllRecords (int expected, params int[] amounts)
@@ -68,7 +63,6 @@ namespace Tracker.UnitTests
 			Expect(total, EqualTo(expected));
 		}
 
-		//------------------------------------------------------------------
 		[Test]
 		public void Submit_Always_AddAllRecordsToExpences ()
 		{

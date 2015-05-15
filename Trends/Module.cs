@@ -10,13 +10,11 @@ namespace Trends
 	{
 		private readonly IUnityContainer container;
 
-		//------------------------------------------------------------------
 		public Module (IUnityContainer container)
 		{
 			this.container = container;
 		}
 
-		//------------------------------------------------------------------
 		public void Initialize ()
 		{
 			var regionManager = container.Resolve<IRegionManager>();

@@ -20,14 +20,12 @@ namespace Trends.Views
 	//------------------------------------------------------------------
 	public partial class Trend
 	{
-		//------------------------------------------------------------------
 		public Trend()
 		{
 			InitializeComponent();
 		}
 
 		[InjectionConstructor]
-		//------------------------------------------------------------------
 		public Trend(ViewModels.Trend viewModel) : this()
 	    {
 			DataContext = viewModel;

@@ -10,13 +10,11 @@ namespace Tracker
 	{
 		private readonly IUnityContainer container;
 
-		//------------------------------------------------------------------
 		public Module (IUnityContainer container)
 		{
 			this.container = container;
 		}
 
-		//------------------------------------------------------------------
 		public void Initialize ()
 		{
 			container.RegisterType<IExpenses, Expenses>(new ContainerControlledLifetimeManager());

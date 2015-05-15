@@ -10,7 +10,6 @@ namespace Tracker.UnitTests
 	[TestFixture]
 	public class ExpensesTests : AssertionHelper
 	{
-		//------------------------------------------------------------------
 		[Test]
 		public void Create_InvalidRecord_ReturnsException ()
 		{
@@ -21,7 +20,6 @@ namespace Tracker.UnitTests
 //			Assert.Catch<ArgumentException>(() => new Record(333, 10, Record.Types.Balance, Record.Categories.Food, "asdd", DateTime.Now.AddDays(-1)));
 		}
 
-		//------------------------------------------------------------------
 //		[Test]
 //        public void AddRecord_Empty_NotFailed ()
 //        {
