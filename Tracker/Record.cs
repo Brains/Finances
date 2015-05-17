@@ -56,12 +56,8 @@ namespace Tracker
 
 		public Record () {}
 		
-        public Record (int id, decimal amount, Types type, Categories category, string description, DateTime date) /*: this()*/
+        public Record (int id, decimal amount, Types type, Categories category, string description, DateTime date)
         {
-			Requires.True(amount > 1, "amount > 1");
-			Requires.NotNullOrEmpty(description, "Description");
-//			Requires.True(date > DateTime.Now.AddHours(-1), "date > DateTime.Now");
-
 	        ID = id;
             Type = type;
             Amount = amount;
