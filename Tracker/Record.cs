@@ -37,9 +37,6 @@ namespace Tracker
         }
 
 		[XmlAttribute]
-		public int ID { get; set; }
-
-		[XmlAttribute]
 		public decimal Amount { get; set; }
 
 		[XmlAttribute]
@@ -56,9 +53,8 @@ namespace Tracker
 
 		public Record () {}
 		
-        public Record (int id, decimal amount, Types type, Categories category, string description, DateTime date)
+        public Record (decimal amount, Types type, Categories category, string description, DateTime date)
         {
-	        ID = id;
             Type = type;
             Amount = amount;
             Category = category;

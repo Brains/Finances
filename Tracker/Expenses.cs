@@ -33,7 +33,7 @@ namespace Tracker
 
 	    public void Add (decimal amount, Record.Types type, Record.Categories category, string description)
 		{
-			Record record = new Record(random.Next(1000), amount, type, category, description, DateTime.Now);
+			Record record = new Record(amount, type, category, description, DateTime.Now);
 			Records.Add (record);
 			Save();
 		}
@@ -70,9 +70,7 @@ namespace Tracker
 			    "Доктор", "Sport: Диск", "Sport: Мазь",
 		    };
 
-		    Records.Add(new Record(
-			    random.Next(1000),
-			    random.Next(50, 2000),
+		    Records.Add(new Record(random.Next(50, 2000),
 			    RandomEnumValue<Record.Types>(),
 				RandomEnumValue<Record.Categories>(),
 			    descriptions[random.Next(descriptions.Length)],
