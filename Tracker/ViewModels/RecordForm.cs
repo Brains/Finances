@@ -38,9 +38,6 @@ namespace Tracker.ViewModels
 
 		public void Submit ()
 		{
-			if (string.IsNullOrEmpty(Description))
-				return;
-
 			if (Type == Record.Types.Shared)
 				Amount = Divide(Amount);
 

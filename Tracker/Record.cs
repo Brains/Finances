@@ -24,7 +24,7 @@ namespace Tracker
 		public enum Categories
         {
 			Food,
-			Domestic,
+			House,
 			Health,
 			Other,
 			General,
@@ -34,6 +34,7 @@ namespace Tracker
 			Deposit,
 
 			Max,
+			Andrey,
         }
 
 		[XmlAttribute]
