@@ -21,8 +21,10 @@ namespace Tracker
         public Expenses ()
         {
             Records = new ObservableCollection<Record>();
+			recordsDataPath = Path.Combine("C:\\", "Projects", "Finances", "Data", "Records.xml");
 
 			Load();
+//	        Records.CollectionChanged += (s, a) => Save();
 		}
 
 	    
@@ -48,6 +50,7 @@ namespace Tracker
 			XmlSerializer serializer = new XmlSerializer(Records.GetType());
 
 			using (StreamReader stream = new StreamReader("Records.xml"))
+			using (StreamReader stream = new StreamReader(recordsDataPath))
 			using (var writer = XmlReader.Create(stream))
 			{
 				Records = (ObservableCollection<Record>) serializer.Deserialize(writer);
@@ -55,6 +58,7 @@ namespace Tracker
 		}
 
 		#region Random
+		    using (StreamWriter stream = new StreamWriter(recordsDataPath))
 	    
 	    private void CreateRandomRecord ()
 	    {
