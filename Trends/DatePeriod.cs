@@ -15,6 +15,8 @@ namespace Trends
 
 		private DatePeriod(Types type, int units)
 		{
+			CodeContracts.Requires.True(units > 0, "units > 0");
+
 			this.units = units;
 			this.type = type;
 		}
@@ -31,6 +33,8 @@ namespace Trends
 
 		public DateTime Next(DateTime from)
 		{
+			CodeContracts.Requires.True(units > 0, "units > 0");
+
 			if (type == Types.Days)
 				return from.AddDays(units);
 			if (type == Types.Months)

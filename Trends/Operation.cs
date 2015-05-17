@@ -1,38 +1,33 @@
 ﻿using System;
 using System.Globalization;
-using NodaTime;
 
 namespace Trends
 {
 	public class Operation
 	{
-		private DateTime startDate;
-		private DatePeriod period;
 		private DateTime previousDate;
 
 		public decimal Amount { get; set; }
-		public LocalDate Start { get; set; }
-		public Period Period { get; set; }
+		public DateTime Start { get; set; }
+		public DatePeriod Period { get; set; }
 		public string Description { get; set; }
 
-		public Operation (decimal amount, LocalDate start, Period period, string description)
+		public Operation (decimal amount, DateTime start, DatePeriod period, string description)
 		{
 			Amount = amount;
 			Period = period;
 			Description = description;
 			Start = start;
+			previousDate = Start;
 		}
 
-		public Operation(DateTime startDate, DatePeriod period)
+		public Operation(DateTime startDate, DatePeriod period) : this(0, startDate, period, String.Empty)
 		{
-			this.startDate = startDate;
-			this.previousDate = startDate;
-			this.period = period;
 		}
 
 		public DateTime NextDate()
 		{
-			previousDate = period.Next(previousDate);
+			previousDate = Period.Next(previousDate);
 
 			return previousDate;
 		}
@@ -53,10 +48,10 @@ namespace Trends
 	public class Transaction : IComparable<Transaction>
 	{
 		public decimal Amount { get; set; }
-		public LocalDate Date { get; set; }
+		public DateTime Date { get; set; }
 		public string Description { get; set; }
 
-		public Transaction (decimal amount, LocalDate date, string description)
+		public Transaction (decimal amount, DateTime date, string description)
 		{
 			Amount = amount;
 			Date = date;
@@ -96,10 +91,10 @@ namespace Trends
 
 		public Funds () {}
 
-		public Funds (decimal amount, LocalDate date, string description) : this()
+		public Funds (decimal amount, DateTime date, string description) : this()
 		{
 			Amount = amount;
-			Date = DateTime.Parse(date.ToString());
+			Date = date;
 			Description = description;
 		}
 
