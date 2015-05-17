@@ -32,6 +32,7 @@ namespace Tracker
 		{
 			Record record = new Record(random.Next(1000), amount, type, category, description, DateTime.Now);
 			Records.Add (record);
+			Save();
 		}
 	    
 	    public void Save ()
