@@ -5,8 +5,9 @@
              xmlns:d = "http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable = "d"
              FontFamily = "Segoe UI"
-             FontWeight = "Light" >
-
+             FontWeight = "Light"
+             KeyboardNavigation.TabNavigation = "Cycle" 
+			 KeyboardNavigation.TabIndex="0">
 
 	<UserControl.Resources>
 		<ResourceDictionary>
@@ -57,7 +58,8 @@
 			              Grid.RowSpan = "2"
 			              ItemsSource = "{Binding Forms}"
 			              ItemTemplate = "{StaticResource FormTemplate}"
-			              HorizontalContentAlignment = "Stretch" />
+			              HorizontalContentAlignment = "Stretch" 
+						  IsTabStop="False"/>
 			<Button Grid.Row = "0"
 			        Grid.Column = "1"
 			        Content = "_Submit"
