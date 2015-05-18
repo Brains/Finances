@@ -31,9 +31,9 @@ namespace Tracker
 			    Load();
 	    }
 
-	    public void Add (decimal amount, Record.Types type, Record.Categories category, string description)
+	    public void Add (decimal amount, Record.Types type, Record.Categories category, string description, DateTime date)
 		{
-			Record record = new Record(amount, type, category, description, DateTime.Now);
+			Record record = new Record(amount, type, category, description, date);
 			Records.Add (record);
 			Save();
 		}

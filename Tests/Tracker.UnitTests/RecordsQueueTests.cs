@@ -76,7 +76,7 @@ namespace Tracker.UnitTests
 
 			queue.Submit();
 
-			expenses.Received(3).Add(10, Record.Types.Expense, Record.Categories.Food, "Test");
+			expenses.Received(3).Add(10, Record.Types.Expense, Record.Categories.Food, "Test", Arg.Any<DateTime>());
 		}
 	}
 }

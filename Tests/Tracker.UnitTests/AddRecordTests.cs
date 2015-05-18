@@ -22,7 +22,7 @@ namespace Tracker.UnitTests
 
 			model.Submit();
 
-			expenses.Received().Add(3, Record.Types.Shared, Record.Categories.Food, "Test");
+			expenses.Received().Add(3, Record.Types.Shared, Record.Categories.Food, "Test", Arg.Any<DateTime>());
 		}
 
 		[Test]
@@ -34,7 +34,7 @@ namespace Tracker.UnitTests
 
 			model.Submit();
 
-			expenses.Received().Add(9, Record.Types.Expense, Record.Categories.Food, "Test");
+			expenses.Received().Add(9, Record.Types.Expense, Record.Categories.Food, "Test", Arg.Any<DateTime>());
 		}
 
 		[TestCase(10, 3)]
@@ -48,7 +48,7 @@ namespace Tracker.UnitTests
 
 			model.Submit();
 
-			expenses.Received().Add(individual, Record.Types.Shared, Record.Categories.Food, "Test");
+			expenses.Received().Add(individual, Record.Types.Shared, Record.Categories.Food, "Test", DateTime.Now);
 		}
 	}
 }
