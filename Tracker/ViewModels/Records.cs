@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 using Tracker.Views.Converters;
 
@@ -31,7 +33,21 @@ namespace Tracker.ViewModels
 			view.SortDescriptions.Clear();
             view.SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Descending));
 			view.GroupDescriptions.Clear();
+			view.GroupDescriptions.Add(new PropertyGroupDescription("Date", new NumberToMonthConverter()));
 			view.GroupDescriptions.Add(new PropertyGroupDescription("Date", new DateTimeToDateConverter()));
+		}
+	}
+
+	internal class NumberToMonthConverter : IValueConverter
+	{
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			return ((DateTime)value).ToString("MMMM");
+		}
+
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			return DependencyProperty.UnsetValue;
 		}
 	}
 }
