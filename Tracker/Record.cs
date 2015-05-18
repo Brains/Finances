@@ -49,7 +49,7 @@ namespace Tracker
 		[XmlAttribute]
 		public string Description { get; set; }
 
-		[XmlAttribute(DataType = "date")]
+		[XmlAttribute(DataType = "dateTime")]
 		public DateTime Date { get; set; }
 
 		public Record () {}
