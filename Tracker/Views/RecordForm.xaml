@@ -17,9 +17,9 @@
 	</ResourceDictionary.MergedDictionaries>
 
 
-	<converters:AmountTextToDecimal x:Key = "AmountConverter" ></converters:AmountTextToDecimal>
-	
-	
+	<converters:AmountTextToDecimal x:Key = "AmountConverter" />
+
+
 	<system:Double x:Key = "FontSize" > 18 </system:Double>
 
 
@@ -68,7 +68,7 @@
 				          ItemsSource = "{Binding RecordCategories}" />
 
 				<TextBox Grid.Column = "3"
-				         Text = "{Binding Description}"
+				         Text = "{Binding Description, UpdateSourceTrigger = PropertyChanged}"
 				         TextWrapping = "Wrap"
 				         HorizontalAlignment = "Center"
 				         VerticalAlignment = "Center"
