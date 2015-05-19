@@ -10,7 +10,7 @@ using Tracker.ViewModels;
 namespace Tracker.UnitTests
 {
 	[TestFixture]
-	internal class RecordsQueueTests : AssertionHelper
+	internal class RecordFormsQueueTests : AssertionHelper
 	{
 		private static void AddRecords (int[] amounts, RecordFormsQueue queue)
 		{
@@ -36,6 +36,29 @@ namespace Tracker.UnitTests
 			queue.AddForm();
 
 			Expect(queue.Forms.Count, EqualTo(1));
+		}
+
+		[Test]
+		public void RemoveForm_ByDefault_RemovesLastForm()
+		{
+			RecordFormsQueue queue = new RecordFormsQueue(null);
+
+			var first = queue.AddForm();
+			queue.AddForm();
+			queue.RemoveLastForm();
+
+			Expect(queue.Forms.Count, EqualTo(1));
+			Expect(queue.Forms, Exactly(1).EqualTo(first));
+		}
+
+		[Test]
+		public void RemoveForm_FromEmptyCollection_RemovesNothing()
+		{
+			RecordFormsQueue queue = new RecordFormsQueue(null);
+
+			queue.RemoveLastForm();
+
+			Expect(queue.Forms.Count, EqualTo(0));
 		}
 
 		[TestCase (70, 100, 20, 10)]

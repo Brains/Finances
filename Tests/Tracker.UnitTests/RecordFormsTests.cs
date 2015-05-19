@@ -10,7 +10,7 @@ using Tracker.ViewModels;
 namespace Tracker.UnitTests
 {
 	[TestFixture]
-	class AddRecordTests : AssertionHelper
+	class RecordFormTests : AssertionHelper
 	{
 		[Test]
 		public void Submit_Shared_DividesAmountIntoThree()

@@ -52,10 +52,11 @@
 			<Grid.RowDefinitions>
 				<RowDefinition />
 				<RowDefinition />
+				<RowDefinition />
 			</Grid.RowDefinitions>
 
 			<ItemsControl Grid.Column = "0"
-			              Grid.RowSpan = "2"
+			              Grid.RowSpan = "3"
 			              ItemsSource = "{Binding Forms}"
 			              ItemTemplate = "{StaticResource FormTemplate}"
 			              HorizontalContentAlignment = "Stretch" 
@@ -71,6 +72,12 @@
 			        Grid.Column = "1"
 			        Command = "{Binding AddRecordCommand}"
 			        Content = "_Add"
+			        VerticalAlignment = "Bottom"
+			        Style = "{StaticResource FlatAccentButton}" />
+			<Button Grid.Row = "2"
+			        Grid.Column = "1"
+			        Command = "{Binding RemoveRecordCommand}"
+			        Content = "_Remove"
 			        VerticalAlignment = "Bottom"
 			        Style = "{StaticResource FlatAccentButton}" />
 		</Grid>

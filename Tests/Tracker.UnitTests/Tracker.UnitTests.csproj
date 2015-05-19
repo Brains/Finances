@@ -56,11 +56,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddRecordTests.cs" />
+    <Compile Include="RecordFormsTests.cs" />
     <Compile Include="ConvertersTests.cs" />
     <Compile Include="ExpensesTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RecordsQueueTests.cs" />
+    <Compile Include="RecordFormsQueueTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
