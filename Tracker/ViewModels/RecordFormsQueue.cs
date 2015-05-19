@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,10 +14,15 @@ using Microsoft.Practices.Prism.Commands;
 
 namespace Tracker.ViewModels
 {
-	public class RecordFormsQueue
+	public class RecordFormsQueue : INotifyPropertyChanged
 	{
-		private IExpenses expenses;
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		private readonly IExpenses expenses;
 		public ObservableCollection<RecordForm> Forms { get; set; }
+		public bool Any => Forms.Any();
+
+		// Commands
 		public ICommand AddRecordCommand { get; private set; }
 		public ICommand RemoveRecordCommand { get; private set; }
 		public ICommand SubmitCommand { get; private set; }
@@ -35,16 +42,24 @@ namespace Tracker.ViewModels
 
 			if (Forms.Count == 0)
 				form.MarkPrimary();
-
+			
 			Forms.Add(form);
+			OnPropertyChanged("Any");
 
 			return form;
 		}
 
 		public void RemoveLastForm()
 		{
-			if (Forms.Any())
-				Forms.Remove(Forms.Last());
+			if (!Forms.Any()) return;
+
+			Forms.Remove(Forms.Last());
+			OnPropertyChanged("Any");
+		}
+
+		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+		{
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 
 		public void SubstractSecondariesFromPrimary()

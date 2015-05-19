@@ -27,7 +27,7 @@ namespace Tracker.Views.Converters
 		public object Convert (object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			if (value == null)
-				return Colors["Default"];
+				return null;
 
 			var key = value.ToString();
 

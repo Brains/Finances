@@ -34,7 +34,8 @@
 				<Setter Property = "BorderThickness"
 				        Value = "0" />
 			</Style>
-
+			
+			<BooleanToVisibilityConverter x:Key = "BooleanToVisibility" ></BooleanToVisibilityConverter>
 		</ResourceDictionary>
 	</UserControl.Resources>
 
@@ -67,7 +68,8 @@
 			        Command = "{Binding SubmitCommand}"
 			        VerticalAlignment = "Top"
 			        IsDefault = "True"
-			        Style = "{StaticResource FlatAccentButton}" />
+			        Style = "{StaticResource FlatAccentButton}" 
+					Visibility="{Binding Any, Converter={StaticResource BooleanToVisibility}}"/>
 			<Button Grid.Row = "1"
 			        Grid.Column = "1"
 			        Command = "{Binding AddRecordCommand}"
@@ -79,7 +81,8 @@
 			        Command = "{Binding RemoveRecordCommand}"
 			        Content = "_Remove"
 			        VerticalAlignment = "Bottom"
-			        Style = "{StaticResource FlatAccentButton}" />
+			        Style = "{StaticResource FlatAccentButton}" 
+					Visibility="{Binding Any, Converter={StaticResource BooleanToVisibility}}"/>
 		</Grid>
 	</Border>
 
