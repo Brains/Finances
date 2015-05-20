@@ -14,13 +14,10 @@ using Microsoft.Practices.Prism.Commands;
 
 namespace Tracker.ViewModels
 {
-	public class RecordFormsQueue : INotifyPropertyChanged
+	public class RecordFormsQueue
 	{
-		public event PropertyChangedEventHandler PropertyChanged;
-
 		private readonly IExpenses expenses;
 		public ObservableCollection<RecordForm> Forms { get; set; }
-		public bool Any => Forms.Any();
 
 		// Commands
 		public ICommand AddRecordCommand { get; private set; }
@@ -44,7 +41,6 @@ namespace Tracker.ViewModels
 				form.MarkPrimary();
 			
 			Forms.Add(form);
-			OnPropertyChanged("Any");
 
 			return form;
 		}
@@ -54,12 +50,6 @@ namespace Tracker.ViewModels
 			if (!Forms.Any()) return;
 
 			Forms.Remove(Forms.Last());
-			OnPropertyChanged("Any");
-		}
-
-		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-		{
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 
 		public void SubstractSecondariesFromPrimary()

@@ -39,31 +39,6 @@ namespace Tracker.UnitTests
 		}
 
 		[Test]
-		public void AddForm_Always_GeneratePropertyChanged()
-		{
-			bool fired = false;
-			RecordFormsQueue queue = new RecordFormsQueue(null);
-			queue.PropertyChanged += (s, a) => fired = true;
-
-			queue.AddForm();
-
-			Expect(fired, True);
-		}
-
-		[Test]
-		public void RemoveForm_Always_GeneratePropertyChanged()
-		{
-			bool fired = false;
-			RecordFormsQueue queue = new RecordFormsQueue(null);
-			queue.PropertyChanged += (s, a) => fired = true;
-
-			queue.Forms.Add(null);
-			queue.RemoveLastForm();
-
-			Expect(fired, True);
-		}
-
-		[Test]
 		public void RemoveForm_ByDefault_RemovesLastForm()
 		{
 			RecordFormsQueue queue = new RecordFormsQueue(null);
@@ -125,27 +100,6 @@ namespace Tracker.UnitTests
 			queue.Submit();
 
 			expenses.Received(3).Add(10, Record.Types.Expense, Record.Categories.Food, "Test", Arg.Any<DateTime>());
-		}
-
-		[Test]
-		public void Any_NoForms_ReturnsFalse()
-		{
-			RecordFormsQueue queue = new RecordFormsQueue(null);
-
-			var actual = queue.Any;
-
-			Expect(actual, False);
-		}
-
-		[Test]
-		public void Any_WithFormsExist_ReturnsTrue()
-		{
-			RecordFormsQueue queue = new RecordFormsQueue(null);
-
-			queue.AddForm();
-			var actual = queue.Any;
-
-			Expect(actual, True);
 		}
 	}
 }

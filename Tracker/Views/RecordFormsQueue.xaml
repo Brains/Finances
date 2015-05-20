@@ -6,8 +6,8 @@
              mc:Ignorable = "d"
              FontFamily = "Segoe UI"
              FontWeight = "Light"
-             KeyboardNavigation.TabNavigation = "Cycle" 
-			 KeyboardNavigation.TabIndex="0">
+             KeyboardNavigation.TabNavigation = "Cycle"
+             KeyboardNavigation.TabIndex = "0" >
 
 	<UserControl.Resources>
 		<ResourceDictionary>
@@ -34,8 +34,19 @@
 				<Setter Property = "BorderThickness"
 				        Value = "0" />
 			</Style>
-			
-			<BooleanToVisibilityConverter x:Key = "BooleanToVisibility" ></BooleanToVisibilityConverter>
+
+			<Style x:Key = "FlatAccentButtonWithVisibility"
+			       BasedOn = "{StaticResource FlatAccentButton}"
+			       TargetType = "Button" >
+				<Style.Triggers>
+					<DataTrigger Binding = "{Binding Path=Forms.Count}"
+					             Value = "0" >
+						<Setter Property = "Visibility"
+						        Value = "Collapsed" />
+					</DataTrigger>
+				</Style.Triggers>
+			</Style>
+
 		</ResourceDictionary>
 	</UserControl.Resources>
 
@@ -60,16 +71,15 @@
 			              Grid.RowSpan = "3"
 			              ItemsSource = "{Binding Forms}"
 			              ItemTemplate = "{StaticResource FormTemplate}"
-			              HorizontalContentAlignment = "Stretch" 
-						  IsTabStop="False"/>
+			              HorizontalContentAlignment = "Stretch"
+			              IsTabStop = "False" />
 			<Button Grid.Row = "0"
 			        Grid.Column = "1"
 			        Content = "_Submit"
 			        Command = "{Binding SubmitCommand}"
 			        VerticalAlignment = "Top"
 			        IsDefault = "True"
-			        Style = "{StaticResource FlatAccentButton}" 
-					Visibility="{Binding Any, Converter={StaticResource BooleanToVisibility}}"/>
+			        Style = "{StaticResource FlatAccentButtonWithVisibility}" />
 			<Button Grid.Row = "1"
 			        Grid.Column = "1"
 			        Command = "{Binding AddRecordCommand}"
@@ -81,8 +91,7 @@
 			        Command = "{Binding RemoveRecordCommand}"
 			        Content = "_Remove"
 			        VerticalAlignment = "Bottom"
-			        Style = "{StaticResource FlatAccentButton}" 
-					Visibility="{Binding Any, Converter={StaticResource BooleanToVisibility}}"/>
+			        Style = "{StaticResource FlatAccentButtonWithVisibility}" />
 		</Grid>
 	</Border>
 
