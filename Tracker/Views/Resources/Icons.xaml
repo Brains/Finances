@@ -14,6 +14,9 @@
 	<Brush x:Key="BalanceColor"> SteelBlue </Brush>
 	<Brush x:Key="SharedColor"> #E0BB00 </Brush>
 
+	<Brush x:Key="DebtInColor"> YellowGreen </Brush>
+	<Brush x:Key="DebtOutColor"> Chocolate </Brush>
+
 	<!-- Icons -->
 	<Viewbox x:Key="Food"
 	         Width="48"
