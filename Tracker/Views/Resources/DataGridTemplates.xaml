@@ -4,7 +4,7 @@
 
 	<!-- Converters -->
 	<converters:EnumToIcon x:Key = "EnumToIcon" />
-	<converters:EnumToColor x:Key = "EnumToColor" />
+	<converters:StringToColor x:Key = "EnumToColor" />
 	<converters:ValueToFontWeight x:Key = "ValueToFontWeight" />
 
 	<!-- Amount cell -->
