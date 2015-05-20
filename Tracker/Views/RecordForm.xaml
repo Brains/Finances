@@ -3,7 +3,8 @@
                     xmlns:local = "clr-namespace:Tracker.ViewModels"
                     xmlns:converters = "clr-namespace:Tracker.Views.Converters"
                     xmlns:controls = "http://metro.mahapps.com/winfx/xaml/controls"
-                    xmlns:system = "clr-namespace:System;assembly=mscorlib" >
+                    xmlns:system = "clr-namespace:System;assembly=mscorlib" 
+					xmlns:behaviors="clr-namespace:WPFTextBoxAutoComplete;assembly=WPFTextBoxAutoComplete">
 
 
 	<ResourceDictionary.MergedDictionaries>
@@ -74,7 +75,8 @@
 				         VerticalAlignment = "Center"
 				         FontSize = "{StaticResource FontSize}"
 				         Foreground = "{StaticResource DefaultColor}"
-				         controls:TextBoxHelper.Watermark = "Description" />
+				         controls:TextBoxHelper.Watermark = "Description" 
+						 behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding DescriptionSuggestions}" />
 
 			</Grid>
 		</Border>

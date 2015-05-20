@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Tracker.ViewModels
 {
@@ -15,6 +16,7 @@ namespace Tracker.ViewModels
 		public Record.Types Type { get; set; }
 		public Record.Categories Category { get; set; }
 		public string Description { get; set; }
+		public List<string> DescriptionSuggestions { get; set; }
 		public DateTime Date { get; set; }
 
 		// View needs
@@ -29,6 +31,8 @@ namespace Tracker.ViewModels
 
 			// Assign date here instead of the Submit() because of Primary and Secondary need to have different time
 			Date = DateTime.Now;
+
+			DescriptionSuggestions = new List<string>() {"In", "Out", "Novus", "Water"};
 
 			RecordTypes = Enum.GetValues(typeof (Record.Types)).Cast<Record.Types>();
 			RecordCategories = Enum.GetValues(typeof (Record.Categories)).Cast<Record.Categories>();
