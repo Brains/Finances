@@ -93,6 +93,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\AutoCompleteBehavior.cs" />
     <Compile Include="Expenses.cs" />
     <Compile Include="IExpenses.cs" />
     <Compile Include="Record.cs" />
