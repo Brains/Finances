@@ -15,7 +15,7 @@ namespace Tracker.Views.Converters
 			decimal amount = (decimal) value;
 
 			if (amount == 0)
-				return DependencyProperty.UnsetValue;
+				return string.Empty;
 
 			return amount.ToString(CultureInfo.InvariantCulture);
 		}
