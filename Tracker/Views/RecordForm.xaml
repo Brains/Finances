@@ -3,7 +3,8 @@
                     xmlns:local = "clr-namespace:Tracker.ViewModels"
                     xmlns:converters = "clr-namespace:Tracker.Views.Converters"
                     xmlns:controls = "http://metro.mahapps.com/winfx/xaml/controls"
-                    xmlns:system = "clr-namespace:System;assembly=mscorlib" >
+                    xmlns:system = "clr-namespace:System;assembly=mscorlib" 
+					xmlns:behaviors="clr-namespace:Tracker.Controls">
 
 
 	<ResourceDictionary.MergedDictionaries>
@@ -73,9 +74,10 @@
 				         HorizontalAlignment = "Center"
 				         VerticalAlignment = "Center"
 				         FontSize = "{StaticResource FontSize}"
-				         Foreground = "{StaticResource DefaultColor}"
-				         controls:TextBoxHelper.Watermark = "Description" />
-
+				         Foreground = "{Binding Text, RelativeSource={RelativeSource Self}, Converter={StaticResource EnumToColor}}"
+				         controls:TextBoxHelper.Watermark = "Description" 
+						 behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding DescriptionSuggestions}" 
+						 />
 			</Grid>
 		</Border>
 	</DataTemplate>
