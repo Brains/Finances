@@ -7,11 +7,11 @@ using System.Windows.Media;
 
 namespace Tracker.Views.Converters
 {
-	public class StringToColor : IValueConverter
+	public class EnumToColor : IValueConverter
 	{
 		private static readonly Dictionary<string, Brush> Colors;
 
-		static StringToColor ()
+		static EnumToColor ()
 		{
 			Colors = new Dictionary<string, Brush>
 			{
@@ -21,9 +21,6 @@ namespace Tracker.Views.Converters
 				["Balance"] = (Brush) Application.Current.FindResource("BalanceColor"),
 				["Shared"] = (Brush) Application.Current.FindResource("SharedColor"),
 				["Debt"] = (Brush) Application.Current.FindResource("DebtColor"),
-
-				["In"] = (Brush) Application.Current.FindResource("DebtInColor"),
-				["Out"] = (Brush) Application.Current.FindResource("DebtOutColor"),
 			};
 		}
 

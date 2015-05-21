@@ -74,10 +74,10 @@
 				         HorizontalAlignment = "Center"
 				         VerticalAlignment = "Center"
 				         FontSize = "{StaticResource FontSize}"
-				         Foreground = "{Binding Text, RelativeSource={RelativeSource Self}, Converter={StaticResource EnumToColor}}"
+				         Foreground = "{StaticResource DefaultColor}"
 				         controls:TextBoxHelper.Watermark = "Description" 
-						 behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding DescriptionSuggestions}" 
-						 />
+						 behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding DescriptionSuggestions}" />
+
 			</Grid>
 		</Border>
 	</DataTemplate>

@@ -105,7 +105,7 @@
       <DependentUpon>RecordFormsQueue.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Converters\DateTimeToDateConverter.cs" />
-    <Compile Include="Views\Converters\StringToColor.cs" />
+    <Compile Include="Views\Converters\EnumToColor.cs" />
     <Compile Include="Views\Converters\EnumToIcon.cs" />
     <Compile Include="Views\Converters\NumbersValidationRule.cs" />
     <Compile Include="Views\Converters\ValueToFontWeight.cs" />
