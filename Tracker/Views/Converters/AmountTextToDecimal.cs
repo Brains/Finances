@@ -14,7 +14,7 @@ namespace Tracker.Views.Converters
 			decimal amount = (decimal) value;
 
 			if (amount == 0)
-				return string.Empty;
+				return DependencyProperty.UnsetValue;
 
 			return amount.ToString(CultureInfo.InvariantCulture);
 		}
@@ -24,12 +24,18 @@ namespace Tracker.Views.Converters
 			string amount = (string) value;
 
 			if (string.IsNullOrEmpty(amount))
-				return default(decimal);
+				return DependencyProperty.UnsetValue;
 
+			return Summarize(amount);
+		}
+
+		private static decimal Summarize(string amount)
+		{
 			string[] amounts = amount.Split('+');
 			decimal[] decimals = amounts.Select(decimal.Parse).ToArray();
+			var sum = decimals.Sum();
 
-			return decimals.Sum();
+			return sum;
 		}
 	}
 }
