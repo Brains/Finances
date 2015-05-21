@@ -39,7 +39,6 @@
 				</Grid.ColumnDefinitions>
 
 				<TextBox Grid.Column = "0"
-				         Text = "{Binding Amount, Converter={StaticResource AmountConverter}}"
 				         TextWrapping = "Wrap"
 				         HorizontalAlignment = "Center"
 				         VerticalAlignment = "Center"
@@ -47,7 +46,15 @@
 				         FontSize = "{StaticResource FontSize}"
 				         Foreground = "{Binding Path=Type, Converter={StaticResource EnumToColor}}"
 				         FontWeight = "{Binding Path=Text, RelativeSource={RelativeSource Self}, Converter={StaticResource ValueToFontWeight}}"
-				         controls:TextBoxHelper.Watermark = "Amount" />
+				         controls:TextBoxHelper.Watermark = "Amount" >
+					<TextBox.Text>
+						<Binding Path = "Amount" Converter="{StaticResource AmountConverter}" >
+							<Binding.ValidationRules>
+								<converters:NumbersValidationRule />
+							</Binding.ValidationRules>
+						</Binding>
+					</TextBox.Text>
+				</TextBox>
 
 				<ComboBox Grid.Column = "1"
 				          IsSynchronizedWithCurrentItem = "False"
