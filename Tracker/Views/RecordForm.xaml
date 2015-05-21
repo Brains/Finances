@@ -4,7 +4,7 @@
                     xmlns:converters = "clr-namespace:Tracker.Views.Converters"
                     xmlns:controls = "http://metro.mahapps.com/winfx/xaml/controls"
                     xmlns:system = "clr-namespace:System;assembly=mscorlib" 
-					xmlns:behaviors="clr-namespace:WPFTextBoxAutoComplete;assembly=WPFTextBoxAutoComplete">
+					xmlns:behaviors="clr-namespace:Tracker.Controls">
 
 
 	<ResourceDictionary.MergedDictionaries>
