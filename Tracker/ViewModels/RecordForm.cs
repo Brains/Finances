@@ -10,14 +10,24 @@ namespace Tracker.ViewModels
 	{
 		// Model
 		private readonly IExpenses expenses;
+		private string description;
 
 		// Record Fields
 		public decimal Amount { get; set; }
 		public Record.Types Type { get; set; }
 		public Record.Categories Category { get; set; }
-		public string Description { get; set; }
+
+		public string Description
+		{
+			get { return description; }
+			set { description = ValidateDescriptionForDebt(value); }
+		}
+
 		public List<string> DescriptionSuggestions { get; set; }
 		public DateTime Date { get; set; }
+
+		const string DebtIn = "In";
+		const string DebtOut = "Out";
 
 		// View needs
 		public Thickness Padding { get; set; }
@@ -32,7 +42,7 @@ namespace Tracker.ViewModels
 			// Assign date here instead of the Submit() because of Primary and Secondary need to have different time
 			Date = DateTime.Now;
 
-			DescriptionSuggestions = new List<string>() {"In", "Out", "Novus", "Water"};
+			DescriptionSuggestions = new List<string>() { DebtIn, DebtOut, "Novus", "Water"};
 
 			RecordTypes = Enum.GetValues(typeof (Record.Types)).Cast<Record.Types>();
 			RecordCategories = Enum.GetValues(typeof (Record.Categories)).Cast<Record.Categories>();
@@ -59,6 +69,16 @@ namespace Tracker.ViewModels
 		public void MarkPrimary()
 		{
 			Padding = new Thickness(5, 5, 40, 5);
+		}
+
+		private string ValidateDescriptionForDebt(string text)
+		{
+			if (Type != Record.Types.Debt) return text;
+			
+			if (!DebtIn.Contains(text) && !DebtOut.Contains(text))
+				throw new ArgumentException("Debt: only 'In' or 'Out'");
+
+			return text;
 		}
 	}
 }

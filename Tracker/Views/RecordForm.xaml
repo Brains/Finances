@@ -76,7 +76,7 @@
 				          ItemsSource = "{Binding RecordCategories}" />
 
 				<TextBox Grid.Column = "3"
-				         Text = "{Binding Description, UpdateSourceTrigger = PropertyChanged}"
+				         Text = "{Binding Description, UpdateSourceTrigger = PropertyChanged, ValidatesOnExceptions=True}"
 				         TextWrapping = "Wrap"
 				         HorizontalAlignment = "Center"
 				         VerticalAlignment = "Center"
