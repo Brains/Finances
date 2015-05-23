@@ -50,5 +50,22 @@ namespace Tracker.UnitTests
 
 			expenses.Received().Add(individual, Record.Types.Shared, Record.Categories.Food, "Test", DateTime.Now);
 		}
+
+		[TestCase(Record.Types.Expense, new[] {Record.Categories.Food, Record.Categories.General, Record.Categories.Health,
+			Record.Categories.House, Record.Categories.Other, Record.Categories.Women, })]
+		[TestCase(Record.Types.Debt, new[] { Record.Categories.Max, Record.Categories.Andrey })]
+		[TestCase(Record.Types.Income, new[] { Record.Categories.ODesk, Record.Categories.Deposit })]
+		[TestCase(Record.Types.Shared, new[] { Record.Categories.Food, Record.Categories.House, Record.Categories.General,
+			Record.Categories.Other })]
+
+		[TestCase(Record.Types.Shared, new Record.Categories[] {})]
+        public void SetType_Always_ChangeRecordCategories(Record.Types type, Record.Categories[] expected)
+		{
+			RecordForm model = new RecordForm(null);
+
+			model.Type = type;
+
+			Expect(model.RecordCategories, EquivalentTo(expected));
+		}
 	}
 }
