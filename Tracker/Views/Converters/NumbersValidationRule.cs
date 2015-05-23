@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Windows.Controls;
 
 namespace Tracker.Views.Converters
@@ -7,16 +8,16 @@ namespace Tracker.Views.Converters
 	{
 		public override ValidationResult Validate (object value, CultureInfo cultureInfo)
 		{
-			string number = value?.ToString();
-
-			int integer;
-			bool result = int.TryParse(number, out integer);
-
-			if (!result)
-				return new ValidationResult(false, "CHEATER!!!");
+			try
+			{
+				AmountTextToDecimal.Summarize((string) value);
+			}
+			catch (Exception e)
+			{
+				return new ValidationResult(false, e.Message);
+			}
 
 			return new ValidationResult(true, null);
-
 		}
 	}
 }

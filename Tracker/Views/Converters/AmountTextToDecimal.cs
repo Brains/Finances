@@ -23,13 +23,22 @@ namespace Tracker.Views.Converters
 		{
 			string amount = (string) value;
 
+			return Summarize(amount);
+		}
+
+		public static decimal Summarize(string amount)
+		{
 			if (string.IsNullOrEmpty(amount))
-				return default(decimal);
+				throw new ArgumentNullException("Empty");
 
 			string[] amounts = amount.Split('+');
 			decimal[] decimals = amounts.Select(decimal.Parse).ToArray();
+			var sum = decimals.Sum();
 
-			return decimals.Sum();
+			if (sum <= 0)
+				throw new ArgumentException("Negative");
+
+			return sum;
 		}
 	}
 }
