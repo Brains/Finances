@@ -72,7 +72,7 @@
 				          VerticalAlignment = "Center"
 				          FontSize = "{StaticResource FontSize}"
 				          ItemTemplate = "{StaticResource UnifiedTemplate}"
-				          SelectedItem = "{Binding Category}"
+				          SelectedItem = "{Binding Category, ValidatesOnExceptions=True}"
 				          ItemsSource = "{Binding RecordCategories}" />
 
 				<TextBox Grid.Column = "3"

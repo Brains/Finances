@@ -11,11 +11,17 @@ namespace Tracker.ViewModels
 		// Model
 		private readonly IExpenses expenses;
 		private string description;
+		private Record.Categories category;
 
 		// Record Fields
 		public decimal Amount { get; set; }
 		public Record.Types Type { get; set; }
-		public Record.Categories Category { get; set; }
+
+		public Record.Categories Category
+		{
+			get { return category; }
+			set { category = ValidateCategoryForDebt(value); }
+		}
 
 		public string Description
 		{
@@ -71,14 +77,24 @@ namespace Tracker.ViewModels
 			Padding = new Thickness(5, 5, 40, 5);
 		}
 
-		private string ValidateDescriptionForDebt(string text)
+		private Record.Categories ValidateCategoryForDebt(Record.Categories category)
 		{
-			if (Type != Record.Types.Debt) return text;
+			if (Type != Record.Types.Debt) return category;
 			
-			if (!DebtIn.Contains(text) && !DebtOut.Contains(text))
+			if (category != Record.Categories.Max && category != Record.Categories.Andrey)
+				throw new ArgumentException("Debt: only 'Max' or 'Andrey'");
+
+			return category;
+		}
+
+		private string ValidateDescriptionForDebt(string description)
+		{
+			if (Type != Record.Types.Debt) return description;
+
+			if (!DebtIn.Contains(description) && !DebtOut.Contains(description))
 				throw new ArgumentException("Debt: only 'In' or 'Out'");
 
-			return text;
+			return description;
 		}
 	}
 }
