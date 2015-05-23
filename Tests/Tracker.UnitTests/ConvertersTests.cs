@@ -66,5 +66,45 @@ namespace Tracker.UnitTests
 			Expect(actual, EqualTo(expected));
 
 		}
+
+		[Test]
+		public void RecordTypeToVisibility_NotDebtComboBox_ReturnsCollapsed()
+		{
+			RecordTypeToVisibility converter = new RecordTypeToVisibility();
+
+			var actual = converter.Convert(Record.Types.Expense, null, "ComboBox", null);
+
+			Expect(actual, EqualTo(Visibility.Collapsed));
+		}
+
+		[Test]
+		public void RecordTypeToVisibility_DebtComboBox_ReturnsVisible()
+		{
+			RecordTypeToVisibility converter = new RecordTypeToVisibility();
+
+			var actual = converter.Convert(Record.Types.Debt, null, "ComboBox", null);
+
+			Expect(actual, EqualTo(Visibility.Visible));
+		}
+
+		[Test]
+		public void RecordTypeToVisibility_NotDebtTextBox_ReturnsVisible()
+		{
+			RecordTypeToVisibility converter = new RecordTypeToVisibility();
+
+			var actual = converter.Convert(Record.Types.Expense, null, "TextBox", null);
+
+			Expect(actual, EqualTo(Visibility.Visible));
+		}
+
+		[Test]
+		public void RecordTypeToVisibility_DebtTextBox_ReturnsCollapsed()
+		{
+			RecordTypeToVisibility converter = new RecordTypeToVisibility();
+
+			var actual = converter.Convert(Record.Types.Debt, null, "TextBox", null);
+
+			Expect(actual, EqualTo(Visibility.Collapsed));
+		}
 	}
 }
