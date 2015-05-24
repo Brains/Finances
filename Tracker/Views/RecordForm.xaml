@@ -17,56 +17,22 @@
 		<ResourceDictionary Source = "Resources/Icons.xaml" />
 	</ResourceDictionary.MergedDictionaries>
 
+	<system:Double x:Key = "FontSize" >18</system:Double>
 	<converters:AmountTextToDecimal x:Key = "AmountConverter" />
-
-	<system:Double x:Key = "FontSize" > 18 </system:Double>
-
-	<Style x:Key = "ComboBoxVisibilityBasedOnRecordType"
-	       TargetType = "ComboBox"
-	       BasedOn = "{StaticResource {x:Type ComboBox}}" >
-		<Setter Property = "Visibility"
-		        Value = "Collapsed" />
-		<Setter Property = "SelectedIndex"
-		        Value = "-1" />
-		<Style.Triggers>
-			<DataTrigger Binding = "{Binding Path=SelectedValue,  ElementName=TypeComboBox}"
-			             Value = "Debt" >
-				<Setter Property = "Visibility"
-				        Value = "Visible" />
-				<Setter Property = "SelectedIndex"
-				        Value = "0" />
-			</DataTrigger>
-		</Style.Triggers>
-	</Style>
-
-	<Style x:Key = "TextBoxVisibilityBasedOnRecordType"
-	       TargetType = "TextBox"
-	       BasedOn = "{StaticResource {x:Type TextBox}}" >
-		<Style.Triggers>
-			<DataTrigger Binding = "{Binding Path=SelectedValue,  ElementName=TypeComboBox}"
-			             Value = "Debt" >
-				<Setter Property = "Visibility"
-				        Value = "Collapsed" />
-			</DataTrigger>
-		</Style.Triggers>
-	</Style>
-
-
 	<converters:RecordTypeToVisibility x:Key = "RecordTypeToVisibility" />
+	
 	<DataTemplate x:Key = "FormTemplate" >
 		<Border BorderThickness = "{Binding Border}"
 		        BorderBrush = "Orange"
 		        Margin = "5"
 		        Padding = "{Binding Padding}" >
 			<Grid>
-
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition />
 					<ColumnDefinition />
 					<ColumnDefinition />
 					<ColumnDefinition />
 				</Grid.ColumnDefinitions>
-
 				<TextBox Grid.Column = "0"
 				         TextWrapping = "Wrap"
 				         HorizontalAlignment = "Center"
@@ -104,15 +70,13 @@
 				          SelectedItem = "{Binding Category}"
 				          ItemsSource = "{Binding AvailableCategories}" />
 				<TextBox Grid.Column = "3"
-				         Name = "DescriptionTextBox"
 				         Text = "{Binding Description, UpdateSourceTrigger = PropertyChanged, Mode=OneWayToSource}"
 				         TextWrapping = "Wrap"
 				         HorizontalAlignment = "Center"
 				         VerticalAlignment = "Center"
 				         MinWidth = "100"
 				         FontSize = "{StaticResource FontSize}"
-				         Visibility = "{Binding SelectedValue, ElementName=TypeComboBox, Converter={StaticResource RecordTypeToVisibility}, 
-					ConverterParameter=TextBox}"
+				         Visibility = "{Binding SelectedValue, ElementName=TypeComboBox, Converter={StaticResource RecordTypeToVisibility}, ConverterParameter=TextBox}"
 				         Foreground = "{Binding Text, RelativeSource={RelativeSource Self}, Converter={StaticResource EnumToColor}}"
 				         controls:TextBoxHelper.Watermark = "Description"
 				         behaviors:AutoCompleteBehavior.AutoCompleteItemsSource = "{Binding DescriptionSuggestions}" />

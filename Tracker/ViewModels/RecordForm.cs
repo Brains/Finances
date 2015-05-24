@@ -12,35 +12,24 @@ namespace Tracker.ViewModels
 {
 	public class RecordForm : INotifyPropertyChanged
 	{
-		public event PropertyChangedEventHandler PropertyChanged;
-
 		// Model
 		private readonly IExpenses expenses;
 
-		private Dictionary<Types, Categories[]> allowedCategories;
-		private Types type;
-
 		// Record Fields
+		private Types type;
 		public decimal Amount { get; set; }
-
 		public Types Type
 		{
 			get { return type; }
 			set
 			{
 				type = value;
-				AvailableCategories = allowedCategories[value];
-				OnPropertyChanged("AvailableCategories");
-				Category = AvailableCategories.First();
-				OnPropertyChanged("Category");
+				SetAvailableCategories(value);
+//				ClearDescription();
 			}
 		}
-
 		public Categories Category { get; set; }
-
 		public string Description { get; set; }
-
-		public List<string> DescriptionSuggestions { get; set; }
 		public DateTime Date { get; set; }
 
 		// View needs
@@ -48,6 +37,9 @@ namespace Tracker.ViewModels
 		public Thickness Border { get; set; }
 		public IEnumerable<Types> RecordTypes { get; set; }
 		public IEnumerable<Categories> AvailableCategories { get; set; }
+		private readonly Dictionary<Types, Categories[]> availableCategories;
+		public List<string> DescriptionSuggestions { get; set; }
+		public event PropertyChangedEventHandler PropertyChanged;
 
 		public RecordForm(IExpenses expenses)
 		{
@@ -56,21 +48,21 @@ namespace Tracker.ViewModels
 			// Assign date here instead of the Submit() because of Primary and Secondary need to have different time
 			Date = DateTime.Now;
 
-			DescriptionSuggestions = new List<string> { "Novus", "Kishenya", "Water" };
-
 			RecordTypes = Enum.GetValues(typeof (Types)).Cast<Types>();
-			AvailableCategories = Enum.GetValues(typeof (Categories)).Cast<Categories>();
 
-			Padding = new Thickness(40, 5, 5, 5);
-			Border = new Thickness(0);
-
-			allowedCategories = new Dictionary<Types, Categories[]>
+			availableCategories = new Dictionary<Types, Categories[]>
 			{
 				[Expense] = new[] {Food, General, Health, House, Other, Women },
 				[Debt] = new[] { Max, Andrey },
 				[Income] = new[] { ODesk, Deposit },
-				[Shared] = new[] { Food, House, General, Other  }
+				[Shared] = new[] { Food, House, General, Other  },
+				[Balance] = new[] { Other }
 			};
+
+			DescriptionSuggestions = new List<string> { "Novus", "Kishenya", "Water" };
+
+			Padding = new Thickness(40, 5, 5, 5);
+			Border = new Thickness(0);
 		}
 
 		public void Submit()
@@ -91,6 +83,19 @@ namespace Tracker.ViewModels
 		public void MarkPrimary()
 		{
 			Padding = new Thickness(5, 5, 40, 5);
+		}
+
+		private void SetAvailableCategories(Types value)
+		{
+			AvailableCategories = availableCategories[value];
+			OnPropertyChanged("AvailableCategories");
+			Category = AvailableCategories.First();
+			OnPropertyChanged("Category");
+		}
+
+		private void ClearDescription()
+		{
+			
 		}
 
 		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
