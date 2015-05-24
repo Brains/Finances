@@ -25,7 +25,7 @@ namespace Tracker.ViewModels
 			{
 				type = value;
 				SetAvailableCategories(value);
-//				ClearDescription();
+				ClearDescription();
 			}
 		}
 		public Categories Category { get; set; }
@@ -95,7 +95,8 @@ namespace Tracker.ViewModels
 
 		private void ClearDescription()
 		{
-			
+			Description = null;
+			OnPropertyChanged("Description");
 		}
 
 		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
