@@ -101,11 +101,11 @@
 				          VerticalAlignment = "Center"
 				          FontSize = "{StaticResource FontSize}"
 				          ItemTemplate = "{StaticResource UnifiedTemplate}"
-				          SelectedItem = "{Binding Category, ValidatesOnExceptions=True}"
-				          ItemsSource = "{Binding RecordCategories}" />
+				          SelectedItem = "{Binding Category}"
+				          ItemsSource = "{Binding AvailableCategories}" />
 				<TextBox Grid.Column = "3"
 				         Name = "DescriptionTextBox"
-				         Text = "{Binding Description, UpdateSourceTrigger = PropertyChanged, ValidatesOnExceptions=True, Mode=OneWayToSource}"
+				         Text = "{Binding Description, UpdateSourceTrigger = PropertyChanged, Mode=OneWayToSource}"
 				         TextWrapping = "Wrap"
 				         HorizontalAlignment = "Center"
 				         VerticalAlignment = "Center"

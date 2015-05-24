@@ -65,7 +65,7 @@ namespace Tracker.UnitTests
 
 			model.Type = type;
 
-			Expect(model.RecordCategories, EquivalentTo(expected));
+			Expect(model.AvailableCategories, EquivalentTo(expected));
 		}
 	}
 }

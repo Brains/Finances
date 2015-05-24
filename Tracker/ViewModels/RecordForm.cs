@@ -10,10 +10,10 @@ namespace Tracker.ViewModels
 {
 	public class RecordForm : INotifyPropertyChanged
 	{
+		public event PropertyChangedEventHandler PropertyChanged;
+
 		// Model
 		private readonly IExpenses expenses;
-		private string description;
-		private Record.Categories category;
 
 		private Dictionary<Record.Types, Record.Categories[]> allowedCategories;
 		private Record.Types type;
@@ -27,36 +27,25 @@ namespace Tracker.ViewModels
 			set
 			{
 				type = value;
-				RecordCategories = allowedCategories[value];
-				OnPropertyChanged("RecordCategories");
-				Category = RecordCategories.First();
+				AvailableCategories = allowedCategories[value];
+				OnPropertyChanged("AvailableCategories");
+				Category = AvailableCategories.First();
 				OnPropertyChanged("Category");
 			}
 		}
 
-		public Record.Categories Category
-		{
-			get { return category; }
-			set { category = ValidateCategoryForDebt(value); }
-		}
+		public Record.Categories Category { get; set; }
 
-		public string Description
-		{
-			get { return description; }
-			set { description = ValidateDescriptionForDebt(value); }
-		}
+		public string Description { get; set; }
 
 		public List<string> DescriptionSuggestions { get; set; }
 		public DateTime Date { get; set; }
-
-		const string DebtIn = "In";
-		const string DebtOut = "Out";
 
 		// View needs
 		public Thickness Padding { get; set; }
 		public Thickness Border { get; set; }
 		public IEnumerable<Record.Types> RecordTypes { get; set; }
-		public IEnumerable<Record.Categories> RecordCategories { get; set; }
+		public IEnumerable<Record.Categories> AvailableCategories { get; set; }
 
 		public RecordForm(IExpenses expenses)
 		{
@@ -65,10 +54,10 @@ namespace Tracker.ViewModels
 			// Assign date here instead of the Submit() because of Primary and Secondary need to have different time
 			Date = DateTime.Now;
 
-			DescriptionSuggestions = new List<string>() { DebtIn, DebtOut, "Novus", "Water"};
+			DescriptionSuggestions = new List<string>() { "Novus", "Kishenya", "Water" };
 
 			RecordTypes = Enum.GetValues(typeof (Record.Types)).Cast<Record.Types>();
-			RecordCategories = Enum.GetValues(typeof (Record.Categories)).Cast<Record.Categories>();
+			AvailableCategories = Enum.GetValues(typeof (Record.Categories)).Cast<Record.Categories>();
 
 			Padding = new Thickness(40, 5, 5, 5);
 			Border = new Thickness(0);
@@ -103,29 +92,6 @@ namespace Tracker.ViewModels
 		{
 			Padding = new Thickness(5, 5, 40, 5);
 		}
-
-		private Record.Categories ValidateCategoryForDebt(Record.Categories category)
-		{
-			if (Type != Record.Types.Debt) return category;
-			
-			if (category != Record.Categories.Max && category != Record.Categories.Andrey)
-				throw new ArgumentException("Debt: only 'Max' or 'Andrey'");
-
-			return category;
-		}
-
-		private string ValidateDescriptionForDebt(string description)
-		{
-			if (Type != Record.Types.Debt) return description;
-
-			if (!DebtIn.Contains(description) && !DebtOut.Contains(description))
-				throw new ArgumentException("Debt: only 'In' or 'Out'");
-
-			return description;
-		}
-
-
-		public event PropertyChangedEventHandler PropertyChanged;
 
 		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
 		{
