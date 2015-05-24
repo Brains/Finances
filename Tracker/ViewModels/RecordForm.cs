@@ -4,7 +4,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using System.Windows.Controls;
+using static Tracker.Record;
+using static Tracker.Record.Types;
+using static Tracker.Record.Categories;
 
 namespace Tracker.ViewModels
 {
@@ -15,13 +17,13 @@ namespace Tracker.ViewModels
 		// Model
 		private readonly IExpenses expenses;
 
-		private Dictionary<Record.Types, Record.Categories[]> allowedCategories;
-		private Record.Types type;
+		private Dictionary<Types, Categories[]> allowedCategories;
+		private Types type;
 
 		// Record Fields
 		public decimal Amount { get; set; }
 
-		public Record.Types Type
+		public Types Type
 		{
 			get { return type; }
 			set
@@ -34,7 +36,7 @@ namespace Tracker.ViewModels
 			}
 		}
 
-		public Record.Categories Category { get; set; }
+		public Categories Category { get; set; }
 
 		public string Description { get; set; }
 
@@ -44,8 +46,8 @@ namespace Tracker.ViewModels
 		// View needs
 		public Thickness Padding { get; set; }
 		public Thickness Border { get; set; }
-		public IEnumerable<Record.Types> RecordTypes { get; set; }
-		public IEnumerable<Record.Categories> AvailableCategories { get; set; }
+		public IEnumerable<Types> RecordTypes { get; set; }
+		public IEnumerable<Categories> AvailableCategories { get; set; }
 
 		public RecordForm(IExpenses expenses)
 		{
@@ -54,28 +56,26 @@ namespace Tracker.ViewModels
 			// Assign date here instead of the Submit() because of Primary and Secondary need to have different time
 			Date = DateTime.Now;
 
-			DescriptionSuggestions = new List<string>() { "Novus", "Kishenya", "Water" };
+			DescriptionSuggestions = new List<string> { "Novus", "Kishenya", "Water" };
 
-			RecordTypes = Enum.GetValues(typeof (Record.Types)).Cast<Record.Types>();
-			AvailableCategories = Enum.GetValues(typeof (Record.Categories)).Cast<Record.Categories>();
+			RecordTypes = Enum.GetValues(typeof (Types)).Cast<Types>();
+			AvailableCategories = Enum.GetValues(typeof (Categories)).Cast<Categories>();
 
 			Padding = new Thickness(40, 5, 5, 5);
 			Border = new Thickness(0);
 
-			allowedCategories = new Dictionary<Record.Types, Record.Categories[]>
+			allowedCategories = new Dictionary<Types, Categories[]>
 			{
-				[Record.Types.Expense] = new[] {Record.Categories.Food, Record.Categories.General, Record.Categories.Health,
-					Record.Categories.House, Record.Categories.Other, Record.Categories.Women, },
-				[Record.Types.Debt] = new[] { Record.Categories.Max, Record.Categories.Andrey },
-				[Record.Types.Income] = new[] { Record.Categories.ODesk, Record.Categories.Deposit },
-				[Record.Types.Shared] = new[] { Record.Categories.Food, Record.Categories.House, Record.Categories.General,
-					Record.Categories.Other,  },
+				[Expense] = new[] {Food, General, Health, House, Other, Women },
+				[Debt] = new[] { Max, Andrey },
+				[Income] = new[] { ODesk, Deposit },
+				[Shared] = new[] { Food, House, General, Other  }
 			};
 		}
 
 		public void Submit()
 		{
-			if (Type == Record.Types.Shared)
+			if (Type == Shared)
 				Amount = Divide(Amount);
 
 			expenses.Add(Amount, Type, Category, Description, Date);

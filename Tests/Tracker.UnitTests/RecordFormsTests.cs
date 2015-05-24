@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using NSubstitute;
 using NUnit.Framework;
 using Tracker.ViewModels;
+using static Tracker.Record;
+using static Tracker.Record.Types;
+using static Tracker.Record.Categories;
 
 namespace Tracker.UnitTests
 {
@@ -18,11 +21,11 @@ namespace Tracker.UnitTests
 			var expenses = Substitute.For<IExpenses>();
             RecordForm model = new RecordForm(expenses) {Description = "Test" };
 			model.Amount = 9;
-			model.Type = Record.Types.Shared;
+			model.Type = Shared;
 
 			model.Submit();
 
-			expenses.Received().Add(3, Record.Types.Shared, Record.Categories.Food, "Test", Arg.Any<DateTime>());
+			expenses.Received().Add(3, Shared, Food, "Test", Arg.Any<DateTime>());
 		}
 
 		[Test]
@@ -34,7 +37,7 @@ namespace Tracker.UnitTests
 
 			model.Submit();
 
-			expenses.Received().Add(9, Record.Types.Expense, Record.Categories.Food, "Test", Arg.Any<DateTime>());
+			expenses.Received().Add(9, Expense, Food, "Test", Arg.Any<DateTime>());
 		}
 
 		[TestCase(10, 3)]
@@ -43,23 +46,20 @@ namespace Tracker.UnitTests
 		{
 			var expenses = Substitute.For<IExpenses>();
 			RecordForm model = new RecordForm(expenses) { Description = "Test" };
-			model.Type = Record.Types.Shared;
+			model.Type = Shared;
 			model.Amount = shared;
 
 			model.Submit();
 
-			expenses.Received().Add(individual, Record.Types.Shared, Record.Categories.Food, "Test", DateTime.Now);
+			expenses.Received().Add(individual, Shared, Food, "Test", DateTime.Now);
 		}
 
-		[TestCase(Record.Types.Expense, new[] {Record.Categories.Food, Record.Categories.General, Record.Categories.Health,
-			Record.Categories.House, Record.Categories.Other, Record.Categories.Women, })]
-		[TestCase(Record.Types.Debt, new[] { Record.Categories.Max, Record.Categories.Andrey })]
-		[TestCase(Record.Types.Income, new[] { Record.Categories.ODesk, Record.Categories.Deposit })]
-		[TestCase(Record.Types.Shared, new[] { Record.Categories.Food, Record.Categories.House, Record.Categories.General,
-			Record.Categories.Other })]
-
-		[TestCase(Record.Types.Shared, new Record.Categories[] {})]
-        public void SetType_Always_ChangeRecordCategories(Record.Types type, Record.Categories[] expected)
+		[TestCase(Expense, new[] {Food, General, Health, House, Other, Women })]
+		[TestCase(Debt, new[] { Max, Andrey })]
+		[TestCase(Income, new[] { ODesk, Deposit })]
+		[TestCase(Shared, new[] { Food, House, General, Other })]
+		[TestCase(Balance, new[] { Other })]
+        public void SetType_Always_ChangeRecordCategories(Types type, Categories[] expected)
 		{
 			RecordForm model = new RecordForm(null);
 
