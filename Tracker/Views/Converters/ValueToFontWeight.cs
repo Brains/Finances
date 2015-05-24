@@ -11,7 +11,6 @@ namespace Tracker.Views.Converters
 		private const int Step = 400;
 		static readonly List<FontWeight> Weights = new List<FontWeight> {FontWeights.Thin, FontWeights.Light, FontWeights.Normal, FontWeights.Bold,};
 
-		//------------------------------------------------------------------
 		public object Convert (object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			int number;
@@ -28,7 +27,6 @@ namespace Tracker.Views.Converters
 			return Weights[index];
 		}
 
-		//------------------------------------------------------------------
 		public object ConvertBack (object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			return DependencyProperty.UnsetValue;

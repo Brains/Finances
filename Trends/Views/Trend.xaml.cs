@@ -13,20 +13,22 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Practices.Unity;
+using NodaTime;
 
-namespace Tracker.Views
+namespace Trends.Views
 {
-	public partial class RecordFormsQueue
+	//------------------------------------------------------------------
+	public partial class Trend
 	{
-		public RecordFormsQueue ()
+		public Trend()
 		{
 			InitializeComponent();
 		}
 
 		[InjectionConstructor]
-		public RecordFormsQueue (ViewModels.RecordFormsQueue viewModel) : this()
+		public Trend(ViewModels.Trend viewModel) : this()
 	    {
 			DataContext = viewModel;
-        }
+		}
 	}
 }

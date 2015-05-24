@@ -5,8 +5,9 @@
              xmlns:d = "http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable = "d"
              FontFamily = "Segoe UI"
-             FontWeight = "Light" >
-
+             FontWeight = "Light"
+             KeyboardNavigation.TabNavigation = "Cycle"
+             KeyboardNavigation.TabIndex = "0" >
 
 	<UserControl.Resources>
 		<ResourceDictionary>
@@ -34,6 +35,18 @@
 				        Value = "0" />
 			</Style>
 
+			<Style x:Key = "FlatAccentButtonWithVisibility"
+			       BasedOn = "{StaticResource FlatAccentButton}"
+			       TargetType = "Button" >
+				<Style.Triggers>
+					<DataTrigger Binding = "{Binding Path=Forms.Count}"
+					             Value = "0" >
+						<Setter Property = "Visibility"
+						        Value = "Collapsed" />
+					</DataTrigger>
+				</Style.Triggers>
+			</Style>
+
 		</ResourceDictionary>
 	</UserControl.Resources>
 
@@ -51,26 +64,34 @@
 			<Grid.RowDefinitions>
 				<RowDefinition />
 				<RowDefinition />
+				<RowDefinition />
 			</Grid.RowDefinitions>
 
 			<ItemsControl Grid.Column = "0"
-			              Grid.RowSpan = "2"
+			              Grid.RowSpan = "3"
 			              ItemsSource = "{Binding Forms}"
 			              ItemTemplate = "{StaticResource FormTemplate}"
-			              HorizontalContentAlignment = "Stretch" />
+			              HorizontalContentAlignment = "Stretch"
+			              IsTabStop = "False" />
 			<Button Grid.Row = "0"
 			        Grid.Column = "1"
-			        Content = "Submit"
+			        Content = "_Submit"
 			        Command = "{Binding SubmitCommand}"
 			        VerticalAlignment = "Top"
 			        IsDefault = "True"
-			        Style = "{StaticResource FlatAccentButton}" />
+			        Style = "{StaticResource FlatAccentButtonWithVisibility}" />
 			<Button Grid.Row = "1"
 			        Grid.Column = "1"
 			        Command = "{Binding AddRecordCommand}"
-			        Content = "Add"
+			        Content = "_Add"
 			        VerticalAlignment = "Bottom"
 			        Style = "{StaticResource FlatAccentButton}" />
+			<Button Grid.Row = "2"
+			        Grid.Column = "1"
+			        Command = "{Binding RemoveRecordCommand}"
+			        Content = "_Remove"
+			        VerticalAlignment = "Bottom"
+			        Style = "{StaticResource FlatAccentButtonWithVisibility}" />
 		</Grid>
 	</Border>
 

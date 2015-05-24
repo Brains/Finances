@@ -21,11 +21,10 @@ namespace Tracker
 		    Balance,
 		}
 
-		//------------------------------------------------------------------
 		public enum Categories
         {
 			Food,
-			Domestic,
+			House,
 			Health,
 			Other,
 			General,
@@ -35,11 +34,8 @@ namespace Tracker
 			Deposit,
 
 			Max,
+			Andrey,
         }
-
-		//------------------------------------------------------------------
-		[XmlAttribute]
-		public int ID { get; set; }
 
 		[XmlAttribute]
 		public decimal Amount { get; set; }
@@ -53,20 +49,13 @@ namespace Tracker
 		[XmlAttribute]
 		public string Description { get; set; }
 
-		[XmlAttribute(DataType = "date")]
+		[XmlAttribute(DataType = "dateTime")]
 		public DateTime Date { get; set; }
 
-		//------------------------------------------------------------------
 		public Record () {}
 		
-		//------------------------------------------------------------------
-        public Record (int id, decimal amount, Types type, Categories category, string description, DateTime date) /*: this()*/
+        public Record (decimal amount, Types type, Categories category, string description, DateTime date)
         {
-			Requires.True(amount > 1, "amount > 1");
-			Requires.NotNullOrEmpty(description, "Description");
-//			Requires.True(date > DateTime.Now.AddHours(-1), "date > DateTime.Now");
-
-	        ID = id;
             Type = type;
             Amount = amount;
             Category = category;

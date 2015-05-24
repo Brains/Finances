@@ -4,7 +4,7 @@
 
 	<!-- Converters -->
 	<converters:EnumToIcon x:Key = "EnumToIcon" />
-	<converters:EnumToColor x:Key = "EnumToColor" />
+	<converters:StringToColor x:Key = "EnumToColor" />
 	<converters:ValueToFontWeight x:Key = "ValueToFontWeight" />
 
 	<!-- Amount cell -->
@@ -13,14 +13,15 @@
 		           FontSize = "20"
 		           Margin = "10,0,0,0"
 		           Foreground = "{Binding Path=Type, Converter={StaticResource EnumToColor}}"
-		           FontWeight = "{Binding Amount, Converter={StaticResource ValueToFontWeight}}" />
+		           FontWeight = "{Binding Amount, Converter={StaticResource ValueToFontWeight}}" 
+				   />
 	</DataTemplate>
 
 	<!-- Type cell with Icon  -->
 	<DataTemplate x:Key = "CellWithTypeIconTemplate" >
-		<StackPanel Orientation = "Horizontal" >
+		<StackPanel Orientation = "Horizontal">
 			<Grid Width = "16"
-			      Height = "16" >
+			      Height = "16">
 				<Grid.Background>
 					<VisualBrush Visual = "{Binding Path=Type, Converter={StaticResource EnumToIcon}}"
 					             Stretch = "Uniform"

@@ -10,9 +10,8 @@ using Tracker.ViewModels;
 namespace Tracker.UnitTests
 {
 	[TestFixture]
-	internal class RecordsQueueTests : AssertionHelper
+	internal class RecordFormsQueueTests : AssertionHelper
 	{
-		//------------------------------------------------------------------
 		private static void AddRecords (int[] amounts, RecordFormsQueue queue)
 		{
 			queue.AddForm().Amount = amounts[0];
@@ -20,7 +19,6 @@ namespace Tracker.UnitTests
 			queue.AddForm().Amount = amounts[2];
 		}
 
-		//------------------------------------------------------------------
 		private static void FillForms (IEnumerable<RecordForm> forms)
 		{
 			foreach (var form in forms)
@@ -30,7 +28,6 @@ namespace Tracker.UnitTests
 			}
 		}
 
-		//------------------------------------------------------------------
 		[Test]
 		public void AddForm_ByDefault_AddsNewToRecords ()
 		{
@@ -41,7 +38,29 @@ namespace Tracker.UnitTests
 			Expect(queue.Forms.Count, EqualTo(1));
 		}
 
-		//------------------------------------------------------------------
+		[Test]
+		public void RemoveForm_ByDefault_RemovesLastForm()
+		{
+			RecordFormsQueue queue = new RecordFormsQueue(null);
+
+			var first = queue.AddForm();
+			queue.AddForm();
+			queue.RemoveLastForm();
+
+			Expect(queue.Forms.Count, EqualTo(1));
+			Expect(queue.Forms, Exactly(1).EqualTo(first));
+		}
+
+		[Test]
+		public void RemoveForm_FromEmptyCollection_RemovesNothing()
+		{
+			RecordFormsQueue queue = new RecordFormsQueue(null);
+
+			queue.RemoveLastForm();
+
+			Expect(queue.Forms.Count, EqualTo(0));
+		}
+
 		[TestCase (70, 100, 20, 10)]
 		[TestCase (120, 300, 120, 60)]
 		[TestCase (111, 256, 48, 97)]
@@ -55,7 +74,6 @@ namespace Tracker.UnitTests
 			Expect(queue.Forms.First().Amount, EqualTo(expected));
 		}
 
-		//------------------------------------------------------------------
 		[TestCase (130, 100, 20, 10)]
 		[TestCase (370, 210, 90, 70)]
 		public void Total_ByDefault_ReturnsTotalAmountForAllRecords (int expected, params int[] amounts)
@@ -68,7 +86,6 @@ namespace Tracker.UnitTests
 			Expect(total, EqualTo(expected));
 		}
 
-		//------------------------------------------------------------------
 		[Test]
 		public void Submit_Always_AddAllRecordsToExpences ()
 		{
@@ -82,7 +99,7 @@ namespace Tracker.UnitTests
 
 			queue.Submit();
 
-			expenses.Received(3).Add(10, Record.Types.Expense, Record.Categories.Food, "Test");
+			expenses.Received(3).Add(10, Record.Types.Expense, Record.Categories.Food, "Test", Arg.Any<DateTime>());
 		}
 	}
 }

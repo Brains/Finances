@@ -4,7 +4,7 @@ using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.Unity;
 
-namespace Tracker
+namespace Trends
 {
 	public class Module : IModule
 	{
@@ -17,12 +17,9 @@ namespace Tracker
 
 		public void Initialize ()
 		{
-			container.RegisterType<IExpenses, Expenses>(new ContainerControlledLifetimeManager(), new InjectionConstructor(true));
-
 			var regionManager = container.Resolve<IRegionManager>();
 
-			regionManager.RegisterViewWithRegion("Records", () => this.container.Resolve<Views.Records>());
-			regionManager.RegisterViewWithRegion("RecordFormsQueue", () => this.container.Resolve<Views.RecordFormsQueue>());
-		}
+			regionManager.RegisterViewWithRegion("Trends", () => this.container.Resolve<Views.Trend>(new ParameterOverride("startFunds", 5000)));
+        }
 	}
 }

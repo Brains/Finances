@@ -3,8 +3,9 @@
                     xmlns:local = "clr-namespace:Tracker.ViewModels"
                     xmlns:converters = "clr-namespace:Tracker.Views.Converters"
                     xmlns:controls = "http://metro.mahapps.com/winfx/xaml/controls"
-                    xmlns:system = "clr-namespace:System;assembly=mscorlib" >
-
+                    xmlns:system = "clr-namespace:System;assembly=mscorlib"
+                    xmlns:behaviors = "clr-namespace:Tracker.Controls"
+                    xmlns:tracker = "clr-namespace:Tracker" >
 
 	<ResourceDictionary.MergedDictionaries>
 		<ResourceDictionary Source = "pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
@@ -16,29 +17,23 @@
 		<ResourceDictionary Source = "Resources/Icons.xaml" />
 	</ResourceDictionary.MergedDictionaries>
 
-
-	<converters:AmountTextToDecimal x:Key = "AmountConverter" ></converters:AmountTextToDecimal>
+	<system:Double x:Key = "FontSize" >18</system:Double>
+	<converters:AmountTextToDecimal x:Key = "AmountConverter" />
+	<converters:RecordTypeToVisibility x:Key = "RecordTypeToVisibility" />
 	
-	
-	<system:Double x:Key = "FontSize" > 18 </system:Double>
-
-
 	<DataTemplate x:Key = "FormTemplate" >
 		<Border BorderThickness = "{Binding Border}"
 		        BorderBrush = "Orange"
 		        Margin = "5"
 		        Padding = "{Binding Padding}" >
 			<Grid>
-
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition />
 					<ColumnDefinition />
 					<ColumnDefinition />
 					<ColumnDefinition />
 				</Grid.ColumnDefinitions>
-
 				<TextBox Grid.Column = "0"
-				         Text = "{Binding Amount, Converter={StaticResource AmountConverter}}"
 				         TextWrapping = "Wrap"
 				         HorizontalAlignment = "Center"
 				         VerticalAlignment = "Center"
@@ -46,9 +41,18 @@
 				         FontSize = "{StaticResource FontSize}"
 				         Foreground = "{Binding Path=Type, Converter={StaticResource EnumToColor}}"
 				         FontWeight = "{Binding Path=Text, RelativeSource={RelativeSource Self}, Converter={StaticResource ValueToFontWeight}}"
-				         controls:TextBoxHelper.Watermark = "Amount" />
-
+				         controls:TextBoxHelper.Watermark = "Amount" >
+					<TextBox.Text>
+						<Binding Path = "Amount"
+						         Converter = "{StaticResource AmountConverter}" >
+							<Binding.ValidationRules>
+								<converters:NumbersValidationRule />
+							</Binding.ValidationRules>
+						</Binding>
+					</TextBox.Text>
+				</TextBox>
 				<ComboBox Grid.Column = "1"
+				          Name = "TypeComboBox"
 				          IsSynchronizedWithCurrentItem = "False"
 				          SelectedIndex = "0"
 				          HorizontalAlignment = "Center"
@@ -57,7 +61,6 @@
 				          ItemTemplate = "{StaticResource UnifiedTemplate}"
 				          SelectedItem = "{Binding Type}"
 				          ItemsSource = "{Binding RecordTypes}" />
-
 				<ComboBox Grid.Column = "2"
 				          SelectedIndex = "0"
 				          HorizontalAlignment = "Center"
@@ -65,17 +68,31 @@
 				          FontSize = "{StaticResource FontSize}"
 				          ItemTemplate = "{StaticResource UnifiedTemplate}"
 				          SelectedItem = "{Binding Category}"
-				          ItemsSource = "{Binding RecordCategories}" />
-
+				          ItemsSource = "{Binding AvailableCategories}" />
 				<TextBox Grid.Column = "3"
-				         Text = "{Binding Description}"
+				         Text = "{Binding Description, UpdateSourceTrigger = PropertyChanged}"
 				         TextWrapping = "Wrap"
 				         HorizontalAlignment = "Center"
 				         VerticalAlignment = "Center"
+				         MinWidth = "80"
 				         FontSize = "{StaticResource FontSize}"
-				         Foreground = "{StaticResource DefaultColor}"
-				         controls:TextBoxHelper.Watermark = "Description" />
-
+				         Visibility = "{Binding SelectedValue, ElementName=TypeComboBox, Converter={StaticResource RecordTypeToVisibility}, ConverterParameter=TextBox}"
+				         Foreground = "{Binding Text, RelativeSource={RelativeSource Self}, Converter={StaticResource EnumToColor}}"
+				         controls:TextBoxHelper.Watermark = "Description"
+				         behaviors:AutoCompleteBehavior.AutoCompleteItemsSource = "{Binding DescriptionSuggestions}" />
+				<ComboBox Grid.Column = "3"
+				          SelectedIndex = "0"
+						  SelectedValue = "{Binding Description, Mode=OneWayToSource}"
+						  Visibility = "{Binding SelectedValue, ElementName=TypeComboBox, Converter={StaticResource RecordTypeToVisibility}, ConverterParameter=ComboBox }"
+						  FontSize = "{StaticResource FontSize}"
+				          Foreground = "{Binding SelectedValue, Converter={StaticResource EnumToColor}, RelativeSource={RelativeSource Self}}"
+				          Width = "{Binding ActualWidth, ElementName=DescriptionTextBox}"
+				          Height = "{Binding ActualHeight, ElementName=DescriptionTextBox}"
+				          HorizontalAlignment = "Center"
+				          VerticalAlignment = "Center" >
+					<system:String>In</system:String>
+					<system:String>Out</system:String>
+				</ComboBox>
 			</Grid>
 		</Border>
 	</DataTemplate>

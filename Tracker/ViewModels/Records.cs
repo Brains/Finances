@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -17,7 +16,6 @@ namespace Tracker.ViewModels
 
 		public ObservableCollection<Record> RecordsList => expenses.Records;
 
-		//------------------------------------------------------------------
 		public Records (IExpenses expenses)
 		{
 			this.expenses = expenses;
@@ -25,7 +23,6 @@ namespace Tracker.ViewModels
 			Group();
 		}
 
-		//------------------------------------------------------------------
 		private void Group ()
 		{
 			ICollectionView view = CollectionViewSource.GetDefaultView(RecordsList);
@@ -33,6 +30,7 @@ namespace Tracker.ViewModels
 			view.SortDescriptions.Clear();
             view.SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Descending));
 			view.GroupDescriptions.Clear();
+			view.GroupDescriptions.Add(new PropertyGroupDescription("Date", new NumberToMonthConverter()));
 			view.GroupDescriptions.Add(new PropertyGroupDescription("Date", new DateTimeToDateConverter()));
 		}
 	}

@@ -87,8 +87,13 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WPFTextBoxAutoComplete, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WPFTextBoxAutoComplete.1.0.0\lib\net40\WPFTextBoxAutoComplete.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\AutoCompleteBehavior.cs" />
     <Compile Include="Expenses.cs" />
     <Compile Include="IExpenses.cs" />
     <Compile Include="Record.cs" />
@@ -96,11 +101,13 @@
     <Compile Include="ViewModels\RecordFormsQueue.cs" />
     <Compile Include="ViewModels\Records.cs" />
     <Compile Include="Views\Converters\AmountTextToDecimal.cs" />
+    <Compile Include="Views\Converters\NumberToMonthConverter.cs" />
+    <Compile Include="Views\Converters\RecordTypeToVisibility.cs" />
     <Compile Include="Views\RecordFormsQueue.xaml.cs">
       <DependentUpon>RecordFormsQueue.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Converters\DateTimeToDateConverter.cs" />
-    <Compile Include="Views\Converters\EnumToColor.cs" />
+    <Compile Include="Views\Converters\StringToColor.cs" />
     <Compile Include="Views\Converters\EnumToIcon.cs" />
     <Compile Include="Views\Converters\NumbersValidationRule.cs" />
     <Compile Include="Views\Converters\ValueToFontWeight.cs" />

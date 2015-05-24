@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NodaTime;
 using System.Windows;
 using Tracker;
 
@@ -23,7 +24,7 @@ namespace Visualization.ViewModels
 		public Dictionary<string, int> ExpencesByCategory => GetExpencesByCategory(expenses.Records);
 		public List<IGrouping<string, Record>> ExpencesByDate => GetRecordsGroupedByDate(expenses.Records);
 		public Dictionary<string, int> ExpencesByType => GetExpencesByType(expenses.Records);
-		
+
 		public Charts (IExpenses expenses)
 		{
 			this.expenses = expenses;
@@ -38,7 +39,7 @@ namespace Visualization.ViewModels
 
 			return query.ToDictionary(x => x.Key.ToString(), x => (int) x.Value);
 		}
-		
+
 		public Dictionary<string, int> GetExpencesByType (IEnumerable<Record> records)
 		{
 			var query = from record in records
@@ -48,7 +49,7 @@ namespace Visualization.ViewModels
 
 			return query.ToDictionary(x => x.Key.ToString(), x => (int) x.Value);
 		}
-		
+
 //		public Dictionary<string, int> GetDatesData (IEnumerable<Record> records)
 //		{
 //			var query = from record in records

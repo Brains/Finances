@@ -13,48 +13,54 @@ namespace Tracker
     public class Expenses : IExpenses
     {
 		readonly Random random = new Random();
+	    private string recordsDataPath;
 
-		
-		public ObservableCollection<Record> Records { get; private set; }
-
+	    public ObservableCollection<Record> Records { get; private set; }
         
         public Expenses ()
         {
-            Records = new ObservableCollection<Record>();
+			recordsDataPath = Path.Combine("C:\\", "Projects", "Finances", "Data", "Records.xml");
 
-			Load();
+			Records = new ObservableCollection<Record>();
+//	        Records.CollectionChanged += (s, a) => Save();
 		}
 
-	    
-		public void Add (decimal amount, Record.Types type, Record.Categories category, string description)
-		{
-			Record record = new Record(random.Next(1000), amount, type, category, description, DateTime.Now);
-			Records.Add (record);
-		}
-	    
-	    public void Save ()
+	    public Expenses(bool load) : this()
 	    {
-			XmlSerializer serializer = new XmlSerializer(Records.GetType());
+		    if (load)
+			    Load();
+	    }
 
-			using (StreamWriter stream = new StreamWriter("Records.xml"))
-			using (var writer = XmlWriter.Create(stream, new XmlWriterSettings { Indent = true }))
-			{
-				serializer.Serialize(writer, Records);
-			}
+	    public void Add (decimal amount, Record.Types type, Record.Categories category, string description, DateTime date)
+		{
+			Record record = new Record(amount, type, category, description, date);
+			Records.Add (record);
+			Save();
 		}
 
-		public void Load ()
+	    public void Load ()
 		{
 			XmlSerializer serializer = new XmlSerializer(Records.GetType());
 
-			using (StreamReader stream = new StreamReader("Records.xml"))
+			using (StreamReader stream = new StreamReader(recordsDataPath))
 			using (var writer = XmlReader.Create(stream))
 			{
 				Records = (ObservableCollection<Record>) serializer.Deserialize(writer);
 			}
 		}
 
-		#region Random
+	    public void Save ()
+	    {
+		    XmlSerializer serializer = new XmlSerializer(Records.GetType());
+
+		    using (StreamWriter stream = new StreamWriter(recordsDataPath))
+		    using (var writer = XmlWriter.Create(stream, new XmlWriterSettings { Indent = true }))
+		    {
+			    serializer.Serialize(writer, Records);
+		    }
+	    }
+
+	    #region Random
 	    
 	    private void CreateRandomRecord ()
 	    {
@@ -64,9 +70,7 @@ namespace Tracker
 			    "Доктор", "Sport: Диск", "Sport: Мазь",
 		    };
 
-		    Records.Add(new Record(
-			    random.Next(1000),
-			    random.Next(50, 2000),
+		    Records.Add(new Record(random.Next(50, 2000),
 			    RandomEnumValue<Record.Types>(),
 				RandomEnumValue<Record.Categories>(),
 			    descriptions[random.Next(descriptions.Length)],

@@ -17,7 +17,6 @@ namespace Visualization.Tests
 	[TestFixture]
     public class ChardData : AssertionHelper
     {
-		//------------------------------------------------------------------
 		private List<Record> LoadData ()
 		{
 			List<Record> records;
@@ -32,7 +31,6 @@ namespace Visualization.Tests
 			return records;
 		}
 
-		//------------------------------------------------------------------
 //		[Ignore]
 //		[Test]
 //		public void TestINVALID ()
@@ -45,7 +43,6 @@ namespace Visualization.Tests
 //			Expect(actual, EquivalentTo(expected));
 //		}
 
-		//------------------------------------------------------------------
 		[Test]
 		public void GetRecordsFrom_Date_ReturnsOnlyRecordsAfterThisDate()
 		{

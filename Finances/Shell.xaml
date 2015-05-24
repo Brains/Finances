@@ -5,23 +5,22 @@
                       xmlns:controls = "http://metro.mahapps.com/winfx/xaml/controls"
                       Title = "Finances"
                       Height = "800"
-                      Width = "1000" 
-					  WindowState="Maximized"
-					  ShowIconOnTitleBar="True">
-	<TabControl SelectedIndex = "1"
+                      Width = "1000"
+                      WindowState = "Maximized"
+                      ShowIconOnTitleBar = "True" >
+	<TabControl SelectedIndex = "0"
 	            TabStripPlacement = "Left" >
 		<TabItem Name = "Tracker"
-		         Header = "Tracker"
-		         Margin = "10,28,10,-28" >
+		         Header = "Tracker" >
 			<Grid>
 				<Grid.RowDefinitions>
-					<RowDefinition  />
+					<RowDefinition />
 					<RowDefinition Height = "Auto" />
 				</Grid.RowDefinitions>
 				<ContentControl Grid.Row = "0"
 				                Name = "Records"
 				                cal:RegionManager.RegionName = "Records"
-				                VerticalContentAlignment = "Stretch"
+								VerticalContentAlignment = "Stretch"
 				                HorizontalContentAlignment = "Stretch" />
 				<ContentControl Grid.Row = "1"
 				                Name = "AddRecord"
@@ -31,9 +30,11 @@
 			</Grid>
 		</TabItem>
 		<TabItem Name = "Visualization"
-		         Header = "Charts      "
-		         cal:RegionManager.RegionName = "Visualization"
-		         Margin = "10,45,10,-45" />
+		         Header = "Charts"
+		         cal:RegionManager.RegionName = "Visualization" />
+		<TabItem Name = "Trends"
+		         Header = "Trends"
+		         cal:RegionManager.RegionName = "Trends" />
 	</TabControl>
 
 

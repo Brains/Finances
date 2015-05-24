@@ -8,7 +8,6 @@ namespace Tracker.Views.Converters
 {
 	public class EnumToIcon : IValueConverter
 	{
-		//------------------------------------------------------------------
 		public object Convert (object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			string name = value?.ToString();
@@ -20,7 +19,6 @@ namespace Tracker.Views.Converters
 			return visual as Visual;
 		}
 
-		//------------------------------------------------------------------
 		public object ConvertBack (object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			return DependencyProperty.UnsetValue;

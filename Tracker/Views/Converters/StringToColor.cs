@@ -7,12 +7,11 @@ using System.Windows.Media;
 
 namespace Tracker.Views.Converters
 {
-	public class EnumToColor : IValueConverter
+	public class StringToColor : IValueConverter
 	{
 		private static readonly Dictionary<string, Brush> Colors;
 
-		//------------------------------------------------------------------
-		static EnumToColor ()
+		static StringToColor ()
 		{
 			Colors = new Dictionary<string, Brush>
 			{
@@ -22,12 +21,17 @@ namespace Tracker.Views.Converters
 				["Balance"] = (Brush) Application.Current.FindResource("BalanceColor"),
 				["Shared"] = (Brush) Application.Current.FindResource("SharedColor"),
 				["Debt"] = (Brush) Application.Current.FindResource("DebtColor"),
+
+				["In"] = (Brush) Application.Current.FindResource("DebtInColor"),
+				["Out"] = (Brush) Application.Current.FindResource("DebtOutColor"),
 			};
 		}
 
-		//------------------------------------------------------------------
 		public object Convert (object value, Type targetType, object parameter, CultureInfo culture)
 		{
+			if (value == null)
+				return null;
+
 			var key = value.ToString();
 
 			if (Colors.ContainsKey(key))
@@ -36,7 +40,6 @@ namespace Tracker.Views.Converters
 			return Colors["Default"];
 		}
 
-		//------------------------------------------------------------------
 		public object ConvertBack (object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			return DependencyProperty.UnsetValue;
