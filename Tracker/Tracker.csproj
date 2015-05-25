@@ -102,7 +102,6 @@
     <Compile Include="ViewModels\Records.cs" />
     <Compile Include="Views\Converters\AmountTextToDecimal.cs" />
     <Compile Include="Views\Converters\NumberToMonthConverter.cs" />
-    <Compile Include="Views\Converters\RecordTypeToVisibility.cs" />
     <Compile Include="Views\RecordFormsQueue.xaml.cs">
       <DependentUpon>RecordFormsQueue.xaml</DependentUpon>
     </Compile>

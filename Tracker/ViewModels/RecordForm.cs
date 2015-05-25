@@ -18,16 +18,13 @@ namespace Tracker.ViewModels
 		// Record Fields
 		private Types type;
 		public decimal Amount { get; set; }
+
 		public Types Type
 		{
 			get { return type; }
-			set
-			{
-				type = value;
-				SetAvailableCategories(value);
-				ClearDescription();
-			}
+			set { OnTypeUpdate(value); }
 		}
+
 		public Categories Category { get; set; }
 		public string Description { get; set; }
 		public DateTime Date { get; set; }
@@ -52,14 +49,14 @@ namespace Tracker.ViewModels
 
 			availableCategories = new Dictionary<Types, Categories[]>
 			{
-				[Expense] = new[] {Food, General, Health, House, Other, Women },
-				[Debt] = new[] { Max, Andrey },
-				[Income] = new[] { ODesk, Deposit },
-				[Shared] = new[] { Food, House, General, Other  },
-				[Balance] = new[] { Other }
+				[Expense] = new[] {Food, General, Health, House, Other, Women},
+				[Debt] = new[] {Max, Andrey},
+				[Income] = new[] {ODesk, Deposit},
+				[Shared] = new[] {Food, House, General, Other},
+				[Balance] = new[] {Other}
 			};
 
-			DescriptionSuggestions = new List<string> { "Novus", "Kishenya", "Water" };
+			DescriptionSuggestions = new List<string> {"Novus", "Kishenya", "Water"};
 
 			Padding = new Thickness(40, 5, 5, 5);
 			Border = new Thickness(0);
@@ -83,6 +80,13 @@ namespace Tracker.ViewModels
 		public void MarkPrimary()
 		{
 			Padding = new Thickness(5, 5, 40, 5);
+		}
+
+		private void OnTypeUpdate(Types value)
+		{
+			type = value;
+			SetAvailableCategories(value);
+			ClearDescription();
 		}
 
 		private void SetAvailableCategories(Types value)

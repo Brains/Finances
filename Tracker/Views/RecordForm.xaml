@@ -19,8 +19,27 @@
 
 	<system:Double x:Key = "FontSize" >18</system:Double>
 	<converters:AmountTextToDecimal x:Key = "AmountConverter" />
-	<converters:RecordTypeToVisibility x:Key = "RecordTypeToVisibility" />
-	
+
+	<!-- Show ComboBox when Record Type is Debt -->
+	<Style x:Key = "ComboBoxVisibilityBasedOnRecordType" TargetType = "ComboBox" BasedOn = "{StaticResource {x:Type ComboBox}}" >
+		<Setter Property = "Visibility" Value = "Collapsed" />
+		<Style.Triggers>
+			<DataTrigger Binding = "{Binding Path=SelectedValue,  ElementName=TypeComboBox}" Value = "Debt" >
+				<Setter Property = "Visibility" Value = "Visible" />
+				<Setter Property = "SelectedIndex" Value = "0" />
+			</DataTrigger>
+		</Style.Triggers>
+	</Style>
+
+	<!-- Hide TextBox when Record Type is Debt -->
+	<Style x:Key = "TextBoxVisibilityBasedOnRecordType" TargetType = "TextBox" BasedOn = "{StaticResource {x:Type TextBox}}" >
+		<Style.Triggers>
+			<DataTrigger Binding = "{Binding Path=SelectedValue,  ElementName=TypeComboBox}" Value = "Debt" >
+				<Setter Property = "Visibility" Value = "Collapsed" />
+			</DataTrigger>
+		</Style.Triggers>
+	</Style>
+
 	<DataTemplate x:Key = "FormTemplate" >
 		<Border BorderThickness = "{Binding Border}"
 		        BorderBrush = "Orange"
@@ -70,24 +89,20 @@
 				          SelectedItem = "{Binding Category}"
 				          ItemsSource = "{Binding AvailableCategories}" />
 				<TextBox Grid.Column = "3"
-				         Text = "{Binding Description, UpdateSourceTrigger = PropertyChanged}"
+						 Text = "{Binding Description, UpdateSourceTrigger = PropertyChanged}"
+						 Style="{StaticResource TextBoxVisibilityBasedOnRecordType}"
 				         TextWrapping = "Wrap"
 				         HorizontalAlignment = "Center"
 				         VerticalAlignment = "Center"
-				         MinWidth = "80"
 				         FontSize = "{StaticResource FontSize}"
-				         Visibility = "{Binding SelectedValue, ElementName=TypeComboBox, Converter={StaticResource RecordTypeToVisibility}, ConverterParameter=TextBox}"
-				         Foreground = "{Binding Text, RelativeSource={RelativeSource Self}, Converter={StaticResource EnumToColor}}"
+				         Foreground = "{StaticResource DefaultColor}"
 				         controls:TextBoxHelper.Watermark = "Description"
 				         behaviors:AutoCompleteBehavior.AutoCompleteItemsSource = "{Binding DescriptionSuggestions}" />
 				<ComboBox Grid.Column = "3"
-				          SelectedIndex = "0"
-						  SelectedValue = "{Binding Description, Mode=OneWayToSource}"
-						  Visibility = "{Binding SelectedValue, ElementName=TypeComboBox, Converter={StaticResource RecordTypeToVisibility}, ConverterParameter=ComboBox }"
+						  SelectedValue = "{Binding Description}"
+						  Style="{StaticResource ComboBoxVisibilityBasedOnRecordType}"
 						  FontSize = "{StaticResource FontSize}"
 				          Foreground = "{Binding SelectedValue, Converter={StaticResource EnumToColor}, RelativeSource={RelativeSource Self}}"
-				          Width = "{Binding ActualWidth, ElementName=DescriptionTextBox}"
-				          Height = "{Binding ActualHeight, ElementName=DescriptionTextBox}"
 				          HorizontalAlignment = "Center"
 				          VerticalAlignment = "Center" >
 					<system:String>In</system:String>
