@@ -8,7 +8,7 @@
                       Width = "1000"
                       WindowState = "Maximized"
                       ShowIconOnTitleBar = "True" >
-	<TabControl SelectedIndex = "0"
+	<TabControl SelectedIndex = "1"
 	            TabStripPlacement = "Left" >
 		<TabItem Name = "Tracker"
 		         Header = "Tracker" >
