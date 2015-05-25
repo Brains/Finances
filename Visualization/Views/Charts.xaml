@@ -63,7 +63,7 @@
 			<metro:StackedColumnChart Grid.Row="1" Grid.Column="1"
 										ChartTitle="Types"
 										ChartSubTitle="{Binding Month}"
-										Palette="{StaticResource CustomColors}">
+									  Palette="{StaticResource OrangeGreenColors}">
 				<metro:StackedColumnChart.Series>
 					<metro:ChartSeries SeriesTitle="Expences"
 									   DisplayMember="Key"
