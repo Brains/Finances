@@ -54,20 +54,5 @@ namespace Visualization.Tests
 
 			Expect(actual, Is.All.Property("Date").GreaterThan(start));
 		}
-
-		[Test]
-		public void MyMethod()
-		{
-			var expenses = Substitute.For<IExpenses>();
-			Charts charts = new Charts(expenses);
-
-			charts.GetRecordsGroupedByDate(LoadData());
-
-			
-
-
-//			Expect(actual, All.Exactly(1).Property("Category").EqualTo("House"));
-
-		}
 	}
 }

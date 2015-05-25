@@ -35,7 +35,7 @@
 						<metro:ChartSeries SeriesTitle="{Binding Key}"
 						                   DisplayMember="Category"
 						                   ValueMember="Amount"
-						                   ItemsSource="{Binding}">
+						                   ItemsSource="{Binding Value}">
 						</metro:ChartSeries>
 					</DataTemplate>
 				</metro:StackedColumnChart.SeriesTemplate>
