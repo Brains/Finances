@@ -29,8 +29,10 @@ namespace Visualization.ViewModels
 		private IEnumerable<Record> Records => GetRecordsByMonth(expenses.Records, month);
 		public string Month => DateTimeFormatInfo.CurrentInfo.GetMonthName(month);
 
+		// View Bindings
 		public Dictionary<string, IEnumerable<Record>> ExpencesByDate => GetExpencesByDate(Records);
-		public Dictionary<string, int> ExpencesByCategory => GetExpencesByCategory(Records);
+		public Dictionary<string, int> Expences => GetExpencesByCategory(Records, IsExpense);
+		public Dictionary<string, int> Incomes => GetExpencesByCategory(Records, IsIncome);
 		public Dictionary<string, int> ExpencesByType => GetExpencesByType(Records);
 
 		public Charts(IExpenses expenses)
@@ -50,17 +52,18 @@ namespace Visualization.ViewModels
 			return dates.ToDictionary(date => date.Key, AggregateByCategory);
 		}
 
-		public Dictionary<string, int> GetExpencesByCategory(IEnumerable<Record> records)
+		public Dictionary<string, int> GetExpencesByCategory(IEnumerable<Record> records, Predicate<Record> predicate )
 		{
 			var query = from record in records
-			            where IsExpense(record)
+			            where predicate(record)
 			            orderby record.Category
 			            group record by record.Category
 			            into grouped
-			            select new {Key = grouped.Key, Value = grouped.Sum(record => record.Amount)};
+			            select grouped;
 
-			return query.ToDictionary(x => x.Key.ToString(), x => (int) x.Value);
+			return query.ToDictionary(group => @group.Key.ToString(), group => (int)@group.Sum(record => record.Amount));
 		}
+
 
 		public Dictionary<string, int> GetExpencesByType(IEnumerable<Record> records)
 		{
@@ -105,22 +108,9 @@ namespace Visualization.ViewModels
 			return record.Type == Expense || record.Type == Shared;
 		}
 
-
-
-
-		public Dictionary<string, int> Expences => GetExpences(Records, Expense);
-		public Dictionary<string, int> Incomes => GetExpences(Records, Income);
-
-		public Dictionary<string, int> GetExpences(IEnumerable<Record> records, Types type)
+		private static bool IsIncome(Record record)
 		{
-			var query = from record in records
-			            where record.Type == type
-			            orderby record.Category
-			            group record by record.Category
-			            into grouped
-			            select grouped;
-
-			return query.ToDictionary(group => group.Key.ToString(), group => (int)group.Sum(record => record.Amount));
+			return record.Type == Income;
 		}
 	}
 }

@@ -52,7 +52,7 @@
 			                     ChartSubTitle="{Binding Month}"
 								 Palette="{StaticResource CustomColors}">
 				<metro:DoughnutChart.Series>
-					<metro:ChartSeries ItemsSource="{Binding ExpencesByCategory}"
+					<metro:ChartSeries ItemsSource="{Binding Expences}"
 					                   DisplayMember="Key"
 					                   ValueMember="Value" 
 									   SeriesTitle="NoTitle"/>
@@ -62,7 +62,8 @@
 			<!-- Stacked Columns : Expences by Type-->
 			<metro:StackedColumnChart Grid.Row="1" Grid.Column="1"
 										ChartTitle="Types"
-										ChartSubTitle="{Binding Month}" >
+										ChartSubTitle="{Binding Month}"
+										Palette="{StaticResource CustomColors}">
 				<metro:StackedColumnChart.Series>
 					<metro:ChartSeries SeriesTitle="Expences"
 									   DisplayMember="Key"
