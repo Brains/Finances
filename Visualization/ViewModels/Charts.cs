@@ -104,5 +104,23 @@ namespace Visualization.ViewModels
 		{
 			return record.Type == Expense || record.Type == Shared;
 		}
+
+
+
+
+		public Dictionary<string, int> Expences => GetExpences(Records, Expense);
+		public Dictionary<string, int> Incomes => GetExpences(Records, Income);
+
+		public Dictionary<string, int> GetExpences(IEnumerable<Record> records, Types type)
+		{
+			var query = from record in records
+			            where record.Type == type
+			            orderby record.Category
+			            group record by record.Category
+			            into grouped
+			            select grouped;
+
+			return query.ToDictionary(group => group.Key.ToString(), group => (int)group.Sum(record => record.Amount));
+		}
 	}
 }

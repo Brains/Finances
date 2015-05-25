@@ -60,16 +60,20 @@
 			</metro:DoughnutChart>
 
 			<!-- Stacked Columns : Expences by Type-->
-			<metro:ClusteredColumnChart Grid.Row="1" Grid.Column="1"
+			<metro:StackedColumnChart Grid.Row="1" Grid.Column="1"
 										ChartTitle="Types"
 										ChartSubTitle="{Binding Month}" >
-				<metro:ClusteredColumnChart.Series>
-					<metro:ChartSeries ItemsSource="{Binding ExpencesByType}"
+				<metro:StackedColumnChart.Series>
+					<metro:ChartSeries SeriesTitle="Expences"
 									   DisplayMember="Key"
 									   ValueMember="Value"
-									   SeriesTitle="Expences" />
-				</metro:ClusteredColumnChart.Series>
-			</metro:ClusteredColumnChart>
+									   ItemsSource="{Binding Expences}" />
+					<metro:ChartSeries SeriesTitle="Income"
+									   DisplayMember="Key"
+									   ValueMember="Value"
+									   ItemsSource="{Binding Incomes}" />
+				</metro:StackedColumnChart.Series>
+			</metro:StackedColumnChart>
 
 		</Grid>
 	</ScrollViewer>
