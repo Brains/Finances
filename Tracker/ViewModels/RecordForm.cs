@@ -1,39 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
-using System.Windows.Controls;
+using static Tracker.Record;
+using static Tracker.Record.Types;
+using static Tracker.Record.Categories;
 
 namespace Tracker.ViewModels
 {
-	public class RecordForm
+	public class RecordForm : INotifyPropertyChanged
 	{
 		// Model
 		private readonly IExpenses expenses;
-		private string description;
 
 		// Record Fields
+		private Types type;
 		public decimal Amount { get; set; }
-		public Record.Types Type { get; set; }
-		public Record.Categories Category { get; set; }
 
-		public string Description
+		public Types Type
 		{
-			get { return description; }
-			set { description = ValidateDescriptionForDebt(value); }
+			get { return type; }
+			set { OnTypeUpdate(value); }
 		}
 
-		public List<string> DescriptionSuggestions { get; set; }
+		public Categories Category { get; set; }
+		public string Description { get; set; }
 		public DateTime Date { get; set; }
-
-		const string DebtIn = "In";
-		const string DebtOut = "Out";
 
 		// View needs
 		public Thickness Padding { get; set; }
 		public Thickness Border { get; set; }
-		public IEnumerable<Record.Categories> RecordCategories { get; set; }
-		public IEnumerable<Record.Types> RecordTypes { get; set; }
+		public IEnumerable<Types> RecordTypes { get; set; }
+		public IEnumerable<Categories> AvailableCategories { get; set; }
+		private readonly Dictionary<Types, Categories[]> availableCategories;
+		public List<string> DescriptionSuggestions { get; set; }
+		public event PropertyChangedEventHandler PropertyChanged;
 
 		public RecordForm(IExpenses expenses)
 		{
@@ -42,10 +45,18 @@ namespace Tracker.ViewModels
 			// Assign date here instead of the Submit() because of Primary and Secondary need to have different time
 			Date = DateTime.Now;
 
-			DescriptionSuggestions = new List<string>() { DebtIn, DebtOut, "Novus", "Water"};
+			RecordTypes = Enum.GetValues(typeof (Types)).Cast<Types>();
 
-			RecordTypes = Enum.GetValues(typeof (Record.Types)).Cast<Record.Types>();
-			RecordCategories = Enum.GetValues(typeof (Record.Categories)).Cast<Record.Categories>();
+			availableCategories = new Dictionary<Types, Categories[]>
+			{
+				[Expense] = new[] {Food, General, Health, House, Other, Women},
+				[Debt] = new[] {Max, Andrey},
+				[Income] = new[] {ODesk, Deposit},
+				[Shared] = new[] {Food, House, General, Other},
+				[Balance] = new[] {Other}
+			};
+
+			DescriptionSuggestions = new List<string> {"Novus", "Kishenya", "Water"};
 
 			Padding = new Thickness(40, 5, 5, 5);
 			Border = new Thickness(0);
@@ -53,7 +64,7 @@ namespace Tracker.ViewModels
 
 		public void Submit()
 		{
-			if (Type == Record.Types.Shared)
+			if (Type == Shared)
 				Amount = Divide(Amount);
 
 			expenses.Add(Amount, Type, Category, Description, Date);
@@ -71,14 +82,30 @@ namespace Tracker.ViewModels
 			Padding = new Thickness(5, 5, 40, 5);
 		}
 
-		private string ValidateDescriptionForDebt(string text)
+		private void OnTypeUpdate(Types value)
 		{
-			if (Type != Record.Types.Debt) return text;
-			
-			if (!DebtIn.Contains(text) && !DebtOut.Contains(text))
-				throw new ArgumentException("Debt: only 'In' or 'Out'");
+			type = value;
+			SetAvailableCategories(value);
+			ClearDescription();
+		}
 
-			return text;
+		private void SetAvailableCategories(Types value)
+		{
+			AvailableCategories = availableCategories[value];
+			OnPropertyChanged("AvailableCategories");
+			Category = AvailableCategories.First();
+			OnPropertyChanged("Category");
+		}
+
+		private void ClearDescription()
+		{
+			Description = null;
+			OnPropertyChanged("Description");
+		}
+
+		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+		{
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 	}
 }
