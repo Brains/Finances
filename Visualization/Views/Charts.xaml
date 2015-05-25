@@ -23,12 +23,16 @@
 				<RowDefinition />
 				<RowDefinition />
 			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
 
-			<!--Stacked Columns-->
-			<metro:StackedColumnChart Grid.Row="0"
+			<!-- Stacked Columns: Expences by Date -->
+			<metro:StackedColumnChart Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
 			                          SeriesSource="{Binding ExpencesByDate}"
-			                          ChartTitle="Expences by Date"
-			                          ChartSubTitle="Marth"
+			                          ChartTitle="Days"
+			                          ChartSubTitle="{Binding Month}"
 									  Palette="{StaticResource CustomColors}">
 				<metro:StackedColumnChart.SeriesTemplate>
 					<DataTemplate>
@@ -41,12 +45,11 @@
 				</metro:StackedColumnChart.SeriesTemplate>
 			</metro:StackedColumnChart>
 
-			<!--Pie-->
-			<metro:DoughnutChart x:Name="Chart"
-			                     Grid.Row="1"
+			<!--Doughnut: Expences by Categories-->
+			<metro:DoughnutChart Grid.Row="1" Grid.Column="0"
 			                     InnerRadiusRatio="0.5"
-			                     ChartTitle="Expences by Categories"
-			                     ChartSubTitle="Marth"
+			                     ChartTitle="Categories"
+			                     ChartSubTitle="{Binding Month}"
 								 Palette="{StaticResource CustomColors}">
 				<metro:DoughnutChart.Series>
 					<metro:ChartSeries ItemsSource="{Binding ExpencesByCategory}"
@@ -55,6 +58,19 @@
 									   SeriesTitle="NoTitle"/>
 				</metro:DoughnutChart.Series>
 			</metro:DoughnutChart>
+
+			<!-- Stacked Columns : Expences by Type-->
+			<metro:ClusteredColumnChart Grid.Row="1" Grid.Column="1"
+										ChartTitle="Types"
+										ChartSubTitle="{Binding Month}" >
+				<metro:ClusteredColumnChart.Series>
+					<metro:ChartSeries ItemsSource="{Binding ExpencesByType}"
+									   DisplayMember="Key"
+									   ValueMember="Value"
+									   SeriesTitle="Expences" />
+				</metro:ClusteredColumnChart.Series>
+			</metro:ClusteredColumnChart>
+
 		</Grid>
 	</ScrollViewer>
 </UserControl>

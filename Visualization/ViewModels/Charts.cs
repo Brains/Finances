@@ -24,8 +24,10 @@ namespace Visualization.ViewModels
 	public class Charts
 	{
 		private readonly IExpenses expenses;
+		private int month = DateTime.Now.Month;
 
-		private IEnumerable<Record> Records => GetRecordsByMonth(expenses.Records, DateTime.Now.Month);
+		private IEnumerable<Record> Records => GetRecordsByMonth(expenses.Records, month);
+		public string Month => DateTimeFormatInfo.CurrentInfo.GetMonthName(month);
 
 		public Dictionary<string, IEnumerable<Record>> ExpencesByDate => GetExpencesByDate(Records);
 		public Dictionary<string, int> ExpencesByCategory => GetExpencesByCategory(Records);
@@ -63,6 +65,7 @@ namespace Visualization.ViewModels
 		public Dictionary<string, int> GetExpencesByType(IEnumerable<Record> records)
 		{
 			var query = from record in records
+			            where record.Type == Expense || record.Type == Income
 			            group record by record.Type
 			            into grouped
 			            select new {Key = grouped.Key, Value = grouped.Sum(record => record.Amount)};
