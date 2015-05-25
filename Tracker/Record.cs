@@ -62,5 +62,10 @@ namespace Tracker
             Description = description;
             Date = date;
         }
+
+		public override string ToString()
+		{
+			return $"{Amount}; {Type}; {Category}; {Description}; {Date.ToString("M")}";
+		}
     }
 }
