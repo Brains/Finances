@@ -50,10 +50,11 @@
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition />
 				<ColumnDefinition />
+				<ColumnDefinition />
 			</Grid.ColumnDefinitions>
 
 			<!-- Stacked Columns: Expences by Date -->
-			<metro:StackedColumnChart Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+			<metro:StackedColumnChart Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
 			                          SeriesSource="{Binding ExpencesByDate}"
 			                          ChartTitle="Days"
 			                          ChartSubTitle="{Binding Month}"
@@ -72,9 +73,9 @@
 			<!--Doughnut: Expences by Categories-->
 			<metro:DoughnutChart Grid.Row="1" Grid.Column="0"
 			                     InnerRadiusRatio="0.5"
-			                     ChartTitle="Categories"
+								 ChartTitle="Expences"
 			                     ChartSubTitle="{Binding Month}"
-								 Palette="{StaticResource CustomColors}">
+								 Palette="{StaticResource OrangeColors}">
 				<metro:DoughnutChart.Series>
 					<metro:ChartSeries ItemsSource="{Binding Expences}"
 					                   DisplayMember="Key"
@@ -83,22 +84,33 @@
 				</metro:DoughnutChart.Series>
 			</metro:DoughnutChart>
 
+			<!--Doughnut: Incomes by Categories-->
+			<metro:DoughnutChart Grid.Row="1"
+								 Grid.Column="1"
+								 InnerRadiusRatio="0.5"
+								 ChartTitle="Incomes"
+								 ChartSubTitle="{Binding Month}"
+								 Palette="{StaticResource GreenColors}">
+				<metro:DoughnutChart.Series>
+					<metro:ChartSeries ItemsSource="{Binding Incomes}"
+									   DisplayMember="Key"
+									   ValueMember="Value"
+									   SeriesTitle="NoTitle" />
+				</metro:DoughnutChart.Series>
+			</metro:DoughnutChart>
+
 			<!-- Stacked Columns : Expences by Type-->
-			<metro:StackedColumnChart Grid.Row="1" Grid.Column="1"
+			<metro:ClusteredColumnChart Grid.Row="1" Grid.Column="2"
 										ChartTitle="Types"
 										ChartSubTitle="{Binding Month}"
-									  Palette="{StaticResource OrangeGreenColors}">
-				<metro:StackedColumnChart.Series>
-					<metro:ChartSeries SeriesTitle="Expences"
+										Palette="{StaticResource OrangeGreenColors}">
+				<metro:ClusteredColumnChart.Series>
+					<metro:ChartSeries SeriesTitle="Title"
 									   DisplayMember="Key"
 									   ValueMember="Value"
-									   ItemsSource="{Binding Expences}" />
-					<metro:ChartSeries SeriesTitle="Income"
-									   DisplayMember="Key"
-									   ValueMember="Value"
-									   ItemsSource="{Binding Incomes}" />
-				</metro:StackedColumnChart.Series>
-			</metro:StackedColumnChart>
+									   ItemsSource="{Binding ExpencesByType}" />
+				</metro:ClusteredColumnChart.Series>
+			</metro:ClusteredColumnChart>
 
 		</Grid>
 	</ScrollViewer>

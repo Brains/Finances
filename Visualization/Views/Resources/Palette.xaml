@@ -61,16 +61,24 @@
 		<ResourceDictionary><SolidColorBrush x:Key = "Brush13" Color = "#FF7CAFDD" /></ResourceDictionary>
 	</chart:ResourceDictionaryCollection>
 
-	<chart:ResourceDictionaryCollection x:Key="OrangeGreenColors" >
+	<chart:ResourceDictionaryCollection x:Key="OrangeColors" >
 		<ResourceDictionary><SolidColorBrush x:Key = "Brush1" Color = "#D24100" /></ResourceDictionary>
 		<ResourceDictionary><SolidColorBrush x:Key = "Brush2" Color = "#D95100" /></ResourceDictionary>
 		<ResourceDictionary><SolidColorBrush x:Key = "Brush3" Color = "#DE6D00" /></ResourceDictionary>
 		<ResourceDictionary><SolidColorBrush x:Key = "Brush4" Color = "#EE8900" /></ResourceDictionary>
-<!--		<ResourceDictionary><SolidColorBrush x:Key = "Brush5" Color = "#FCA600" /></ResourceDictionary>-->
-<!--		<ResourceDictionary><SolidColorBrush x:Key = "Brush6" Color = "#F0B100" /></ResourceDictionary>-->
+		<ResourceDictionary><SolidColorBrush x:Key = "Brush5" Color = "#FCA600" /></ResourceDictionary>
+		<ResourceDictionary><SolidColorBrush x:Key = "Brush6" Color = "#F0B100" /></ResourceDictionary>
+	</chart:ResourceDictionaryCollection>
+	
+	<chart:ResourceDictionaryCollection x:Key = "GreenColors" >
 		<ResourceDictionary><SolidColorBrush x:Key = "Brush7" Color = "#A2CC00" /></ResourceDictionary>
 		<ResourceDictionary><SolidColorBrush x:Key = "Brush9" Color = "#BDD64C" /></ResourceDictionary>
 		<ResourceDictionary><SolidColorBrush x:Key = "Brush8" Color = "#D4FF31" /></ResourceDictionary>
+	</chart:ResourceDictionaryCollection>
+
+	<chart:ResourceDictionaryCollection x:Key="OrangeGreenColors" >
+		<ResourceDictionary><SolidColorBrush x:Key = "Brush1" Color = "#D24100" /></ResourceDictionary>
+		<ResourceDictionary><SolidColorBrush x:Key = "Brush2" Color = "#A2CC00" /></ResourceDictionary>
 	</chart:ResourceDictionaryCollection>
 	
 </ResourceDictionary>

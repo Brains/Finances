@@ -52,7 +52,7 @@ namespace Visualization.ViewModels
 			return dates.ToDictionary(date => date.Key, AggregateByCategory);
 		}
 
-		public Dictionary<string, int> GetExpencesByCategory(IEnumerable<Record> records, Predicate<Record> predicate )
+		public Dictionary<string, int> GetExpencesByCategory(IEnumerable<Record> records, Predicate<Record> predicate)
 		{
 			var query = from record in records
 			            where predicate(record)
@@ -61,14 +61,14 @@ namespace Visualization.ViewModels
 			            into grouped
 			            select grouped;
 
-			return query.ToDictionary(group => @group.Key.ToString(), group => (int)@group.Sum(record => record.Amount));
+			return query.ToDictionary(group => group.Key.ToString(), group => (int) group.Sum(record => record.Amount));
 		}
 
 
 		public Dictionary<string, int> GetExpencesByType(IEnumerable<Record> records)
 		{
 			var query = from record in records
-			            where record.Type == Expense || record.Type == Income
+//			            where record.Type == Expense || record.Type == Income
 			            group record by record.Type
 			            into grouped
 			            select new {Key = grouped.Key, Value = grouped.Sum(record => record.Amount)};
@@ -111,6 +111,40 @@ namespace Visualization.ViewModels
 		private static bool IsIncome(Record record)
 		{
 			return record.Type == Income;
+		}
+
+
+		public Dictionary<string, int> ExpencesTotal
+		{
+			get
+			{
+				var total = from record in Records
+				            where IsExpense(record)
+				            select record;
+
+				var expencesTotal = new KeyValuePair<string, int>("Exp", (int)total.Sum(record => record.Amount));
+				var sad = new Dictionary<string, int>(); 
+				sad.Add(expencesTotal.Key, expencesTotal.Value);
+
+				return sad;
+			}
+		}
+
+
+		public Dictionary<string, int> IncomesTotal
+		{
+			get
+			{
+				var total = from record in Records
+							where IsIncome(record)
+							select record;
+
+				var expencesTotal = new KeyValuePair<string, int>("Exp", (int)total.Sum(record => record.Amount));
+				var sad = new Dictionary<string, int>();
+				sad.Add(expencesTotal.Key, expencesTotal.Value);
+
+				return sad;
+			}
 		}
 	}
 }
