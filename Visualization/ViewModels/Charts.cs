@@ -25,6 +25,7 @@ namespace Visualization.ViewModels
 	{
 		private readonly IExpenses expenses;
 		private int month = DateTime.Now.Month;
+		private Dictionary<Types, List<Record>> types;
 
 		private IEnumerable<Record> Records => GetRecordsByMonth(expenses.Records, month);
 		public string Month => DateTimeFormatInfo.CurrentInfo.GetMonthName(month);
@@ -38,6 +39,8 @@ namespace Visualization.ViewModels
 		public Charts(IExpenses expenses)
 		{
 			this.expenses = expenses;
+
+			types = GroupByType(Records);
 		}
 
 		public Dictionary<string, IEnumerable<Record>> GetExpencesByDate(IEnumerable<Record> records)
@@ -160,6 +163,12 @@ namespace Visualization.ViewModels
 			types.Remove(Shared);
 
 			return types;
+		}
+
+		public Dictionary<Types, List<Record>> GroupByType(IEnumerable<Record> records)
+		{
+			return records.GroupBy(record => record.Type)
+			              .ToDictionary(grouping => grouping.Key, grouping => grouping.ToList());
 		}
 
 		private bool IsThis(Types type)
