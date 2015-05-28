@@ -127,8 +127,8 @@ namespace Visualization.ViewModels
 				            where IsExpense(record)
 				            select record;
 
-				var expencesTotal = new KeyValuePair<string, int>("Exp", (int)total.Sum(record => record.Amount));
-				var sad = new Dictionary<string, int>(); 
+				var expencesTotal = new KeyValuePair<string, int>("Exp", (int) total.Sum(record => record.Amount));
+				var sad = new Dictionary<string, int>();
 				sad.Add(expencesTotal.Key, expencesTotal.Value);
 
 				return sad;
@@ -141,10 +141,10 @@ namespace Visualization.ViewModels
 			get
 			{
 				var total = from record in Records
-							where IsIncome(record)
-							select record;
+				            where IsIncome(record)
+				            select record;
 
-				var expencesTotal = new KeyValuePair<string, int>("Exp", (int)total.Sum(record => record.Amount));
+				var expencesTotal = new KeyValuePair<string, int>("Exp", (int) total.Sum(record => record.Amount));
 				var sad = new Dictionary<string, int>();
 				sad.Add(expencesTotal.Key, expencesTotal.Value);
 
@@ -157,7 +157,7 @@ namespace Visualization.ViewModels
 			var types = records.GroupBy(record => record.Type)
 			                   .Where(grouping => IsThis(grouping.Key))
 			                   .Select(grouping => new {grouping.Key, Value = (int) grouping.Sum(record => record.Amount)})
-							   .ToDictionary(arg => arg.Key, arg => arg.Value);
+			                   .ToDictionary(arg => arg.Key, arg => arg.Value);
 
 			types[Expense] += types[Shared];
 			types.Remove(Shared);
@@ -174,6 +174,45 @@ namespace Visualization.ViewModels
 		private bool IsThis(Types type)
 		{
 			return type == Expense || type == Shared || type == Income;
+		}
+
+		public void MyMethod()
+		{
+			var query = types[Debt].GroupBy(r => r.Category);
+
+
+			var debts = (from record in types[Debt]
+			            group record by record.Category
+			            into grouping
+			            select new
+			            {
+				            Name = grouping.Key,
+				            Total = (from record in grouping
+				                     group record by record.Description
+				                     into grouped
+				                     select new
+				                     {
+					                     Direction = grouped.Key,
+										 Total = (int) grouped.Sum(record => record.Amount)
+				                     })
+									 .ToDictionary(kind => kind.Direction, kind => kind.Total)
+			            }).ToDictionary(dude => dude.Name, dude => dude.Total);
+
+
+			var total = debts.Select(dude => new
+			{
+				Name = dude.Key,
+				Total = dude.Value["Out"] - dude.Value["In"]
+			})
+			.ToDictionary(dude => dude.Name, dude => dude.Total);
+
+
+			var total2 = debts.Select(dude => new {
+				Name = dude.Key, Total = dude.Value
+				.Select(pair => pair.Key == "In" ? -pair.Value : pair.Value)
+				.Sum()});
+
+
 		}
 	}
 }
