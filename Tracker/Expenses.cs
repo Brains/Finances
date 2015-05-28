@@ -15,7 +15,7 @@ namespace Tracker
 		readonly Random random = new Random();
 	    private string recordsDataPath;
 
-	    public ObservableCollection<Record> Records { get; private set; }
+	    public ObservableCollection<Record> Records { get; set; }
         
         public Expenses ()
         {

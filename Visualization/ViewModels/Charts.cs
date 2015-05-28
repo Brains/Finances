@@ -33,7 +33,7 @@ namespace Visualization.ViewModels
 		public Dictionary<string, IEnumerable<Record>> ExpencesByDate => GetExpencesByDate(Records);
 		public Dictionary<string, int> Expences => GetExpencesByCategory(Records, IsExpense);
 		public Dictionary<string, int> Incomes => GetExpencesByCategory(Records, IsIncome);
-		public Dictionary<string, int> ExpencesByType => GetExpencesByType(Records);
+		public Dictionary<Types, int> ExpencesByType => GetInOutRatio(Records);
 
 		public Charts(IExpenses expenses)
 		{
@@ -80,6 +80,8 @@ namespace Visualization.ViewModels
 
 		public List<Record> GetRecordsFrom(DateTime date, IEnumerable<Record> records)
 		{
+			var asdd = records.ToLookup(record => record.Type, record => records.Where(record1 => record.Amount > 2));
+
 			var query = from record in records
 			            where record.Date > date
 			            select record;
@@ -145,6 +147,24 @@ namespace Visualization.ViewModels
 
 				return sad;
 			}
+		}
+
+		public Dictionary<Types, int> GetInOutRatio(IEnumerable<Record> records)
+		{
+			var types = records.GroupBy(record => record.Type)
+			                   .Where(grouping => IsThis(grouping.Key))
+			                   .Select(grouping => new {grouping.Key, Value = (int) grouping.Sum(record => record.Amount)})
+							   .ToDictionary(arg => arg.Key, arg => arg.Value);
+
+			types[Expense] += types[Shared];
+			types.Remove(Shared);
+
+			return types;
+		}
+
+		private bool IsThis(Types type)
+		{
+			return type == Expense || type == Shared || type == Income;
 		}
 	}
 }
