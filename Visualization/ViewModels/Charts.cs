@@ -171,23 +171,20 @@ namespace Visualization.ViewModels
 			              .ToDictionary(grouping => grouping.Key, grouping => grouping.ToList());
 		}
 
-		private bool IsThis(Types type)
+		private static bool IsThis(Types type)
 		{
 			return type == Expense || type == Shared || type == Income;
 		}
 
-		public void MyMethod()
+		public Dictionary<Categories, int> CalculateDebts()
 		{
-			var query = types[Debt].GroupBy(r => r.Category);
-
-
 			var debts = (from record in types[Debt]
 			            group record by record.Category
-			            into grouping
+			            into dude
 			            select new
 			            {
-				            Name = grouping.Key,
-				            Total = (from record in grouping
+				            Name = dude.Key,
+				            Total = (from record in dude
 				                     group record by record.Description
 				                     into grouped
 				                     select new
@@ -196,23 +193,18 @@ namespace Visualization.ViewModels
 										 Total = (int) grouped.Sum(record => record.Amount)
 				                     })
 									 .ToDictionary(kind => kind.Direction, kind => kind.Total)
-			            }).ToDictionary(dude => dude.Name, dude => dude.Total);
-
+			            });
 
 			var total = debts.Select(dude => new
 			{
-				Name = dude.Key,
-				Total = dude.Value["Out"] - dude.Value["In"]
+				dude.Name,
+				Total = dude.Total["Out"] - dude.Total["In"]
 			})
 			.ToDictionary(dude => dude.Name, dude => dude.Total);
 
 
-			var total2 = debts.Select(dude => new {
-				Name = dude.Key, Total = dude.Value
-				.Select(pair => pair.Key == "In" ? -pair.Value : pair.Value)
-				.Sum()});
 
-
+			return total;
 		}
 	}
 }
