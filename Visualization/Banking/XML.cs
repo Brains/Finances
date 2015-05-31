@@ -50,26 +50,13 @@ namespace Visualization.Banking
 			return file;
 		}
 
-		public static string InsertDatesRange(string xml, DateTime startDate, DateTime endDate)
+		public static string InsertDatesRange(string xml, DateTime start, DateTime end)
 		{
 			XElement file = XElement.Parse(xml);
 
-//			XElement start = new XElement("prop");
-//			start.SetAttributeValue("name", "sd");
-//			start.SetAttributeValue("value", startDate.ToString("dd.MM.yyyy"));
-//
-//			XElement end = new XElement("prop");
-//			end.SetAttributeValue("name", "ed");
-//			end.SetAttributeValue("value", endDate.ToString("dd.MM.yyyy"));
-//
-//			file.Element("data").Element("payment").Add(start);
-//			file.Element("data").Element("payment").Add(end);
-
-
-			var props = file.Descendants("prop").Skip(2);
-			props.First().SetAttributeValue("value", startDate.ToString("dd.MM.yyyy"));
-			props.Last().SetAttributeValue("value", endDate.ToString("dd.MM.yyyy"));
-
+			var properties = file.Descendants("prop").Skip(2).ToList();
+			properties.First().SetAttributeValue("value", start.ToString("dd.MM.yyyy"));
+			properties.Last().SetAttributeValue("value", end.ToString("dd.MM.yyyy"));
 
 			return file.ToString(SaveOptions.DisableFormatting); 
 		}
