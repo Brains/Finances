@@ -38,14 +38,22 @@
 			</Style>
 
 
+			<Style TargetType="Label">
+				<Setter Property="FontSize" Value="24"></Setter>
+				<Setter Property="Foreground" Value="SteelBlue"></Setter>
+				<Setter Property="FontFamily" Value="Segoe UI"></Setter>
+				<Setter Property="FontWeight" Value="Light"></Setter>
+			</Style>
+
 		</ResourceDictionary>
 	</UserControl.Resources>
 
 	<ScrollViewer>
 		<Grid>
 			<Grid.RowDefinitions>
-				<RowDefinition />
-				<RowDefinition />
+				<RowDefinition MinHeight="500"/>
+				<RowDefinition MinHeight="500"/>
+				<RowDefinition MinHeight="500"/>
 			</Grid.RowDefinitions>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition />
@@ -112,6 +120,23 @@
 				</metro:ClusteredColumnChart.Series>
 			</metro:ClusteredColumnChart>
 
+			<Grid Grid.Row = "2" Grid.ColumnSpan="3" Grid.Column = "0" >
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+
+				<Label Grid.Row = "0" Grid.Column = "0">Upwork</Label>
+				<Label Grid.Row = "1" Grid.Column = "0">Cards</Label>
+				<Label Grid.Row = "2" Grid.Column = "0">Cash</Label>
+				<Label Grid.Row = "3" Grid.Column = "0">Debts</Label>
+				<Label Grid.Row = "4" Grid.Column = "0" FontSize="34">Total</Label>
+
+			</Grid>
+			
 		</Grid>
 	</ScrollViewer>
 </UserControl>
