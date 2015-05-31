@@ -1,4 +1,6 @@
-using System.IO;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
@@ -12,8 +14,8 @@ namespace Visualization.Banking
 	{
 		public static string Repair(XElement file)
 		{
-
-			return Regex.Replace(file.ToString(SaveOptions.DisableFormatting), @"[^\x20-\x7e]", string.Empty);
+			var pattern = @"[^\x20-\x7e]";
+			return Regex.Replace(file.ToString(SaveOptions.DisableFormatting), pattern, string.Empty);
 		}
 
 		public static string Format(string xml, string password)
@@ -23,15 +25,6 @@ namespace Visualization.Banking
 			var file = InsertSignature(xml, signature);
 
 			return file.ToString(SaveOptions.DisableFormatting);
-		}
-
-		private static XElement InsertSignature(string xml, string signature)
-		{
-			XElement file = XElement.Parse(xml);
-			var signatureElement = file.Element("merchant").Element("signature");
-			signatureElement.SetValue(signature);
-
-			return file;
 		}
 
 		private static string ExtractData(string xml)
@@ -46,13 +39,36 @@ namespace Visualization.Banking
 			return data.ToString();
 		}
 
-		public static XmlDocument LoadXML(byte[] input)
+		private static XElement InsertSignature(string xml, string signature)
 		{
-			XmlDocument doc = new XmlDocument();
-			MemoryStream ms = new MemoryStream(input);
-			doc.Load(ms);
+			XElement file = XElement.Parse(xml);
+			var signatureElement = file.Element("merchant").Element("signature");
+			signatureElement.SetValue(signature);
 
-			return doc;
+			return file;
+		}
+
+		public static decimal ParseBalance(string input)
+		{
+			XElement file = XElement.Parse(input);
+
+			var element = file.Element("data").Element("balance").Value;
+
+			return decimal.Parse(element);
+		}
+
+
+		public static IEnumerable<Tuple<string, string, string>> ParseHistory(string input)
+		{
+			XElement file = XElement.Parse(input);
+			var elements = file.Element("data").Element("info").Elements();
+
+			var history = elements.Skip(1).Select(e => Tuple.Create(
+				e.Attribute("amount").Value,
+				e.Attribute("terminal").Value, 
+				e.Attribute("trandate").Value));
+
+			return history;
 		}
 	}
 }
