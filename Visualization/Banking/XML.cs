@@ -23,7 +23,7 @@ namespace Visualization.Banking
 
 		public static string Format(string xml, string password)
 		{
-			xml = InsertDatesRange(xml, DateTime.Now.AddDays(-30), DateTime.Now);
+			xml = InsertDatesRange(xml, DateTime.Now.AddDays(-5), DateTime.Now);
 			var data = ExtractData(xml);
 			var signature = Encryption.CalculateSignature(data + password);
 			var file = InsertSignature(xml, signature);

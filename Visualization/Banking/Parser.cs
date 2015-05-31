@@ -47,15 +47,15 @@ namespace Visualization.Banking
 			string description = tuple.Item2;
 			var category = ParseCategory(description);
 
-			return new Record(tuple.Item1, Record.Types.Expense, category, description.Remove(15), tuple.Item3);
+			return new Record(tuple.Item1, Record.Types.Expense, category, description, tuple.Item3);
 		}
-
 
 		private static Record.Categories ParseCategory(string description)
 		{
-			return categoriesMarkers.Where(markers => markers.Value.Any(description.Contains))
-			                        .Select(markers => markers.Key)
-			                        .FirstOrDefault();
+			foreach (var markers in categoriesMarkers.Where(markers => markers.Value.Any(description.Contains)))
+				return markers.Key;
+			
+			return Record.Categories.General;
 		}
 
 		private static Tuple<decimal, string, DateTime> ParseText(XElement e)
