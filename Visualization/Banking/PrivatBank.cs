@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -7,17 +9,25 @@ using System.Xml.Linq;
 
 namespace Visualization.Banking
 {
-	class PrivatBank
+	public class PrivatBank
 	{
 		private readonly string historyUrl = "https://api.privatbank.ua/p24api/rest_fiz";
 		private readonly string balanceUrl = "https://api.privatbank.ua/p24api/balance";
-		private readonly string password = "";
 
 		public decimal GetBalance()
 		{
 			var file = PrepareData();
 			var responce = SendData(balanceUrl, file);
 			var result = XML.ParseBalance(responce);
+
+			return result;
+		}
+
+		public IEnumerable<Tuple<decimal, string, DateTime>> GetHistory()
+		{
+			var file = PrepareData();
+			var responce = SendData(historyUrl, file);
+			var result = XML.ParseHistory(responce);
 
 			return result;
 		}
@@ -35,10 +45,9 @@ namespace Visualization.Banking
 		private string PrepareData()
 		{
 			var xml = XElement.Load(@"Request.xml");
-			string file;
 
-			file = XML.Repair(xml);
-			file = XML.Format(file, password);
+			var file = XML.Repair(xml);
+			file = XML.Format(file, XML.ReadPassword(@"Password.xml"));
 
 			return file;
 		}
