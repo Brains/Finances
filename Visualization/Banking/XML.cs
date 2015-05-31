@@ -83,7 +83,7 @@ namespace Visualization.Banking
 		private static Tuple<decimal, string, DateTime> ParseStatement(XElement e)
 		{
 			var amountText = e.Attribute("amount").Value.Replace("UAH", String.Empty);
-			var amount = decimal.Parse(amountText);
+			var amount = Math.Round(decimal.Parse(amountText));
 
 			var time = TimeSpan.Parse(e.Attribute("trantime").Value);
 			var date = DateTime.Parse(e.Attribute("trandate").Value);
