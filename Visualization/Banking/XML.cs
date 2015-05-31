@@ -6,6 +6,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
+using Tracker;
+
 // ReSharper disable PossibleNullReferenceException
 // ReSharper disable InconsistentNaming
 
@@ -21,7 +23,7 @@ namespace Visualization.Banking
 
 		public static string Format(string xml, string password)
 		{
-			xml = InsertDatesRange(xml, DateTime.Now.AddDays(-5), DateTime.Now);
+			xml = InsertDatesRange(xml, DateTime.Now.AddDays(-30), DateTime.Now);
 			var data = ExtractData(xml);
 			var signature = Encryption.CalculateSignature(data + password);
 			var file = InsertSignature(xml, signature);
@@ -59,36 +61,6 @@ namespace Visualization.Banking
 			properties.Last().SetAttributeValue("value", end.ToString("dd.MM.yyyy"));
 
 			return file.ToString(SaveOptions.DisableFormatting); 
-		}
-
-		public static decimal ParseBalance(string input)
-		{
-			XElement file = XElement.Parse(input);
-
-			var element = file.Descendants("balance").First().Value;
-
-			return Math.Round(decimal.Parse(element));
-		}
-
-		public static IEnumerable<Tuple<decimal, string, DateTime>> ParseHistory(string input)
-		{
-			XElement file = XElement.Parse(input);
-			var elements = file.Descendants("statement");
-
-			var history = elements.Select(ParseStatement);
-
-			return history;
-		}
-
-		private static Tuple<decimal, string, DateTime> ParseStatement(XElement e)
-		{
-			var amountText = e.Attribute("amount").Value.Replace("UAH", String.Empty);
-			var amount = Math.Round(decimal.Parse(amountText));
-
-			var time = TimeSpan.Parse(e.Attribute("trantime").Value);
-			var date = DateTime.Parse(e.Attribute("trandate").Value);
-
-			return Tuple.Create(amount, e.Attribute("terminal").Value, date.Add(time));
 		}
 
 		public static string ReadPassword(string input)

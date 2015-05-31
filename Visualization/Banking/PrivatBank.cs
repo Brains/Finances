@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
+using Tracker;
 
 namespace Visualization.Banking
 {
@@ -18,16 +19,16 @@ namespace Visualization.Banking
 		{
 			var file = PrepareData();
 			var responce = SendData(balanceUrl, file);
-			var result = XML.ParseBalance(responce);
+			var result = Parser.ParseBalance(responce);
 
 			return result;
 		}
 
-		public IEnumerable<Tuple<decimal, string, DateTime>> GetHistory()
+		public IEnumerable<Record> GetHistory()
 		{
 			var file = PrepareData();
 			var responce = SendData(historyUrl, file);
-			var result = XML.ParseHistory(responce);
+			var result = Parser.ParseHistory(responce);
 
 			return result;
 		}
