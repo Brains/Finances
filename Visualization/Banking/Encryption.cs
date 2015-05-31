@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+// ReSharper disable InconsistentNaming
 
 namespace Visualization.Banking
 {
@@ -35,15 +36,15 @@ namespace Visualization.Banking
 
 		private static string GetHexString(byte[] bytes)
 		{
-			var sb = new StringBuilder();
+			var builder = new StringBuilder();
 
 			foreach (byte b in bytes)
 			{
 				var hex = b.ToString("x2");
-				sb.Append(hex);
+				builder.Append(hex);
 			}
 
-			return sb.ToString();
+			return builder.ToString();
 		}
 	}
 }

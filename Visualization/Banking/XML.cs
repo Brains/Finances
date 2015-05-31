@@ -8,9 +8,15 @@ using System.Xml.Linq;
 
 namespace Visualization.Banking
 {
-	class XML
+	static class XML
 	{
-		public string Format(string xml, string password)
+		public static string Repair(XElement file)
+		{
+
+			return Regex.Replace(file.ToString(SaveOptions.DisableFormatting), @"[^\x20-\x7e]", string.Empty);
+		}
+
+		public static string Format(string xml, string password)
 		{
 			var data = ExtractData(xml);
 			var signature = Encryption.CalculateSignature(data + password);
@@ -19,7 +25,7 @@ namespace Visualization.Banking
 			return file.ToString(SaveOptions.DisableFormatting);
 		}
 
-		private XElement InsertSignature(string xml, string signature)
+		private static XElement InsertSignature(string xml, string signature)
 		{
 			XElement file = XElement.Parse(xml);
 			var signatureElement = file.Element("merchant").Element("signature");
@@ -28,7 +34,7 @@ namespace Visualization.Banking
 			return file;
 		}
 
-		private string ExtractData(string xml)
+		private static string ExtractData(string xml)
 		{
 			XElement file = XElement.Parse(xml);
 
@@ -40,17 +46,8 @@ namespace Visualization.Banking
 			return data.ToString();
 		}
 
-		public string Fix(string text)
+		public static XmlDocument LoadXML(byte[] input)
 		{
-			XElement file = XElement.Load(@"Request.xml");
-
-			return Regex.Replace(file.ToString(SaveOptions.DisableFormatting), @"[^\x20-\x7e]", string.Empty);
-		}
-
-		public XmlDocument LoadXML(byte[] input)
-		{
-			//			XElement file = XElement.Load(@"Request.xml");
-
 			XmlDocument doc = new XmlDocument();
 			MemoryStream ms = new MemoryStream(input);
 			doc.Load(ms);
