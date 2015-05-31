@@ -13,17 +13,34 @@ namespace Visualization.Banking
 		private readonly string balanceUrl = "https://api.privatbank.ua/p24api/balance";
 		private readonly string password = "";
 
-		private string GetBalance()
+		public decimal GetBalance()
 		{
-			var xml = XElement.Load(@"Request.xml");
-			string file;
-			file = XML.Repair(xml);
-			file = XML.Format(file, password);
+			var file = PrepareData();
+			var responce = SendData(balanceUrl, file);
+			var result = XML.ParseBalance(responce);
 
+			return result;
+		}
+
+		private string SendData(string url, string file)
+		{
 			WebClient client = new WebClient();
 			client.Encoding = Encoding.UTF8;
 
-			return client.UploadString(historyUrl, file);
+			var responce = client.UploadString(url, file);
+
+			return responce;
+		}
+
+		private string PrepareData()
+		{
+			var xml = XElement.Load(@"Request.xml");
+			string file;
+
+			file = XML.Repair(xml);
+			file = XML.Format(file, password);
+
+			return file;
 		}
 	}
 }
