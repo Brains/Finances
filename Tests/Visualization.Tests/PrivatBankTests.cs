@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Practices.ObjectBuilder2;
 using NUnit.Framework;
+using Statistics.Banking;
 using Visualization.Banking;
 
 namespace Visualization.Tests

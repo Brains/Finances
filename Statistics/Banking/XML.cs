@@ -1,17 +1,15 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Xml;
 using System.Xml.Linq;
-using Tracker;
+using Visualization.Banking;
 
 // ReSharper disable PossibleNullReferenceException
 // ReSharper disable InconsistentNaming
 
-namespace Visualization.Banking
+namespace Statistics.Banking
 {
 	static class XML
 	{

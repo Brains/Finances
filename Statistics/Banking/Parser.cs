@@ -4,15 +4,15 @@ using System.Linq;
 using System.Xml.Linq;
 using Tracker;
 
-namespace Visualization.Banking
+namespace Statistics.Banking
 {
 	static class Parser
 	{
-		private static readonly Dictionary<Record.Categories, string[]> categoriesMarkers;
+		private static readonly Dictionary<Record.Categories, string[]> CategoriesMarkers;
 
 		static Parser()
 		{
-			categoriesMarkers = new Dictionary<Record.Categories, string[]>
+			CategoriesMarkers = new Dictionary<Record.Categories, string[]>
 			{
 				[Record.Categories.Food] = new []{ "Новус", "FUDMEREZHA" },
 				[Record.Categories.Health] = new []{ "Аптека" },
@@ -52,7 +52,7 @@ namespace Visualization.Banking
 
 		private static Record.Categories ParseCategory(string description)
 		{
-			foreach (var markers in categoriesMarkers.Where(markers => markers.Value.Any(description.Contains)))
+			foreach (var markers in CategoriesMarkers.Where(markers => markers.Value.Any(description.Contains)))
 				return markers.Key;
 			
 			return Record.Categories.General;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Tracker;
 
-namespace Visualization.Banking
+namespace Statistics.Banking
 {
 	public interface IRecordsProvider
 	{

@@ -1,6 +1,6 @@
 using System;
 
-namespace Visualization.Banking
+namespace Statistics.Banking
 {
 	public interface IFundsStorage
 	{
