@@ -79,6 +79,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Banking\Debts.cs" />
     <Compile Include="Banking\Encryption.cs" />
     <Compile Include="Banking\IFundsStorage.cs" />
     <Compile Include="Banking\IRecordsProvider.cs" />

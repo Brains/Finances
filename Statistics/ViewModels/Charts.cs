@@ -1,24 +1,10 @@
 ﻿using System;
-using System.CodeDom;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using Microsoft.Practices.ObjectBuilder2;
-using Statistics.Banking;
 using Tracker;
-using static System.Console;
 using static Tracker.Record;
 using static Tracker.Record.Types;
-using static Tracker.Record.Categories;
 using Data = System.Collections.Generic.Dictionary<string, int>;
 
 namespace Statistics.ViewModels
@@ -143,36 +129,7 @@ namespace Statistics.ViewModels
 		}
 
 
-		public Dictionary<Categories, int> CalculateDebts()
-		{
-			var debts = (from record in types[Debt]
-			            group record by record.Category
-			            into dude
-			            select new
-			            {
-				            Name = dude.Key,
-				            Total = (from record in dude
-				                     group record by record.Description
-				                     into grouped
-				                     select new
-				                     {
-					                     Direction = grouped.Key,
-										 Total = (int) grouped.Sum(record => record.Amount)
-				                     })
-									 .ToDictionary(kind => kind.Direction, kind => kind.Total)
-			            });
-
-			var total = debts.Select(dude => new
-			{
-				dude.Name,
-				Total = dude.Total["Out"] - dude.Total["In"]
-			})
-			.ToDictionary(dude => dude.Name, dude => dude.Total);
-
-
-
-			return total;
-		}
+		
 
 
 

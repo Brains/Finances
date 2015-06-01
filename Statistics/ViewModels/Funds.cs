@@ -9,6 +9,8 @@ namespace Statistics.ViewModels
 
 		public Funds()
 		{
+
+
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
