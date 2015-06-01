@@ -19,6 +19,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trends.Tests", "Tests\Trend
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracker.UnitTests", "Tests\Tracker.UnitTests\Tracker.UnitTests.csproj", "{2C80B2A4-7B0D-4ACF-98C1-D1C7BB3C42FF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{6C8A8C8B-47B7-47B5-9A93-82214B2AC77C}"
+	ProjectSection(SolutionItems) = preProject
+		Data\Records.xml = Data\Records.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
