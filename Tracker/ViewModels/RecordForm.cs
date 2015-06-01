@@ -59,7 +59,7 @@ namespace Tracker.ViewModels
 				[Balance] = new[] { Other }
 			};
 
-			DescriptionSuggestions = new List<string> { "Novus", "Kishenya", "Water" };
+			DescriptionSuggestions = new List<string> { "Novus", "Kishenya", "Water", "Hygiene", "Domestic" };
 
 			Padding = new Thickness(40, 5, 5, 5);
 			Border = new Thickness(0);

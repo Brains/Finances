@@ -24,7 +24,7 @@ namespace Visualization.ViewModels
 	public class Charts
 	{
 		private readonly IExpenses expenses;
-		private int month = DateTime.Now.Month;
+		private int month = DateTime.Now.Month-1;
 		private Dictionary<Types, List<Record>> types;
 
 		private IEnumerable<Record> Records => GetRecordsByMonth(expenses.Records, month);
