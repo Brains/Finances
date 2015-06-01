@@ -7,8 +7,8 @@
     <ProjectGuid>{5CB3BA1F-00E9-4721-896F-91396853682C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Visualization.Tests</RootNamespace>
-    <AssemblyName>Visualization.Tests</AssemblyName>
+    <RootNamespace>Statistics.Tests</RootNamespace>
+    <AssemblyName>Statistics.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
