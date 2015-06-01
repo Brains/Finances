@@ -92,8 +92,8 @@
 				          Height = "{Binding ActualHeight, ElementName=DescriptionTextBox}"
 				          HorizontalAlignment = "Center"
 				          VerticalAlignment = "Center" >
-					<system:String>In</system:String>
 					<system:String>Out</system:String>
+					<system:String>In</system:String>
 				</ComboBox>
 			</Grid>
 		</Border>
