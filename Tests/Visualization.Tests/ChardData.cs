@@ -103,7 +103,7 @@ namespace Visualization.Tests
 			var actual = charts.CalculateDebts();
 
 			var expected = new Dictionary<Categories, int>();
-			expected[Max] = 300;
+			expected[Maxim] = 300;
 			expected[Andrey] = 300;
 			Expect(actual, EquivalentTo(expected));
 		}
@@ -112,13 +112,13 @@ namespace Visualization.Tests
 		{
 			expenses.Records = new ObservableCollection<Record>
 			{
-				new Record(500, Debt, Max, "Out", date),
+				new Record(500, Debt, Maxim, "Out", date),
 				new Record(200, Debt, Andrey, "Out", date),
-				new Record(100, Debt, Max, "2", date),
-				new Record(100, Debt, Max, "Out", date),
+				new Record(100, Debt, Maxim, "2", date),
+				new Record(100, Debt, Maxim, "Out", date),
 				new Record(200, Debt, Andrey, "2", date),
-				new Record(250, Debt, Max, "Out", date),
-				new Record(250, Debt, Max, "2", date)
+				new Record(250, Debt, Maxim, "Out", date),
+				new Record(250, Debt, Maxim, "2", date)
 			};
 		}
     }
