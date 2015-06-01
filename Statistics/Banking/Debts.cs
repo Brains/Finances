@@ -5,8 +5,7 @@ using Tracker;
 
 namespace Statistics.Banking
 {
-
-	public class Debts : IFundsStorage
+	public class Debts : IFundsStorage, IDebts
 	{
 		private readonly IEnumerable<Record> records;
 
@@ -20,6 +19,11 @@ namespace Statistics.Banking
 			var debts = CalculateDebts(records.Where(record => record.Type == Record.Types.Debt));
 
 			callback(debts.Sum(pair => pair.Value));
+		}
+
+		public Dictionary<Record.Categories, int> Calculate()
+		{
+			return CalculateDebts(records.Where(record => record.Type == Record.Types.Debt));
 		}
 
 		public Dictionary<Record.Categories, int> CalculateDebts(IEnumerable<Record> records )

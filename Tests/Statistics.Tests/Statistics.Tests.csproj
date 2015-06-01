@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChardData.cs" />
+    <Compile Include="DebtsTests.cs" />
     <Compile Include="PrivatBankTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

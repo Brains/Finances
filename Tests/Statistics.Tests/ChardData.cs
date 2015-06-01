@@ -76,7 +76,7 @@ namespace Statistics.Tests
 
 			Charts charts = new Charts(expenses);
 
-			var actual = charts.GetInOutRatio(expenses.Records);
+			var actual = charts.CalculateInOut();
 
 			foreach (var pair in actual)
 			{
@@ -93,33 +93,8 @@ namespace Statistics.Tests
 			Expect(actual, Exactly(1).Property("Value").EqualTo(100));
 		}
 
-		[Test]
-		public void CalculateDebts_Always_ReturnsTotalDebtForEachDude()
-		{
-			var expenses = Substitute.For<IExpenses>();
-			Charts charts = new Charts(expenses);
-			FillDebts(expenses);
 
-			var actual = charts.CalculateDebts();
 
-			var expected = new Dictionary<Categories, int>();
-			expected[Maxim] = 300;
-			expected[Andrey] = 300;
-			Expect(actual, EquivalentTo(expected));
-		}
-
-		private void FillDebts(IExpenses expenses)
-		{
-			expenses.Records = new ObservableCollection<Record>
-			{
-				new Record(500, Debt, Maxim, "Out", date),
-				new Record(200, Debt, Andrey, "Out", date),
-				new Record(100, Debt, Maxim, "2", date),
-				new Record(100, Debt, Maxim, "Out", date),
-				new Record(200, Debt, Andrey, "2", date),
-				new Record(250, Debt, Maxim, "Out", date),
-				new Record(250, Debt, Maxim, "2", date)
-			};
-		}
+		
     }
 }
