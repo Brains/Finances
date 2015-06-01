@@ -12,13 +12,13 @@ using Microsoft.Practices.ObjectBuilder2;
 using NSubstitute;
 using NUnit.Framework;
 using Tracker;
-using Visualization.ViewModels;
+using Statistics.ViewModels;
 using static System.Console;
 using static Tracker.Record;
 using static Tracker.Record.Types;
 using static Tracker.Record.Categories;
 
-namespace Visualization.Tests
+namespace Statistics.Tests
 {
 	[TestFixture]
     public class ChardData : AssertionHelper

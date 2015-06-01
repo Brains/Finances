@@ -5,7 +5,7 @@
              xmlns:charting="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
              xmlns:metro="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart"
              d:DataContext="{d:DesignData Source=Views/Resources/SampleData.xaml}"
-             x:Class="Visualization.Views.Charts"
+             x:Class="Statistics.Views.Charts"
              mc:Ignorable="d">
 
 	<UserControl.Resources>

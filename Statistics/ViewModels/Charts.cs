@@ -16,7 +16,7 @@ using static Tracker.Record;
 using static Tracker.Record.Types;
 using static Tracker.Record.Categories;
 
-namespace Visualization.ViewModels
+namespace Statistics.ViewModels
 {
 	// For XAML
 //	public class MarkupDictionary : Dictionary<string, int> {}

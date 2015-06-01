@@ -28,7 +28,7 @@ namespace Finances
 			Type tracker = typeof(Tracker.Module);
 			ModuleCatalog.AddModule(new ModuleInfo("Tracker", tracker.AssemblyQualifiedName));
 
-			Type visualization = typeof(Visualization.Module);
+			Type visualization = typeof(Statistics.Module);
 			ModuleCatalog.AddModule(new ModuleInfo("Visualization", visualization.AssemblyQualifiedName));
 
 			Type trends = typeof(Trends.Module);
