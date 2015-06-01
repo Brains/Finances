@@ -80,6 +80,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Banking\Encryption.cs" />
+    <Compile Include="Banking\IFundsStorage.cs" />
+    <Compile Include="Banking\IRecordsProvider.cs" />
     <Compile Include="Banking\Parser.cs" />
     <Compile Include="Banking\PrivatBank.cs" />
     <Compile Include="Banking\XML.cs" />

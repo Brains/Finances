@@ -11,12 +11,12 @@ using Tracker;
 
 namespace Visualization.Banking
 {
-	public class PrivatBank
+	public class PrivatBank : IFundsStorage, IRecordsProvider
 	{
 		private readonly string historyUrl = "https://api.privatbank.ua/p24api/rest_fiz";
 		private readonly string balanceUrl = "https://api.privatbank.ua/p24api/balance";
 
-		public async void GetBalance(Action<decimal> callback)
+		public async void GetAsync(Action<decimal> callback)
 		{
 			var file = PrepareData();
 			var responce = await SendData(balanceUrl, file);
@@ -25,7 +25,7 @@ namespace Visualization.Banking
 			callback(result);
 		}
 
-		public async void GetHistory(Action<IEnumerable<Record>> callback)
+		public async void GetHistoryAsync(Action<IEnumerable<Record>> callback)
 		{
 			var file = PrepareData();
 			var responce = await SendData(historyUrl, file);

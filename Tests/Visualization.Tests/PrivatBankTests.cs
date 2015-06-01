@@ -18,7 +18,7 @@ namespace Visualization.Tests
 		{
 			PrivatBank bank = new PrivatBank();
 
-			bank.GetBalance(Console.WriteLine);
+			bank.GetAsync(Console.WriteLine);
 			Thread.Sleep(2000);
 		}
 
@@ -26,7 +26,7 @@ namespace Visualization.Tests
 		{
 			PrivatBank bank = new PrivatBank();
 
-			bank.GetHistory(records => records.ForEach(Console.WriteLine));
+			bank.GetHistoryAsync(records => records.ForEach(Console.WriteLine));
 			Thread.Sleep(3000);
 		}
 	}
