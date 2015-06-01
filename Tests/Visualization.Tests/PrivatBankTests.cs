@@ -19,7 +19,7 @@ namespace Visualization.Tests
 		{
 			PrivatBank bank = new PrivatBank();
 
-			bank.GetAsync((Action<decimal>) Console.WriteLine);
+			bank.Get((Action<decimal>) Console.WriteLine);
 			Thread.Sleep(2000);
 		}
 
@@ -28,7 +28,7 @@ namespace Visualization.Tests
 		{
 			PrivatBank bank = new PrivatBank();
 
-			bank.GetAsync(records => records.ForEach(Console.WriteLine));
+			bank.Get(records => records.ForEach(Console.WriteLine));
 			Thread.Sleep(2000);
 		}
 	}

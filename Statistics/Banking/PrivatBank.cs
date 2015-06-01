@@ -15,7 +15,7 @@ namespace Statistics.Banking
 		private readonly string historyUrl = "https://api.privatbank.ua/p24api/rest_fiz";
 		private readonly string balanceUrl = "https://api.privatbank.ua/p24api/balance";
 
-		public async void GetAsync(Action<decimal> callback)
+		public async void Get(Action<decimal> callback)
 		{
 			var file = PrepareData();
 			var responce = await SendData(balanceUrl, file);
@@ -24,7 +24,7 @@ namespace Statistics.Banking
 			callback(result);
 		}
 
-		public async void GetAsync(Action<IEnumerable<Record>> callback)
+		public async void Get(Action<IEnumerable<Record>> callback)
 		{
 			var file = PrepareData();
 			var responce = await SendData(historyUrl, file);
