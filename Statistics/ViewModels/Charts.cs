@@ -25,14 +25,12 @@ namespace Statistics.ViewModels
 	// For XAML
 //	public class MarkupDictionary : Dictionary<string, int> {}
 
-	public class Charts : INotifyPropertyChanged
+	public class Charts
 	{
-		public event PropertyChangedEventHandler PropertyChanged;
-
 		private readonly IExpenses expenses;
 		private int month = DateTime.Now.Month-1;
 		private Dictionary<Types, List<Record>> types;
-		private string creditCard;
+		private readonly Funds funds;
 
 		private IEnumerable<Record> Records => GetRecordsByMonth(expenses.Records, month);
 		public string Month => DateTimeFormatInfo.CurrentInfo.GetMonthName(month);
@@ -43,21 +41,12 @@ namespace Statistics.ViewModels
 		public Dictionary<string, int> Incomes => GetExpencesByCategory(Records, IsIncome);
 		public Dictionary<Types, int> ExpencesByType => GetInOutRatio(Records);
 
-		public string CreditCard
-		{
-			get { return creditCard; }
-			set
-			{
-				creditCard = value;
-				OnPropertyChanged();
-			}
-		}
-
 		public Charts(IExpenses expenses)
 		{
 			this.expenses = expenses;
 
 			types = GroupByType(Records);
+			funds = new Funds();
 		}
 
 		public Dictionary<string, IEnumerable<Record>> GetExpencesByDate(IEnumerable<Record> records)
@@ -225,9 +214,6 @@ namespace Statistics.ViewModels
 		}
 
 
-		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-		{
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-		}
+
 	}
 }

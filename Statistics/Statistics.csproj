@@ -86,6 +86,7 @@
     <Compile Include="Banking\PrivatBank.cs" />
     <Compile Include="Banking\XML.cs" />
     <Compile Include="ViewModels\Charts.cs" />
+    <Compile Include="ViewModels\Funds.cs" />
     <Compile Include="Views\Charts.xaml.cs">
       <DependentUpon>Charts.xaml</DependentUpon>
     </Compile>
