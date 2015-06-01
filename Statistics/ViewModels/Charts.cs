@@ -19,6 +19,7 @@ using static System.Console;
 using static Tracker.Record;
 using static Tracker.Record.Types;
 using static Tracker.Record.Categories;
+using Data = System.Collections.Generic.Dictionary<string, int>;
 
 namespace Statistics.ViewModels
 {
@@ -37,9 +38,9 @@ namespace Statistics.ViewModels
 
 		// View Bindings
 		public Dictionary<string, IEnumerable<Record>> ExpencesByDate => GetExpencesByDate(Records);
-		public Dictionary<string, int> Expences => GetExpencesByCategory(Records, IsSpending);
-		public Dictionary<string, int> Incomes => GetExpencesByCategory(Records, IsIncome);
-		public Dictionary<Types, int> ExpencesByType => GetInOutRatio(Records);
+		public Data Expences => GetExpencesByCategory(Records, IsSpending);
+		public Data Incomes => GetExpencesByCategory(Records, IsIncome);
+		public Data ExpencesByType => CalculateInOut();
 
 		public Charts(IExpenses expenses)
 		{
@@ -61,7 +62,7 @@ namespace Statistics.ViewModels
 			return dates.ToDictionary(date => date.Key, AggregateByCategory);
 		}
 
-		public Dictionary<string, int> GetExpencesByCategory(IEnumerable<Record> records, Predicate<Record> predicate)
+		public Data GetExpencesByCategory(IEnumerable<Record> records, Predicate<Record> predicate)
 		{
 			var query = from record in records
 			            where predicate(record)
@@ -74,7 +75,7 @@ namespace Statistics.ViewModels
 		}
 
 
-		public Dictionary<string, int> GetExpencesByType(IEnumerable<Record> records)
+		public Data GetExpencesByType(IEnumerable<Record> records)
 		{
 			var query = from record in records
 //			            where record.Type == Expense || record.Type == Income
@@ -130,37 +131,17 @@ namespace Statistics.ViewModels
 			       select grouped.Aggregate((a, b) => a + b);
 		}
 
-
-		public Dictionary<Types, int> GetInOutRatio(IEnumerable<Record> records)
-		{
-			var types = records.GroupBy(record => record.Type)
-			                   .Where(grouping => IsThis(grouping.Key))
-			                   .Select(grouping => new {grouping.Key, Value = (int) grouping.Sum(record => record.Amount)})
-			                   .ToDictionary(arg => arg.Key, arg => arg.Value);
-
-			types[Expense] += types[Shared];
-			types.Remove(Shared);
-
-			var asdfa = CalculateInOut();
-
-			return types;
-		}
-
-		public Dictionary<string, int> CalculateInOut()
+		public Data CalculateInOut()
 		{
 			Func<Record, decimal> amount = record => record.Amount;
 
-			return new Dictionary<string, int>
+			return new Data
 			{
 				["Spending"] = (int) (types[Expense].Concat(types[Shared]).Sum(amount)),
 				["Income"] = (int) types[Income].Sum(amount),
 			};
 		}
 
-		private static bool IsThis(Types type)
-		{
-			return type == Expense || type == Shared || type == Income;
-		}
 
 		public Dictionary<Categories, int> CalculateDebts()
 		{
