@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,7 +45,8 @@ namespace Statistics.Banking
 
 		private string PrepareData()
 		{
-			var xml = XElement.Load(@"Request.xml");
+			var path = Path.Combine("C:\\", "Projects", "Finances", "Data", "Request.xml");
+			var xml = XElement.Load(path);
 
 			var file = XML.Repair(xml);
 			file = XML.Format(file, XML.ReadPassword(@"Password.xml"));

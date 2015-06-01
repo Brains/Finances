@@ -60,10 +60,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\Statistics\Banking\Request.xml">
-      <Link>Request.xml</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\..\Tracker\Records.xml">
       <Link>Records.xml</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
