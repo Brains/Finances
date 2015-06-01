@@ -12,18 +12,18 @@ using Microsoft.Practices.ObjectBuilder2;
 using NSubstitute;
 using NUnit.Framework;
 using Tracker;
-using Visualization.ViewModels;
+using Statistics.ViewModels;
 using static System.Console;
 using static Tracker.Record;
 using static Tracker.Record.Types;
 using static Tracker.Record.Categories;
 
-namespace Visualization.Tests
+namespace Statistics.Tests
 {
 	[TestFixture]
     public class ChardData : AssertionHelper
     {
-		private DateTime now = new DateTime(1, 1, 1);
+		private DateTime date = new DateTime(1, 1, 1);
 
 		private List<Record> LoadData ()
 		{
@@ -67,10 +67,12 @@ namespace Visualization.Tests
 		public void MyMethod()
 		{
 			var expenses = Substitute.For<IExpenses>();
-			expenses.Records = new ObservableCollection<Record>();
-			expenses.Records.Add(new Record(100, Expense, Food, "1", now));
-			expenses.Records.Add(new Record(100, Shared, Food, "1", now));
-			expenses.Records.Add(new Record(100, Income, Deposit, "1", now));
+			expenses.Records = new ObservableCollection<Record>
+			{
+				new Record(100, Expense, Food, "1", date),
+				new Record(100, Shared, Food, "1", date),
+				new Record(100, Income, Deposit, "1", date)
+			};
 
 			Charts charts = new Charts(expenses);
 
@@ -90,5 +92,34 @@ namespace Visualization.Tests
 			Expect(actual, Exactly(1).Property("Value").EqualTo(200));
 			Expect(actual, Exactly(1).Property("Value").EqualTo(100));
 		}
-	}
+
+		[Test]
+		public void CalculateDebts_Always_ReturnsTotalDebtForEachDude()
+		{
+			var expenses = Substitute.For<IExpenses>();
+			Charts charts = new Charts(expenses);
+			FillDebts(expenses);
+
+			var actual = charts.CalculateDebts();
+
+			var expected = new Dictionary<Categories, int>();
+			expected[Maxim] = 300;
+			expected[Andrey] = 300;
+			Expect(actual, EquivalentTo(expected));
+		}
+
+		private void FillDebts(IExpenses expenses)
+		{
+			expenses.Records = new ObservableCollection<Record>
+			{
+				new Record(500, Debt, Maxim, "Out", date),
+				new Record(200, Debt, Andrey, "Out", date),
+				new Record(100, Debt, Maxim, "2", date),
+				new Record(100, Debt, Maxim, "Out", date),
+				new Record(200, Debt, Andrey, "2", date),
+				new Record(250, Debt, Maxim, "Out", date),
+				new Record(250, Debt, Maxim, "2", date)
+			};
+		}
+    }
 }

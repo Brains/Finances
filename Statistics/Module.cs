@@ -4,7 +4,7 @@ using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.Unity;
 
-namespace Visualization
+namespace Statistics
 {
 	public class Module : IModule
 	{

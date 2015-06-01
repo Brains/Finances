@@ -16,7 +16,7 @@ using static Tracker.Record;
 using static Tracker.Record.Types;
 using static Tracker.Record.Categories;
 
-namespace Visualization.ViewModels
+namespace Statistics.ViewModels
 {
 	// For XAML
 //	public class MarkupDictionary : Dictionary<string, int> {}
@@ -24,7 +24,8 @@ namespace Visualization.ViewModels
 	public class Charts
 	{
 		private readonly IExpenses expenses;
-		private int month = DateTime.Now.Month;
+		private int month = DateTime.Now.Month-1;
+		private Dictionary<Types, List<Record>> types;
 
 		private IEnumerable<Record> Records => GetRecordsByMonth(expenses.Records, month);
 		public string Month => DateTimeFormatInfo.CurrentInfo.GetMonthName(month);
@@ -38,6 +39,8 @@ namespace Visualization.ViewModels
 		public Charts(IExpenses expenses)
 		{
 			this.expenses = expenses;
+
+			types = GroupByType(Records);
 		}
 
 		public Dictionary<string, IEnumerable<Record>> GetExpencesByDate(IEnumerable<Record> records)
@@ -124,8 +127,8 @@ namespace Visualization.ViewModels
 				            where IsExpense(record)
 				            select record;
 
-				var expencesTotal = new KeyValuePair<string, int>("Exp", (int)total.Sum(record => record.Amount));
-				var sad = new Dictionary<string, int>(); 
+				var expencesTotal = new KeyValuePair<string, int>("Exp", (int) total.Sum(record => record.Amount));
+				var sad = new Dictionary<string, int>();
 				sad.Add(expencesTotal.Key, expencesTotal.Value);
 
 				return sad;
@@ -138,10 +141,10 @@ namespace Visualization.ViewModels
 			get
 			{
 				var total = from record in Records
-							where IsIncome(record)
-							select record;
+				            where IsIncome(record)
+				            select record;
 
-				var expencesTotal = new KeyValuePair<string, int>("Exp", (int)total.Sum(record => record.Amount));
+				var expencesTotal = new KeyValuePair<string, int>("Exp", (int) total.Sum(record => record.Amount));
 				var sad = new Dictionary<string, int>();
 				sad.Add(expencesTotal.Key, expencesTotal.Value);
 
@@ -154,7 +157,7 @@ namespace Visualization.ViewModels
 			var types = records.GroupBy(record => record.Type)
 			                   .Where(grouping => IsThis(grouping.Key))
 			                   .Select(grouping => new {grouping.Key, Value = (int) grouping.Sum(record => record.Amount)})
-							   .ToDictionary(arg => arg.Key, arg => arg.Value);
+			                   .ToDictionary(arg => arg.Key, arg => arg.Value);
 
 			types[Expense] += types[Shared];
 			types.Remove(Shared);
@@ -162,9 +165,46 @@ namespace Visualization.ViewModels
 			return types;
 		}
 
-		private bool IsThis(Types type)
+		public Dictionary<Types, List<Record>> GroupByType(IEnumerable<Record> records)
+		{
+			return records.GroupBy(record => record.Type)
+			              .ToDictionary(grouping => grouping.Key, grouping => grouping.ToList());
+		}
+
+		private static bool IsThis(Types type)
 		{
 			return type == Expense || type == Shared || type == Income;
+		}
+
+		public Dictionary<Categories, int> CalculateDebts()
+		{
+			var debts = (from record in types[Debt]
+			            group record by record.Category
+			            into dude
+			            select new
+			            {
+				            Name = dude.Key,
+				            Total = (from record in dude
+				                     group record by record.Description
+				                     into grouped
+				                     select new
+				                     {
+					                     Direction = grouped.Key,
+										 Total = (int) grouped.Sum(record => record.Amount)
+				                     })
+									 .ToDictionary(kind => kind.Direction, kind => kind.Total)
+			            });
+
+			var total = debts.Select(dude => new
+			{
+				dude.Name,
+				Total = dude.Total["Out"] - dude.Total["In"]
+			})
+			.ToDictionary(dude => dude.Name, dude => dude.Total);
+
+
+
+			return total;
 		}
 	}
 }

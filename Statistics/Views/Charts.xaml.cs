@@ -7,7 +7,7 @@ using System.Windows.Controls;
 using Microsoft.Practices.Unity;
 using Tracker;
 
-namespace Visualization.Views
+namespace Statistics.Views
 {
     public partial class Charts : UserControl
     {

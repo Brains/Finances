@@ -33,7 +33,7 @@ namespace Tracker
 			ODesk,
 			Deposit,
 
-			Max,
+			Maxim,
 			Andrey,
         }
 
