@@ -69,10 +69,6 @@
       <Project>{F31FA3EB-4F11-4A61-A67D-E6C77EEC470C}</Project>
       <Name>Tracker</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Visualization\Visualization.csproj">
-      <Project>{35b3bc50-dada-47a4-a37d-b26f4bb4724e}</Project>
-      <Name>Visualization</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
