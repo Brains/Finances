@@ -121,6 +121,10 @@
 			</metro:ClusteredColumnChart>
 
 			<Grid Grid.Row = "2" Grid.ColumnSpan="3" Grid.Column = "0" >
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
 				<Grid.RowDefinitions>
 					<RowDefinition />
 					<RowDefinition />
@@ -134,6 +138,8 @@
 				<Label Grid.Row = "2" Grid.Column = "0">Cash</Label>
 				<Label Grid.Row = "3" Grid.Column = "0">Debts</Label>
 				<Label Grid.Row = "4" Grid.Column = "0" FontSize="34">Total</Label>
+
+				<Label Grid.Row = "1" Grid.Column = "1" Content="{Binding CreditCard}"></Label>
 
 			</Grid>
 			

@@ -3,13 +3,17 @@ using System.CodeDom;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Practices.ObjectBuilder2;
+using Statistics.Banking;
 using Tracker;
 using static System.Console;
 using static Tracker.Record;
@@ -21,11 +25,14 @@ namespace Statistics.ViewModels
 	// For XAML
 //	public class MarkupDictionary : Dictionary<string, int> {}
 
-	public class Charts
+	public class Charts : INotifyPropertyChanged
 	{
+		public event PropertyChangedEventHandler PropertyChanged;
+
 		private readonly IExpenses expenses;
 		private int month = DateTime.Now.Month-1;
 		private Dictionary<Types, List<Record>> types;
+		private string creditCard;
 
 		private IEnumerable<Record> Records => GetRecordsByMonth(expenses.Records, month);
 		public string Month => DateTimeFormatInfo.CurrentInfo.GetMonthName(month);
@@ -35,6 +42,16 @@ namespace Statistics.ViewModels
 		public Dictionary<string, int> Expences => GetExpencesByCategory(Records, IsExpense);
 		public Dictionary<string, int> Incomes => GetExpencesByCategory(Records, IsIncome);
 		public Dictionary<Types, int> ExpencesByType => GetInOutRatio(Records);
+
+		public string CreditCard
+		{
+			get { return creditCard; }
+			set
+			{
+				creditCard = value;
+				OnPropertyChanged();
+			}
+		}
 
 		public Charts(IExpenses expenses)
 		{
@@ -205,6 +222,12 @@ namespace Statistics.ViewModels
 
 
 			return total;
+		}
+
+
+		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+		{
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 	}
 }
