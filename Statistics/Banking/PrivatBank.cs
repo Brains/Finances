@@ -4,6 +4,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 using Tracker;
@@ -15,30 +16,30 @@ namespace Visualization.Banking
 		private readonly string historyUrl = "https://api.privatbank.ua/p24api/rest_fiz";
 		private readonly string balanceUrl = "https://api.privatbank.ua/p24api/balance";
 
-		public decimal GetBalance()
+		public async void GetBalance(Action<decimal> callback)
 		{
 			var file = PrepareData();
-			var responce = SendData(balanceUrl, file);
+			var responce = await SendData(balanceUrl, file);
 			var result = Parser.ParseBalance(responce);
 
-			return result;
+			callback(result);
 		}
 
-		public IEnumerable<Record> GetHistory()
+		public async void GetHistory(Action<IEnumerable<Record>> callback)
 		{
 			var file = PrepareData();
-			var responce = SendData(historyUrl, file);
+			var responce = await SendData(historyUrl, file);
 			var result = Parser.ParseHistory(responce);
 
-			return result;
+			callback(result);
 		}
 
-		private string SendData(string url, string file)
+		private async Task<string> SendData(string url, string file)
 		{
 			WebClient client = new WebClient();
 			client.Encoding = Encoding.UTF8;
 
-			var responce = client.UploadString(url, file);
+			var responce = await client.UploadStringTaskAsync(url, file);
 
 			return responce;
 		}
