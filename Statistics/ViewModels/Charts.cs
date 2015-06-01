@@ -37,7 +37,7 @@ namespace Statistics.ViewModels
 
 		// View Bindings
 		public Dictionary<string, IEnumerable<Record>> ExpencesByDate => GetExpencesByDate(Records);
-		public Dictionary<string, int> Expences => GetExpencesByCategory(Records, IsExpense);
+		public Dictionary<string, int> Expences => GetExpencesByCategory(Records, IsSpending);
 		public Dictionary<string, int> Incomes => GetExpencesByCategory(Records, IsIncome);
 		public Dictionary<Types, int> ExpencesByType => GetInOutRatio(Records);
 
@@ -52,7 +52,7 @@ namespace Statistics.ViewModels
 		public Dictionary<string, IEnumerable<Record>> GetExpencesByDate(IEnumerable<Record> records)
 		{
 			var dates = from record in records
-			            where IsExpense(record)
+			            where IsSpending(record)
 			            orderby record.Date.Date.ToString(CultureInfo.InvariantCulture)
 			            group record by record.Date.ToString("dd")
 			            into grouped
@@ -87,6 +87,12 @@ namespace Statistics.ViewModels
 
 		#region Retrieve Helpers
 
+		public Dictionary<Types, List<Record>> GroupByType(IEnumerable<Record> records)
+		{
+			return records.GroupBy(record => record.Type)
+			              .ToDictionary(grouping => grouping.Key, grouping => grouping.ToList());
+		}
+
 		public List<Record> GetRecordsFrom(DateTime date, IEnumerable<Record> records)
 		{
 			var asdd = records.ToLookup(record => record.Type, record => records.Where(record1 => record.Amount > 2));
@@ -103,6 +109,16 @@ namespace Statistics.ViewModels
 			return records.Where(record => record.Date.Month == month);
 		}
 
+		private static bool IsSpending(Record record)
+		{
+			return record.Type == Expense || record.Type == Shared;
+		}
+
+		private static bool IsIncome(Record record)
+		{
+			return record.Type == Income;
+		}
+
 		#endregion
 
 		private static IEnumerable<Record> AggregateByCategory(IGrouping<string, Record> date)
@@ -114,49 +130,6 @@ namespace Statistics.ViewModels
 			       select grouped.Aggregate((a, b) => a + b);
 		}
 
-		private static bool IsExpense(Record record)
-		{
-			return record.Type == Expense || record.Type == Shared;
-		}
-
-		private static bool IsIncome(Record record)
-		{
-			return record.Type == Income;
-		}
-
-
-		public Dictionary<string, int> ExpencesTotal
-		{
-			get
-			{
-				var total = from record in Records
-				            where IsExpense(record)
-				            select record;
-
-				var expencesTotal = new KeyValuePair<string, int>("Exp", (int) total.Sum(record => record.Amount));
-				var sad = new Dictionary<string, int>();
-				sad.Add(expencesTotal.Key, expencesTotal.Value);
-
-				return sad;
-			}
-		}
-
-
-		public Dictionary<string, int> IncomesTotal
-		{
-			get
-			{
-				var total = from record in Records
-				            where IsIncome(record)
-				            select record;
-
-				var expencesTotal = new KeyValuePair<string, int>("Exp", (int) total.Sum(record => record.Amount));
-				var sad = new Dictionary<string, int>();
-				sad.Add(expencesTotal.Key, expencesTotal.Value);
-
-				return sad;
-			}
-		}
 
 		public Dictionary<Types, int> GetInOutRatio(IEnumerable<Record> records)
 		{
@@ -168,13 +141,20 @@ namespace Statistics.ViewModels
 			types[Expense] += types[Shared];
 			types.Remove(Shared);
 
+			var asdfa = CalculateInOut();
+
 			return types;
 		}
 
-		public Dictionary<Types, List<Record>> GroupByType(IEnumerable<Record> records)
+		public Dictionary<string, int> CalculateInOut()
 		{
-			return records.GroupBy(record => record.Type)
-			              .ToDictionary(grouping => grouping.Key, grouping => grouping.ToList());
+			Func<Record, decimal> amount = record => record.Amount;
+
+			return new Dictionary<string, int>
+			{
+				["Spending"] = (int) (types[Expense].Concat(types[Shared]).Sum(amount)),
+				["Income"] = (int) types[Income].Sum(amount),
+			};
 		}
 
 		private static bool IsThis(Types type)
