@@ -23,7 +23,7 @@ namespace Statistics.Banking
 			callback(result);
 		}
 
-		public async void GetHistoryAsync(Action<IEnumerable<Record>> callback)
+		public async void GetAsync(Action<IEnumerable<Record>> callback)
 		{
 			var file = PrepareData();
 			var responce = await SendData(historyUrl, file);

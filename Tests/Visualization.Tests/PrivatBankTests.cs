@@ -19,16 +19,17 @@ namespace Visualization.Tests
 		{
 			PrivatBank bank = new PrivatBank();
 
-			bank.GetAsync(Console.WriteLine);
+			bank.GetAsync((Action<decimal>) Console.WriteLine);
 			Thread.Sleep(2000);
 		}
 
+		[Test]
 		public void GetHistory()
 		{
 			PrivatBank bank = new PrivatBank();
 
-			bank.GetHistoryAsync(records => records.ForEach(Console.WriteLine));
-			Thread.Sleep(3000);
+			bank.GetAsync(records => records.ForEach(Console.WriteLine));
+			Thread.Sleep(2000);
 		}
 	}
 }

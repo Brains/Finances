@@ -6,6 +6,6 @@ namespace Statistics.Banking
 {
 	public interface IRecordsProvider
 	{
-		void GetHistoryAsync(Action<IEnumerable<Record>> callback);
+		void GetAsync(Action<IEnumerable<Record>> callback);
 	}
 }
