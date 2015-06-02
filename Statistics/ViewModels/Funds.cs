@@ -12,6 +12,7 @@ namespace Statistics.ViewModels
 		private int debts;
 		private int cash;
 		private int upwork;
+		private int total;
 
 		public int Upwork
 		{
@@ -37,7 +38,11 @@ namespace Statistics.ViewModels
 			set { debts = value; OnPropertyChanged(); }
 		}
 
-		public int Total { get; set; }
+		public int Total
+		{
+			get { return total; }
+			set { total = value; OnPropertyChanged(); }
+		}
 
 		public Funds([Unity.Dependency("bank")] IFundsStorage bank, [Unity.Dependency("debt")]IFundsStorage debt)
 		{
@@ -47,8 +52,10 @@ namespace Statistics.ViewModels
 			debt.Get(amount => Debts = (int) amount);
 		}
 
-		private void UpdateTotal(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+		private void UpdateTotal(object sender, PropertyChangedEventArgs args)
 		{
+			if (args.PropertyName == nameof(Total)) return;
+				
 			Total = Upwork + Cards + Cash + Debts;
 		}
 
