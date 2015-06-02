@@ -29,7 +29,7 @@ namespace Finances
 			ModuleCatalog.AddModule(new ModuleInfo("Tracker", tracker.AssemblyQualifiedName));
 
 			Type visualization = typeof(Statistics.Module);
-			ModuleCatalog.AddModule(new ModuleInfo("Visualization", visualization.AssemblyQualifiedName));
+			ModuleCatalog.AddModule(new ModuleInfo("Statistics", visualization.AssemblyQualifiedName));
 
 			Type trends = typeof(Trends.Module);
 			ModuleCatalog.AddModule(new ModuleInfo("Trends", trends.AssemblyQualifiedName));

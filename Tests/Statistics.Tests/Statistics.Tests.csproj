@@ -7,8 +7,8 @@
     <ProjectGuid>{5CB3BA1F-00E9-4721-896F-91396853682C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Visualization.Tests</RootNamespace>
-    <AssemblyName>Visualization.Tests</AssemblyName>
+    <RootNamespace>Statistics.Tests</RootNamespace>
+    <AssemblyName>Statistics.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -51,9 +51,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Banking\DebtsTests.cs" />
     <Compile Include="ChardData.cs" />
     <Compile Include="PrivatBankTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\FundsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
