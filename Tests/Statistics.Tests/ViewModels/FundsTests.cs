@@ -10,12 +10,18 @@ namespace Statistics.Tests.ViewModels
 	[TestFixture]
 	public class FundsTests : AssertionHelper
 	{
-		[Test]
-		public void SettterOfAnyProperty_Always_ChangesTotal()
+		private Funds Create()
 		{
 			var bank = For<IFundsStorage>();
 			var debt = For<IFundsStorage>();
-			Funds funds = new Funds(bank, debt);
+
+			return new Funds(bank, debt);
+		}
+
+		[Test]
+		public void SettterOfAnyProperty_Always_ChangesTotal()
+		{
+			var funds = Create();
 
 			funds.Cash = 100;
 			Expect(funds.Total, EqualTo(100));
@@ -25,10 +31,16 @@ namespace Statistics.Tests.ViewModels
 
 			funds.Cards = 100;
 			Expect(funds.Total, EqualTo(300));
+		}
 
-			funds.Upwork = 100;
-			Expect(funds.Total, EqualTo(400));
+		[Test]
+		public void SettterOfUpwork_Always_ChangesTotalAccordinglyToExchangeRate()
+		{
+			var funds = Create();
 
+            funds.Upwork = 100;
+
+			Expect(funds.Total, EqualTo(100 * Funds.ExchangeRate));
 		}
 	}
 }

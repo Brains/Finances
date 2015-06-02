@@ -7,7 +7,10 @@ namespace Statistics.ViewModels
 {
 	public class Funds : INotifyPropertyChanged
 	{
+		public const int ExchangeRate = 21;
+
 		public event PropertyChangedEventHandler PropertyChanged;
+
 		private int cards;
 		private int debts;
 		private int cash;
@@ -55,8 +58,10 @@ namespace Statistics.ViewModels
 		private void UpdateTotal(object sender, PropertyChangedEventArgs args)
 		{
 			if (args.PropertyName == nameof(Total)) return;
-				
-			Total = Upwork + Cards + Cash + Debts;
+
+			var upworkUAH = Upwork * ExchangeRate;
+
+			Total = upworkUAH + Cards + Cash + Debts;
 		}
 
 		public virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

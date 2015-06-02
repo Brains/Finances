@@ -33,7 +33,7 @@
 	<StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
 
 		<Label >Upwork</Label>
-		<TextBox Text="{Binding Upwork}" />
+		<TextBox Text="{Binding Upwork, StringFormat={}{0}$}" />
 		<Label >Cards</Label>
 		<TextBox Text="{Binding Cards}" />
 		<Label>Cash</Label>
