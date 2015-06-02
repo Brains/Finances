@@ -57,9 +57,9 @@
 				<ColumnDefinition />
 			</Grid.ColumnDefinitions>
 
-			<!-- Stacked Columns: Expences by Date -->
+			<!-- Stacked Columns: Spending by Date -->
 			<metro:StackedColumnChart Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
-			                          SeriesSource="{Binding ExpencesByDate}"
+			                          SeriesSource="{Binding SpendingByDate}"
 			                          ChartTitle="Days"
 			                          ChartSubTitle="{Binding Month}"
 									  Palette="{StaticResource CustomColors}">
@@ -74,14 +74,14 @@
 				</metro:StackedColumnChart.SeriesTemplate>
 			</metro:StackedColumnChart>
 
-			<!--Doughnut: Expences by Categories-->
+			<!--Doughnut: Spending by Categories-->
 			<metro:DoughnutChart Grid.Row="1" Grid.Column="0"
 			                     InnerRadiusRatio="0.5"
-								 ChartTitle="Expences"
+								 ChartTitle="Spending"
 			                     ChartSubTitle="{Binding Month}"
 								 Palette="{StaticResource OrangeColors}">
 				<metro:DoughnutChart.Series>
-					<metro:ChartSeries ItemsSource="{Binding Expences}"
+					<metro:ChartSeries ItemsSource="{Binding Spending}"
 					                   DisplayMember="Key"
 					                   ValueMember="Value" 
 									   SeriesTitle="NoTitle"/>
@@ -103,7 +103,7 @@
 				</metro:DoughnutChart.Series>
 			</metro:DoughnutChart>
 
-			<!-- Stacked Columns : Expences by Type-->
+			<!-- Stacked Columns : Spending by Type-->
 			<metro:ClusteredColumnChart Grid.Row="1" Grid.Column="2"
 										ChartTitle="Types"
 										ChartSubTitle="{Binding Month}"
@@ -112,7 +112,7 @@
 					<metro:ChartSeries SeriesTitle="Title"
 									   DisplayMember="Key"
 									   ValueMember="Value"
-									   ItemsSource="{Binding ExpencesByType}" />
+									   ItemsSource="{Binding SpendingByType}" />
 				</metro:ClusteredColumnChart.Series>
 			</metro:ClusteredColumnChart>
 		</Grid>

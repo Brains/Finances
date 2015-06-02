@@ -48,7 +48,7 @@ namespace Statistics.ViewModels
 			Update();
 		}
 
-		public Dictionary<string, IEnumerable<Record>> GetExpencesByDate(IEnumerable<Record> records)
+		public Dictionary<string, IEnumerable<Record>> GetSpendingByDate(IEnumerable<Record> records)
 		{
 			var dates = from record in records
 			            where IsSpending(record)
@@ -60,7 +60,7 @@ namespace Statistics.ViewModels
 			return dates.ToDictionary(date => date.Key, AggregateByCategory);
 		}
 
-		public Data GetExpencesByCategory(IEnumerable<Record> records, Predicate<Record> predicate)
+		public Data GetSpendingByCategory(IEnumerable<Record> records, Predicate<Record> predicate)
 		{
 			var query = from record in records
 			            where predicate(record)
