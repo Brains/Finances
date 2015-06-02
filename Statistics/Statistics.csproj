@@ -92,9 +92,16 @@
       <DependentUpon>Charts.xaml</DependentUpon>
     </Compile>
     <Compile Include="Module.cs" />
+    <Compile Include="Views\Funds.xaml.cs">
+      <DependentUpon>Funds.xaml</DependentUpon>
+    </Compile>
     <Page Include="Views\Charts.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Funds.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Resources\Styles.xaml">
       <SubType>Designer</SubType>
