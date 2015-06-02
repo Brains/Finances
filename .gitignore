@@ -155,7 +155,7 @@ $RECYCLE.BIN/
 # Mac desktop service store files
 .DS_Store
 
-# User's Heap
+# User's folders
+Data/
 Heap/
 
-Password.xml
