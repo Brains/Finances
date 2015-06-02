@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Practices.ObjectBuilder2;
 using Tracker;
 
 namespace Statistics.Banking
 {
-	public class Debts : IFundsStorage, IDebts
+	public class Debts : IFundsStorage
 	{
 		private readonly IEnumerable<Record> records;
 
@@ -14,47 +15,73 @@ namespace Statistics.Banking
 			this.records = records;
 		}
 
-		public void Get(Action<decimal> callback)
+		void IFundsStorage.Get(Action<decimal> callback)
 		{
-			var debts = CalculateDebts(records.Where(record => record.Type == Record.Types.Debt));
+			var debts = CalculateDebts(records);
 
 			callback(debts.Sum(pair => pair.Value));
 		}
 
-		public Dictionary<Record.Categories, int> Calculate()
+		public Dictionary<Record.Categories, decimal> Calculate()
 		{
-			return CalculateDebts(records.Where(record => record.Type == Record.Types.Debt));
+			var debts = CalculateDebts(records);
+
+			return debts;
 		}
 
-		public Dictionary<Record.Categories, int> CalculateDebts(IEnumerable<Record> records )
+		private Dictionary<Record.Categories, decimal> CalculateDebts(IEnumerable<Record> records )
 		{
-			var debts = (from record in records.Where(record => record.Type == Record.Types.Debt)
-						 group record by record.Category
-						 into dude
-						 select new
-						 {
-							 Name = dude.Key,
-							 Total = (from record in dude
-									  group record by record.Description
-									  into grouped
-									  select new
-									  {
-										  Direction = grouped.Key,
-										  Total = (int)grouped.Sum(record => record.Amount)
-									  })
-									  .ToDictionary(kind => kind.Direction, kind => kind.Total)
-						 });
+			var debts = CalculateAmountsPerDude(records);
+			var total = CalculateTotals(records, debts);
+
+			return total;
+		}
+
+		private Dictionary<Record.Categories, Dictionary<string, decimal>> CalculateAmountsPerDude(IEnumerable<Record> records)
+		{
+			return (from record in records.Where(record => record.Type == Record.Types.Debt)
+			        group record by record.Category // Each Dude is a separate Category
+			        into dude
+			        select new
+			        {
+				        Name = dude.Key,
+				        Total = (from record in dude
+				                 group record by record.Description // Descriptions are either "In" or "Out" mean Direction of debt
+				                 into grouped
+				                 select new
+				                 {
+					                 Direction = grouped.Key,
+					                 Total = grouped.Sum(record => record.Amount)
+				                 })
+					        .ToDictionary(kind => kind.Direction, kind => kind.Total)
+			        }).ToDictionary(dude => dude.Name, dude => dude.Total);
+		}
+
+		private Dictionary<Record.Categories, decimal> CalculateTotals(IEnumerable<Record> records, Dictionary<Record.Categories, Dictionary<string, decimal>> debts)
+		{
+			var shared = CalculateShared(records);
 
 			var total = debts.Select(dude => new
 			{
-				dude.Name,
-				Total = dude.Total["Out"] - dude.Total["In"]
-			})
-			.ToDictionary(dude => dude.Name, dude => dude.Total);
+				Name = dude.Key,
+				Total = shared + Get(dude, "Out") - Get(dude, "In")
+			});
 
+			return total.ToDictionary(dude => dude.Name, dude => dude.Total);
+		}
 
+		private decimal Get(KeyValuePair<Record.Categories, Dictionary<string, decimal>> dude, string direction)
+		{
+			decimal value;
+			dude.Value.TryGetValue(direction, out value);
 
-			return total;
+			return value;
+		}
+
+		private decimal CalculateShared(IEnumerable<Record> records)
+		{
+			return records.Where(record => record.Type == Record.Types.Shared)
+			              .Sum(record => record.Amount);
 		}
 	}
 }

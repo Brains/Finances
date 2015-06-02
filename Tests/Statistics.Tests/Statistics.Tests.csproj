@@ -51,10 +51,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Banking\DebtsTests.cs" />
     <Compile Include="ChardData.cs" />
-    <Compile Include="DebtsTests.cs" />
     <Compile Include="PrivatBankTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\FundsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
