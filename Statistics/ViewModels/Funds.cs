@@ -1,5 +1,9 @@
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
+using System.Xml;
+using System.Xml.Serialization;
 using Statistics.Banking;
 using Unity = Microsoft.Practices.Unity;
 
@@ -53,6 +57,8 @@ namespace Statistics.ViewModels
 
 			bank.Get(amount => Cards = (int) amount);
 			debt.Get(amount => Debts = (int) amount);
+
+			Load();
 		}
 
 		private void UpdateTotal(object sender, PropertyChangedEventArgs args)
@@ -60,13 +66,28 @@ namespace Statistics.ViewModels
 			if (args.PropertyName == nameof(Total)) return;
 
 			var upworkUAH = Upwork * ExchangeRate;
-
 			Total = upworkUAH + Cards + Cash + Debts;
 		}
 
 		public virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+		}
+
+		private void Load()
+		{
+			XmlSerializer serializer = new XmlSerializer(typeof(int[]));
+
+			var path = Path.Combine("C:\\", "Projects", "Finances", "Data", "Funds.xml");
+
+			using (StreamReader stream = new StreamReader(path))
+			using (var writer = XmlReader.Create(stream))
+			{
+				var values = (int[]) serializer.Deserialize(writer);
+
+				Upwork = values[0];
+				Cash = values[1];
+			}
 		}
 	}
 }
