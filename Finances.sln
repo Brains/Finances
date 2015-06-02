@@ -17,6 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracker.UnitTests", "Tests\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{6C8A8C8B-47B7-47B5-9A93-82214B2AC77C}"
 	ProjectSection(SolutionItems) = preProject
+		Data\Funds.xml = Data\Funds.xml
 		Data\Password.xml = Data\Password.xml
 		Data\Records.xml = Data\Records.xml
 		Data\Request.xml = Data\Request.xml
