@@ -19,20 +19,33 @@ namespace Statistics.ViewModels
 		private Dictionary<Types, List<Record>> types;
 		private readonly Funds funds;
 
-		private IEnumerable<Record> Records => GetRecordsByMonth(expenses.Records, month);
-		public string Month => DateTimeFormatInfo.CurrentInfo.GetMonthName(month);
+		private IEnumerable<Record> Records { get; set; }
+		public string Month { get; set; }
 
 		// View Bindings
-		public Dictionary<string, IEnumerable<Record>> ExpencesByDate => GetExpencesByDate(Records);
-		public Data Expences => GetExpencesByCategory(Records, IsSpending);
-		public Data Incomes => GetExpencesByCategory(Records, IsIncome);
-		public Data ExpencesByType => CalculateInOut();
+		public Dictionary<string, IEnumerable<Record>> SpendingByDate { get; set; }
+		public Data Spending { get; set; }
+		public Data Incomes { get; set; }
+		public Data SpendingByType { get; set; }
+
+		public void Update()
+		{
+			Records = GetRecordsByMonth(expenses.Records, month).ToList();
+			Month = DateTimeFormatInfo.CurrentInfo.GetMonthName(month);
+
+			types = GroupByType(Records);
+
+			SpendingByDate = GetSpendingByDate(Records);
+			Spending = GetSpendingByCategory(Records, IsSpending);
+			Incomes = GetSpendingByCategory(Records, IsIncome);
+			SpendingByType = CalculateInOut();
+		}
 
 		public Charts(IExpenses expenses)
 		{
 			this.expenses = expenses;
 
-			types = GroupByType(Records);
+			Update();
 		}
 
 		public Dictionary<string, IEnumerable<Record>> GetExpencesByDate(IEnumerable<Record> records)
