@@ -46,38 +46,30 @@
 
 
 	<chart:ResourceDictionaryCollection x:Key = "CustomColors" >
-		<ResourceDictionary><SolidColorBrush x:Key = "Brush1" Color = "#FF5B9BD5" /></ResourceDictionary>
-		<ResourceDictionary><SolidColorBrush x:Key = "Brush2" Color = "#FFED7D31" /></ResourceDictionary>
-		<ResourceDictionary><SolidColorBrush x:Key = "Brush3" Color = "#FFA5A5A5" /></ResourceDictionary>
-		<ResourceDictionary><SolidColorBrush x:Key = "Brush4" Color = "#FFFFC000" /></ResourceDictionary>
-		<ResourceDictionary><SolidColorBrush x:Key = "Brush5" Color = "#FF4472C4" /></ResourceDictionary>
-		<ResourceDictionary><SolidColorBrush x:Key = "Brush6" Color = "#FF70AD47" /></ResourceDictionary>
-		<ResourceDictionary><SolidColorBrush x:Key = "Brush7" Color = "#FF255E91" /></ResourceDictionary>
-		<ResourceDictionary><SolidColorBrush x:Key = "Brush8" Color = "#FF9E480E" /></ResourceDictionary>
-		<ResourceDictionary><SolidColorBrush x:Key = "Brush9" Color = "#FF636363" /></ResourceDictionary>
-		<ResourceDictionary><SolidColorBrush x:Key = "Brush10" Color = "#FF997300" /></ResourceDictionary>
-		<ResourceDictionary><SolidColorBrush x:Key = "Brush11" Color = "#FF264478" /></ResourceDictionary>
-		<ResourceDictionary><SolidColorBrush x:Key = "Brush12" Color = "#FF43682B" /></ResourceDictionary>
-		<ResourceDictionary><SolidColorBrush x:Key = "Brush13" Color = "#FF7CAFDD" /></ResourceDictionary>
+		<ResourceDictionary><SolidColorBrush x:Key = "Brush1" Color = "#D66200" /></ResourceDictionary>
+		<ResourceDictionary><SolidColorBrush x:Key = "Brush2" Color = "#B5D136" /></ResourceDictionary>
+		<ResourceDictionary><SolidColorBrush x:Key = "Brush3" Color = "#F0D418" /></ResourceDictionary>
+		<ResourceDictionary><SolidColorBrush x:Key = "Brush4" Color = "#006EBF" /></ResourceDictionary>
+		<ResourceDictionary><SolidColorBrush x:Key = "Brush5" Color = "#27B08F" /></ResourceDictionary>
+		<ResourceDictionary><SolidColorBrush x:Key = "Brush6" Color = "#A56EBF" /></ResourceDictionary>
 	</chart:ResourceDictionaryCollection>
 
 	<chart:ResourceDictionaryCollection x:Key="OrangeColors" >
-		<ResourceDictionary><SolidColorBrush x:Key = "Brush1" Color = "#D24100" /></ResourceDictionary>
-		<ResourceDictionary><SolidColorBrush x:Key = "Brush2" Color = "#D95100" /></ResourceDictionary>
-		<ResourceDictionary><SolidColorBrush x:Key = "Brush3" Color = "#DE6D00" /></ResourceDictionary>
-		<ResourceDictionary><SolidColorBrush x:Key = "Brush4" Color = "#EE8900" /></ResourceDictionary>
-		<ResourceDictionary><SolidColorBrush x:Key = "Brush5" Color = "#FCA600" /></ResourceDictionary>
-		<ResourceDictionary><SolidColorBrush x:Key = "Brush6" Color = "#F0B100" /></ResourceDictionary>
+		<ResourceDictionary><SolidColorBrush x:Key = "Brush1" Color = "#F8B302" /></ResourceDictionary>
+		<ResourceDictionary><SolidColorBrush x:Key = "Brush2" Color = "#EC7004" /></ResourceDictionary>
+		<ResourceDictionary><SolidColorBrush x:Key = "Brush3" Color = "#F39C02" /></ResourceDictionary>
+		<ResourceDictionary><SolidColorBrush x:Key = "Brush4" Color = "#A23F04" /></ResourceDictionary>
+		<ResourceDictionary><SolidColorBrush x:Key = "Brush5" Color = "#D95405" /></ResourceDictionary>
 	</chart:ResourceDictionaryCollection>
 	
 	<chart:ResourceDictionaryCollection x:Key = "GreenColors" >
-		<ResourceDictionary><SolidColorBrush x:Key = "Brush7" Color = "#A2CC00" /></ResourceDictionary>
-		<ResourceDictionary><SolidColorBrush x:Key = "Brush9" Color = "#BDD64C" /></ResourceDictionary>
-		<ResourceDictionary><SolidColorBrush x:Key = "Brush8" Color = "#D4FF31" /></ResourceDictionary>
+		<ResourceDictionary><SolidColorBrush x:Key = "Brush1" Color = "#B4E300" /></ResourceDictionary>
+		<ResourceDictionary><SolidColorBrush x:Key = "Brush2" Color = "#90B500" /></ResourceDictionary>
+		<ResourceDictionary><SolidColorBrush x:Key = "Brush3" Color = "#CAFF00" /></ResourceDictionary>
 	</chart:ResourceDictionaryCollection>
 
 	<chart:ResourceDictionaryCollection x:Key="OrangeGreenColors" >
-		<ResourceDictionary><SolidColorBrush x:Key = "Brush1" Color = "#D24100" /></ResourceDictionary>
+		<ResourceDictionary><SolidColorBrush x:Key = "Brush1" Color = "#ED7D31" /></ResourceDictionary>
 		<ResourceDictionary><SolidColorBrush x:Key = "Brush2" Color = "#A2CC00" /></ResourceDictionary>
 	</chart:ResourceDictionaryCollection>
 	
