@@ -33,7 +33,6 @@ namespace Statistics.ViewModels
 			this.expenses = expenses;
 
 			types = GroupByType(Records);
-			funds = new Funds();
 		}
 
 		public Dictionary<string, IEnumerable<Record>> GetExpencesByDate(IEnumerable<Record> records)
