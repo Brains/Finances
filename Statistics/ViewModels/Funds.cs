@@ -8,21 +8,21 @@ namespace Statistics.ViewModels
 	public class Funds : INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
-		private int creditCard;
+		private int cards;
 		private int debts;
 		private int cash;
 		private int upwork;
 
-		public int CreditCard
+		public int Upwork
 		{
-			get { return creditCard; }
-			set { creditCard = value; OnPropertyChanged(); }
+			get { return upwork; }
+			set { upwork = value; OnPropertyChanged(); }
 		}
 
-		public int Debts
+		public int Cards
 		{
-			get { return debts; }
-			set { debts = value; OnPropertyChanged(); }
+			get { return cards; }
+			set { cards = value; OnPropertyChanged(); }
 		}
 
 		public int Cash
@@ -31,10 +31,10 @@ namespace Statistics.ViewModels
 			set { cash = value; OnPropertyChanged(); }
 		}
 
-		public int Upwork
+		public int Debts
 		{
-			get { return upwork; }
-			set { upwork = value; OnPropertyChanged(); }
+			get { return debts; }
+			set { debts = value; OnPropertyChanged(); }
 		}
 
 		public int Total { get; set; }
@@ -43,13 +43,13 @@ namespace Statistics.ViewModels
 		{
 			PropertyChanged += UpdateTotal;
 
-			bank.Get(amount => CreditCard = (int) amount);
+			bank.Get(amount => Cards = (int) amount);
 			debt.Get(amount => Debts = (int) amount);
 		}
 
 		private void UpdateTotal(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
 		{
-			Total = Upwork + CreditCard + Cash + Debts;
+			Total = Upwork + Cards + Cash + Debts;
 		}
 
 		public virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

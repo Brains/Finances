@@ -1,12 +1,48 @@
-﻿<UserControl x:Class="Statistics.Views.Funds"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Statistics.Views"
-             mc:Ignorable="d"
-             d:DesignHeight="600"
-             d:DesignWidth="600">
-    <Grid>
-    </Grid>
+﻿<UserControl x:Class = "Statistics.Views.Funds" xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc = "http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d = "http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local = "clr-namespace:Statistics.Views" mc:Ignorable = "d" d:DesignHeight = "600"
+             d:DesignWidth = "800" >
+
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/lime.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<Style TargetType = "Label" >
+				<Setter Property = "FontSize" Value = "24" />
+				<Setter Property = "Foreground" Value = "{StaticResource AccentColorBrush}" />
+				<Setter Property = "FontFamily" Value = "Segoe UI" />
+				<Setter Property = "FontWeight" Value = "Light" />
+				<Setter Property = "VerticalAlignment" Value = "Center" />
+				<Setter Property = "Margin" Value = "5" />
+			</Style>
+			<Style TargetType = "TextBox" >
+				<Setter Property = "FontSize" Value = "28" />
+				<Setter Property = "Foreground" Value = "DimGray" />
+				<Setter Property = "FontFamily" Value = "Segoe UI" />
+				<Setter Property = "FontWeight" Value = "Light" />
+				<Setter Property = "BorderThickness" Value = "0" />
+				<Setter Property = "VerticalAlignment" Value = "Center" />
+				<Setter Property = "Margin" Value = "5" />
+			</Style>
+		</ResourceDictionary>
+	</UserControl.Resources>
+
+	<StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
+
+		<Label >Upwork</Label>
+		<TextBox Text="{Binding Upwork}" />
+		<Label >Cards</Label>
+		<TextBox Text="{Binding Cards}" />
+		<Label>Cash</Label>
+		<TextBox Text="{Binding Cash}" />
+		<Label>Debts</Label>
+		<TextBox Text="{Binding Debts}" />
+		<Label FontSize="40" >Total</Label>
+		<TextBox Text="{Binding Total}" FontSize = "40" />
+
+
+	</StackPanel>
 </UserControl>

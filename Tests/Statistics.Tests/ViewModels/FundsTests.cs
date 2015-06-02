@@ -23,7 +23,7 @@ namespace Statistics.Tests.ViewModels
 			funds.Debts = 100;
 			Expect(funds.Total, EqualTo(200));
 
-			funds.CreditCard = 100;
+			funds.Cards = 100;
 			Expect(funds.Total, EqualTo(300));
 
 			funds.Upwork = 100;
