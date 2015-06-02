@@ -19,7 +19,7 @@ namespace Statistics
 		{
 			var regionManager = container.Resolve<IRegionManager>();
 
-			regionManager.RegisterViewWithRegion("Visualization", () => this.container.Resolve<Views.Charts>());
+			regionManager.RegisterViewWithRegion("Charts", () => this.container.Resolve<Views.Charts>());
 		}
 	}
 }
