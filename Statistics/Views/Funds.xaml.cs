@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Practices.Unity;
 
 namespace Statistics.Views
 {
@@ -24,5 +25,14 @@ namespace Statistics.Views
 		{
 			InitializeComponent();
 		}
+
+		[InjectionConstructor]
+		//------------------------------------------------------------------
+		public Funds(ViewModels.Funds viewModel) : this()
+	    {
+			DataContext = viewModel;
+		}
 	}
+
+
 }

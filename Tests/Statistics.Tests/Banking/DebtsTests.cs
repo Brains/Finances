@@ -31,7 +31,7 @@ namespace Statistics.Tests.Banking
 		{
 			var expenses = Substitute.For<IExpenses>();
 			FillDebts(expenses);
-			IFundsStorage debts = new Debts(expenses.Records);
+			IFundsStorage debts = new Debts(expenses);
 
 			decimal actual = 0;
 			debts.Get(number => actual = number);
@@ -44,7 +44,7 @@ namespace Statistics.Tests.Banking
 		{
 			var expenses = Substitute.For<IExpenses>();
 			FillDebts(expenses);
-			Debts debts = new Debts(expenses.Records);
+			Debts debts = new Debts(expenses);
 
 			var actual = debts.Calculate();
 
@@ -63,7 +63,7 @@ namespace Statistics.Tests.Banking
 				new Record(100, Record.Types.Debt, Record.Categories.Maxim, "In", date),
 				new Record(200, Record.Types.Debt, Record.Categories.Andrey, "In", date),
 			};
-			Debts debts = new Debts(expenses.Records);
+			Debts debts = new Debts(expenses);
 
 			var actual = debts.Calculate();
 
@@ -86,7 +86,7 @@ namespace Statistics.Tests.Banking
 				new Record(100, Record.Types.Debt, Record.Categories.Andrey, "Out", date),
 				new Record(50, Record.Types.Shared, Record.Categories.House, "Test", date),
 			};
-			Debts debts = new Debts(expenses.Records);
+			Debts debts = new Debts(expenses);
 
 			var actual = debts.Calculate();
 

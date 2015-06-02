@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Statistics.Banking;
+using Unity = Microsoft.Practices.Unity;
 
 namespace Statistics.ViewModels
 {
@@ -38,7 +39,7 @@ namespace Statistics.ViewModels
 
 		public int Total { get; set; }
 
-		public Funds(IFundsStorage bank, IFundsStorage debt)
+		public Funds([Unity.Dependency("bank")] IFundsStorage bank, [Unity.Dependency("debt")]IFundsStorage debt)
 		{
 			PropertyChanged += UpdateTotal;
 

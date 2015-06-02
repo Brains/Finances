@@ -10,9 +10,9 @@ namespace Statistics.Banking
 	{
 		private readonly IEnumerable<Record> records;
 
-		public Debts(IEnumerable<Record> records)
+		public Debts(IExpenses expenses)
 		{
-			this.records = records;
+			records = expenses.Records;
 		}
 
 		void IFundsStorage.Get(Action<decimal> callback)
