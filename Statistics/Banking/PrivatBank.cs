@@ -45,13 +45,32 @@ namespace Statistics.Banking
 
 		private string PrepareData()
 		{
-			var path = Path.Combine("C:\\", "Projects", "Finances", "Data", "Request.xml");
-			var xml = XElement.Load(path);
+			var xml = XElement.Parse(Request);
 
 			var file = XML.Repair(xml);
-			file = XML.Format(file, XML.ReadPassword(@"Password.xml"));
+			file = XML.Format(file, XML.ReadPersonalData(@"PrivatBank.xml"));
 
 			return file;
 		}
+
+		private const string Request = 
+			@"<?xml version=""1.0"" encoding=""UTF-8""?>
+			<request version=""1.0"">
+				<merchant>
+					<id>NULL</id>
+					<signature>NULL</signature>
+				</merchant>
+				<data>
+					<oper>cmt</oper>
+					<wait>0</wait>
+					<test>0</test>
+					<payment id="""">
+						<prop name=""card"" value=""NULL"" />
+						<prop name=""country"" value=""UA"" />
+						<prop name=""sd"" value=""NULL"" />
+						<prop name=""ed"" value=""NULL"" />
+					</payment>
+				</data>
+			</request>";
 	}
 }
