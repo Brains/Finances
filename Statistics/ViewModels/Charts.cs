@@ -132,8 +132,11 @@ namespace Statistics.ViewModels
 
 			return new Data
 			{
-				["Spending"] = (int) (types[Expense].Concat(types[Shared]).Sum(amount)),
-				["Income"] = (int) types[Income].Sum(amount),
+				["Spending"] = (int) Records.Where(record => record.Type == Expense)
+				                            .Concat(Records.Where(record => record.Type == Shared))
+											.Sum(amount),
+
+				["Income"] = (int) Records.Where(record => record.Type == Income).Sum(amount),
 			};
 		}
 
