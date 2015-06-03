@@ -82,16 +82,16 @@
 			        Style = "{StaticResource FlatAccentButtonWithVisibility}" />
 			<Button Grid.Row = "1"
 			        Grid.Column = "1"
-			        Command = "{Binding AddRecordCommand}"
-			        Content = "_Add"
-			        VerticalAlignment = "Bottom"
-			        Style = "{StaticResource FlatAccentButton}" />
-			<Button Grid.Row = "2"
-			        Grid.Column = "1"
 			        Command = "{Binding RemoveRecordCommand}"
 			        Content = "_Remove"
 			        VerticalAlignment = "Bottom"
 			        Style = "{StaticResource FlatAccentButtonWithVisibility}" />
+			<Button Grid.Row = "2"
+			        Grid.Column = "1"
+			        Command = "{Binding AddRecordCommand}"
+			        Content = "_Add"
+			        VerticalAlignment = "Bottom"
+			        Style = "{StaticResource FlatAccentButton}" />
 		</Grid>
 	</Border>
 
