@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Microsoft.Practices.Prism.PubSubEvents;
 using Tracker;
 using static Tracker.Record;
 using static Tracker.Record.Types;
@@ -15,7 +16,7 @@ namespace Statistics.ViewModels
 	public class Charts
 	{
 		private readonly IExpenses expenses;
-		private int month = DateTime.Now.Month-1;
+		private int month = DateTime.Now.Month;
 		private Dictionary<Types, List<Record>> types;
 		private readonly Funds funds;
 
@@ -28,6 +29,14 @@ namespace Statistics.ViewModels
 		public Data Incomes { get; set; }
 		public Data SpendingByType { get; set; }
 
+		public Charts(IExpenses expenses, IEventAggregator eventAggregator)
+		{
+			this.expenses = expenses;
+			eventAggregator.GetEvent<AddRecordEvent>().Subscribe(record => Update());
+
+			Update();
+		}
+
 		public void Update()
 		{
 			Records = GetRecordsByMonth(expenses.Records, month).ToList();
@@ -39,13 +48,6 @@ namespace Statistics.ViewModels
 			Spending = GetSpendingByCategory(Records, IsSpending);
 			Incomes = GetSpendingByCategory(Records, IsIncome);
 			SpendingByType = CalculateInOut();
-		}
-
-		public Charts(IExpenses expenses)
-		{
-			this.expenses = expenses;
-
-			Update();
 		}
 
 		public Dictionary<string, IEnumerable<Record>> GetSpendingByDate(IEnumerable<Record> records)

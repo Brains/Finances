@@ -38,6 +38,7 @@ namespace Tracker
 
 			Save();
 
+			eventAggregator.GetEvent<AddRecordEvent>().Publish(record);
 		}
 
 	    public void Load ()
