@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Microsoft.Practices.Prism.PubSubEvents;
 using Tracker;
 using static Tracker.Record;
@@ -13,7 +15,7 @@ namespace Statistics.ViewModels
 	// For XAML
 //	public class MarkupDictionary : Dictionary<string, int> {}
 
-	public class Charts
+	public class Charts : INotifyPropertyChanged
 	{
 		private readonly IExpenses expenses;
 		private int month = DateTime.Now.Month;
@@ -28,6 +30,9 @@ namespace Statistics.ViewModels
 		public Data Spending { get; set; }
 		public Data Incomes { get; set; }
 		public Data SpendingByType { get; set; }
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
 
 		public Charts(IExpenses expenses, IEventAggregator eventAggregator)
 		{
@@ -48,6 +53,10 @@ namespace Statistics.ViewModels
 			Spending = GetSpendingByCategory(Records, IsSpending);
 			Incomes = GetSpendingByCategory(Records, IsIncome);
 			SpendingByType = CalculateInOut();
+			OnPropertyChanged("SpendingByDate");
+			OnPropertyChanged("Spending");
+			OnPropertyChanged("Incomes");
+			OnPropertyChanged("SpendingByType");
 		}
 
 		public Dictionary<string, IEnumerable<Record>> GetSpendingByDate(IEnumerable<Record> records)
@@ -143,9 +152,9 @@ namespace Statistics.ViewModels
 		}
 
 
-		
-
-
-
+		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+		{
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+		}
 	}
 }
