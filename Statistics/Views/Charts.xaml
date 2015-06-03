@@ -79,14 +79,14 @@
 				</metro:DoughnutChart.Series>
 			</metro:DoughnutChart>
 
-			<!-- Stacked Columns : Spending by Type-->
+			<!-- Columns : Spending by Type-->
 			<metro:ClusteredColumnChart Grid.Row="1" Grid.Column="2"
 										ChartTitle="Types"
 										ChartSubTitle="{Binding Month}"
 										Palette="{StaticResource OrangeGreenColors}"
 										>
 				<metro:ClusteredColumnChart.Series>
-					<metro:ChartSeries SeriesTitle="Title"
+					<metro:ChartSeries SeriesTitle="Ratio"
 									   DisplayMember="Key"
 									   ValueMember="Value"
 									   ItemsSource="{Binding SpendingByType}" 
