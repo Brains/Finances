@@ -18,7 +18,7 @@ namespace Statistics.ViewModels
 	public class Charts : INotifyPropertyChanged
 	{
 		private readonly IExpenses expenses;
-		private int month = DateTime.Now.Month;
+		private int month = DateTime.Now.Month-1;
 		private Dictionary<Types, List<Record>> types;
 		private readonly Funds funds;
 
