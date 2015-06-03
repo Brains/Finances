@@ -62,12 +62,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\Tracker\Records.xml">
-      <Link>Records.xml</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\Statistics\Statistics.csproj">
       <Project>{35b3bc50-dada-47a4-a37d-b26f4bb4724e}</Project>
       <Name>Statistics</Name>
