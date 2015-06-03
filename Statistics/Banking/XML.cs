@@ -11,6 +11,21 @@ using Visualization.Banking;
 
 namespace Statistics.Banking
 {
+	public struct PersonalData
+	{
+		public string ID;
+		public string Card;
+		public string Password;
+
+		public PersonalData(string id, string password, string card)
+		{
+			ID = id;
+			Password = password;
+			Card = card;
+		}
+	}
+
+
 	static class XML
 	{
 		public static string Repair(XElement file)
@@ -19,14 +34,34 @@ namespace Statistics.Banking
 			return Regex.Replace(file.ToString(SaveOptions.DisableFormatting), pattern, string.Empty);
 		}
 
-		public static string Format(string xml, string password)
+		public static string Format(string xml, PersonalData personal)
 		{
+			xml = InsertPersonalData(xml, personal);
 			xml = InsertDatesRange(xml, DateTime.Now.AddDays(-5), DateTime.Now);
-			var data = ExtractData(xml);
-			var signature = Encryption.CalculateSignature(data + password);
-			var file = InsertSignature(xml, signature);
+			var file = PutSignature(xml, personal);
 
 			return file.ToString(SaveOptions.DisableFormatting);
+		}
+
+		private static string InsertPersonalData(string xml, PersonalData personal)
+		{
+			XElement file = XElement.Parse(xml);
+
+			file.Element("merchant").SetElementValue("id", personal.ID);
+
+			var property = file.Descendants("prop").Single(element => element.Attribute("name").Value == "card");
+			property.SetAttributeValue("value", personal.Card);
+
+			return file.ToString(SaveOptions.DisableFormatting);
+
+		}
+
+		private static XElement PutSignature(string xml, PersonalData personal)
+		{
+			var data = ExtractData(xml);
+			var signature = Encryption.CalculateSignature(data + personal.Password);
+			var file = InsertSignature(xml, signature);
+			return file;
 		}
 
 		private static string ExtractData(string xml)
@@ -61,12 +96,16 @@ namespace Statistics.Banking
 			return file.ToString(SaveOptions.DisableFormatting); 
 		}
 
-		public static string ReadPassword(string input)
+		public static PersonalData ReadPersonalData(string input)
 		{
 			var path = Path.Combine("C:\\", "Projects", "Finances", "Data", input);
-			XElement file = XElement.Load(path);
+			XElement data = XElement.Load(path);
 
-			return file.Value;
+			var id = data.Element("id").Value;
+			var card = data.Element("card").Value;
+			var password = data.Element("password").Value;
+
+			return new PersonalData(id, password, card);
 		}
 	}
 }
