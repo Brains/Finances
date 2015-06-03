@@ -17,31 +17,6 @@
 				<ResourceDictionary Source="Resources/Styles.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 
-			<Style TargetType="ToolTip">
-				<Setter Property="Template">
-					<Setter.Value>
-						<ControlTemplate TargetType="ToolTip">
-							<Border Name="Border"
-									CornerRadius="4"
-									Background="White"
-									BorderBrush="Black"
-									BorderThickness="1"
-									Width="{TemplateBinding Width}"
-									Height="{TemplateBinding Height}">
-								<StackPanel Orientation="Horizontal">
-									<TextBlock Text="{Binding Path=Caption}"></TextBlock>
-									<TextBlock>:</TextBlock>
-									<TextBlock Text="{Binding Path=Value}"></TextBlock>
-								</StackPanel>
-							</Border>
-						</ControlTemplate>
-					</Setter.Value>
-				</Setter>
-			</Style>
-
-
-			
-
 		</ResourceDictionary>
 	</UserControl.Resources>
 
