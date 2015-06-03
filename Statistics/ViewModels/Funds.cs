@@ -1,8 +1,10 @@
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Xml;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 using Statistics.Banking;
 using Unity = Microsoft.Practices.Unity;
@@ -76,18 +78,12 @@ namespace Statistics.ViewModels
 
 		private void Load()
 		{
-			XmlSerializer serializer = new XmlSerializer(typeof(int[]));
-
 			var path = Path.Combine("C:\\", "Projects", "Finances", "Data", "Funds.xml");
 
-			using (StreamReader stream = new StreamReader(path))
-			using (var writer = XmlReader.Create(stream))
-			{
-				var values = (int[]) serializer.Deserialize(writer);
+			XElement file = XElement.Load(path);
 
-				Upwork = values[0];
-				Cash = values[1];
-			}
+			Upwork = int.Parse(file.Element("Upwork").Value);
+			Cash = int.Parse(file.Element("Cash").Value);
 		}
 	}
 }
