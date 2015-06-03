@@ -31,6 +31,7 @@
 				<Setter Property = "BorderThickness" Value = "0" />
 				<Setter Property = "VerticalAlignment" Value = "Center" />
 				<Setter Property = "Margin" Value = "10" />
+				<Setter Property = "IsEnabled" Value = "False" />
 			</Style>
 			
 		</ResourceDictionary>
