@@ -33,7 +33,7 @@ namespace Tracker
 			ODesk,
 			Deposit,
 
-			Max,
+			Maxim,
 			Andrey,
         }
 
@@ -62,5 +62,22 @@ namespace Tracker
             Description = description;
             Date = date;
         }
-    }
+
+		public override string ToString()
+		{
+			return $"{Amount}; {Type}; {Category}; {Description}; {Date.ToString("M")}";
+		}
+
+		public static Record operator +(Record a, Record b)
+		{
+			CodeContracts.Requires.True(a.Type == b.Type, "a.Type == b.Type");
+			CodeContracts.Requires.True(a.Category == b.Category, "a.Category == b.Category");
+			CodeContracts.Requires.True(a.Date.Day == b.Date.Day, "a.Date.Day == b.Date.Day");
+
+			var amount = a.Amount + b.Amount;
+			var description = $"{a.Description}, {b.Description}";
+
+			return new Record(amount, a.Type, a.Category, description, a.Date);
+		}
+	}
 }

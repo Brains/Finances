@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfRecord xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<Record Amount="175" Type="Expense" Category="Food" Description="Novus" Date="2015-05-03T11:43:56.1189447+03:00" />
+	<Record Amount="420" Type="Expense" Category="Health" Description="Голень: Arthro Guard Liquid BioTech USA" Date="2015-05-04T11:44:39.2754576+03:00" />
+	<Record Amount="138" Type="Expense" Category="General" Description="Mozy" Date="2015-05-05T11:44:53.2783766+03:00" />
+	<Record Amount="1290" Type="Income" Category="Deposit" Date="2015-05-05T11:45:24.3557642+03:00" />
+	<Record Amount="33" Type="Shared" Category="House" Description="O3" Date="2015-05-05T11:45:44.2781219+03:00" />
+	<Record Amount="157" Type="Expense" Category="Health" Description="ДипРилиф" Date="2015-05-06T11:46:13.6369197+03:00" />
+	<Record Amount="338" Type="Expense" Category="Food" Description="Novus" Date="2015-05-06T11:46:28.8004385+03:00" />
+	<Record Amount="204" Type="Income" Category="Deposit" Date="2015-05-07T11:46:56.2290333+03:00" />
+	<Record Amount="206" Type="Expense" Category="Food" Description="Novus" Date="2015-05-09T11:47:06.692861+03:00" />
+	<Record Amount="680" Type="Expense" Category="Health" Description="Венлаксор" Date="2015-05-10T11:47:28.4048576+03:00" />
+	<Record Amount="45" Type="Expense" Category="Health" Description="Экспандер" Date="2015-05-11T11:47:47.7241773+03:00" />
+	<Record Amount="55" Type="Expense" Category="Health" Description="Шнурки" Date="2015-05-11T11:48:22.9169833+03:00" />
+	<Record Amount="156" Type="Expense" Category="Food" Description="Novus" Date="2015-05-12T11:48:57.1491804+03:00" />
+	<Record Amount="205" Type="Expense" Category="General" Description="Мама: Билеты" Date="2015-05-12T11:49:08.1477829+03:00" />
+	<Record Amount="1667" Type="Shared" Category="House" Description="Аренда" Date="2015-05-15T11:49:38.7188679+03:00" />
+	<Record Amount="150" Type="Shared" Category="House" Description="Коммуналка" Date="2015-05-15T11:50:05.1399283+03:00" />
+	<Record Amount="173" Type="Expense" Category="Food" Description="Novus" Date="2015-05-15T11:50:33.2206541+03:00" />
+	<Record Amount="50" Type="Shared" Category="House" Description="Герметик" Date="2015-05-17T11:50:53.1755859+03:00" />
+	<Record Amount="20" Type="Shared" Category="House" Description="Консьерж" Date="2015-05-17T11:51:16.8849672+03:00" />
+	<Record Amount="1012" Type="Income" Category="Deposit" Date="2015-05-17T11:52:28.3881774+03:00" />
+	<Record Amount="74" Type="Expense" Category="Food" Description="Kishenya" Date="2015-05-17T11:53:28.7277641+03:00" />
+	<Record Amount="221" Type="Expense" Category="Food" Description="Novus" Date="2015-05-18T11:53:51.1732036+03:00" />
+	<Record Amount="320" Type="Expense" Category="Health" Description="Odaban" Date="2015-05-19T11:54:01.8604765+03:00" />
+	<Record Amount="78" Type="Income" Category="Deposit" Date="2015-05-20T11:54:22.8996625+03:00" />
+	<Record Amount="180" Type="Expense" Category="Food" Description="Novus" Date="2015-05-21T11:54:35.236333+03:00" />
+</ArrayOfRecord>

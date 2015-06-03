@@ -44,7 +44,9 @@
 		<Border BorderThickness = "{Binding Border}"
 		        BorderBrush = "Orange"
 		        Margin = "5"
-		        Padding = "{Binding Padding}" >
+		        Padding = "{Binding Padding}" 
+				KeyboardNavigation.TabNavigation = "Cycle"
+				KeyboardNavigation.TabIndex = "0">
 			<Grid>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition />
@@ -105,8 +107,8 @@
 				          Foreground = "{Binding SelectedValue, Converter={StaticResource EnumToColor}, RelativeSource={RelativeSource Self}}"
 				          HorizontalAlignment = "Center"
 				          VerticalAlignment = "Center" >
-					<system:String>In</system:String>
 					<system:String>Out</system:String>
+					<system:String>In</system:String>
 				</ComboBox>
 			</Grid>
 		</Border>
