@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using Microsoft.Practices.Prism.PubSubEvents;
 using Tracker;
 using static Tracker.Record;
 using static Tracker.Record.Types;
@@ -12,10 +15,10 @@ namespace Statistics.ViewModels
 	// For XAML
 //	public class MarkupDictionary : Dictionary<string, int> {}
 
-	public class Charts
+	public class Charts : INotifyPropertyChanged
 	{
 		private readonly IExpenses expenses;
-		private int month = DateTime.Now.Month-1;
+		private int month = DateTime.Now.Month;
 		private Dictionary<Types, List<Record>> types;
 		private readonly Funds funds;
 
@@ -28,6 +31,17 @@ namespace Statistics.ViewModels
 		public Data Incomes { get; set; }
 		public Data SpendingByType { get; set; }
 
+		public event PropertyChangedEventHandler PropertyChanged;
+
+
+		public Charts(IExpenses expenses, IEventAggregator eventAggregator)
+		{
+			this.expenses = expenses;
+			eventAggregator.GetEvent<AddRecordEvent>().Subscribe(record => Update());
+
+			Update();
+		}
+
 		public void Update()
 		{
 			Records = GetRecordsByMonth(expenses.Records, month).ToList();
@@ -39,13 +53,10 @@ namespace Statistics.ViewModels
 			Spending = GetSpendingByCategory(Records, IsSpending);
 			Incomes = GetSpendingByCategory(Records, IsIncome);
 			SpendingByType = CalculateInOut();
-		}
-
-		public Charts(IExpenses expenses)
-		{
-			this.expenses = expenses;
-
-			Update();
+			OnPropertyChanged("SpendingByDate");
+			OnPropertyChanged("Spending");
+			OnPropertyChanged("Incomes");
+			OnPropertyChanged("SpendingByType");
 		}
 
 		public Dictionary<string, IEnumerable<Record>> GetSpendingByDate(IEnumerable<Record> records)
@@ -132,15 +143,18 @@ namespace Statistics.ViewModels
 
 			return new Data
 			{
-				["Spending"] = (int) (types[Expense].Concat(types[Shared]).Sum(amount)),
-				["Income"] = (int) types[Income].Sum(amount),
+				["Spending"] = (int) Records.Where(record => record.Type == Expense)
+				                            .Concat(Records.Where(record => record.Type == Shared))
+											.Sum(amount),
+
+				["Income"] = (int) Records.Where(record => record.Type == Income).Sum(amount),
 			};
 		}
 
 
-		
-
-
-
+		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+		{
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+		}
 	}
 }

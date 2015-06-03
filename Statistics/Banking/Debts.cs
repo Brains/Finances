@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Practices.ObjectBuilder2;
+using Microsoft.Practices.Prism.PubSubEvents;
 using Tracker;
 
 namespace Statistics.Banking
@@ -9,13 +11,23 @@ namespace Statistics.Banking
 	public class Debts : IFundsStorage
 	{
 		private readonly IEnumerable<Record> records;
+		private Action<decimal> callback;
 
-		public Debts(IExpenses expenses)
+		public Debts(IExpenses expenses, IEventAggregator eventAggregator)
 		{
+			eventAggregator.GetEvent<AddRecordEvent>().Subscribe(record => CalculateDebts(callback), true);
+
 			records = expenses.Records;
 		}
 
 		void IFundsStorage.Get(Action<decimal> callback)
+		{
+			this.callback = callback;
+
+			CalculateDebts(callback);
+		}
+
+		private void CalculateDebts(Action<decimal> callback)
 		{
 			var debts = CalculateDebts(records);
 

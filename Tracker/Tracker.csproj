@@ -47,6 +47,10 @@
     <Reference Include="Microsoft.Practices.Prism.Mvvm">
       <HintPath>..\packages\Prism.Mvvm.1.0.0\lib\net45\Microsoft.Practices.Prism.Mvvm.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.Prism.PubSubEvents, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.PubSubEvents.1.0.0\lib\portable-sl4+wp7+windows8+net40\Microsoft.Practices.Prism.PubSubEvents.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Practices.Prism.SharedInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Composition.5.0.0\lib\NET45\Microsoft.Practices.Prism.SharedInterfaces.dll</HintPath>
       <Private>True</Private>
@@ -93,6 +97,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddRecordEvent.cs" />
     <Compile Include="Controls\AutoCompleteBehavior.cs" />
     <Compile Include="Expenses.cs" />
     <Compile Include="IExpenses.cs" />

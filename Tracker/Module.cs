@@ -17,7 +17,7 @@ namespace Tracker
 
 		public void Initialize ()
 		{
-			container.RegisterType<IExpenses, Expenses>(new ContainerControlledLifetimeManager(), new InjectionConstructor(true));
+			container.RegisterType<IExpenses, Expenses>(new ContainerControlledLifetimeManager());
 
 			var regionManager = container.Resolve<IRegionManager>();
 
