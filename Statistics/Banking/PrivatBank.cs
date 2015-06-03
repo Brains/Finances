@@ -48,7 +48,8 @@ namespace Statistics.Banking
 			var xml = XElement.Parse(Request);
 
 			var file = XML.Repair(xml);
-			file = XML.Format(file, XML.ReadPersonalData(@"PrivatBank.xml"));
+			var personal = XML.ReadPersonalData(Path.Combine("Data", @"PrivatBank.xml"));
+			file = XML.Format(file, personal);
 
 			return file;
 		}
