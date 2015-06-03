@@ -19,7 +19,7 @@ namespace Tracker
         
         public Expenses ()
         {
-			recordsDataPath = Path.Combine("C:\\", "Projects", "Finances", "Data", "Records.xml");
+			recordsDataPath = Path.Combine("Data", "Records.xml");
 
 			Records = new ObservableCollection<Record>();
 //	        Records.CollectionChanged += (s, a) => Save();

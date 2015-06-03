@@ -98,7 +98,7 @@ namespace Statistics.Banking
 
 		public static PersonalData ReadPersonalData(string input)
 		{
-			var path = Path.Combine("C:\\", "Projects", "Finances", "Data", input);
+			var path = Path.Combine("Data", input);
 			XElement data = XElement.Load(path);
 
 			var id = data.Element("id").Value;

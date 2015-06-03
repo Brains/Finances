@@ -78,7 +78,7 @@ namespace Statistics.ViewModels
 
 		private void Load()
 		{
-			var path = Path.Combine("C:\\", "Projects", "Finances", "Data", "Funds.xml");
+			var path = Path.Combine("Data", "Funds.xml");
 
 			XElement file = XElement.Load(path);
 

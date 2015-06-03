@@ -15,13 +15,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trends.Tests", "Tests\Trend
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracker.UnitTests", "Tests\Tracker.UnitTests\Tracker.UnitTests.csproj", "{2C80B2A4-7B0D-4ACF-98C1-D1C7BB3C42FF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{6C8A8C8B-47B7-47B5-9A93-82214B2AC77C}"
-	ProjectSection(SolutionItems) = preProject
-		Data\Funds.xml = Data\Funds.xml
-		Data\PrivatBank.xml = Data\PrivatBank.xml
-		Data\Records.xml = Data\Records.xml
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Statistics", "Statistics\Statistics.csproj", "{35B3BC50-DADA-47A4-A37D-B26F4BB4724E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Statistics.Tests", "Tests\Statistics.Tests\Statistics.Tests.csproj", "{5CB3BA1F-00E9-4721-896F-91396853682C}"
