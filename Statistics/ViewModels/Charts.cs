@@ -76,7 +76,6 @@ namespace Statistics.ViewModels
 		public Data GetExpencesByType(IEnumerable<Record> records)
 		{
 			var query = from record in records
-//			            where record.Type == Expense || record.Type == Income
 			            group record by record.Type
 			            into grouped
 			            select new {Key = grouped.Key, Value = grouped.Sum(record => record.Amount)};
@@ -94,8 +93,6 @@ namespace Statistics.ViewModels
 
 		public List<Record> GetRecordsFrom(DateTime date, IEnumerable<Record> records)
 		{
-			var asdd = records.ToLookup(record => record.Type, record => records.Where(record1 => record.Amount > 2));
-
 			var query = from record in records
 			            where record.Date > date
 			            select record;
