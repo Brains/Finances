@@ -15,32 +15,8 @@
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="Resources/Palette.xaml" />
 				<ResourceDictionary Source="Resources/Styles.xaml" />
+				<ResourceDictionary Source="Resources/ColumnChartStyle.xaml" />
 			</ResourceDictionary.MergedDictionaries>
-
-			<Style TargetType="ToolTip">
-				<Setter Property="Template">
-					<Setter.Value>
-						<ControlTemplate TargetType="ToolTip">
-							<Border Name="Border"
-									CornerRadius="4"
-									Background="White"
-									BorderBrush="Black"
-									BorderThickness="1"
-									Width="{TemplateBinding Width}"
-									Height="{TemplateBinding Height}">
-								<StackPanel Orientation="Horizontal">
-									<TextBlock Text="{Binding Path=Caption}"></TextBlock>
-									<TextBlock>:</TextBlock>
-									<TextBlock Text="{Binding Path=Value}"></TextBlock>
-								</StackPanel>
-							</Border>
-						</ControlTemplate>
-					</Setter.Value>
-				</Setter>
-			</Style>
-
-
-			
 
 		</ResourceDictionary>
 	</UserControl.Resources>
@@ -62,7 +38,8 @@
 			                          SeriesSource="{Binding SpendingByDate}"
 			                          ChartTitle="Days"
 			                          ChartSubTitle="{Binding Month}"
-									  Palette="{StaticResource CustomColors}">
+									  Palette="{StaticResource CustomColors}"
+									  PlotterAreaStyle="{StaticResource StackedColumnChartPlotterAreaStyle}">
 				<metro:StackedColumnChart.SeriesTemplate>
 					<DataTemplate>
 						<metro:ChartSeries SeriesTitle="{Binding Key}"
@@ -107,12 +84,14 @@
 			<metro:ClusteredColumnChart Grid.Row="1" Grid.Column="2"
 										ChartTitle="Types"
 										ChartSubTitle="{Binding Month}"
-										Palette="{StaticResource OrangeGreenColors}">
+										Palette="{StaticResource OrangeGreenColors}"
+										>
 				<metro:ClusteredColumnChart.Series>
 					<metro:ChartSeries SeriesTitle="Title"
 									   DisplayMember="Key"
 									   ValueMember="Value"
-									   ItemsSource="{Binding SpendingByType}" />
+									   ItemsSource="{Binding SpendingByType}" 
+									    />
 				</metro:ClusteredColumnChart.Series>
 			</metro:ClusteredColumnChart>
 		</Grid>
