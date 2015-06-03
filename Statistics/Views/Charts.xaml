@@ -37,7 +37,8 @@
 			                          ChartTitle="Days"
 			                          ChartSubTitle="{Binding Month}"
 									  Palette="{StaticResource CustomColors}"
-									  PlotterAreaStyle="{StaticResource StackedColumnChartPlotterAreaStyle}">
+									  PlotterAreaStyle="{StaticResource StackedColumnChartPlotterAreaStyle}"
+									  SelectedBrush="Transparent">
 				<metro:StackedColumnChart.SeriesTemplate>
 					<DataTemplate>
 						<metro:ChartSeries SeriesTitle="{Binding Key}"
