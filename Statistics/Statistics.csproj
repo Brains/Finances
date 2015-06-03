@@ -100,7 +100,6 @@
     <Compile Include="Views\Funds.xaml.cs">
       <DependentUpon>Funds.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Spy.cs" />
     <Page Include="Views\Charts.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
