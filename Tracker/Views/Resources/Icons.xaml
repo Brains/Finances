@@ -147,7 +147,7 @@
 	</Viewbox>
 
 
-	<Viewbox x:Key="Max"
+	<Viewbox x:Key="Maxim"
 	         Width="48"
 	         Height="48">
 		<Canvas Width="24"

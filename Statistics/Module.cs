@@ -3,8 +3,10 @@
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.Unity;
+using Statistics.Banking;
+using Statistics.ViewModels;
 
-namespace Visualization
+namespace Statistics
 {
 	public class Module : IModule
 	{
@@ -17,9 +19,14 @@ namespace Visualization
 
 		public void Initialize ()
 		{
+			container.RegisterType<IFundsStorage, PrivatBank>("bank");
+			container.RegisterType<IFundsStorage, Debts>("debt");
+
+
 			var regionManager = container.Resolve<IRegionManager>();
 
-			regionManager.RegisterViewWithRegion("Visualization", () => this.container.Resolve<Views.Charts>());
+			regionManager.RegisterViewWithRegion("Funds", () => this.container.Resolve<Views.Funds>());
+			regionManager.RegisterViewWithRegion("Charts", () => this.container.Resolve<Views.Charts>());
 		}
 	}
 }

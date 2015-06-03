@@ -23,7 +23,7 @@ namespace Tracker.ViewModels
 		{
 			get { return type; }
 			set { OnTypeUpdate(value); }
-		}
+			}
 
 		public Categories Category { get; set; }
 		public string Description { get; set; }
@@ -50,7 +50,7 @@ namespace Tracker.ViewModels
 			availableCategories = new Dictionary<Types, Categories[]>
 			{
 				[Expense] = new[] {Food, General, Health, House, Other, Women},
-				[Debt] = new[] {Max, Andrey},
+				[Debt] = new[] {Maxim, Andrey},
 				[Income] = new[] {ODesk, Deposit},
 				[Shared] = new[] {Food, House, General, Other},
 				[Balance] = new[] {Other}

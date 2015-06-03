@@ -55,7 +55,7 @@ namespace Tracker.UnitTests
 		}
 
 		[TestCase(Expense, new[] {Food, General, Health, House, Other, Women })]
-		[TestCase(Debt, new[] { Max, Andrey })]
+		[TestCase(Debt, new[] { Maxim, Andrey })]
 		[TestCase(Income, new[] { ODesk, Deposit })]
 		[TestCase(Shared, new[] { Food, House, General, Other })]
 		[TestCase(Balance, new[] { Other })]
