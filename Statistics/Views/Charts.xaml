@@ -40,7 +40,6 @@
 			                          ChartSubTitle="{Binding Month}"
 									  Palette="{StaticResource CustomColors}"
 									  PlotterAreaStyle="{StaticResource StackedColumnChartPlotterAreaStyle}">
-<!--				PlotterAreaStyle="{StaticResource StackedColumnChartPlotterAreaStyle}"-->
 				<metro:StackedColumnChart.SeriesTemplate>
 					<DataTemplate>
 						<metro:ChartSeries SeriesTitle="{Binding Key}"

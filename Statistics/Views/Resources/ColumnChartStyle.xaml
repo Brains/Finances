@@ -2,85 +2,11 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:converters="clr-namespace:Statistics.Views"
 					xmlns:vsm="clr-namespace:System.Windows;assembly=PresentationFramework"
-					xmlns:local="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart"
-					>
+					xmlns:local="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart">
 
 	<ResourceDictionary.MergedDictionaries>
 		<ResourceDictionary Source="pack://application:,,,/De.TorstenMandelkow.MetroChart;component/themes/generic.xaml" />
 	</ResourceDictionary.MergedDictionaries>
-
-
-	<Style x:Key="StackedColumnPiece"
-		   TargetType="local:ColumnPiece">
-		<Setter Property="VerticalAlignment"
-				Value="Bottom" />
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="local:ColumnPiece">
-					<Grid>
-						<vsm:VisualStateManager.VisualStateGroups>
-							<vsm:VisualStateGroup x:Name = "CommonStates" >
-								<vsm:VisualStateGroup.Transitions>
-									<vsm:VisualTransition GeneratedDuration = "0:0:0.1" />
-								</vsm:VisualStateGroup.Transitions>
-								<vsm:VisualState x:Name = "Normal" />
-								<vsm:VisualState x:Name = "PointerOver" >
-									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName = "MouseOverHighlight" Storyboard.TargetProperty = "Opacity"
-										                 To = "0.6" Duration = "0" />
-									</Storyboard>
-								</vsm:VisualState>
-								<vsm:VisualState x:Name = "MouseOver" >
-									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName = "MouseOverHighlight" Storyboard.TargetProperty = "Opacity"
-										                 To = "0.6" Duration = "0" />
-									</Storyboard>
-								</vsm:VisualState>
-							</vsm:VisualStateGroup>
-							<vsm:VisualStateGroup x:Name = "SelectionStates" >
-								<vsm:VisualState x:Name = "Unselected" >
-									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName = "SelectionHighlight" Storyboard.TargetProperty = "Opacity" To = "0"
-										                 Duration = "0:0:0.2" />
-									</Storyboard>
-								</vsm:VisualState>
-								<vsm:VisualState x:Name = "Selected" >
-									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName = "SelectionHighlight" Storyboard.TargetProperty = "Opacity" To = "1"
-										                 Duration = "0:0:0.2" />
-									</Storyboard>
-								</vsm:VisualState>
-							</vsm:VisualStateGroup>
-						</vsm:VisualStateManager.VisualStateGroups>
-						<Border Grid.Row="1"
-								x:Name="Slice"
-								Width="auto"
-								Height="auto"
-								MinWidth="2"
-								ToolTipService.ToolTip="{Binding Path=DataContext.ReferencedObject.Description, 
-									RelativeSource={RelativeSource Self} }" >
-							<Grid>
-								<Border Background="{TemplateBinding Background}"
-										HorizontalAlignment="Stretch"
-										VerticalAlignment="Stretch" />
-								<Border x:Name="SelectionHighlight"
-										Background="{Binding Path=SelectedBrush}"
-										HorizontalAlignment="Stretch"
-										VerticalAlignment="Stretch"
-										Opacity="0" />
-								<local:AutoSizeTextBlock Text="{Binding Path=Value}"
-														 TextBlockStyle="{StaticResource NumberStyle}"
-														 VerticalAlignment="Center"
-														 Foreground="White"
-														 HorizontalAlignment="Stretch" />
-							</Grid>
-						</Border>
-					</Grid>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
-
 
 	<Style x:Key="StackedColumnChartPlotterAreaStyle"
 		   TargetType="local:PlotterArea"
@@ -115,10 +41,88 @@
 		</Setter>
 	</Style>
 
+	<Style x:Key="StackedColumnPiece"
+		   TargetType="local:ColumnPiece">
+		<Setter Property="VerticalAlignment"
+				Value="Bottom" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="local:ColumnPiece">
+					<Grid>
+						<vsm:VisualStateManager.VisualStateGroups>
+							<vsm:VisualStateGroup x:Name="CommonStates">
+								<vsm:VisualStateGroup.Transitions>
+									<vsm:VisualTransition GeneratedDuration="0:0:0.1" />
+								</vsm:VisualStateGroup.Transitions>
+								<vsm:VisualState x:Name="Normal" />
+								<vsm:VisualState x:Name="PointerOver">
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="MouseOverHighlight"
+														 Storyboard.TargetProperty="Opacity"
+														 To="0.6"
+														 Duration="0" />
+									</Storyboard>
+								</vsm:VisualState>
+								<vsm:VisualState x:Name="MouseOver">
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="MouseOverHighlight"
+														 Storyboard.TargetProperty="Opacity"
+														 To="0.6"
+														 Duration="0" />
+									</Storyboard>
+								</vsm:VisualState>
+							</vsm:VisualStateGroup>
+							<vsm:VisualStateGroup x:Name="SelectionStates">
+								<vsm:VisualState x:Name="Unselected">
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="SelectionHighlight"
+														 Storyboard.TargetProperty="Opacity"
+														 To="0"
+														 Duration="0:0:0.2" />
+									</Storyboard>
+								</vsm:VisualState>
+								<vsm:VisualState x:Name="Selected">
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="SelectionHighlight"
+														 Storyboard.TargetProperty="Opacity"
+														 To="1"
+														 Duration="0:0:0.2" />
+									</Storyboard>
+								</vsm:VisualState>
+							</vsm:VisualStateGroup>
+						</vsm:VisualStateManager.VisualStateGroups>
+						<Border Grid.Row="1"
+								x:Name="Slice"
+								Width="auto"
+								Height="auto"
+								MinWidth="2"
+								ToolTipService.ToolTip="{Binding Path=DataContext.ReferencedObject.Description, 
+									RelativeSource={RelativeSource Self} }">
+							<Grid>
+								<Border Background="{TemplateBinding Background}"
+										HorizontalAlignment="Stretch"
+										VerticalAlignment="Stretch" />
+								<Border x:Name="SelectionHighlight"
+										Background="{Binding Path=SelectedBrush}"
+										HorizontalAlignment="Stretch"
+										VerticalAlignment="Stretch"
+										Opacity="0" />
+								<local:AutoSizeTextBlock Text="{Binding Path=Value}"
+														 TextBlockStyle="{StaticResource NumberStyle}"
+														 VerticalAlignment="Center"
+														 Foreground="White"
+														 HorizontalAlignment="Stretch" />
+							</Grid>
+						</Border>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
 	<Style TargetType="ToolTip">
 		<Setter Property="Background" Value="White"></Setter>
 		<Setter Property="BorderBrush" Value="LightGray"></Setter>
 	</Style>
-
 
 </ResourceDictionary>
