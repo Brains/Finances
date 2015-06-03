@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using NodaTime;
-using NodaTime.Extensions;
 
 namespace Trends.ViewModels
 {
@@ -24,13 +23,13 @@ namespace Trends.ViewModels
 		public Trend (int startFunds) : this()
 		{
 			LoadOperations();
-			Calculate(7000, new LocalDate(2015, 5, 14), new LocalDate(2015, 7, 1));
+			Calculate(5400, new DateTime(2015, 5, 16), new DateTime(2015, 7, 1));
 			Funds = GetFunds();
 		}
 
 		#region Public
 
-		public void Calculate (decimal startFunds, LocalDate start, LocalDate end)
+		public void Calculate (decimal startFunds, DateTime start, DateTime end)
 		{
 			CalculateTransactionsCalendar(start, end);
 			AggregateTransactionsByDate();
@@ -52,31 +51,31 @@ namespace Trends.ViewModels
 
 		public void LoadOperations ()
 		{
-			var monthly = Period.FromMonths(1);
+			var monthly = DatePeriod.FromMonths(1);
 
-			Operations.Add(new Operation(-300, new LocalDate(2015, 5, 15), Period.FromDays(3), "Food"));
-			Operations.Add(new Operation(-2000, new LocalDate(2015, 1, 15), monthly, "House"));
-			Operations.Add(new Operation(-1000, new LocalDate(2015, 5, 30), Period.FromDays(20), "Medications"));
+			Operations.Add(new Operation(-300, new DateTime(2015, 5, 15), DatePeriod.FromDays(3), "Food"));
+			Operations.Add(new Operation(-2000, new DateTime(2015, 1, 15), monthly, "House"));
+			Operations.Add(new Operation(-1000, new DateTime(2015, 5, 30), DatePeriod.FromDays(20), "Medications"));
 
-			Operations.Add(new Operation(1300, new LocalDate(2015, 1, 5), monthly, "Deposit"));
-			Operations.Add(new Operation(200, new LocalDate(2015, 1, 7), monthly, "Deposit"));
-			Operations.Add(new Operation(900, new LocalDate(2015, 1, 17), monthly, "Deposit"));
+			Operations.Add(new Operation(1300, new DateTime(2015, 1, 5), monthly, "Deposit"));
+			Operations.Add(new Operation(200, new DateTime(2015, 1, 7), monthly, "Deposit"));
+			Operations.Add(new Operation(900, new DateTime(2015, 1, 17), monthly, "Deposit"));
 		}
 
 		#endregion
 
-		private void CalculateTransactionsCalendar (LocalDate start, LocalDate end)
+		private void CalculateTransactionsCalendar (DateTime start, DateTime end)
 		{
 			foreach (var operation in Operations)
 			{
-				LocalDate date = operation.Start;
-
+				DateTime date = operation.Start;
+				
 				while (date < end)
 				{
 					if (date >= start)
 						Calendar.Add(new Transaction(operation.Amount, date, operation.Description));
 
-					date = date + operation.Period;
+					date = operation.NextDate();
 				}
 			}
 		}
@@ -100,13 +99,6 @@ namespace Trends.ViewModels
 				money.Add(sum);
 				return sum;
 			});
-		}
-
-		private LocalDate GetCurrentDate ()
-		{
-			ZonedClock clock = SystemClock.Instance.InUtc();
-
-			return clock.GetCurrentDate();
 		}
 	}
 }
