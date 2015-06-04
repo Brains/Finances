@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Practices.ObjectBuilder2;
 
 namespace Trends.ViewModels
 {
@@ -12,7 +13,7 @@ namespace Trends.ViewModels
 		public List<Transaction> Calendar { get; set; }
 		public List<Funds> Funds { get; set; }
 
-		public Trend ()
+		public Trend()
 		{
 			Operations = new List<Operation>();
 			Calendar = new List<Transaction>();
@@ -20,7 +21,7 @@ namespace Trends.ViewModels
 			Funds = new List<Funds>();
 		}
 
-		public Trend (int startFunds) : this()
+		public Trend(int startFunds) : this()
 		{
 			LoadOperations();
 			Calculate(5400, new DateTime(2015, 5, 16), new DateTime(2015, 7, 1));
@@ -29,14 +30,13 @@ namespace Trends.ViewModels
 
 		#region Public
 
-		public void Calculate (decimal startFunds, DateTime start, DateTime end)
+		public void Calculate(decimal startFunds, DateTime start, DateTime end)
 		{
 			CalculateTransactionsCalendar(start, end);
-			AggregateTransactionsByDate();
 			CalculateFunds(startFunds);
 		}
 
-		public List<Funds> GetFunds ()
+		public List<Funds> GetFunds()
 		{
 			var output = new List<Funds>();
 
@@ -49,27 +49,27 @@ namespace Trends.ViewModels
 			return output;
 		}
 
-		public void LoadOperations ()
+		public void LoadOperations()
 		{
 			var monthly = DatePeriod.FromMonths(1);
 
-			Operations.Add(new Operation(-300, new DateTime(2015, 5, 15), DatePeriod.FromDays(3), "Food"));
-			Operations.Add(new Operation(-2000, new DateTime(2015, 1, 15), monthly, "House"));
-			Operations.Add(new Operation(-1000, new DateTime(2015, 5, 30), DatePeriod.FromDays(20), "Medications"));
+			Operations.Add(new Operation(-300, new DateTime(2015, 5, 15, 5, 0, 0), DatePeriod.FromDays(3), "Food"));
+			Operations.Add(new Operation(-2000, new DateTime(2015, 1, 15, 1, 0, 0), monthly, "House"));
+			Operations.Add(new Operation(-1000, new DateTime(2015, 5, 30, 3, 0, 0), DatePeriod.FromDays(20), "Medications"));
 
-			Operations.Add(new Operation(1300, new DateTime(2015, 1, 5), monthly, "Deposit"));
-			Operations.Add(new Operation(200, new DateTime(2015, 1, 7), monthly, "Deposit"));
-			Operations.Add(new Operation(900, new DateTime(2015, 1, 17), monthly, "Deposit"));
+			Operations.Add(new Operation(1300, new DateTime(2015, 1, 5, 2, 0, 0), monthly, "Deposit"));
+			Operations.Add(new Operation(200, new DateTime(2015, 1, 7, 6, 0, 0), monthly, "Deposit"));
+			Operations.Add(new Operation(900, new DateTime(2015, 1, 17, 4, 0, 0), monthly, "Deposit"));
 		}
 
 		#endregion
 
-		private void CalculateTransactionsCalendar (DateTime start, DateTime end)
+		private void CalculateTransactionsCalendar(DateTime start, DateTime end)
 		{
 			foreach (var operation in Operations)
 			{
 				DateTime date = operation.Start;
-				
+
 				while (date < end)
 				{
 					if (date >= start)
@@ -78,20 +78,11 @@ namespace Trends.ViewModels
 					date = operation.NextDate();
 				}
 			}
-		}
 
-		private void AggregateTransactionsByDate ()
-		{
-			var query = from transaction in Calendar
-				orderby transaction
-				group transaction by transaction.Date
-				into grouped
-				select grouped.Aggregate((a, b) => a + b);
+			Calendar.Sort();
+        }
 
-			Calendar = query.ToList();
-		}
-
-		private void CalculateFunds (decimal start)
+		private void CalculateFunds(decimal start)
 		{
 			Calendar.Aggregate(start, (a, b) =>
 			{
