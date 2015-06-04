@@ -4,68 +4,27 @@
                     xmlns:visualizationToolkit = "clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit"
                     xmlns:primitives = "clr-namespace:System.Windows.Controls.DataVisualization.Charting.Primitives;assembly=System.Windows.Controls.DataVisualization.Toolkit" >
 
-	<!--LineDataPointStyle-->
-	<Style x:Key = "LineDataPointStyle" TargetType = "charting:LineDataPoint" >
-		<Setter Property = "Background" Value = "#0077CC" />
-		<Setter Property = "BorderBrush" Value = "White" />
-		<Setter Property = "BorderThickness" Value = "0" />
-		<Setter Property = "IsTabStop" Value = "False" />
-		<Setter Property = "Template" >
-			<Setter.Value>
-				<ControlTemplate TargetType = "charting:LineDataPoint" >
-					<Grid x:Name = "Root" Opacity = "1" ToolTipService.InitialShowDelay = "0" >
-						<ToolTipService.ToolTip>
-							<StackPanel Margin = "2,2,2,2" >
-								<ContentControl Content = "{TemplateBinding DependentValue}" ContentStringFormat = "{}{0}"
-								                Foreground = "{TemplateBinding Background}" FontSize = "16" />
-								<ContentControl Content = "{TemplateBinding IndependentValue}" ContentStringFormat = "{}{0:d MMMM}" />
-								<TextBlock Text = "{Binding Description}" Foreground = "Gray" />
-							</StackPanel>
-						</ToolTipService.ToolTip>
-						<Ellipse StrokeThickness = "{TemplateBinding BorderThickness}" Stroke = "{TemplateBinding BorderBrush}"
-						         Fill = "{TemplateBinding Background}" />
-					</Grid>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
+	<Style x:Key = "DateTimeAxisLabelStyle" TargetType = "charting:DateTimeAxisLabel" >
+		<Setter Property = "DaysIntervalStringFormat" Value = "{}{0:d MMM}" />
+		<Setter Property = "WeeksIntervalStringFormat" Value = "{}{0:d MMM}" />
 	</Style>
 
-
-	<Style x:Key = "GooglePolylineStyle" TargetType = "Polyline" >
-		<Setter Property = "StrokeThickness" Value = "5" />
-		<Setter Property = "Stroke" Value = "Red" />
+	<Style x:Key = "MajorTickMarkStyle" TargetType = "{x:Type Line}" >
+		<Setter Property = "Stroke" Value = "Transparent" />
+		<Setter Property = "X2" Value = "4" />
+		<Setter Property = "Y2" Value = "4" />
 	</Style>
 
-
-	<Style x:Key = "DateTimeAxisLabelStyle1" TargetType = "charting:DateTimeAxisLabel" >
-		<Setter Property = "DaysIntervalStringFormat" Value = "{}{0:d MMMM}" />
-		<Setter Property = "WeeksIntervalStringFormat" Value = "{}{0:d/MMMM}" />
-		<Setter Property="Foreground" Value="Gray"></Setter>
-	</Style>
-
-
-	<!--GridLineStyle-->
 	<Style x:Key = "GridLineStyle" TargetType = "{x:Type Line}" >
 		<Setter Property = "StrokeThickness" Value = "0.1" />
-		<Setter Property = "Stroke" Value = "Gray" />
+		<Setter Property = "Stroke" Value = "LightGray" />
 	</Style>
 
-
-	<!--LegendStyle-->
-	<Style x:Key = "LegendStyle" TargetType = "visualizationToolkit:Legend" >
-		<Setter Property = "Background" Value = "White" />
-		<Setter Property = "BorderThickness" Value = "0" />
-	</Style>
-
-
-	<!--PlotAreaStyle-->
 	<Style x:Key = "PlotAreaStyle" TargetType = "{x:Type Grid}" >
 		<Setter Property = "Background" Value = "White" />
-		<Setter Property = "ShowGridLines" Value = "False" />
+		<Setter Property = "ShowGridLines" Value = "True" />
 	</Style>
 
-
-	<!--ChartTemplate-->
 	<ControlTemplate x:Key = "ChartTemplate" TargetType = "charting:Chart" >
 		<Border Background = "{TemplateBinding Control.Background}" BorderBrush = "Transparent" BorderThickness = "0"
 		        Padding = "{TemplateBinding Control.Padding}" >
@@ -94,5 +53,65 @@
 		</Border>
 	</ControlTemplate>
 
+	<Style x:Key = "LineDataPointStyle" TargetType = "charting:LineDataPoint" >
+		<Setter Property = "Background" Value = "#FFD77A17" />
+		<Setter Property = "BorderBrush" Value = "Red" />
+		<Setter Property = "BorderThickness" Value = "4" />
+		<Setter Property = "IsTabStop" Value = "False" />
+		<Setter Property = "Width" Value = "Auto" />
+		<Setter Property = "Height" Value = "Auto" />
+		<Setter Property = "Template" >
+			<Setter.Value>
+				<ControlTemplate TargetType = "charting:LineDataPoint" >
+					<Canvas x:Name = "Root" Opacity = "1" ToolTipService.InitialShowDelay = "0" >
+						<Ellipse StrokeThickness = "1" Stroke = "White" Fill = "{TemplateBinding Background}" Width = "10" Height = "10"
+						         Canvas.Left = "-5" Canvas.Top = "-5" Margin = "0" />
+						<TextBlock Text = "{Binding Description}" Margin = "0" Padding = "0" Foreground = "#FFD77A17" Canvas.Left = "-2"
+						           Canvas.Bottom = "5" />
+						<ToolTipService.ToolTip>
+							<StackPanel Margin = "2,2,2,2" >
+								<ContentControl Content = "{TemplateBinding DependentValue}" ContentStringFormat = "{}{0}"
+								                Foreground = "{TemplateBinding Background}" FontSize = "16" />
+								<ContentControl Content = "{TemplateBinding IndependentValue}" ContentStringFormat = "{}{0:d MMMM}" />
+								<TextBlock Text = "{Binding Description}" Foreground = "Gray" />
+							</StackPanel>
+						</ToolTipService.ToolTip>
+
+					</Canvas>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key = "AreaDataPointStyle" TargetType = "{x:Type charting:AreaDataPoint}" >
+		<Setter Property = "Background" Value = "#66D2691E" />
+		<Setter Property = "BorderBrush" Value = "Gray" />
+		<Setter Property = "BorderThickness" Value = "1" />
+		<Setter Property = "IsTabStop" Value = "False" />
+		<Setter Property = "Width" Value = "14" />
+		<Setter Property = "Height" Value = "14" />
+		<Setter Property = "Template" >
+			<Setter.Value>
+				<ControlTemplate TargetType = "{x:Type charting:AreaDataPoint}" >
+					<Grid x:Name = "Root" Opacity = "0" >
+						<Grid.ToolTip>
+							<ContentControl Content = "{TemplateBinding FormattedDependentValue}" />
+						</Grid.ToolTip>
+						<Ellipse Fill = "{TemplateBinding Background}" Stroke = "{TemplateBinding BorderBrush}" />
+						<Ellipse RenderTransformOrigin = "0.661,0.321" >
+							<Ellipse.Fill>
+								<RadialGradientBrush GradientOrigin = "0.681,0.308" >
+									<GradientStop Color = "Transparent" />
+									<GradientStop Color = "#FF3D3A3A" Offset = "1" />
+								</RadialGradientBrush>
+							</Ellipse.Fill>
+						</Ellipse>
+						<Ellipse x:Name = "SelectionHighlight" Fill = "Red" Opacity = "0" />
+						<Ellipse x:Name = "MouseOverHighlight" Fill = "White" Opacity = "0" />
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
 
 </ResourceDictionary>
