@@ -4,51 +4,13 @@
                     xmlns:visualizationToolkit = "clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit"
                     xmlns:primitives = "clr-namespace:System.Windows.Controls.DataVisualization.Charting.Primitives;assembly=System.Windows.Controls.DataVisualization.Toolkit" >
 
-	<!--LineDataPointStyle-->
-	<Style x:Key = "LineDataPointStyle" TargetType = "charting:LineDataPoint" >
-		<Setter Property = "Background" Value = "#0077CC" />
-		<Setter Property = "BorderBrush" Value = "White" />
-		<Setter Property = "BorderThickness" Value = "0" />
-		<Setter Property = "IsTabStop" Value = "False" />
-		<Setter Property = "Template" >
-			<Setter.Value>
-				<ControlTemplate TargetType = "charting:LineDataPoint" >
-					<Grid x:Name = "Root" Opacity = "1" ToolTipService.InitialShowDelay = "0" >
-						<ToolTipService.ToolTip>
-							<StackPanel Margin = "2,2,2,2" >
-								<ContentControl Content = "{TemplateBinding DependentValue}" ContentStringFormat = "{}{0}"
-								                Foreground = "{TemplateBinding Background}" FontSize = "16" />
-								<ContentControl Content = "{TemplateBinding IndependentValue}" ContentStringFormat = "{}{0:d MMMM}" />
-								<TextBlock Text = "{Binding Description}" Foreground = "Gray" />
-							</StackPanel>
-						</ToolTipService.ToolTip>
-						<Ellipse StrokeThickness = "{TemplateBinding BorderThickness}" Stroke = "{TemplateBinding BorderBrush}"
-						         Fill = "{TemplateBinding Background}" />
-					</Grid>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
 
 
-	<Style x:Key = "GooglePolylineStyle" TargetType = "Polyline" >
-		<Setter Property = "StrokeThickness" Value = "5" />
-		<Setter Property = "Stroke" Value = "Red" />
-	</Style>
 
 
-	<Style x:Key = "DateTimeAxisLabelStyle1" TargetType = "charting:DateTimeAxisLabel" >
-		<Setter Property = "DaysIntervalStringFormat" Value = "{}{0:d MMMM}" />
-		<Setter Property = "WeeksIntervalStringFormat" Value = "{}{0:d/MMMM}" />
-		<Setter Property="Foreground" Value="Gray"></Setter>
-	</Style>
 
 
-	<!--GridLineStyle-->
-	<Style x:Key = "GridLineStyle" TargetType = "{x:Type Line}" >
-		<Setter Property = "StrokeThickness" Value = "0.1" />
-		<Setter Property = "Stroke" Value = "Gray" />
-	</Style>
+
 
 
 	<!--LegendStyle-->
@@ -61,7 +23,7 @@
 	<!--PlotAreaStyle-->
 	<Style x:Key = "PlotAreaStyle" TargetType = "{x:Type Grid}" >
 		<Setter Property = "Background" Value = "White" />
-		<Setter Property = "ShowGridLines" Value = "False" />
+		<Setter Property = "ShowGridLines" Value = "True" />
 	</Style>
 
 
