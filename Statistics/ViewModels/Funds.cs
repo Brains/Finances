@@ -30,7 +30,8 @@ namespace Statistics.ViewModels
 		private int cash;
 		private int upwork;
 		private int total;
-		private int available;
+		private int balance;
+		private int divergence;
 
 		public int Upwork
 		{
@@ -62,10 +63,16 @@ namespace Statistics.ViewModels
 			set { total = value; OnPropertyChanged(); }
 		}
 
-		public int Available
+		public int Balance
 		{
-			get { return available; }
-			set { available = value; OnPropertyChanged(); }
+			get { return balance; }
+			set { balance = value; OnPropertyChanged(); }
+		}
+
+		public int Divergence
+		{
+			get { return divergence; }
+			set { divergence = value; OnPropertyChanged(); }
 		}
 
 		public Funds(IExpenses expenses, [Unity.Dependency("bank")] IFundsStorage bank, [Unity.Dependency("debt")]IFundsStorage debt)
@@ -80,13 +87,16 @@ namespace Statistics.ViewModels
 			WindowLoaded = new DelegateCommand<object>(o => Load());
 		}
 
-		private void UpdateTotal(object sender, PropertyChangedEventArgs args)
+		private void Update(object sender, PropertyChangedEventArgs args)
 		{
 			if (args.PropertyName == nameof(Total)) return;
+			if (args.PropertyName == nameof(Balance)) return;
 
-			var upworkUAH = Upwork * ExchangeRate;
-			Total = upworkUAH + Cards + Cash + Debts;
-		}
+			Balance = Cards + Cash + Debts;
+			Divergence = Balance - CalculateEstimatedBalance();
+
+			Total = Balance + Upwork * ExchangeRate;
+        }
 
 		public virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
 		{
@@ -101,6 +111,27 @@ namespace Statistics.ViewModels
 
 			Upwork = int.Parse(file.Element("Upwork").Value);
 			Cash = int.Parse(file.Element("Cash").Value);
+		}
+
+		public void UpdateBalance()
+		{
+			var balanceEstimated = CalculateEstimatedBalance();
+
+			var difference = Balance - balanceEstimated;
+		}
+
+		public int CalculateEstimatedBalance()
+		{
+			var previousBalance = expenses.Records.Last(record => record.Type == Record.Types.Balance).Amount;
+
+			var types = expenses.Records.GroupBy(record => record.Type)
+			                    .Select(type => new {type.Key, Total = type.Sum(record => record.Amount)})
+			                    .ToDictionary(type => type.Key, type => type.Total);
+
+			var spending = types[Record.Types.Expense] + types[Record.Types.Shared];
+			var balanceEstimated = previousBalance - spending + types[Record.Types.Income];
+
+			return (int) balanceEstimated;
 		}
 	}
 }
