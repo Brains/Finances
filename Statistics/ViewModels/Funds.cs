@@ -2,11 +2,15 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using Microsoft.Practices.Prism.Commands;
 using Statistics.Banking;
+using Tracker;
 using Unity = Microsoft.Practices.Unity;
 
 namespace Statistics.ViewModels
@@ -17,11 +21,16 @@ namespace Statistics.ViewModels
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
+		public ICommand WindowLoaded { get; private set; }
+
+		private IExpenses expenses;
+
 		private int cards;
 		private int debts;
 		private int cash;
 		private int upwork;
 		private int total;
+		private int available;
 
 		public int Upwork
 		{
@@ -53,14 +62,22 @@ namespace Statistics.ViewModels
 			set { total = value; OnPropertyChanged(); }
 		}
 
-		public Funds([Unity.Dependency("bank")] IFundsStorage bank, [Unity.Dependency("debt")]IFundsStorage debt)
+		public int Available
 		{
-			PropertyChanged += UpdateTotal;
+			get { return available; }
+			set { available = value; OnPropertyChanged(); }
+		}
+
+		public Funds(IExpenses expenses, [Unity.Dependency("bank")] IFundsStorage bank, [Unity.Dependency("debt")]IFundsStorage debt)
+		{
+			PropertyChanged += Update;
+
+			this.expenses = expenses;
 
 			bank.Get(amount => Cards = (int) amount);
 			debt.Get(amount => Debts = (int) amount);
 
-			Load();
+			WindowLoaded = new DelegateCommand<object>(o => Load());
 		}
 
 		private void UpdateTotal(object sender, PropertyChangedEventArgs args)
