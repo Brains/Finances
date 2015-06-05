@@ -36,25 +36,25 @@ namespace Statistics.ViewModels
 		public int Upwork
 		{
 			get { return upwork; }
-			set { upwork = value; OnPropertyChanged(); }
+			set { upwork = value; OnPropertyChanged(); Update();}
 		}
 
 		public int Cards
 		{
 			get { return cards; }
-			set { cards = value; OnPropertyChanged(); }
+			set { cards = value; OnPropertyChanged(); Update(); }
 		}
 
 		public int Cash
 		{
 			get { return cash; }
-			set { cash = value; OnPropertyChanged(); }
+			set { cash = value; OnPropertyChanged(); Update(); }
 		}
 
 		public int Debts
 		{
 			get { return debts; }
-			set { debts = value; OnPropertyChanged(); }
+			set { debts = value; OnPropertyChanged(); Update(); }
 		}
 
 		public int Total
@@ -77,8 +77,6 @@ namespace Statistics.ViewModels
 
 		public Funds(IExpenses expenses, [Unity.Dependency("bank")] IFundsStorage bank, [Unity.Dependency("debt")]IFundsStorage debt)
 		{
-			PropertyChanged += Update;
-
 			this.expenses = expenses;
 
 			bank.Get(amount => Cards = (int) amount);
@@ -87,11 +85,8 @@ namespace Statistics.ViewModels
 			WindowLoaded = new DelegateCommand<object>(o => Load());
 		}
 
-		private void Update(object sender, PropertyChangedEventArgs args)
+		private void Update()
 		{
-			if (args.PropertyName == nameof(Total)) return;
-			if (args.PropertyName == nameof(Balance)) return;
-
 			Balance = Cards + Cash + Debts;
 			Divergence = Balance - CalculateEstimatedBalance();
 
@@ -111,13 +106,6 @@ namespace Statistics.ViewModels
 
 			Upwork = int.Parse(file.Element("Upwork").Value);
 			Cash = int.Parse(file.Element("Cash").Value);
-		}
-
-		public void UpdateBalance()
-		{
-			var balanceEstimated = CalculateEstimatedBalance();
-
-			var difference = Balance - balanceEstimated;
 		}
 
 		public int CalculateEstimatedBalance()

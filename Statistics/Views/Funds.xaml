@@ -46,6 +46,10 @@
 	</UserControl.Resources>
 	
 	<StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
+		<Label>Balance</Label>
+		<TextBox Text="{Binding Balance}" />
+		<Label>Divergence</Label>
+		<TextBox Text="{Binding Divergence}" />
 		<Label >Upwork</Label>
 		<TextBox Text="{Binding Upwork, StringFormat={}{0}$}" />
 		<Label>Cash</Label>
