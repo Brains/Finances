@@ -14,11 +14,13 @@ namespace Tracker.ViewModels
 		// Model
 		private readonly IExpenses expenses;
 
+
 		public ObservableCollection<Record> RecordsList => expenses.Records;
 
 		public Records (IExpenses expenses)
 		{
 			this.expenses = expenses;
+			expenses.Load();
 
 			Group();
 		}

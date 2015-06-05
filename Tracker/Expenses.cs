@@ -27,8 +27,6 @@ namespace Tracker
 
 			Records = new ObservableCollection<Record>();
 			//	        Records.CollectionChanged += (s, a) => Save();
-
-			Load();
 		}
 
 	    public void Add (decimal amount, Record.Types type, Record.Categories category, string description, DateTime date)
