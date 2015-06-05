@@ -52,7 +52,7 @@ namespace Tracker.ViewModels
 				[Expense] = new[]	{Food, Health, House, General, Women, Other},
 				[Debt] = new[]		{Maxim, Andrey},
 				[Income] = new[]	{ODesk, Deposit},
-				[Shared] = new[]	{House, General, Other},
+				[Shared] = new[]	{Food, House, General, Other},
 				[Balance] = new[]	{Other}
 			};
 
