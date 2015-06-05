@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Microsoft.Practices.Prism.PubSubEvents;
 using NSubstitute;
 using NUnit.Framework;
 using Statistics.Banking;
+using Statistics.ViewModels;
 using Tracker;
 
 namespace Statistics.Tests.Banking
@@ -11,6 +13,13 @@ namespace Statistics.Tests.Banking
 	public class DebtsTests : AssertionHelper
 	{
 		private DateTime date = new DateTime(1, 1, 1);
+
+		private static Debts Create(IExpenses expenses)
+		{
+			IEventAggregator aggregator = Substitute.For<IEventAggregator>();
+
+			return new Debts(expenses, aggregator);
+		}
 
 		private void FillDebts(IExpenses expenses)
 		{
@@ -31,7 +40,7 @@ namespace Statistics.Tests.Banking
 		{
 			var expenses = Substitute.For<IExpenses>();
 			FillDebts(expenses);
-			IFundsStorage debts = new Debts(expenses);
+			IFundsStorage debts = Create(expenses);
 
 			decimal actual = 0;
 			debts.Get(number => actual = number);
@@ -44,7 +53,7 @@ namespace Statistics.Tests.Banking
 		{
 			var expenses = Substitute.For<IExpenses>();
 			FillDebts(expenses);
-			Debts debts = new Debts(expenses);
+			Debts debts = Create(expenses);
 
 			var actual = debts.Calculate();
 
@@ -63,7 +72,7 @@ namespace Statistics.Tests.Banking
 				new Record(100, Record.Types.Debt, Record.Categories.Maxim, "In", date),
 				new Record(200, Record.Types.Debt, Record.Categories.Andrey, "In", date),
 			};
-			Debts debts = new Debts(expenses);
+			Debts debts = Create(expenses);
 
 			var actual = debts.Calculate();
 
@@ -86,7 +95,7 @@ namespace Statistics.Tests.Banking
 				new Record(100, Record.Types.Debt, Record.Categories.Andrey, "Out", date),
 				new Record(50, Record.Types.Shared, Record.Categories.House, "Test", date),
 			};
-			Debts debts = new Debts(expenses);
+			Debts debts = Create(expenses);
 
 			var actual = debts.Calculate();
 
