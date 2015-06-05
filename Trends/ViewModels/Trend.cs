@@ -58,8 +58,10 @@ namespace Trends.ViewModels
 			Operations.Add(new Operation(-1000, new DateTime(2015, 5, 30, 3, 0, 0), DatePeriod.FromDays(20), "Medications"));
 
 			Operations.Add(new Operation(1300, new DateTime(2015, 1, 5, 2, 0, 0), monthly, "Deposit"));
-			Operations.Add(new Operation(200, new DateTime(2015, 1, 7, 6, 0, 0), monthly, "Deposit"));
+			Operations.Add(new Operation(200, new DateTime(2015, 1, 7, 7, 0, 0), monthly, "Deposit"));
 			Operations.Add(new Operation(900, new DateTime(2015, 1, 17, 4, 0, 0), monthly, "Deposit"));
+
+			Operations.Add(new Operation(-300, new DateTime(2015, 5, 1, 6, 0, 0), DatePeriod.FromDays(7), "Сorrection"));
 		}
 
 		#endregion
