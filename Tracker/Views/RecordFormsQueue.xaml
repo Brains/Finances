@@ -16,33 +16,20 @@
 				<ResourceDictionary Source = "pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 
-			<Style x:Key = "FlatAccentButton"
-			       TargetType = "Button"
-			       BasedOn = "{StaticResource {x:Type Button}}" >
-				<Setter Property = "Foreground"
-				        Value = "White" />
-				<Setter Property = "Background"
-				        Value = "{StaticResource AccentColorBrush}" />
-				<Setter Property = "FontSize"
-				        Value = "{StaticResource FontSize}" />
-				<Setter Property = "MinWidth"
-				        Value = "80" />
-				<Setter Property = "Margin"
-				        Value = "5" />
-				<Setter Property = "HorizontalAlignment"
-				        Value = "Left" />
-				<Setter Property = "BorderThickness"
-				        Value = "0" />
+			<Style x:Key = "FlatAccentButton" TargetType = "Button" BasedOn = "{StaticResource {x:Type Button}}" >
+				<Setter Property = "Foreground" Value = "White" />
+				<Setter Property = "Background" Value = "{StaticResource AccentColorBrush}" />
+				<Setter Property = "FontSize" Value = "{StaticResource FontSize}" />
+				<Setter Property = "MinWidth" Value = "80" />
+				<Setter Property = "Margin" Value = "5" />
+				<Setter Property = "HorizontalAlignment" Value = "Left" />
+				<Setter Property = "BorderThickness" Value = "0" />
 			</Style>
 
-			<Style x:Key = "FlatAccentButtonWithVisibility"
-			       BasedOn = "{StaticResource FlatAccentButton}"
-			       TargetType = "Button" >
+			<Style x:Key = "FlatAccentButtonWithVisibility" BasedOn = "{StaticResource FlatAccentButton}" TargetType = "Button" >
 				<Style.Triggers>
-					<DataTrigger Binding = "{Binding Path=Forms.Count}"
-					             Value = "0" >
-						<Setter Property = "Visibility"
-						        Value = "Collapsed" />
+					<DataTrigger Binding = "{Binding Path=Forms.Count}" Value = "0" >
+						<Setter Property = "Visibility" Value = "Collapsed" />
 					</DataTrigger>
 				</Style.Triggers>
 			</Style>
@@ -76,7 +63,7 @@
 			<Button Grid.Row = "0"
 			        Grid.Column = "1"
 			        Content = "_Submit"
-			        Command = "{Binding SubmitCommand}"
+			        Command = "{Binding SubmitCommand, ValidatesOnExceptions=True}"
 			        VerticalAlignment = "Top"
 			        IsDefault = "True"
 			        Style = "{StaticResource FlatAccentButtonWithVisibility}" />

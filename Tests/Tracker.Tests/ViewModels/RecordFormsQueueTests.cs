@@ -1,16 +1,14 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NSubstitute;
 using NUnit.Framework;
 using Tracker.ViewModels;
 
-namespace Tracker.UnitTests
+namespace Tracker.Tests.ViewModels
 {
 	[TestFixture]
-	internal class RecordFormsQueueTests : AssertionHelper
+	public class RecordFormsQueueTests : AssertionHelper
 	{
 		private static void AddRecords (int[] amounts, RecordFormsQueue queue)
 		{
@@ -61,10 +59,38 @@ namespace Tracker.UnitTests
 			Expect(queue.Forms.Count, EqualTo(0));
 		}
 
-		[TestCase (70, 100, 20, 10)]
-		[TestCase (120, 300, 120, 60)]
-		[TestCase (111, 256, 48, 97)]
-		public void SubstractFromPrimary_Always_SubtractsFromFirstRecordAllSubsequentRecordsAmount (int expected, params int[] amounts)
+		[Test]
+		public void SubstractFromPrimary_PrimaryIsZero_ThrowsArgumentException()
+		{
+			RecordFormsQueue queue = new RecordFormsQueue(null);
+
+			queue.AddForm().Amount = 0;
+
+			Expect(queue.SubstractSecondariesFromPrimary, Throws.ArgumentException);
+		}
+
+		[Test]
+		public void SubstractFromPrimary_PrimaryLessThanZero_ThrowsArgumentException()
+		{
+			RecordFormsQueue queue = new RecordFormsQueue(null);
+
+			queue.AddForm().Amount = -5;
+
+			Expect(queue.SubstractSecondariesFromPrimary, Throws.ArgumentException);
+		}
+
+		[Test]
+		public void SubstractFromPrimary_SecondaryPrimaryLessThanZero_ThrowsArgumentException()
+		{
+			RecordFormsQueue queue = new RecordFormsQueue(null);
+
+			queue.AddForm().Amount = 10;
+			queue.AddForm().Amount = 11;
+
+			Expect(queue.SubstractSecondariesFromPrimary, Throws.ArgumentException);
+		}
+
+		public void SubstractFromPrimary_Always_SubtractsFromFirstRecordAllSubsequentRecordsAmount(int expected, params int[] amounts)
 		{
 			RecordFormsQueue queue = new RecordFormsQueue(null);
 			AddRecords(amounts, queue);
