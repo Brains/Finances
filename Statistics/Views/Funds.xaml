@@ -2,8 +2,8 @@
              xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc = "http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d = "http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local = "clr-namespace:Statistics.Views"
              xmlns:interactivity = "http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:converters = "clr-namespace:Statistics.Views.Converters"
              mc:Ignorable = "d" d:DesignHeight = "600"
              d:DesignWidth = "800"
 			 KeyboardNavigation.TabNavigation="Cycle"
@@ -21,7 +21,9 @@
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/lime.xaml" />
 			</ResourceDictionary.MergedDictionaries>
-			
+
+			<converters:NumberToColor x:Key="NumberToColor" />
+
 			<Style TargetType = "Label" >
 				<Setter Property = "FontSize" Value = "24" />
 				<Setter Property = "Foreground" Value = "{StaticResource AccentColorBrush}" />
@@ -41,7 +43,7 @@
 				<Setter Property = "Margin" Value = "10" />
 				<Setter Property = "IsEnabled" Value = "False" />
 			</Style>
-			
+
 		</ResourceDictionary>
 	</UserControl.Resources>
 	
@@ -49,7 +51,7 @@
 		<Label>Balance</Label>
 		<TextBox Text="{Binding Balance}" />
 		<Label>Divergence</Label>
-		<TextBox Text="{Binding Divergence}" />
+		<TextBox Text="{Binding Divergence}" Foreground="{Binding Divergence, Converter={StaticResource NumberToColor}}"/>
 		<Label >Upwork</Label>
 		<TextBox Text="{Binding Upwork, StringFormat={}{0}$}" />
 		<Label>Cash</Label>

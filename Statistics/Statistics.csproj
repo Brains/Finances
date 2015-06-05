@@ -99,6 +99,7 @@
       <DependentUpon>Charts.xaml</DependentUpon>
     </Compile>
     <Compile Include="Module.cs" />
+    <Compile Include="Views\Converters\NumberToColor.cs" />
     <Compile Include="Views\Funds.xaml.cs">
       <DependentUpon>Funds.xaml</DependentUpon>
     </Compile>
