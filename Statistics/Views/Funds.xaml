@@ -30,7 +30,7 @@
 				<Setter Property = "FontFamily" Value = "Segoe UI" />
 				<Setter Property = "FontWeight" Value = "Light" />
 				<Setter Property = "VerticalAlignment" Value = "Center" />
-				<Setter Property = "Margin" Value = "10" />
+				<Setter Property = "Margin" Value = "20, 10, 2, 10" />
 			</Style>
 			
 			<Style TargetType = "TextBox" >
@@ -40,7 +40,6 @@
 				<Setter Property = "FontWeight" Value = "Light" />
 				<Setter Property = "BorderThickness" Value = "0" />
 				<Setter Property = "VerticalAlignment" Value = "Center" />
-				<Setter Property = "Margin" Value = "10" />
 				<Setter Property = "IsEnabled" Value = "False" />
 			</Style>
 
