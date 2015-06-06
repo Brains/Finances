@@ -18,7 +18,7 @@ namespace Statistics.ViewModels
 	public class Charts : INotifyPropertyChanged
 	{
 		private readonly IExpenses expenses;
-		private int month = DateTime.Now.Month-1;
+		private int month = DateTime.Now.Month;
 		private Dictionary<Types, List<Record>> types;
 		private readonly Funds funds;
 
@@ -63,10 +63,11 @@ namespace Statistics.ViewModels
 		{
 			var dates = from record in records
 			            where IsSpending(record)
-			            orderby record.Date.Date.ToString(CultureInfo.InvariantCulture)
+			            orderby record.Category
 			            group record by record.Date.ToString("dd")
 			            into grouped
-			            select grouped;
+						orderby grouped.Key
+                        select grouped;
 
 			return dates.ToDictionary(date => date.Key, AggregateByCategory);
 		}
