@@ -46,11 +46,11 @@
 		</ResourceDictionary>
 	</UserControl.Resources>
 	
-	<StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
-		<Label>Balance</Label>
-		<TextBox Text="{Binding Balance}" />
+	<WrapPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
 		<Label>Divergence</Label>
 		<TextBox Text="{Binding Divergence}" Foreground="{Binding Divergence, Converter={StaticResource NumberToColor}}"/>
+		<Label>Balance</Label>
+		<TextBox Text="{Binding Balance}" />
 		<Label >Upwork</Label>
 		<TextBox Text="{Binding Upwork, StringFormat={}{0}$}" />
 		<Label>Cash</Label>
@@ -61,6 +61,6 @@
 		<TextBox Text="{Binding Debts}" />
 		<Label FontSize="40" >Total</Label>
 		<TextBox Text="{Binding Total}" FontSize = "40" />
-	</StackPanel>
+	</WrapPanel>
 	
 </UserControl>
