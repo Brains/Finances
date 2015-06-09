@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
+
+	<!-- Colors -->
+	<Brush x:Key="DefaultColor">DimGray</Brush>
+	<Brush x:Key="ExpenseColor">#B7591B</Brush>
+	<Brush x:Key="IncomeColor">#789E27</Brush>
+	<Brush x:Key="DebtColor">#AD2660</Brush>
+	<Brush x:Key="BalanceColor">SteelBlue</Brush>
+	<Brush x:Key="SharedColor">#E0BB00</Brush>
+
+	<Brush x:Key="DebtInColor">YellowGreen</Brush>
+	<Brush x:Key="DebtOutColor">Chocolate</Brush>
+	
+</ResourceDictionary>
