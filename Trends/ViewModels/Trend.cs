@@ -8,6 +8,8 @@ namespace Trends.ViewModels
 	public class Trend
 	{
 		private readonly List<decimal> money;
+		private DateTime start;
+		private DateTime end;
 
 		public List<Operation> Operations { get; set; }
 		public List<Transaction> Calendar { get; set; }
@@ -92,6 +94,50 @@ namespace Trends.ViewModels
 				money.Add(sum);
 				return sum;
 			});
+		}
+
+
+		public List<Transaction> Calculate222(decimal startFunds, DateTime startDate, DateTime endDate)
+		{
+			start = startDate;
+			end = endDate;
+
+			var initial = new Transaction(startFunds, start, "Initial");
+
+			var funds = Operations.SelectMany(CalculateCalendar)
+			                      .OrderBy(trans => trans.Date)
+			                      .Aggregate(new List<Transaction>() { initial }, Aggregate)
+			                      .ToList();
+
+			return funds;
+		}
+
+		private List<Transaction> Aggregate(List<Transaction> list, Transaction transaction)
+		{
+			var previous = list.Last();
+			var amount = previous.Amount + transaction.Amount;
+			var sum = new Transaction(amount, transaction.Date, transaction.Description);
+
+			list.Add(sum);
+
+			return list;
+		}
+
+		public List<Transaction> CalculateCalendar(Operation operation)
+		{
+			DateTime date = operation.Start;
+
+			List<Transaction> calendar = new List<Transaction>();
+
+			while (date < end)
+			{
+				if (date >= start)
+					calendar.Add(new Transaction(operation.Amount, date, operation.Description));
+
+				date = operation.NextDate();
+			}
+
+			return calendar;
 		}
 	}
 }

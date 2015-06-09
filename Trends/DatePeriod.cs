@@ -38,7 +38,7 @@ namespace Trends
 			if (type == Types.Days)
 				return from.AddDays(units);
 			if (type == Types.Months)
-				return @from.AddMonths(units);
+				return from.AddMonths(units);
 
 			return DateTime.MinValue;
 		}

@@ -1,15 +1,13 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using NodaTime;
 using NUnit.Framework;
 using Trends.ViewModels;
-using static System.Console;
 
-namespace Trends.Tests
+namespace Trends.Tests.ViewModels
 {
 	[TestFixture]
-	class TrendTests : AssertionHelper
+	public class TrendTests : AssertionHelper
 	{
 		private readonly DateTime january = new DateTime(2015, 1, 1);
 		private readonly DateTime june = new DateTime(2015, 6, 1);
@@ -17,7 +15,7 @@ namespace Trends.Tests
 		public void Out<T>(IEnumerable<T> list)
 		{
 			foreach (var item in list)
-				WriteLine(item);
+				Console.WriteLine(item);
 		}
 
 		[Test]
@@ -134,6 +132,17 @@ namespace Trends.Tests
 				new Funds(500, new DateTime(2015, 1, 4), "4, 5")
 			};
 			Expect(actual, EqualTo(expected));
+		}
+
+		[Test]
+		public void MyMethod()
+		{
+			var trend = new Trend();
+			trend.Operations.Add(new Operation(-100, new DateTime(2015, 6, 1), DatePeriod.FromDays(3), "Test"));
+
+			var actual = trend.Calculate222(1000m, DateTime.Now, DateTime.Now.AddMonths(1));
+
+			decimal[] expected = {1000, 900, 800, 700, 600};
 		}
 
 	}
