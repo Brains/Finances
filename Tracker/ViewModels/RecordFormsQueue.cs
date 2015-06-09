@@ -22,14 +22,14 @@ namespace Tracker.ViewModels
 		// Commands
 		public ICommand AddRecordCommand { get; private set; }
 		public ICommand RemoveRecordCommand { get; private set; }
-		public ICommand SubmitCommand { get; private set; }
+		public DelegateCommand SubmitCommand { get; set; }
 
 		public RecordFormsQueue(IExpenses expenses)
 		{
 			this.expenses = expenses;
-			AddRecordCommand = new DelegateCommand<object>(o => AddForm());
-			RemoveRecordCommand = new DelegateCommand<object>(o => RemoveLastForm());
-			SubmitCommand = new DelegateCommand<object>(o => Submit());
+			AddRecordCommand = new DelegateCommand(() => AddForm());
+			RemoveRecordCommand = new DelegateCommand(RemoveLastForm);
+			SubmitCommand = new DelegateCommand(Submit);
 			Forms = new ObservableCollection<RecordForm>();
 		}
 
@@ -60,6 +60,19 @@ namespace Tracker.ViewModels
 			Forms.First().Amount = primary - secondaries;
 		}
 
+		private bool Validate()
+		{
+			var primary = Forms.First().Amount;
+
+			if (primary <= 0)
+				return false;
+
+			//			if (primary <= 0) throw new ArgumentException("Primary Amount <= 0");
+			//			if (secondaries > primary) throw new ArgumentException("Secondary Amounts >  Primary Amount");
+
+			return true;
+		}
+
 		public decimal Total()
 		{
 			return Forms.Select(record => record.Amount).Sum();
@@ -68,6 +81,8 @@ namespace Tracker.ViewModels
 		public void Submit()
 		{
 			SubstractSecondariesFromPrimary();
+
+			if (!Validate()) return;
 
 			Forms.ForEach(record => record.Submit());
 

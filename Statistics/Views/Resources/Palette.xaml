@@ -16,9 +16,10 @@
 	<chart:ResourceDictionaryCollection x:Key="OrangeColors" >
 		<ResourceDictionary><SolidColorBrush x:Key = "Brush1" Color = "#F8B302" /></ResourceDictionary>
 		<ResourceDictionary><SolidColorBrush x:Key = "Brush2" Color = "#EC7004" /></ResourceDictionary>
-		<ResourceDictionary><SolidColorBrush x:Key = "Brush3" Color = "#F39C02" /></ResourceDictionary>
+		<ResourceDictionary><SolidColorBrush x:Key = "Brush3" Color = "#D4863C" /></ResourceDictionary>
 		<ResourceDictionary><SolidColorBrush x:Key = "Brush4" Color = "#A23F04" /></ResourceDictionary>
 		<ResourceDictionary><SolidColorBrush x:Key = "Brush5" Color = "#D95405" /></ResourceDictionary>
+		<ResourceDictionary><SolidColorBrush x:Key = "Brush6" Color = "#E0BE19" /></ResourceDictionary>
 	</chart:ResourceDictionaryCollection>
 
 	<!--GreenColors-->

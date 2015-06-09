@@ -23,7 +23,7 @@ namespace Tracker.ViewModels
 		{
 			get { return type; }
 			set { OnTypeUpdate(value); }
-			}
+		}
 
 		public Categories Category { get; set; }
 		public string Description { get; set; }
@@ -52,11 +52,11 @@ namespace Tracker.ViewModels
 				[Expense] = new[]	{Food, Health, House, General, Women, Other},
 				[Debt] = new[]		{Maxim, Andrey},
 				[Income] = new[]	{ODesk, Deposit},
-				[Shared] = new[]	{House, General, Other},
+				[Shared] = new[]	{Food, House, General, Other},
 				[Balance] = new[]	{Other}
 			};
 
-			DescriptionSuggestions = new List<string> {"Novus", "Kishenya", "Water", "Hygiene", "Domestic"};
+			DescriptionSuggestions = new List<string> {"Novus", "Kishenya", "Water", "Hygiene", "Domestic", "Passage" };
 
 			Padding = new Thickness(40, 5, 5, 5);
 			Border = new Thickness(0);
@@ -85,6 +85,7 @@ namespace Tracker.ViewModels
 		private void OnTypeUpdate(Types value)
 		{
 			type = value;
+			OnPropertyChanged("Type");
 			SetAvailableCategories(value);
 			ClearDescription();
 		}

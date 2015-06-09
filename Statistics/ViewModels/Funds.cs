@@ -30,30 +30,31 @@ namespace Statistics.ViewModels
 		private int cash;
 		private int upwork;
 		private int total;
-		private int available;
+		private int balance;
+		private int divergence;
 
 		public int Upwork
 		{
 			get { return upwork; }
-			set { upwork = value; OnPropertyChanged(); }
+			set { upwork = value; OnPropertyChanged(); Update();}
 		}
 
 		public int Cards
 		{
 			get { return cards; }
-			set { cards = value; OnPropertyChanged(); }
+			set { cards = value; OnPropertyChanged(); Update(); }
 		}
 
 		public int Cash
 		{
 			get { return cash; }
-			set { cash = value; OnPropertyChanged(); }
+			set { cash = value; OnPropertyChanged(); Update(); }
 		}
 
 		public int Debts
 		{
 			get { return debts; }
-			set { debts = value; OnPropertyChanged(); }
+			set { debts = value; OnPropertyChanged(); Update(); }
 		}
 
 		public int Total
@@ -62,16 +63,20 @@ namespace Statistics.ViewModels
 			set { total = value; OnPropertyChanged(); }
 		}
 
-		public int Available
+		public int Balance
 		{
-			get { return available; }
-			set { available = value; OnPropertyChanged(); }
+			get { return balance; }
+			set { balance = value; OnPropertyChanged(); }
+		}
+
+		public int Divergence
+		{
+			get { return divergence; }
+			set { divergence = value; OnPropertyChanged(); }
 		}
 
 		public Funds(IExpenses expenses, [Unity.Dependency("bank")] IFundsStorage bank, [Unity.Dependency("debt")]IFundsStorage debt)
 		{
-			PropertyChanged += Update;
-
 			this.expenses = expenses;
 
 			bank.Get(amount => Cards = (int) amount);
@@ -80,13 +85,13 @@ namespace Statistics.ViewModels
 			WindowLoaded = new DelegateCommand<object>(o => Load());
 		}
 
-		private void UpdateTotal(object sender, PropertyChangedEventArgs args)
+		private void Update()
 		{
-			if (args.PropertyName == nameof(Total)) return;
+			Balance = Cards + Cash + Debts;
+			Divergence = Balance - CalculateEstimatedBalance();
 
-			var upworkUAH = Upwork * ExchangeRate;
-			Total = upworkUAH + Cards + Cash + Debts;
-		}
+			Total = Balance + Upwork * ExchangeRate;
+        }
 
 		public virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
 		{
@@ -101,6 +106,20 @@ namespace Statistics.ViewModels
 
 			Upwork = int.Parse(file.Element("Upwork").Value);
 			Cash = int.Parse(file.Element("Cash").Value);
+		}
+
+		public int CalculateEstimatedBalance()
+		{
+			var previousBalance = expenses.Records.Last(record => record.Type == Record.Types.Balance).Amount;
+
+			var types = expenses.Records.GroupBy(record => record.Type)
+			                    .Select(type => new {type.Key, Total = type.Sum(record => record.Amount)})
+			                    .ToDictionary(type => type.Key, type => type.Total);
+
+			var spending = types[Record.Types.Expense] + types[Record.Types.Shared];
+			var balanceEstimated = previousBalance - spending + types[Record.Types.Income];
+
+			return (int) balanceEstimated;
 		}
 	}
 }
