@@ -31,15 +31,10 @@
 	          Background = "{x:Null}"
 	          BorderBrush = "{x:Null}" >
 		<DataGrid.Columns>
-			<DataGridTemplateColumn Header = "Amount"
-			                        CellTemplate = "{StaticResource AmountColoredCellTemplate}" />
-			<DataGridTemplateColumn Header = "Type"
-			                        CellTemplate = "{StaticResource CellWithTypeIconTemplate}" />
-			<DataGridTemplateColumn Header = "Category"
-			                        CellTemplate = "{StaticResource CellWithCategoryIconTemplate}" />
-			<DataGridTextColumn Header = "Description"
-			                    Binding = "{Binding Description}"
-			                    Foreground = "#FF636363" />
+			<DataGridTemplateColumn Header = "Type" CellTemplate = "{StaticResource CellWithTypeIconTemplate}" />
+			<DataGridTemplateColumn Header = "Amount" CellTemplate = "{StaticResource AmountColoredCellTemplate}" />
+			<DataGridTemplateColumn Header = "Category" CellTemplate = "{StaticResource CellWithCategoryIconTemplate}" />
+			<DataGridTextColumn Header = "Description" Binding = "{Binding Description}" Foreground = "#FF636363" />
 		</DataGrid.Columns>
 		<DataGrid.GroupStyle>
 			<GroupStyle HeaderTemplate = "{StaticResource GroupHeaderTemplate}" />
