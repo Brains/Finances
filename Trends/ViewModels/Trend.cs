@@ -7,48 +7,21 @@ namespace Trends.ViewModels
 {
 	public class Trend
 	{
-		private readonly List<decimal> money;
 		private DateTime start;
 		private DateTime end;
 
 		public List<Operation> Operations { get; set; }
-		public List<Transaction> Calendar { get; set; }
-		public List<Funds> Funds { get; set; }
+		public List<Transaction> Funds { get; set; }
 
 		public Trend()
 		{
 			Operations = new List<Operation>();
-			Calendar = new List<Transaction>();
-			money = new List<decimal>();
-			Funds = new List<Funds>();
 		}
 
 		public Trend(int startFunds) : this()
 		{
 			LoadOperations();
-			Calculate(5400, new DateTime(2015, 5, 16), new DateTime(2015, 7, 1));
-			Funds = GetFunds();
-		}
-
-		#region Public
-
-		public void Calculate(decimal startFunds, DateTime start, DateTime end)
-		{
-			CalculateTransactionsCalendar(start, end);
-			CalculateFunds(startFunds);
-		}
-
-		public List<Funds> GetFunds()
-		{
-			var output = new List<Funds>();
-
-			for (int index = 0; index < this.money.Count; index++)
-			{
-				var transaction = Calendar[index];
-				output.Add(new Funds(money[index], transaction.Date, transaction.Description));
-			}
-
-			return output;
+			Funds = Calculate(5400, new DateTime(2015, 5, 16), new DateTime(2015, 7, 1));
 		}
 
 		public void LoadOperations()
@@ -66,38 +39,7 @@ namespace Trends.ViewModels
 			Operations.Add(new Operation(-300, new DateTime(2015, 5, 1, 6, 0, 0), DatePeriod.FromDays(7), "Сorrection"));
 		}
 
-		#endregion
-
-		private void CalculateTransactionsCalendar(DateTime start, DateTime end)
-		{
-			foreach (var operation in Operations)
-			{
-				DateTime date = operation.Start;
-
-				while (date < end)
-				{
-					if (date >= start)
-						Calendar.Add(new Transaction(operation.Amount, date, operation.Description));
-
-					date = operation.NextDate();
-				}
-			}
-
-			Calendar.Sort();
-        }
-
-		private void CalculateFunds(decimal start)
-		{
-			Calendar.Aggregate(start, (a, b) =>
-			{
-				var sum = a + b.Amount;
-				money.Add(sum);
-				return sum;
-			});
-		}
-
-
-		public List<Transaction> Calculate222(decimal startFunds, DateTime startDate, DateTime endDate)
+		public List<Transaction> Calculate(decimal startFunds, DateTime startDate, DateTime endDate)
 		{
 			start = startDate;
 			end = endDate;
@@ -105,7 +47,7 @@ namespace Trends.ViewModels
 			var initial = new Transaction(startFunds, start, "Initial");
 
 			var funds = Operations.SelectMany(CalculateCalendar)
-			                      .OrderBy(trans => trans.Date)
+			                      .OrderBy(transaction => transaction.Date)
 			                      .Aggregate(new List<Transaction>() { initial }, Aggregate)
 			                      .ToList();
 
@@ -123,7 +65,7 @@ namespace Trends.ViewModels
 			return list;
 		}
 
-		public List<Transaction> CalculateCalendar(Operation operation)
+		private List<Transaction> CalculateCalendar(Operation operation)
 		{
 			DateTime date = operation.Start;
 

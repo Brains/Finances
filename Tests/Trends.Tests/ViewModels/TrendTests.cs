@@ -141,7 +141,7 @@ namespace Trends.Tests.ViewModels
 			var start = new DateTime(2015, 6, 1);
 			trend.Operations.Add(new Operation(-100, start, DatePeriod.FromDays(3), "Test"));
 
-			var actual = trend.Calculate222(1000m, start, start.AddDays(12));
+			var actual = trend.Calculate(1000m, start, start.AddDays(12));
 
 			decimal[] expected = {1000, 900, 800, 700, 600};
 			Expect(actual.Select(t => t.Amount), EqualTo(expected));
