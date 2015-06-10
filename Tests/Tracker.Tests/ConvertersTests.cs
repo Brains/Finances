@@ -11,7 +11,7 @@ using Tracker.Views.Converters;
 namespace Tracker.UnitTests
 {
 	[TestFixture]
-	class ConvertersTests : AssertionHelper
+	public class ConvertersTests : AssertionHelper
 	{
 		[TestCase(-10, "Thin")]
 		[TestCase(0, "Thin")]

@@ -7,7 +7,8 @@ using NUnit.Framework;
 
 namespace Trends.Tests
 {
-	class OperationTests : AssertionHelper
+#if Disables
+class OperationTests : AssertionHelper
 	{
 		[Test]
 		public void NextDate_ByDefault_ReturnsNextOccuranceFromStartDate()
@@ -47,4 +48,6 @@ namespace Trends.Tests
 			Expect(actual, EqualTo(june.AddDays(4)));
 		}
 	}
+#endif
+
 }

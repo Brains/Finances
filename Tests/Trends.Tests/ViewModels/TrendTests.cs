@@ -18,7 +18,8 @@ namespace Trends.Tests.ViewModels
 				Console.WriteLine(item);
 		}
 
-		[Test]
+#if Disable
+[Test]
 		public void Calculate_Always_PlaceTransactionsWithRightDate()
 		{
 			var trend = new Trend();
@@ -133,6 +134,8 @@ namespace Trends.Tests.ViewModels
 			};
 			Expect(actual, EqualTo(expected));
 		}
+#endif
+
 
 		[Test]
 		public void Calculate_Always_DoesCorrectCalculations()
