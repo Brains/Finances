@@ -9,6 +9,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using Microsoft.Practices.Prism.Commands;
+using Microsoft.Practices.Prism.PubSubEvents;
 using Statistics.Banking;
 using Tracker;
 using Unity = Microsoft.Practices.Unity;
@@ -23,7 +24,8 @@ namespace Statistics.ViewModels
 
 		public ICommand WindowLoaded { get; private set; }
 
-		private IExpenses expenses;
+		private readonly IExpenses expenses;
+		private readonly IEventAggregator events;
 
 		private int cards;
 		private int debts;
@@ -75,14 +77,15 @@ namespace Statistics.ViewModels
 			set { divergence = value; OnPropertyChanged(); }
 		}
 
-		public Funds(IExpenses expenses, [Unity.Dependency("bank")] IFundsStorage bank, [Unity.Dependency("debt")]IFundsStorage debt)
+		public Funds(IExpenses expenses, [Unity.Dependency("bank")] IFundsStorage bank, [Unity.Dependency("debt")]IFundsStorage debt, IEventAggregator eventAggregator)
 		{
 			this.expenses = expenses;
+			this.events = eventAggregator;
 
 			bank.Get(amount => Cards = (int) amount);
 			debt.Get(amount => Debts = (int) amount);
 
-			WindowLoaded = new DelegateCommand<object>(o => Load());
+			WindowLoaded = new DelegateCommand(Load);
 		}
 
 		private void Update()
@@ -91,6 +94,8 @@ namespace Statistics.ViewModels
 			Divergence = Balance - CalculateEstimatedBalance();
 
 			Total = Balance + Upwork * ExchangeRate;
+
+			events.GetEvent<UpdateTotalEvent>().Publish(Total);
         }
 
 		public virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
