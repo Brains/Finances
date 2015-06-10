@@ -2,13 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Practices.ObjectBuilder2;
+using Microsoft.Practices.Prism.Commands;
+using Microsoft.Practices.Prism.Mvvm;
+using Microsoft.Practices.Prism.PubSubEvents;
+using Statistics.ViewModels;
 
 namespace Trends.ViewModels
 {
-	public class Trend
+	public class Trend : BindableBase
 	{
 		private DateTime start;
 		private DateTime end;
+		private int total;
 
 		public List<Operation> Operations { get; set; }
 		public List<Transaction> Funds { get; set; }
@@ -18,10 +23,19 @@ namespace Trends.ViewModels
 			Operations = new List<Operation>();
 		}
 
-		public Trend(int startFunds) : this()
+		public Trend(int startFunds, IEventAggregator events) : this()
 		{
 			LoadOperations();
-			Funds = Calculate(5400, new DateTime(2015, 5, 16), new DateTime(2015, 7, 1));
+
+			events.GetEvent<UpdateTotalEvent>().Subscribe(Update);
+		}
+
+
+		private void Update(int startFunds)
+		{
+			Funds = Calculate(startFunds, DateTime.Now, DateTime.Now.AddMonths(2));
+
+			OnPropertyChanged("Funds");
 		}
 
 		public void LoadOperations()
@@ -78,6 +92,8 @@ namespace Trends.ViewModels
 
 				date = operation.NextDate();
 			}
+
+			operation.FlushDate();
 
 			return calendar;
 		}

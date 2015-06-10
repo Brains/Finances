@@ -9,12 +9,6 @@
 			 KeyboardNavigation.TabNavigation="Cycle"
 			 KeyboardNavigation.TabIndex="0">
 
-	<interactivity:Interaction.Triggers>
-		<interactivity:EventTrigger EventName="Loaded">
-			<interactivity:InvokeCommandAction Command="{Binding WindowLoaded}" />
-		</interactivity:EventTrigger>
-	</interactivity:Interaction.Triggers>
-	
 	<UserControl.Resources>
 		<ResourceDictionary>
 			
