@@ -3,12 +3,8 @@
              xmlns:mc = "http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d = "http://schemas.microsoft.com/expression/blend/2008"
              xmlns:interactivity = "http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:converters = "clr-namespace:Statistics.Views.Converters" 
-			 mc:Ignorable = "d" 
-			 d:DesignHeight="400"
-             d:DesignWidth = "1200" 
-			 KeyboardNavigation.TabNavigation = "Cycle" 
-			 KeyboardNavigation.TabIndex = "0" >
+             xmlns:converters = "clr-namespace:Statistics.Views.Converters" mc:Ignorable = "d" d:DesignHeight = "400"
+             d:DesignWidth = "600" KeyboardNavigation.TabNavigation = "Cycle" KeyboardNavigation.TabIndex = "0" >
 
 	<UserControl.Resources>
 		<ResourceDictionary>
@@ -25,49 +21,64 @@
 				<Setter Property = "FontFamily" Value = "Segoe UI" />
 				<Setter Property = "FontWeight" Value = "Light" />
 				<Setter Property = "VerticalAlignment" Value = "Center" />
-				<Setter Property = "Margin" Value = "20, 10, 2, 10" />
+				<Setter Property = "HorizontalAlignment" Value = "Left" />
+				<Setter Property = "Margin" Value = "30, 5, 2, 0" />
 			</Style>
 
 			<Style TargetType = "TextBox" >
-				<Setter Property = "FontSize" Value = "28" />
+				<Setter Property = "FontSize" Value = "24" />
 				<Setter Property = "Foreground" Value = "DimGray" />
 				<Setter Property = "FontFamily" Value = "Segoe UI" />
 				<Setter Property = "FontWeight" Value = "Light" />
 				<Setter Property = "BorderThickness" Value = "0" />
 				<Setter Property = "VerticalAlignment" Value = "Center" />
+				<Setter Property = "HorizontalAlignment" Value = "Left" />
 				<Setter Property = "IsEnabled" Value = "False" />
 			</Style>
 
 		</ResourceDictionary>
 	</UserControl.Resources>
 
-	<WrapPanel Orientation = "Vertical" VerticalAlignment = "Top" HorizontalAlignment = "Left" >
-		<StackPanel Orientation = "Horizontal" >
-			<Label Content = "Divergence" />
-			<TextBox Text = "{Binding Divergence}" Foreground = "{Binding Divergence, Converter={StaticResource NumberToColor}}" />
-			<Label Content = "Balance" />
-			<TextBox Text = "{Binding Balance}" />
-		</StackPanel>
-		<StackPanel Orientation = "Horizontal" >
-			<Label Content = "Upwork" />
-			<TextBox Text = "{Binding Upwork, StringFormat=\{0\}$}" />
-			<Label Content = "Cash" />
-			<TextBox Text = "{Binding Cash}" />
-			<Label Content = "Cards" />
-			<TextBox Text = "{Binding Cards}" />
-		</StackPanel>
-		<StackPanel Orientation = "Horizontal" >
-			<Label Content = "Debt" /> 
-			<TextBox Text = "{Binding Debt}" />
-			<Label Content="Maxim" />
-			<TextBox Text="{Binding Debts[Maxim]}" />
-			<Label Content="Andrey" />
-			<TextBox Text="{Binding Debts[Andrey]}" />
-		</StackPanel>
-		<StackPanel Orientation = "Horizontal" >
-			<Label FontSize = "40" Content = "Total" />
-			<TextBox Text = "{Binding Total}" FontSize = "40" />
-		</StackPanel>
-	</WrapPanel>
+	<Grid VerticalAlignment = "Top" HorizontalAlignment = "Left" >
+		<Grid.RowDefinitions>
+			<RowDefinition Height = "Auto" />
+			<RowDefinition Height = "Auto" />
+			<RowDefinition Height = "Auto" />
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width = "Auto" />
+			<ColumnDefinition Width = "Auto" />
+			<ColumnDefinition Width = "Auto" />
+			<ColumnDefinition Width = "Auto" />
+			<ColumnDefinition Width = "Auto" />
+			<ColumnDefinition Width = "Auto" />
+			<ColumnDefinition Width = "Auto" />
+			<ColumnDefinition Width = "Auto" />
+		</Grid.ColumnDefinitions>
+
+		<Label Content = "Divergence" />
+		<TextBox Text = "{Binding Divergence}" Grid.Row = "0" Grid.Column = "1"
+		         Foreground = "{Binding Divergence, Converter={StaticResource NumberToColor}}" />
+		<Label Content = "Balance" Grid.Row = "0" Grid.Column = "2" />
+		<TextBox Text = "{Binding Balance}" Grid.Row = "0" Grid.Column = "3" />
+
+		<Label Content = "Upwork" Grid.Row = "1" Grid.Column = "0" />
+		<TextBox Text = "{Binding Upwork, StringFormat=\{0\}$}" Grid.Column = "1" Grid.Row = "1" />
+		<Label Content = "Cash" Grid.Column = "2" Grid.Row = "1" />
+		<TextBox Text = "{Binding Cash}" Grid.Column = "3" Grid.Row = "1" />
+		<Label Content = "Cards" Grid.Column = "4" Grid.Row = "1" />
+		<TextBox Text = "{Binding Cards}" Grid.Column = "5" Grid.Row = "1" />
+
+		<Label Content = "Debt" Grid.Row = "2" Grid.Column = "0" />
+		<TextBox Text = "{Binding Debt}" Grid.Row = "2" Grid.Column = "1" />
+		<Label Content = "Maxim" Grid.Row = "2" Grid.Column = "2" />
+		<TextBox Text = "{Binding Debts[Maxim]}" Grid.Row = "2" Grid.Column = "3" />
+		<Label Content = "Andrey" Grid.Column = "4" Grid.Row = "2" />
+		<TextBox Text = "{Binding Debts[Andrey]}" Grid.Column = "5" Grid.Row = "2" />
+
+		<Label FontSize = "50" Content = "Total" Grid.Column = "6" Grid.Row = "0" Grid.RowSpan = "3" />
+		<TextBox Text = "{Binding Total}" FontSize = "50" Grid.Column = "7" Grid.Row = "0" Grid.RowSpan = "3" />
+
+	</Grid>
 
 </UserControl>
