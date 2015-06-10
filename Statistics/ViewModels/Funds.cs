@@ -82,10 +82,12 @@ namespace Statistics.ViewModels
 			this.expenses = expenses;
 			this.events = eventAggregator;
 
-			bank.Get(amount => Cards = (int) amount);
+			Load();
+
+            bank.Get(amount => Cards = (int) amount);
 			debt.Get(amount => Debts = (int) amount);
 
-			WindowLoaded = new DelegateCommand(Load);
+//			WindowLoaded = new DelegateCommand(Load);
 		}
 
 		private void Update()
