@@ -57,7 +57,7 @@
 			<TextBox Text = "{Binding Cards}" />
 		</StackPanel>
 		<StackPanel Orientation = "Horizontal" >
-			<Label Content = "Debts" /> 
+			<Label Content = "Debt" /> 
 			<TextBox Text = "{Binding Debts}" />
 			<Label Content="Maxim" />
 			<TextBox Text="{Binding Maxim, Source=}" />

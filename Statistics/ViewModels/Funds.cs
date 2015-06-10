@@ -25,7 +25,7 @@ namespace Statistics.ViewModels
 		private readonly IEventAggregator events;
 
 		private int cards;
-		private int debts;
+		private int debt;
 		private int cash;
 		private int upwork;
 		private int total;
@@ -50,10 +50,10 @@ namespace Statistics.ViewModels
 			set { cash = value; OnPropertyChanged(nameof(Cash)); Update(); }
 		}
 
-		public int Debts
+		public int Debt
 		{
-			get { return debts; }
-			set { debts = value; OnPropertyChanged(nameof(Debts)); Update(); }
+			get { return debt; }
+			set { debt = value; OnPropertyChanged(nameof(Debt)); Update(); }
 		}
 
 		public int Total
@@ -82,12 +82,12 @@ namespace Statistics.ViewModels
 			Load();
 
             bank.Get(amount => Cards = (int) amount);
-			debt.Get(amount => Debts = (int) amount);
+			debt.Get(amount => Debt = (int) amount);
 		}
 
 		private void Update()
 		{
-			Balance = Cards + Cash + Debts;
+			Balance = Cards + Cash + Debt;
 			Divergence = Balance - CalculateEstimatedBalance();
 
 			Total = Balance + Upwork * ExchangeRate;

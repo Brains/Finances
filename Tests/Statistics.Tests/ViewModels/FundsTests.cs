@@ -31,7 +31,7 @@ namespace Statistics.Tests.ViewModels
 			funds.Cash = 100;
 			Expect(funds.Total, EqualTo(100));
 
-			funds.Debts = 100;
+			funds.Debt = 100;
 			Expect(funds.Total, EqualTo(200));
 
 			funds.Cards = 100;
