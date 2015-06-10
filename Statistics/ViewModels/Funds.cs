@@ -9,6 +9,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using Microsoft.Practices.Prism.Commands;
+using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.PubSubEvents;
 using Statistics.Banking;
 using Tracker;
@@ -16,11 +17,9 @@ using Unity = Microsoft.Practices.Unity;
 
 namespace Statistics.ViewModels
 {
-	public class Funds : INotifyPropertyChanged
+	public class Funds : BindableBase
 	{
 		public const int ExchangeRate = 21;
-
-		public event PropertyChangedEventHandler PropertyChanged;
 
 		private readonly IExpenses expenses;
 		private readonly IEventAggregator events;
@@ -36,43 +35,43 @@ namespace Statistics.ViewModels
 		public int Upwork
 		{
 			get { return upwork; }
-			set { upwork = value; OnPropertyChanged(); Update();}
+			set { upwork = value; OnPropertyChanged(nameof(Upwork)); Update();}
 		}
 
 		public int Cards
 		{
 			get { return cards; }
-			set { cards = value; OnPropertyChanged(); Update(); }
+			set { cards = value; OnPropertyChanged(nameof(Cards)); Update(); }
 		}
 
 		public int Cash
 		{
 			get { return cash; }
-			set { cash = value; OnPropertyChanged(); Update(); }
+			set { cash = value; OnPropertyChanged(nameof(Cash)); Update(); }
 		}
 
 		public int Debts
 		{
 			get { return debts; }
-			set { debts = value; OnPropertyChanged(); Update(); }
+			set { debts = value; OnPropertyChanged(nameof(Debts)); Update(); }
 		}
 
 		public int Total
 		{
 			get { return total; }
-			set { total = value; OnPropertyChanged(); }
+			set { total = value; OnPropertyChanged(nameof(Total)); }
 		}
 
 		public int Balance
 		{
 			get { return balance; }
-			set { balance = value; OnPropertyChanged(); }
+			set { balance = value; OnPropertyChanged(nameof(Balance)); }
 		}
 
 		public int Divergence
 		{
 			get { return divergence; }
-			set { divergence = value; OnPropertyChanged(); }
+			set { divergence = value; OnPropertyChanged(nameof(Divergence)); }
 		}
 
 		public Funds(IExpenses expenses, [Unity.Dependency("bank")] IFundsStorage bank, [Unity.Dependency("debt")]IFundsStorage debt, IEventAggregator eventAggregator)
@@ -95,11 +94,6 @@ namespace Statistics.ViewModels
 
 			events.GetEvent<UpdateTotalEvent>().Publish(Total);
         }
-
-		public virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-		{
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-		}
 
 		private void Load()
 		{

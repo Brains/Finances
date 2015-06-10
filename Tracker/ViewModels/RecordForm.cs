@@ -4,13 +4,14 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using Microsoft.Practices.Prism.Mvvm;
 using static Tracker.Record;
 using static Tracker.Record.Types;
 using static Tracker.Record.Categories;
 
 namespace Tracker.ViewModels
 {
-	public class RecordForm : INotifyPropertyChanged
+	public class RecordForm : BindableBase
 	{
 		// Model
 		private readonly IExpenses expenses;
@@ -36,7 +37,6 @@ namespace Tracker.ViewModels
 		public IEnumerable<Categories> AvailableCategories { get; set; }
 		private readonly Dictionary<Types, Categories[]> availableCategories;
 		public List<string> DescriptionSuggestions { get; set; }
-		public event PropertyChangedEventHandler PropertyChanged;
 
 		public RecordForm(IExpenses expenses)
 		{
@@ -102,11 +102,6 @@ namespace Tracker.ViewModels
 		{
 			Description = null;
 			OnPropertyChanged("Description");
-		}
-
-		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-		{
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 	}
 }
