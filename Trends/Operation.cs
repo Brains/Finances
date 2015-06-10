@@ -28,6 +28,11 @@ namespace Trends
 			return previousDate;
 		}
 
+		public void FlushDate()
+		{
+			previousDate = Start;
+		}
+
 		public DateTime NextDate(DateTime after)
 		{
 			DateTime current = DateTime.MinValue;

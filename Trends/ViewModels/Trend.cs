@@ -79,6 +79,8 @@ namespace Trends.ViewModels
 				date = operation.NextDate();
 			}
 
+			operation.FlushDate();
+
 			return calendar;
 		}
 	}
