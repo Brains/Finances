@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
@@ -56,6 +57,8 @@ namespace Statistics.ViewModels
 			set { debt = value; OnPropertyChanged(nameof(Debt)); Update(); }
 		}
 
+		public Dictionary<Record.Categories, decimal> Debts { get; set; }
+
 		public int Total
 		{
 			get { return total; }
@@ -83,6 +86,8 @@ namespace Statistics.ViewModels
 
             bank.Get(amount => Cards = (int) amount);
 			debt.Get(amount => Debt = (int) amount);
+
+			Debts = (debt as Debts).Calculate();
 		}
 
 		private void Update()

@@ -58,11 +58,11 @@
 		</StackPanel>
 		<StackPanel Orientation = "Horizontal" >
 			<Label Content = "Debt" /> 
-			<TextBox Text = "{Binding Debts}" />
+			<TextBox Text = "{Binding Debt}" />
 			<Label Content="Maxim" />
-			<TextBox Text="{Binding Maxim, Source=}" />
+			<TextBox Text="{Binding Debts[Maxim]}" />
 			<Label Content="Andrey" />
-			<TextBox Text="{Binding Andrey, Source=}" />
+			<TextBox Text="{Binding Debts[Andrey]}" />
 		</StackPanel>
 		<StackPanel Orientation = "Horizontal" >
 			<Label FontSize = "40" Content = "Total" />
