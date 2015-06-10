@@ -22,8 +22,6 @@ namespace Statistics.ViewModels
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		public ICommand WindowLoaded { get; private set; }
-
 		private readonly IExpenses expenses;
 		private readonly IEventAggregator events;
 
@@ -86,8 +84,6 @@ namespace Statistics.ViewModels
 
             bank.Get(amount => Cards = (int) amount);
 			debt.Get(amount => Debts = (int) amount);
-
-//			WindowLoaded = new DelegateCommand(Load);
 		}
 
 		private void Update()
