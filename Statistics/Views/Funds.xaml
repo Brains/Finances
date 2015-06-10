@@ -3,20 +3,21 @@
              xmlns:mc = "http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d = "http://schemas.microsoft.com/expression/blend/2008"
              xmlns:interactivity = "http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:converters = "clr-namespace:Statistics.Views.Converters"
-             mc:Ignorable = "d" d:DesignHeight = "600"
-             d:DesignWidth = "800"
-			 KeyboardNavigation.TabNavigation="Cycle"
-			 KeyboardNavigation.TabIndex="0">
+             xmlns:converters = "clr-namespace:Statistics.Views.Converters" 
+			 mc:Ignorable = "d" 
+			 d:DesignHeight="400"
+             d:DesignWidth = "1200" 
+			 KeyboardNavigation.TabNavigation = "Cycle" 
+			 KeyboardNavigation.TabIndex = "0" >
 
 	<UserControl.Resources>
 		<ResourceDictionary>
-			
+
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/lime.xaml" />
+				<ResourceDictionary Source = "pack://application:,,,/MahApps.Metro;component/Styles/Accents/lime.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 
-			<converters:NumberToColor x:Key="NumberToColor" />
+			<converters:NumberToColor x:Key = "NumberToColor" />
 
 			<Style TargetType = "Label" >
 				<Setter Property = "FontSize" Value = "24" />
@@ -26,7 +27,7 @@
 				<Setter Property = "VerticalAlignment" Value = "Center" />
 				<Setter Property = "Margin" Value = "20, 10, 2, 10" />
 			</Style>
-			
+
 			<Style TargetType = "TextBox" >
 				<Setter Property = "FontSize" Value = "28" />
 				<Setter Property = "Foreground" Value = "DimGray" />
@@ -39,22 +40,34 @@
 
 		</ResourceDictionary>
 	</UserControl.Resources>
-	
-	<WrapPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
-		<Label>Divergence</Label>
-		<TextBox Text="{Binding Divergence}" Foreground="{Binding Divergence, Converter={StaticResource NumberToColor}}"/>
-		<Label>Balance</Label>
-		<TextBox Text="{Binding Balance}" />
-		<Label >Upwork</Label>
-		<TextBox Text="{Binding Upwork, StringFormat={}{0}$}" />
-		<Label>Cash</Label>
-		<TextBox Text="{Binding Cash}" />
-		<Label>Cards</Label>
-		<TextBox Text="{Binding Cards}" />
-		<Label>Debts</Label>
-		<TextBox Text="{Binding Debts}" />
-		<Label FontSize="40" >Total</Label>
-		<TextBox Text="{Binding Total}" FontSize = "40" />
+
+	<WrapPanel Orientation = "Vertical" VerticalAlignment = "Top" HorizontalAlignment = "Left" >
+		<StackPanel Orientation = "Horizontal" >
+			<Label Content = "Divergence" />
+			<TextBox Text = "{Binding Divergence}" Foreground = "{Binding Divergence, Converter={StaticResource NumberToColor}}" />
+			<Label Content = "Balance" />
+			<TextBox Text = "{Binding Balance}" />
+		</StackPanel>
+		<StackPanel Orientation = "Horizontal" >
+			<Label Content = "Upwork" />
+			<TextBox Text = "{Binding Upwork, StringFormat=\{0\}$}" />
+			<Label Content = "Cash" />
+			<TextBox Text = "{Binding Cash}" />
+			<Label Content = "Cards" />
+			<TextBox Text = "{Binding Cards}" />
+		</StackPanel>
+		<StackPanel Orientation = "Horizontal" >
+			<Label Content = "Debts" /> 
+			<TextBox Text = "{Binding Debts}" />
+			<Label Content="Maxim" />
+			<TextBox Text="{Binding Maxim, Source=}" />
+			<Label Content="Andrey" />
+			<TextBox Text="{Binding Andrey, Source=}" />
+		</StackPanel>
+		<StackPanel Orientation = "Horizontal" >
+			<Label FontSize = "40" Content = "Total" />
+			<TextBox Text = "{Binding Total}" FontSize = "40" />
+		</StackPanel>
 	</WrapPanel>
-	
+
 </UserControl>
