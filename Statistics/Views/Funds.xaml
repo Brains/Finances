@@ -22,7 +22,7 @@
 				<Setter Property = "FontWeight" Value = "Light" />
 				<Setter Property = "VerticalAlignment" Value = "Center" />
 				<Setter Property = "HorizontalAlignment" Value = "Left" />
-				<Setter Property = "Margin" Value = "30, 5, 2, 0" />
+				<Setter Property = "Margin" Value = "30, 5, 0, 0" />
 			</Style>
 
 			<Style TargetType = "TextBox" >
@@ -57,8 +57,7 @@
 		</Grid.ColumnDefinitions>
 
 		<Label Content = "Divergence" />
-		<TextBox Text = "{Binding Divergence}" Grid.Row = "0" Grid.Column = "1"
-		         Foreground = "{Binding Divergence, Converter={StaticResource NumberToColor}}" />
+		<TextBox Text = "{Binding Divergence}" Grid.Row = "0" Grid.Column = "1" Foreground = "{Binding Divergence, Converter={StaticResource NumberToColor}}" />
 		<Label Content = "Balance" Grid.Row = "0" Grid.Column = "2" />
 		<TextBox Text = "{Binding Balance}" Grid.Row = "0" Grid.Column = "3" />
 
@@ -76,7 +75,7 @@
 		<Label Content = "Andrey" Grid.Column = "4" Grid.Row = "2" />
 		<TextBox Text = "{Binding Debts[Andrey]}" Grid.Column = "5" Grid.Row = "2" />
 
-		<Label FontSize = "50" Content = "Total" Grid.Column = "6" Grid.Row = "0" Grid.RowSpan = "3" />
+		<Label FontSize = "50" Content = "Total" Grid.Column = "6" Grid.Row = "0" Grid.RowSpan = "3" Margin="80, 0, 10, 0" />
 		<TextBox Text = "{Binding Total}" FontSize = "50" Grid.Column = "7" Grid.Row = "0" Grid.RowSpan = "3" />
 
 	</Grid>
