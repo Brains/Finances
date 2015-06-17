@@ -21,7 +21,7 @@
 	<ScrollViewer>
 		<Grid>
 			<Grid.RowDefinitions>
-				<RowDefinition MinHeight="500"/>
+				<RowDefinition MinHeight="800"/>
 				<RowDefinition MinHeight="500"/>
 			</Grid.RowDefinitions>
 			<Grid.ColumnDefinitions>
