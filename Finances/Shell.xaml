@@ -12,6 +12,16 @@
 	</controls:MetroWindow.Resources>
 	
 	<TabControl SelectedIndex = "0" TabStripPlacement = "Left" >
+				<TabItem Name = "Statistics" Header = "Statistics" HeaderTemplate = "{StaticResource TabItemHeaderDataTemplate}" >
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height = "Auto" />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<ContentControl Grid.Row = "0" prism:RegionManager.RegionName = "Funds" />
+				<ContentControl Grid.Row = "1" prism:RegionManager.RegionName = "Charts" />
+			</Grid>
+		</TabItem>
 		<TabItem Name = "Tracker" Header = "Tracker" HeaderTemplate = "{StaticResource TabItemHeaderDataTemplate}">
 			<Grid>
 				<Grid.RowDefinitions>
@@ -22,16 +32,6 @@
 								VerticalContentAlignment = "Stretch" HorizontalContentAlignment = "Stretch" />
 				<ContentControl Grid.Row = "1" prism:RegionManager.RegionName = "RecordFormsQueue"
 				                HorizontalContentAlignment = "Stretch" VerticalContentAlignment = "Stretch" />
-			</Grid>
-		</TabItem>
-		<TabItem Name = "Statistics" Header = "Statistics" HeaderTemplate = "{StaticResource TabItemHeaderDataTemplate}" >
-			<Grid>
-				<Grid.RowDefinitions>
-					<RowDefinition Height = "Auto" />
-					<RowDefinition />
-				</Grid.RowDefinitions>
-				<ContentControl Grid.Row = "0" prism:RegionManager.RegionName = "Funds" />
-				<ContentControl Grid.Row = "1" prism:RegionManager.RegionName = "Charts" />
 			</Grid>
 		</TabItem>
 		<TabItem Name = "Trends" Header = "Trends" prism:RegionManager.RegionName = "Trends" HeaderTemplate = "{StaticResource TabItemHeaderDataTemplate}"/>
