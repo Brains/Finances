@@ -112,16 +112,16 @@ namespace Statistics.ViewModels
 
 		public int CalculateEstimatedBalance()
 		{
-			var previousBalance = expenses.Records.Last(record => record.Type == Record.Types.Balance).Amount;
+			var previous = expenses.Records.Last(record => record.Type == Record.Types.Balance).Amount;
 
-			var types = expenses.Records.GroupBy(record => record.Type)
-			                    .Select(type => new {type.Key, Total = type.Sum(record => record.Amount)})
-			                    .ToDictionary(type => type.Key, type => type.Total);
+			var records = expenses.Records.GroupBy(record => record.Type)
+			                      .Select(type => new {type.Key, Total = type.Sum(record => record.Amount)})
+			                      .ToDictionary(type => type.Key, type => type.Total);
 
-			var spending = types[Record.Types.Expense] + types[Record.Types.Shared];
-			var balanceEstimated = previousBalance - spending + types[Record.Types.Income];
+			var spending = records[Record.Types.Expense] + records[Record.Types.Shared];
+			var income = records[Record.Types.Income];
 
-			return (int) balanceEstimated;
+			return (int) (previous + income - spending);
 		}
 	}
 }

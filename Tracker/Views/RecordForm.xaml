@@ -45,7 +45,6 @@
 		        BorderBrush = "Orange"
 		        Margin = "5"
 		        Padding = "{Binding Padding}" 
-				KeyboardNavigation.TabNavigation = "Cycle"
 				KeyboardNavigation.TabIndex = "0">
 			<Grid>
 				<Grid.ColumnDefinitions>
