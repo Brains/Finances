@@ -25,7 +25,7 @@ namespace Statistics.Banking
 		{
 			XElement file = XElement.Parse(input);
 
-			var element = file.Descendants("balance").First().Value;
+			var element = file.Descendants("av_balance").First().Value;
 
 			return Math.Round(decimal.Parse(element));
 		}
