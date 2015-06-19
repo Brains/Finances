@@ -56,7 +56,8 @@ namespace Tracker.ViewModels
 				[Balance] = new[]	{Other}
 			};
 
-			DescriptionSuggestions = new List<string> {"Novus", "Kishenya", "Water", "Hygiene", "Domestic", "Passage" };
+			DescriptionSuggestions = new List<string> {"Novus", "Kishenya", "Water", "Hygiene", "Domestic", "Passage",
+				"Chasopys", "Freud-House", "BiblioTech", "Vagon" };
 
 			Padding = new Thickness(40, 5, 5, 5);
 			Border = new Thickness(0);
