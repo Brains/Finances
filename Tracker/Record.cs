@@ -74,7 +74,7 @@ namespace Tracker
 			CodeContracts.Requires.True(a.Date.Day == b.Date.Day, "a.Date.Day == b.Date.Day");
 
 			var amount = a.Amount + b.Amount;
-			var description = $"{a.Description}\n{b.Description}";
+			var description = $"{a.Description}: {a.Amount}\n{b.Description}: {b.Amount}";
 
 			return new Record(amount, a.Type, a.Category, description, a.Date);
 		}
