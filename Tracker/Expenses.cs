@@ -7,6 +7,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using Microsoft.Practices.Unity;
 using CodeContracts;
+using Common.Properties;
 using Microsoft.Practices.Prism.PubSubEvents;
 
 namespace Tracker
@@ -14,8 +15,8 @@ namespace Tracker
     public class Expenses : IExpenses
     {
 		readonly Random random = new Random();
-	    private string recordsDataPath;
-	    private IEventAggregator eventAggregator;
+	    private readonly string recordsDataPath;
+	    private readonly IEventAggregator eventAggregator;
 
 	    public ObservableCollection<Record> Records { get; set; }
         
@@ -23,7 +24,7 @@ namespace Tracker
         {
 	        this.eventAggregator = eventAggregator;
 
-			recordsDataPath = Path.Combine(Common.Properties.Settings.Default.DataPath, "Records.xml");
+			recordsDataPath = Path.Combine(Settings.Default.DataPath, "Records.xml");
 
 			Records = new ObservableCollection<Record>();
 			//	        Records.CollectionChanged += (s, a) => Save();

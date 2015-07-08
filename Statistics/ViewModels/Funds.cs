@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using Common.Properties;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.PubSubEvents;
@@ -102,7 +103,7 @@ namespace Statistics.ViewModels
 
 		private void Load()
 		{
-			var path = Path.Combine("Data", "Funds.xml");
+			var path = Path.Combine(Settings.Default.DataPath, "Funds.xml");
 
 			XElement file = XElement.Load(path);
 

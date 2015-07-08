@@ -138,6 +138,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{d00dc305-ae73-479c-a3d8-0155cab23798}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Tracker\Tracker.csproj">
       <Project>{F31FA3EB-4F11-4A61-A67D-E6C77EEC470C}</Project>
       <Name>Tracker</Name>

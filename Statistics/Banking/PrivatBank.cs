@@ -5,6 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Common.Properties;
 using Tracker;
 using Visualization.Banking;
 
@@ -48,7 +49,7 @@ namespace Statistics.Banking
 			var xml = XElement.Parse(Request);
 
 			var file = XML.Repair(xml);
-			var personal = XML.ReadPersonalData(Path.Combine("Data", @"PrivatBank.xml"));
+			var personal = XML.ReadPersonalData(Path.Combine(Settings.Default.DataPath, @"PrivatBank.xml"));
 			file = XML.Format(file, personal);
 
 			return file;
