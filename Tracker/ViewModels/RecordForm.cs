@@ -57,7 +57,7 @@ namespace Tracker.ViewModels
 			};
 
 			DescriptionSuggestions = new List<string> {"Novus", "Kishenya", "Water", "Hygiene", "Domestic", "Passage",
-				"Chasopys", "Freud-House", "BiblioTech", "Vagon" };
+				"Chasopys", "Freud-House", "BiblioTech", "Vagon", "Ziferblat" };
 
 			Padding = new Thickness(40, 5, 5, 5);
 			Border = new Thickness(0);
