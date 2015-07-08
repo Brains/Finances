@@ -3,7 +3,8 @@
              xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d = "http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc = "http://schemas.openxmlformats.org/markup-compatibility/2006"
-             d:DataContext = "{d:DesignData Source=/Views/Resources/SampleData.xaml}"
+			 xmlns:resources = "clr-namespace:Tracker.Views.Resources"
+			 d:DataContext = "{d:DesignData Source=/Views/Resources/SampleData.xaml}"
 			 d:DesignWidth="600"
              mc:Ignorable = "d"
              KeyboardNavigation.TabNavigation = "None" >
@@ -13,9 +14,9 @@
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source = "Resources/DataGridTemplates.xaml" />
 			</ResourceDictionary.MergedDictionaries>
+			<resources:GroupItemHeaderTemplateSelector x:Key="GroupItemHeaderTemplateSelector" />
 		</ResourceDictionary>
 	</UserControl.Resources>
-
 
 	<DataGrid x:Name = "RecordsGrid"
 	          ItemsSource = "{Binding RecordsList}"
@@ -29,7 +30,7 @@
 	          ColumnWidth = "*"
 	          BorderThickness = "0"
 	          Background = "{x:Null}"
-	          BorderBrush = "{x:Null}" >
+	          BorderBrush = "{x:Null}">
 		<DataGrid.Columns>
 			<DataGridTemplateColumn Header = "Type" CellTemplate = "{StaticResource CellWithTypeIconTemplate}" />
 			<DataGridTemplateColumn Header = "Amount" CellTemplate = "{StaticResource AmountColoredCellTemplate}" />
@@ -37,7 +38,7 @@
 			<DataGridTextColumn Header = "Description" Binding = "{Binding Description}" Foreground = "#FF636363" />
 		</DataGrid.Columns>
 		<DataGrid.GroupStyle>
-			<GroupStyle HeaderTemplate = "{StaticResource GroupHeaderTemplate}" />
+			<GroupStyle HeaderTemplateSelector="{StaticResource GroupItemHeaderTemplateSelector}" />
 		</DataGrid.GroupStyle>
 	</DataGrid>
 

@@ -6,6 +6,7 @@
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="/Tracker;Component/Views/Resources/Icons.xaml"></ResourceDictionary>
+				<ResourceDictionary Source="/Tracker;Component/Views/Resources/DataGridTemplates.xaml"></ResourceDictionary>
 				
 				<!-- Metro Theme -->
 				<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />

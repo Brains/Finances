@@ -50,15 +50,22 @@
 		</StackPanel>
 	</DataTemplate>
 
-	<!-- GroupHeaderTemplate -->
-	<DataTemplate x:Key = "GroupHeaderTemplate" >
+	<!-- Day GroupHeaderTemplate -->
+	<DataTemplate x:Key = "GroupHeaderTemplateDay" >
 		<TextBlock Text = "{Binding Path=Name}"
 		           Foreground = "LightGray"
 		           Margin = "0,20,0,0" />
 	</DataTemplate>
 
+	<!-- Month GroupHeaderTemplate -->
+	<DataTemplate x:Key="GroupHeaderTemplateMonth">
+		<TextBlock Text="{Binding Path=Name}"
+				   Foreground="LightGray"
+				   FontSize="30"
+				   Margin="0,40,0,0" />
+	</DataTemplate>
 
-	<!--New Template-->
+	<!--Unified Template-->
 	<DataTemplate x:Key = "UnifiedTemplate" >
 		<StackPanel Orientation = "Horizontal" >
 			<Grid Width = "16"
