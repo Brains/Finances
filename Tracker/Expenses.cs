@@ -23,7 +23,7 @@ namespace Tracker
         {
 	        this.eventAggregator = eventAggregator;
 
-			recordsDataPath = Path.Combine("Data", "Records.xml");
+			recordsDataPath = Path.Combine(Common.Properties.Settings.Default.DataPath, "Records.xml");
 
 			Records = new ObservableCollection<Record>();
 			//	        Records.CollectionChanged += (s, a) => Save();
