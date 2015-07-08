@@ -8,12 +8,13 @@ namespace Tracker.Views.Converters
 {
 	public class ValueToFontWeight : IValueConverter
 	{
-		private const int Step = 400;
+		private const int Step = 100;
 		static readonly List<FontWeight> Weights = new List<FontWeight> {FontWeights.Thin, FontWeights.Light, FontWeights.Normal, FontWeights.Bold,};
 
 		public object Convert (object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			int number;
+
 			if (value is string)
 				int.TryParse((string) value, out number);
 			else
