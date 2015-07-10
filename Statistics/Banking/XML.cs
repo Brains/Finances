@@ -95,16 +95,5 @@ namespace Statistics.Banking
 
 			return file.ToString(SaveOptions.DisableFormatting); 
 		}
-
-		public static PersonalData ReadPersonalData(string input)
-		{
-			XElement data = XElement.Load(input);
-
-			var id = data.Element("id").Value;
-			var card = data.Element("card").Value;
-			var password = data.Element("password").Value;
-
-			return new PersonalData(id, password, card);
-		}
 	}
 }

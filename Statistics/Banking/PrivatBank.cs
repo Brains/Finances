@@ -49,10 +49,16 @@ namespace Statistics.Banking
 			var xml = XElement.Parse(Request);
 
 			var file = XML.Repair(xml);
-			var personal = XML.ReadPersonalData(Path.Combine(Settings.Default.DataPath, @"PrivatBank.xml"));
-			file = XML.Format(file, personal);
+			file = XML.Format(file, ReadPersonalData());
 
 			return file;
+		}
+
+		private PersonalData ReadPersonalData()
+		{
+			var settings = Settings.Default;
+
+			return new PersonalData(settings.PrivatBankID, settings.PrivatBankPassword, settings.PrivatBankCardNumber);
 		}
 
 		private const string Request = 
