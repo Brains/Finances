@@ -5,7 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Common.Properties;
+using Finances.Properties;
 using Tracker;
 using Visualization.Banking;
 

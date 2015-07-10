@@ -7,7 +7,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using Microsoft.Practices.Unity;
 using CodeContracts;
-using Common.Properties;
+using Finances.Properties;
 using Microsoft.Practices.Prism.PubSubEvents;
 
 namespace Tracker

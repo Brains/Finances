@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Common.Properties {
+namespace Finances.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
