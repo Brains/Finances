@@ -4,10 +4,11 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using Common;
 using Microsoft.Practices.Prism.Mvvm;
-using static Tracker.Record;
-using static Tracker.Record.Types;
-using static Tracker.Record.Categories;
+using static Common.Record;
+using static Common.Record.Types;
+using static Common.Record.Categories;
 
 namespace Tracker.ViewModels
 {

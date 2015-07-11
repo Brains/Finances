@@ -7,6 +7,8 @@ using System.Xml;
 using System.Xml.Serialization;
 using Microsoft.Practices.Unity;
 using CodeContracts;
+using Common;
+using Common.Events;
 using Finances.Properties;
 using Microsoft.Practices.Prism.PubSubEvents;
 
@@ -37,7 +39,7 @@ namespace Tracker
 
 			Save();
 
-			eventAggregator.GetEvent<AddRecordEvent>().Publish(record);
+			eventAggregator.GetEvent<AddRecord>().Publish(record);
 		}
 
 	    public void Load ()

@@ -2,9 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Common;
+using Common.Events;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Prism.PubSubEvents;
-using Tracker;
 
 namespace Statistics.Banking
 {
@@ -15,7 +16,7 @@ namespace Statistics.Banking
 
 		public Debts(IExpenses expenses, IEventAggregator eventAggregator)
 		{
-			eventAggregator.GetEvent<AddRecordEvent>().Subscribe(record => CalculateDebts(callback), true);
+			eventAggregator.GetEvent<AddRecord>().Subscribe(record => CalculateDebts(callback), true);
 
 			records = expenses.Records;
 		}

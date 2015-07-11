@@ -98,11 +98,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddRecordEvent.cs" />
     <Compile Include="Controls\AutoCompleteBehavior.cs" />
     <Compile Include="Expenses.cs" />
-    <Compile Include="IExpenses.cs" />
-    <Compile Include="Record.cs" />
     <Compile Include="ViewModels\RecordForm.cs" />
     <Compile Include="ViewModels\RecordFormsQueue.cs" />
     <Compile Include="ViewModels\Records.cs" />

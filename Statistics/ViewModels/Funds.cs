@@ -9,12 +9,13 @@ using System.Windows.Input;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using Common;
+using Common.Events;
 using Finances.Properties;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.PubSubEvents;
 using Statistics.Banking;
-using Tracker;
 using Unity = Microsoft.Practices.Unity;
 
 namespace Statistics.ViewModels
@@ -133,12 +134,14 @@ namespace Statistics.ViewModels
 
 			Total = Balance + Upwork * ExchangeRate;
 
-			events.GetEvent<UpdateTotalEvent>().Publish(Total);
+			events.GetEvent<UpdateTotal>().Publish(Total);
 		}
 
 		private void Load()
 		{
 			var path = Path.Combine("Data", "Funds.xml");
+
+			if (!File.Exists(path)) return;
 
 			XElement file = XElement.Load(path);
 
@@ -150,6 +153,12 @@ namespace Statistics.ViewModels
 		{
 			var path = Path.Combine("Data", "Funds.xml");
 
+			if (!File.Exists(path))
+			{
+				CreateDocument(path);
+				return;
+			}
+
 			XElement file = XElement.Load(path);
 
 			file.Element("Upwork").SetValue(Upwork);
@@ -159,6 +168,18 @@ namespace Statistics.ViewModels
 			file.Save(writer);
 			writer.Close();
         }
+
+		private void CreateDocument(string path)
+		{
+			XElement document = new XElement("data");
+
+			document.Add(new XElement("Upwork", Upwork));
+			document.Add(new XElement("Cash", Cash));
+
+			var writer = XmlWriter.Create(path);
+			document.Save(writer);
+			writer.Close();
+		}
 
 		public int CalculateEstimatedBalance()
 		{
