@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Common;
 using Finances.Properties;
-using Tracker;
 using Visualization.Banking;
 
 namespace Statistics.Banking
@@ -56,9 +57,9 @@ namespace Statistics.Banking
 
 		private PersonalData ReadPersonalData()
 		{
-			var settings = Settings.Default;
+			var settings = ConfigurationManager.AppSettings;
 
-			return new PersonalData(settings.PrivatBankID, settings.PrivatBankPassword, settings.PrivatBankCardNumber);
+			return new PersonalData(settings["ID"], settings["Password"], settings["CardNumber"]);
 		}
 
 		private const string Request = 
