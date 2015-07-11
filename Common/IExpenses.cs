@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 using System.Collections.ObjectModel;
 
-namespace Tracker
+namespace Common
 {
 	public interface IExpenses
 	{

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Tracker;
+using Common;
+using Finances.Properties;
 using Visualization.Banking;
 
 namespace Statistics.Banking
@@ -48,10 +50,16 @@ namespace Statistics.Banking
 			var xml = XElement.Parse(Request);
 
 			var file = XML.Repair(xml);
-			var personal = XML.ReadPersonalData(Path.Combine("Data", @"PrivatBank.xml"));
-			file = XML.Format(file, personal);
+			file = XML.Format(file, ReadPersonalData());
 
 			return file;
+		}
+
+		private PersonalData ReadPersonalData()
+		{
+			var settings = ConfigurationManager.AppSettings;
+
+			return new PersonalData(settings["ID"], settings["Password"], settings["CardNumber"]);
 		}
 
 		private const string Request = 

@@ -109,14 +109,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Statistics\Statistics.csproj">
-      <Project>{35b3bc50-dada-47a4-a37d-b26f4bb4724e}</Project>
-      <Name>Statistics</Name>
-    </ProjectReference>
+    <None Include="Properties\app.config" />
+    <None Include="Properties\packages.config" />
   </ItemGroup>
   <ItemGroup>
     <DesignData Include="Views\Resources\Data.xaml">
@@ -131,6 +125,12 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{d00dc305-ae73-479c-a3d8-0155cab23798}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

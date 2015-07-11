@@ -4,11 +4,12 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Common;
+using Common.Events;
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.PubSubEvents;
-using Tracker;
-using static Tracker.Record;
-using static Tracker.Record.Types;
+using static Common.Record;
+using static Common.Record.Types;
 using Data = System.Collections.Generic.Dictionary<string, int>;
 
 namespace Statistics.ViewModels
@@ -35,7 +36,7 @@ namespace Statistics.ViewModels
 		public Charts(IExpenses expenses, IEventAggregator eventAggregator)
 		{
 			this.expenses = expenses;
-			eventAggregator.GetEvent<AddRecordEvent>().Subscribe(record => Update());
+			eventAggregator.GetEvent<AddRecord>().Subscribe(record => Update());
 
 			Update();
 		}

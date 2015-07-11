@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Common.Events;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.PubSubEvents;
-using Statistics.ViewModels;
 
 namespace Trends.ViewModels
 {
@@ -27,7 +27,7 @@ namespace Trends.ViewModels
 		{
 			LoadOperations();
 
-			events.GetEvent<UpdateTotalEvent>().Subscribe(Update);
+			events.GetEvent<UpdateTotal>().Subscribe(Update);
 		}
 
 
@@ -46,11 +46,11 @@ namespace Trends.ViewModels
 			Operations.Add(new Operation(-2000, new DateTime(2015, 1, 15, 1, 0, 0), monthly, "House"));
 			Operations.Add(new Operation(-1000, new DateTime(2015, 5, 30, 3, 0, 0), DatePeriod.FromDays(20), "Medications"));
 
-			Operations.Add(new Operation(1300, new DateTime(2015, 1, 5, 2, 0, 0), monthly, "Deposit"));
 			Operations.Add(new Operation(200, new DateTime(2015, 1, 7, 7, 0, 0), monthly, "Deposit"));
-			Operations.Add(new Operation(900, new DateTime(2015, 1, 17, 4, 0, 0), monthly, "Deposit"));
+			Operations.Add(new Operation(2000, new DateTime(2015, 1, 8, 2, 0, 0), monthly, "Deposit"));
+			Operations.Add(new Operation(1000, new DateTime(2015, 1, 17, 4, 0, 0), monthly, "Deposit"));
 
-			Operations.Add(new Operation(-300, new DateTime(2015, 5, 1, 6, 0, 0), DatePeriod.FromDays(7), "Сorrection"));
+			Operations.Add(new Operation(-500, new DateTime(2015, 5, 1, 6, 0, 0), DatePeriod.FromDays(7), "Сorrection"));
 		}
 
 		public List<Transaction> Calculate(decimal startFunds, DateTime startDate, DateTime endDate)
