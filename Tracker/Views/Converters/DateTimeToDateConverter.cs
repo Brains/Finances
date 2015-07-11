@@ -9,7 +9,7 @@ namespace Tracker.Views.Converters
 	{
 		public object Convert (object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			return ((DateTime) value).ToString("D");
+			return ((DateTime) value).ToString("d MMMM, dddd");
 		}
 
 		public object ConvertBack (object value, Type targetType, object parameter, CultureInfo culture)
