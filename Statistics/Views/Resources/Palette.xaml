@@ -4,11 +4,11 @@
 
 	<!--CustomColors-->
 	<chart:ResourceDictionaryCollection x:Key = "CustomColors" >
-		<ResourceDictionary><SolidColorBrush x:Key = "Brush1" Color = "#D66200" /></ResourceDictionary>
-		<ResourceDictionary><SolidColorBrush x:Key = "Brush2" Color = "#B5D136" /></ResourceDictionary>
-		<ResourceDictionary><SolidColorBrush x:Key = "Brush3" Color = "#F0D418" /></ResourceDictionary>
-		<ResourceDictionary><SolidColorBrush x:Key = "Brush4" Color = "#006EBF" /></ResourceDictionary>
-		<ResourceDictionary><SolidColorBrush x:Key = "Brush5" Color = "#27B08F" /></ResourceDictionary>
+		<ResourceDictionary><SolidColorBrush x:Key = "Brush1" Color = "#FF8054" /></ResourceDictionary>
+		<ResourceDictionary><SolidColorBrush x:Key = "Brush2" Color = "#9DD157" /></ResourceDictionary>
+		<ResourceDictionary><SolidColorBrush x:Key = "Brush3" Color = "#F0D155" /></ResourceDictionary>
+		<ResourceDictionary><SolidColorBrush x:Key = "Brush4" Color = "#4D8DBF" /></ResourceDictionary>
+		<ResourceDictionary><SolidColorBrush x:Key = "Brush5" Color = "#55B093" /></ResourceDictionary>
 		<ResourceDictionary><SolidColorBrush x:Key = "Brush6" Color = "#A56EBF" /></ResourceDictionary>
 	</chart:ResourceDictionaryCollection>
 
@@ -24,7 +24,7 @@
 
 	<!--GreenColors-->
 	<chart:ResourceDictionaryCollection x:Key = "GreenColors" >
-		<ResourceDictionary><SolidColorBrush x:Key = "Brush1" Color = "#B4E300" /></ResourceDictionary>
+		<ResourceDictionary><SolidColorBrush x:Key = "Brush1" Color = "#BBE553" /></ResourceDictionary>
 		<ResourceDictionary><SolidColorBrush x:Key = "Brush2" Color = "#90B500" /></ResourceDictionary>
 		<ResourceDictionary><SolidColorBrush x:Key = "Brush3" Color = "#CAFF00" /></ResourceDictionary>
 	</chart:ResourceDictionaryCollection>
