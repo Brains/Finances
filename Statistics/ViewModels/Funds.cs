@@ -141,6 +141,8 @@ namespace Statistics.ViewModels
 		{
 			var path = Path.Combine("Data", "Funds.xml");
 
+			if (!File.Exists(path)) return;
+
 			XElement file = XElement.Load(path);
 
 			Upwork = int.Parse(file.Element("Upwork").Value);
@@ -151,6 +153,12 @@ namespace Statistics.ViewModels
 		{
 			var path = Path.Combine("Data", "Funds.xml");
 
+			if (!File.Exists(path))
+			{
+				CreateDocument(path);
+				return;
+			}
+
 			XElement file = XElement.Load(path);
 
 			file.Element("Upwork").SetValue(Upwork);
@@ -160,6 +168,18 @@ namespace Statistics.ViewModels
 			file.Save(writer);
 			writer.Close();
         }
+
+		private void CreateDocument(string path)
+		{
+			XElement document = new XElement("data");
+
+			document.Add(new XElement("Upwork", Upwork));
+			document.Add(new XElement("Cash", Cash));
+
+			var writer = XmlWriter.Create(path);
+			document.Save(writer);
+			writer.Close();
+		}
 
 		public int CalculateEstimatedBalance()
 		{
