@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using Common.Events;
 using Finances.Properties;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
@@ -133,7 +134,7 @@ namespace Statistics.ViewModels
 
 			Total = Balance + Upwork * ExchangeRate;
 
-			events.GetEvent<UpdateTotalEvent>().Publish(Total);
+			events.GetEvent<UpdateTotal>().Publish(Total);
 		}
 
 		private void Load()

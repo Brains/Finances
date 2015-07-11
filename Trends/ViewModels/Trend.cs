@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Common.Events;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.PubSubEvents;
-using Statistics.ViewModels;
 
 namespace Trends.ViewModels
 {
@@ -27,7 +27,7 @@ namespace Trends.ViewModels
 		{
 			LoadOperations();
 
-			events.GetEvent<UpdateTotalEvent>().Subscribe(Update);
+			events.GetEvent<UpdateTotal>().Subscribe(Update);
 		}
 
 

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Common.Events;
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.PubSubEvents;
 using Tracker;
@@ -35,7 +36,7 @@ namespace Statistics.ViewModels
 		public Charts(IExpenses expenses, IEventAggregator eventAggregator)
 		{
 			this.expenses = expenses;
-			eventAggregator.GetEvent<AddRecordEvent>().Subscribe(record => Update());
+			eventAggregator.GetEvent<AddRecord>().Subscribe(record => Update());
 
 			Update();
 		}

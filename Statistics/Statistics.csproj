@@ -69,6 +69,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime">
       <HintPath>..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\System.Runtime.dll</HintPath>
@@ -99,7 +100,6 @@
     <Compile Include="Banking\XML.cs" />
     <Compile Include="ViewModels\Charts.cs" />
     <Compile Include="ViewModels\Funds.cs" />
-    <Compile Include="ViewModels\UpdateTotalEvent.cs" />
     <Compile Include="Views\Charts.xaml.cs">
       <DependentUpon>Charts.xaml</DependentUpon>
     </Compile>
