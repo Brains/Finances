@@ -9,13 +9,13 @@ using System.Windows.Input;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using Common;
 using Common.Events;
 using Finances.Properties;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.PubSubEvents;
 using Statistics.Banking;
-using Tracker;
 using Unity = Microsoft.Practices.Unity;
 
 namespace Statistics.ViewModels

@@ -2,10 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Common;
 using Common.Events;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Prism.PubSubEvents;
-using Tracker;
 
 namespace Statistics.Banking
 {

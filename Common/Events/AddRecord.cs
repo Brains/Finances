@@ -2,5 +2,5 @@
 
 namespace Common.Events
 {
-	public class AddRecord : PubSubEvent<IRecord>{}
+	public class AddRecord : PubSubEvent<Record>{}
 }

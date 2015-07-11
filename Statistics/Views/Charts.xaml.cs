@@ -5,7 +5,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Practices.Unity;
-using Tracker;
 
 namespace Statistics.Views
 {
