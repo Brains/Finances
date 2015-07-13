@@ -5,7 +5,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using System.Xml.Serialization;
 using Common;
 using Common.Events;
 using Finances.Properties;
@@ -23,74 +22,39 @@ namespace Statistics.ViewModels
 		private readonly IExpenses expenses;
 		private readonly IEventAggregator events;
 
-		private int total;
-		private int balance;
-		private int divergence;
-
-		private int exchangeRate;
-
 		public IStorage<int> Upwork { get; set; }
 		public IStorage<int> Cards { get; set; }
 		public IStorage<int> Cash { get; set; }
 		public IStorage<int> Debt { get; set; }
 
-		public Dictionary<Record.Categories, decimal> Debts { get; set; }
-
-		public int Total
-		{
-			get { return total; }
-			set
-			{
-				total = value;
-				OnPropertyChanged(nameof(Total));
-			}
-		}
-
-		public int Balance
-		{
-			get { return balance; }
-			set
-			{
-				balance = value;
-				OnPropertyChanged(nameof(Balance));
-			}
-		}
-
-		public int Divergence
-		{
-			get { return divergence; }
-			set
-			{
-				divergence = value;
-				OnPropertyChanged(nameof(Divergence));
-			}
-		}
+		public int Total { get; set; }
+		public int Divergence { get; set; }
 
 		public Funds(IExpenses expenses, IEventAggregator events)
 		{
-			exchangeRate = Settings.Default.ExchangeRate;
-
 			this.expenses = expenses;
 			this.events = events;
 
 			Upwork = new Input(nameof(Upwork));
-			Upwork.PropertyChanged += (s, a) => Update();
 			Cash = new Input(nameof(Cash));
-			Cash.PropertyChanged += (s, a) => Update();
 			Cards = new PrivatBank();
-			Cards.PropertyChanged += (s, a) => Update();
 			Debt = new Debts(expenses, events);
-			Debt.PropertyChanged += (s, a) => Update();
 
-			Debts = (Debt as Debts).Calculate();
+			Upwork.PropertyChanged += Update;
+			Cash.PropertyChanged += Update;
+			Cards.PropertyChanged += Update;
+			Debt.PropertyChanged += Update;
 		}
 
-		private void Update()
+		private void Update(object sender, PropertyChangedEventArgs args)
 		{
-			Balance = Cards.Value + Cash.Value + Debt.Value;
-			Divergence = Balance - CalculateEstimatedBalance();
+			var balance = Cards.Value + Cash.Value + Debt.Value;
 
-			Total = Balance + Upwork.Value * exchangeRate;
+			Divergence = balance - CalculateEstimatedBalance();
+			Total = balance + Upwork.Value * Settings.Default.ExchangeRate;
+
+			OnPropertyChanged(nameof(Total));
+			OnPropertyChanged(nameof(Divergence));
 
 			events.GetEvent<UpdateTotal>().Publish(Total);
 		}
