@@ -2,12 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using System.Xml;
-using System.Xml.Linq;
 using System.Xml.Serialization;
 using Common;
 using Common.Events;
@@ -26,61 +23,16 @@ namespace Statistics.ViewModels
 		private readonly IExpenses expenses;
 		private readonly IEventAggregator events;
 
-		private int cards;
-		private int debt;
-		private int cash;
-		private int upwork;
 		private int total;
 		private int balance;
 		private int divergence;
 
 		private int exchangeRate;
 
-		public int Upwork
-		{
-			get { return upwork; }
-			set
-			{
-				upwork = value;
-				Update();
-				Save();
-				OnPropertyChanged(nameof(Upwork));
-			}
-		}
-
-		public int Cards
-		{
-			get { return cards; }
-			set
-			{
-				cards = value;
-				OnPropertyChanged(nameof(Cards));
-				Update();
-			}
-		}
-
-		public int Cash
-		{
-			get { return cash; }
-			set
-			{
-				cash = value;
-				Update();
-				Save();
-				OnPropertyChanged(nameof(Cash));
-			}
-		}
-
-		public int Debt
-		{
-			get { return debt; }
-			set
-			{
-				debt = value;
-				OnPropertyChanged(nameof(Debt));
-				Update();
-			}
-		}
+		public IStorage<int> Upwork { get; set; }
+		public IStorage<int> Cards { get; set; }
+		public IStorage<int> Cash { get; set; }
+		public IStorage<int> Debt { get; set; }
 
 		public Dictionary<Record.Categories, decimal> Debts { get; set; }
 
@@ -114,73 +66,33 @@ namespace Statistics.ViewModels
 			}
 		}
 
-		public Funds(IExpenses expenses, [Unity.Dependency("bank")] IFundsStorage bank,
-		             [Unity.Dependency("debt")] IFundsStorage debt, IEventAggregator eventAggregator)
+		public Funds(IExpenses expenses, IEventAggregator events)
 		{
-			this.expenses = expenses;
 			exchangeRate = Settings.Default.ExchangeRate;
-			this.events = eventAggregator;
 
-			Load();
+			this.expenses = expenses;
+			this.events = events;
 
-			bank.Get(amount => Cards = (int) amount);
-			debt.Get(amount => Debt = (int) amount);
+			Upwork = new Input(nameof(Upwork));
+			Upwork.PropertyChanged += (s, a) => Update();
+			Cash = new Input(nameof(Cash));
+			Cash.PropertyChanged += (s, a) => Update();
+			Cards = new PrivatBank();
+			Cards.PropertyChanged += (s, a) => Update();
+			Debt = new Debts(expenses, events);
+			Debt.PropertyChanged += (s, a) => Update();
 
-			Debts = (debt as Debts).Calculate();
+			Debts = (Debt as Debts).Calculate();
 		}
 
 		private void Update()
 		{
-			Balance = Cards + Cash + Debt;
+			Balance = Cards.Value + Cash.Value + Debt.Value;
 			Divergence = Balance - CalculateEstimatedBalance();
 
-			Total = Balance + Upwork * exchangeRate;
+			Total = Balance + Upwork.Value * exchangeRate;
 
 			events.GetEvent<UpdateTotal>().Publish(Total);
-		}
-
-		private void Load()
-		{
-			var path = Path.Combine("Data", "Funds.xml");
-
-			if (!File.Exists(path)) return;
-
-			XElement file = XElement.Load(path);
-
-			Upwork = int.Parse(file.Element("Upwork").Value);
-			Cash = int.Parse(file.Element("Cash").Value);
-		}
-
-		private void Save()
-		{
-			var path = Path.Combine("Data", "Funds.xml");
-
-			if (!File.Exists(path))
-			{
-				CreateDocument(path);
-				return;
-			}
-
-			XElement file = XElement.Load(path);
-
-			file.Element("Upwork").SetValue(Upwork);
-			file.Element("Cash").SetValue(Cash);
-
-			var writer = XmlWriter.Create(path);
-			file.Save(writer);
-			writer.Close();
-        }
-
-		private void CreateDocument(string path)
-		{
-			XElement document = new XElement("data");
-
-			document.Add(new XElement("Upwork", Upwork));
-			document.Add(new XElement("Cash", Cash));
-
-			var writer = XmlWriter.Create(path);
-			document.Save(writer);
-			writer.Close();
 		}
 
 		public int CalculateEstimatedBalance()
