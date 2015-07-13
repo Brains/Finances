@@ -91,12 +91,12 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Banking\Debts.cs" />
-    <Compile Include="Banking\Encryption.cs" />
-    <Compile Include="Banking\IRecordsProvider.cs" />
-    <Compile Include="Banking\Parser.cs" />
-    <Compile Include="Banking\PrivatBank.cs" />
-    <Compile Include="Banking\XML.cs" />
+    <Compile Include="Storages\Banking\Encryption.cs" />
+    <Compile Include="Storages\Banking\IRecordsProvider.cs" />
+    <Compile Include="Storages\Banking\Parser.cs" />
+    <Compile Include="Storages\Banking\PrivatBank.cs" />
+    <Compile Include="Storages\Banking\XML.cs" />
+    <Compile Include="Storages\Debts.cs" />
     <Compile Include="Storages\FileStorage.cs" />
     <Compile Include="Storages\Input.cs" />
     <Compile Include="Storages\IStorage.cs" />

@@ -11,8 +11,8 @@ using Finances.Properties;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.PubSubEvents;
-using Statistics.Banking;
 using Statistics.Storages;
+using Statistics.Storages.Banking;
 using Unity = Microsoft.Practices.Unity;
 
 namespace Statistics.ViewModels

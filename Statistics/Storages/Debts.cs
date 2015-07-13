@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Common;
 using Common.Events;
-using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.PubSubEvents;
-using Statistics.Storages;
 
-namespace Statistics.Banking
+namespace Statistics.Storages
 {
 	public class Debts : BindableBase, IStorage<int>
 	{

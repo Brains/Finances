@@ -1,15 +1,13 @@
 using System;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
-using Visualization.Banking;
 
 // ReSharper disable PossibleNullReferenceException
 // ReSharper disable InconsistentNaming
 
-namespace Statistics.Banking
+namespace Statistics.Storages.Banking
 {
 	public struct PersonalData
 	{

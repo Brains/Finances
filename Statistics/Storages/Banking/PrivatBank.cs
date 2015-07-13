@@ -1,21 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Configuration;
-using System.IO;
 using System.Net;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Common;
-using Finances.Properties;
 using Microsoft.Practices.Prism.Mvvm;
-using Statistics.Storages;
-using Statistics.ViewModels;
-using Visualization.Banking;
 
-namespace Statistics.Banking
+namespace Statistics.Storages.Banking
 {
 	public class PrivatBank : BindableBase, IRecordsProvider, IStorage<int>
 	{
