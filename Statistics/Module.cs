@@ -19,10 +19,6 @@ namespace Statistics
 
 		public void Initialize ()
 		{
-			container.RegisterType<IFundsStorage, PrivatBank>("bank");
-			container.RegisterType<IFundsStorage, Debts>("debt");
-
-
 			var regionManager = container.Resolve<IRegionManager>();
 
 			regionManager.RegisterViewWithRegion("Funds", () => this.container.Resolve<Views.Funds>());

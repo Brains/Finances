@@ -17,7 +17,7 @@ using Visualization.Banking;
 
 namespace Statistics.Banking
 {
-	public class PrivatBank : BindableBase, IFundsStorage, IRecordsProvider, IStorage<int>
+	public class PrivatBank : BindableBase, IRecordsProvider, IStorage<int>
 	{
 		private readonly string historyUrl = "https://api.privatbank.ua/p24api/rest_fiz";
 		private readonly string balanceUrl = "https://api.privatbank.ua/p24api/balance";
