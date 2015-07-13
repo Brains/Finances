@@ -1,11 +1,11 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace Statistics.Storages
 {
-	public interface IStorage<T>
+	public interface IStorage<T> : INotifyPropertyChanged
 	{
-		event Action<T> Updated;
-		T Value { get; set; }
 		string Name { get; set; }
+		T Value { get; set; }
 	}
 }

@@ -1,20 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Configuration;
 using System.IO;
 using System.Net;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Common;
 using Finances.Properties;
+using Microsoft.Practices.Prism.Mvvm;
 using Statistics.Storages;
 using Statistics.ViewModels;
 using Visualization.Banking;
 
 namespace Statistics.Banking
 {
-	public class PrivatBank : IFundsStorage, IRecordsProvider, IStorage<decimal>
+	public class PrivatBank : BindableBase, IFundsStorage, IRecordsProvider, IStorage<decimal>
 	{
 		private readonly string historyUrl = "https://api.privatbank.ua/p24api/rest_fiz";
 		private readonly string balanceUrl = "https://api.privatbank.ua/p24api/balance";
@@ -84,7 +87,6 @@ namespace Statistics.Banking
 				</data>
 			</request>";
 
-		public event Action<decimal> Updated = delegate {};
 		public decimal Value { get; set; }
 		public string Name { get; set; }
 
@@ -101,8 +103,9 @@ namespace Statistics.Banking
 			var responce = await SendData(balanceUrl, file);
 			Value = Parser.ParseBalance(responce);
 
-			Updated(Value);
-
+			OnPropertyChanged("Value");
 		}
+
+
 	}
 }

@@ -1,14 +1,16 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Xml.Linq;
+using Microsoft.Practices.Prism.Mvvm;
 
 namespace Statistics.Storages
 {
-	public class Input : IStorage<decimal>
+	public class Input :BindableBase, IStorage<decimal>
 	{
 		private decimal value;
 		private readonly FileStorage file;
-		public event Action<decimal> Updated = delegate {};
 
 		public decimal Value
 		{
@@ -16,8 +18,8 @@ namespace Statistics.Storages
 			set
 			{
 				this.value = value;
-				Updated(this.value);
 				file.Save(Name, Value);
+				OnPropertyChanged("Value");
 			}
 		}
 
@@ -26,7 +28,6 @@ namespace Statistics.Storages
 		public Input(string name)
 		{
 			Name = name;
-
 			file = new FileStorage();
 			value = file.Load(Name);
 		}
@@ -36,5 +37,7 @@ namespace Statistics.Storages
 		{
 			return "ASS";
 		}
+
+
 	}
 }
