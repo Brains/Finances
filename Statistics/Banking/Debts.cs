@@ -1,24 +1,31 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Common;
 using Common.Events;
 using Microsoft.Practices.ObjectBuilder2;
+using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.PubSubEvents;
+using Statistics.Storages;
 
 namespace Statistics.Banking
 {
-	public class Debts : IFundsStorage
+	public class Debts : BindableBase, IFundsStorage, IStorage<decimal>
 	{
 		private readonly IEnumerable<Record> records;
 		private Action<decimal> callback;
+		public decimal Value { get; set; }
 
 		public Debts(IExpenses expenses, IEventAggregator eventAggregator)
 		{
 			eventAggregator.GetEvent<AddRecord>().Subscribe(record => CalculateDebts(callback), true);
 
 			records = expenses.Records;
+
+			Value = CalculateDebts();
+			OnPropertyChanged("Value");
 		}
 
 		void IFundsStorage.Get(Action<decimal> callback)
@@ -33,6 +40,13 @@ namespace Statistics.Banking
 			var debts = CalculateDebts(records);
 
 			callback(debts.Sum(pair => pair.Value));
+		}
+
+		private decimal CalculateDebts()
+		{
+			var debts = CalculateDebts(records);
+
+			return debts.Sum(pair => pair.Value);
 		}
 
 		public Dictionary<Record.Categories, decimal> Calculate()
