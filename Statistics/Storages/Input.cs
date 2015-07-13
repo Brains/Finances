@@ -7,7 +7,7 @@ namespace Statistics.Storages
 	public class Input : IStorage<decimal>
 	{
 		private decimal value;
-		private readonly FileStorage fileStorage;
+		private readonly FileStorage file;
 		public event Action<decimal> Updated = delegate {};
 
 		public decimal Value
@@ -17,6 +17,7 @@ namespace Statistics.Storages
 			{
 				this.value = value;
 				Updated(this.value);
+				file.Save(Name, Value);
 			}
 		}
 
@@ -26,8 +27,8 @@ namespace Statistics.Storages
 		{
 			Name = name;
 
-			fileStorage = new FileStorage();
-			Value = fileStorage.Load(Name);
+			file = new FileStorage();
+			value = file.Load(Name);
 		}
 
 
