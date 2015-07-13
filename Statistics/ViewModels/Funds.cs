@@ -16,14 +16,13 @@ using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.PubSubEvents;
 using Statistics.Banking;
+using Statistics.Storages;
 using Unity = Microsoft.Practices.Unity;
 
 namespace Statistics.ViewModels
 {
 	public class Funds : BindableBase
 	{
-		public const int ExchangeRate = 21;
-
 		private readonly IExpenses expenses;
 		private readonly IEventAggregator events;
 
@@ -34,6 +33,8 @@ namespace Statistics.ViewModels
 		private int total;
 		private int balance;
 		private int divergence;
+
+		private int exchangeRate;
 
 		public int Upwork
 		{
@@ -117,6 +118,7 @@ namespace Statistics.ViewModels
 		             [Unity.Dependency("debt")] IFundsStorage debt, IEventAggregator eventAggregator)
 		{
 			this.expenses = expenses;
+			exchangeRate = Settings.Default.ExchangeRate;
 			this.events = eventAggregator;
 
 			Load();
@@ -132,7 +134,7 @@ namespace Statistics.ViewModels
 			Balance = Cards + Cash + Debt;
 			Divergence = Balance - CalculateEstimatedBalance();
 
-			Total = Balance + Upwork * ExchangeRate;
+			Total = Balance + Upwork * exchangeRate;
 
 			events.GetEvent<UpdateTotal>().Publish(Total);
 		}
