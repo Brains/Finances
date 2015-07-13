@@ -22,13 +22,20 @@ namespace Statistics.Banking
 		private readonly string historyUrl = "https://api.privatbank.ua/p24api/rest_fiz";
 		private readonly string balanceUrl = "https://api.privatbank.ua/p24api/balance";
 
-		public async void Get(Action<decimal> callback)
+		public int Value { get; set; }
+
+		public PrivatBank()
+		{
+			SendRequest();
+		}
+
+		private async void SendRequest()
 		{
 			var file = PrepareData();
 			var responce = await SendData(balanceUrl, file);
-			var result = Parser.ParseBalance(responce);
+			Value = (int) Parser.ParseBalance(responce);
 
-			callback(result);
+			OnPropertyChanged("Value");
 		}
 
 		public async void Get(Action<IEnumerable<Record>> callback)
@@ -86,25 +93,5 @@ namespace Statistics.Banking
 					</payment>
 				</data>
 			</request>";
-
-		public int Value { get; set; }
-
-		public PrivatBank()
-		{
-//			Name = name;
-
-			SendRequest();
-		}
-
-		private async void SendRequest()
-		{
-			var file = PrepareData();
-			var responce = await SendData(balanceUrl, file);
-			Value = (int) Parser.ParseBalance(responce);
-
-			OnPropertyChanged("Value");
-		}
-
-
 	}
 }
