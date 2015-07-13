@@ -88,7 +88,6 @@ namespace Statistics.Banking
 			</request>";
 
 		public decimal Value { get; set; }
-		public string Name { get; set; }
 
 		public PrivatBank()
 		{
