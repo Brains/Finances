@@ -8,11 +8,13 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Common;
 using Finances.Properties;
+using Statistics.Storages;
+using Statistics.ViewModels;
 using Visualization.Banking;
 
 namespace Statistics.Banking
 {
-	public class PrivatBank : IFundsStorage, IRecordsProvider
+	public class PrivatBank : IFundsStorage, IRecordsProvider, IStorage<decimal>
 	{
 		private readonly string historyUrl = "https://api.privatbank.ua/p24api/rest_fiz";
 		private readonly string balanceUrl = "https://api.privatbank.ua/p24api/balance";
@@ -81,5 +83,26 @@ namespace Statistics.Banking
 					</payment>
 				</data>
 			</request>";
+
+		public event Action<decimal> Updated = delegate {};
+		public decimal Value { get; set; }
+		public string Name { get; set; }
+
+		public PrivatBank()
+		{
+//			Name = name;
+
+			SendRequest();
+		}
+
+		private async void SendRequest()
+		{
+			var file = PrepareData();
+			var responce = await SendData(balanceUrl, file);
+			Value = Parser.ParseBalance(responce);
+
+			Updated(Value);
+
+		}
 	}
 }
