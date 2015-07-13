@@ -98,6 +98,9 @@
     <Compile Include="Banking\Parser.cs" />
     <Compile Include="Banking\PrivatBank.cs" />
     <Compile Include="Banking\XML.cs" />
+    <Compile Include="Storages\FileStorage.cs" />
+    <Compile Include="Storages\Input.cs" />
+    <Compile Include="Storages\IStorage.cs" />
     <Compile Include="ViewModels\Charts.cs" />
     <Compile Include="ViewModels\Funds.cs" />
     <Compile Include="Views\Charts.xaml.cs">
