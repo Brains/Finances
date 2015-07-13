@@ -7,12 +7,12 @@ using Microsoft.Practices.Prism.Mvvm;
 
 namespace Statistics.Storages
 {
-	public class Input :BindableBase, IStorage<decimal>
+	public class Input :BindableBase, IStorage<int>
 	{
-		private decimal value;
+		private int value;
 		private readonly FileStorage file;
 
-		public decimal Value
+		public int Value
 		{
 			get { return value; }
 			set
@@ -29,7 +29,7 @@ namespace Statistics.Storages
 		{
 			Name = name;
 			file = new FileStorage();
-			value = file.Load(Name);
+			value = (int) file.Load(Name);
 		}
 
 

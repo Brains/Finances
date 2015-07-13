@@ -12,11 +12,11 @@ using Statistics.Storages;
 
 namespace Statistics.Banking
 {
-	public class Debts : BindableBase, IFundsStorage, IStorage<decimal>
+	public class Debts : BindableBase, IFundsStorage, IStorage<int>
 	{
 		private readonly IEnumerable<Record> records;
 		private Action<decimal> callback;
-		public decimal Value { get; set; }
+		public int Value { get; set; }
 
 		public Debts(IExpenses expenses, IEventAggregator eventAggregator)
 		{
@@ -24,7 +24,7 @@ namespace Statistics.Banking
 
 			records = expenses.Records;
 
-			Value = CalculateDebts();
+			Value = (int) CalculateDebts();
 			OnPropertyChanged("Value");
 		}
 
