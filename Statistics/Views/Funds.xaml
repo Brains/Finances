@@ -65,8 +65,6 @@
 
 		<Label Content = "Divergence" />
 		<TextBox Text = "{Binding Divergence}" Grid.Row = "0" Grid.Column = "1" Foreground = "{Binding Divergence, Converter={StaticResource NumberToColor}}" />
-		<Label Content = "Balance" Grid.Row = "0" Grid.Column = "2" Opacity = "0.5" />
-		<TextBox Text = "{Binding Balance}" Grid.Row = "0" Grid.Column = "3" Opacity = "0.5" />
 
 		<Label Content = "Upwork" Grid.Row = "1" Grid.Column = "0" />
 		<TextBox Text = "{Binding Upwork.Value, StringFormat=\{0\}$}" Grid.Column = "1" Grid.Row = "1" IsEnabled = "True" />
@@ -77,10 +75,11 @@
 
 		<Label Content = "Debt" Grid.Row = "2" Grid.Column = "0" />
 		<TextBox Text = "{Binding Debt.Value}" Grid.Row = "2" Grid.Column = "1" />
-		<Label Content = "Maxim" Grid.Row = "2" Grid.Column = "2" Opacity = "0.5" />
-		<TextBox Text = "{Binding Debt.Dudes[Maxim]}" Grid.Row = "2" Grid.Column = "3" Opacity = "0.5" />
-		<Label Content = "Andrey" Grid.Column = "4" Grid.Row = "2" Opacity = "0.5" />
-		<TextBox Text = "{Binding Debt.Dudes[Andrey]}" Grid.Column = "5" Grid.Row = "2" Opacity = "0.5" />
+		
+<!--		<Label Content = "Maxim" Grid.Row = "2" Grid.Column = "2" Opacity = "0.5" />-->
+<!--		<TextBox Text = "{Binding Debt.Dudes[Maxim]}" Grid.Row = "2" Grid.Column = "3" Opacity = "0.5" />-->
+<!--		<Label Content = "Andrey" Grid.Column = "4" Grid.Row = "2" Opacity = "0.5" />-->
+<!--		<TextBox Text = "{Binding Debt.Dudes[Andrey]}" Grid.Column = "5" Grid.Row = "2" Opacity = "0.5" />-->
 
 		<Label FontSize = "50" Content = "Total" Grid.Column = "6" Grid.Row = "0" Grid.RowSpan = "3" Margin = "80, 0, 10, 0" />
 		<TextBox Text = "{Binding Total}" FontSize = "50" Grid.Column = "7" Grid.Row = "0" Grid.RowSpan = "3" />
