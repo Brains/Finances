@@ -4,8 +4,10 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 using Common;
 using Common.Events;
+using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.PubSubEvents;
 using static Common.Record;
@@ -22,7 +24,6 @@ namespace Statistics.ViewModels
 		private readonly IExpenses expenses;
 		private int month = DateTime.Now.Month;
 		private Dictionary<Types, List<Record>> types;
-		private readonly Funds funds;
 
 		private IEnumerable<Record> Records { get; set; }
 		public string Month { get; set; }
@@ -32,20 +33,26 @@ namespace Statistics.ViewModels
 		public Data Spending { get; set; }
 		public Data Incomes { get; set; }
 		public Data SpendingByType { get; set; }
+		public ICommand NextMonth { get; set; }
+		public ICommand PreviousMonth { get; set; }
 
 		public Charts(IExpenses expenses, IEventAggregator eventAggregator)
 		{
 			this.expenses = expenses;
-			eventAggregator.GetEvent<AddRecord>().Subscribe(record => Update());
+			eventAggregator.GetEvent<AddRecord>().Subscribe(record => Update(month));
 
-			Update();
+			NextMonth = new DelegateCommand(() => ShiftMonth(1));
+			PreviousMonth = new DelegateCommand(() => ShiftMonth(-1));
+
+			Update(month);
 		}
 
-		public void Update()
+		public void Update(int selectedMonth)
 		{
-			Records = GetRecordsByMonth(expenses.Records, month).ToList();
 			Month = DateTimeFormatInfo.CurrentInfo.GetMonthName(month);
+			OnPropertyChanged("Month");
 
+			Records = GetRecordsByMonth(expenses.Records, selectedMonth).ToList();
 			types = GroupByType(Records);
 
 			SpendingByDate = GetSpendingByDate(Records);
@@ -149,6 +156,16 @@ namespace Statistics.ViewModels
 
 				["Income"] = (int) Records.Where(record => record.Type == Income).Sum(amount),
 			};
+		}
+
+		private void ShiftMonth(int shift)
+		{
+			var year = DateTime.Now.Year;
+			DateTime date = new DateTime(year, month, 1);
+
+			month = date.AddMonths(shift).Month;
+
+			Update(month);
 		}
 	}
 }
