@@ -31,13 +31,5 @@ namespace Statistics.Storages
 			file = new FileStorage();
 			value = (int) file.Load(Name);
 		}
-
-
-		public override string ToString()
-		{
-			return "ASS";
-		}
-
-
 	}
 }

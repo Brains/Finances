@@ -26,8 +26,8 @@ namespace Statistics.Storages.Banking
 		{
 			var file = PrepareData();
 			var responce = await SendData(balanceUrl, file);
-			Value = (int) Parser.ParseBalance(responce);
 
+			Value = (int) Parser.ParseBalance(responce);
 			OnPropertyChanged("Value");
 		}
 
