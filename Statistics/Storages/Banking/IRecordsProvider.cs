@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Common;
 
-namespace Statistics.Banking
+namespace Statistics.Storages.Banking
 {
 	public interface IRecordsProvider
 	{

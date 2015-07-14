@@ -1,29 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Common;
-using Finances.Properties;
-using Visualization.Banking;
+using Microsoft.Practices.Prism.Mvvm;
 
-namespace Statistics.Banking
+namespace Statistics.Storages.Banking
 {
-	public class PrivatBank : IFundsStorage, IRecordsProvider
+	public class PrivatBank : BindableBase, IRecordsProvider, IStorage<int>
 	{
 		private readonly string historyUrl = "https://api.privatbank.ua/p24api/rest_fiz";
 		private readonly string balanceUrl = "https://api.privatbank.ua/p24api/balance";
 
-		public async void Get(Action<decimal> callback)
+		public int Value { get; set; }
+
+		public PrivatBank()
+		{
+			SendRequest();
+		}
+
+		private async void SendRequest()
 		{
 			var file = PrepareData();
 			var responce = await SendData(balanceUrl, file);
-			var result = Parser.ParseBalance(responce);
 
-			callback(result);
+			Value = (int) Parser.ParseBalance(responce);
+			OnPropertyChanged("Value");
 		}
 
 		public async void Get(Action<IEnumerable<Record>> callback)

@@ -1,87 +1,91 @@
-﻿<UserControl x:Class = "Statistics.Views.Funds" xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc = "http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d = "http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:interactivity = "http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:converters = "clr-namespace:Statistics.Views.Converters"
-             xmlns:system = "clr-namespace:System;assembly=mscorlib"
-             mc:Ignorable = "d" d:DesignHeight = "400"
-             d:DesignWidth = "600" KeyboardNavigation.TabNavigation = "Cycle" KeyboardNavigation.TabIndex = "0" >
+﻿<UserControl x:Class="Statistics.Views.Funds" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:interactivity="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:converters="clr-namespace:Statistics.Views.Converters"
+             xmlns:system="clr-namespace:System;assembly=mscorlib" 
+			 mc:Ignorable="d" 
+			 d:DesignHeight="400" d:DesignWidth="600" 
+			 KeyboardNavigation.TabNavigation="Cycle" KeyboardNavigation.TabIndex="0">
 
 	<UserControl.Resources>
 		<ResourceDictionary>
 
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source = "pack://application:,,,/MahApps.Metro;component/Styles/Accents/lime.xaml" />
+				<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/lime.xaml"/>
 			</ResourceDictionary.MergedDictionaries>
 
-			<converters:NumberToColor x:Key = "NumberToColor" />
-			<system:Double x:Key = "SmallerSize">16</system:Double>
+			<converters:NumberToColor x:Key="NumberToColor"/>
+			<system:Double x:Key="NormalFontSize">22</system:Double>
+			<system:Double x:Key="BigFontSize">42</system:Double>
+			<Thickness x:Key="BigLeftMargin">50, 0, 10, 0</Thickness>
 
-			<Style TargetType = "Label" >
-				<Setter Property = "FontSize" Value = "24" />
-				<Setter Property = "Foreground" Value = "{StaticResource AccentColorBrush}" />
-				<Setter Property = "FontFamily" Value = "Segoe UI" />
-				<Setter Property = "FontWeight" Value = "Light" />
-				<Setter Property = "VerticalAlignment" Value = "Center" />
-				<Setter Property = "HorizontalAlignment" Value = "Left" />
-				<Setter Property = "Margin" Value = "30, 5, 0, 0" />
+			<Style TargetType="Label">
+				<Setter Property="FontSize" Value="{StaticResource NormalFontSize}"/>
+				<Setter Property="Foreground" Value="{StaticResource AccentColorBrush}"/>
+				<Setter Property="FontFamily" Value="Segoe UI"/>
+				<Setter Property="FontWeight" Value="Light"/>
+				<Setter Property="VerticalAlignment" Value="Center"/>
+				<Setter Property="Padding" Value="30, 5, 10, 0"/>
+				<Setter Property="MinWidth" Value="{Binding ActualWidth, ElementName=UpworkLabel}"/>
 			</Style>
 
-			<Style TargetType = "TextBox" >
-				<Setter Property = "FontSize" Value = "24" />
-				<Setter Property = "Foreground" Value = "DimGray" />
-				<Setter Property = "FontFamily" Value = "Segoe UI" />
-				<Setter Property = "FontWeight" Value = "Light" />
-				<Setter Property = "BorderThickness" Value = "0" />
-				<Setter Property = "VerticalAlignment" Value = "Center" />
-				<Setter Property = "HorizontalAlignment" Value = "Left" />
-				<Setter Property = "IsEnabled" Value = "False" />
-				<Setter Property = "Margin" Value = "0, 5, 0, 0" />
+			<Style TargetType="TextBox">
+				<Setter Property="FontSize" Value="{StaticResource NormalFontSize}"/>
+				<Setter Property="Foreground" Value="Gray"/>
+				<Setter Property="FontFamily" Value="Segoe UI"/>
+				<Setter Property="FontWeight" Value="Light"/>
+				<Setter Property="BorderThickness" Value="0"/>
+				<Setter Property="VerticalAlignment" Value="Center"/>
+				<Setter Property="IsReadOnly" Value="True"/>
+				<Setter Property="Margin" Value="0, 5, 0, 0"/>
 			</Style>
+
+			<StackPanel x:Key="DebtsToolTip" Orientation="Vertical">
+				<StackPanel.Resources>
+					<Thickness x:Key="Padding">10, 5, 10, 0</Thickness>
+				</StackPanel.Resources>
+
+				<StackPanel Orientation="Horizontal">
+					<Label Content="Maxim" Padding="{StaticResource Padding}"/>
+					<TextBox Text="{Binding Debt.Dudes[Maxim]}"/>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal">
+					<Label Content="Andrey" Padding="{StaticResource Padding}"/>
+					<TextBox Text="{Binding Debt.Dudes[Andrey]}"/>
+				</StackPanel>
+			</StackPanel>
 
 		</ResourceDictionary>
 	</UserControl.Resources>
 
-	<Grid VerticalAlignment = "Top" HorizontalAlignment = "Left" >
-		<Grid.RowDefinitions>
-			<RowDefinition Height = "Auto" />
-			<RowDefinition Height = "Auto" />
-			<RowDefinition Height = "Auto" />
-		</Grid.RowDefinitions>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width = "Auto" />
-			<ColumnDefinition Width = "Auto" />
-			<ColumnDefinition Width = "Auto" />
-			<ColumnDefinition Width = "Auto" />
-			<ColumnDefinition Width = "Auto" />
-			<ColumnDefinition Width = "Auto" />
-			<ColumnDefinition Width = "Auto" />
-			<ColumnDefinition Width = "Auto" />
-		</Grid.ColumnDefinitions>
+	<StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+		<StackPanel Orientation="Vertical">
+			<DockPanel>
+				<Label Content="_Upwork" Target="{Binding ElementName=UpworkTextBox}" Name="UpworkLabel"/>
+				<TextBox Text="{Binding Upwork.Value, StringFormat=\{0\}$}" IsReadOnly="False" Name="UpworkTextBox"/>
+			</DockPanel>
+			<DockPanel>
+				<Label Content="_Cash" Target="{Binding ElementName=CashTextBox}"/>
+				<TextBox Text="{Binding Cash.Value}" IsReadOnly="False" Name="CashTextBox"/>
+			</DockPanel>
+			<DockPanel>
+				<Label Content="Cards"/>
+				<TextBox Text="{Binding Cards.Value}"/>
+			</DockPanel>
+			<DockPanel>
+				<Label Content="Debt"/>
+				<TextBox Text="{Binding Debt.Value}" IsEnabled="True" ToolTip="{StaticResource DebtsToolTip}"/>
+			</DockPanel>
+		</StackPanel>
 
-		<Label Content = "Divergence" />
-		<TextBox Text = "{Binding Divergence}" Grid.Row = "0" Grid.Column = "1" Foreground = "{Binding Divergence, Converter={StaticResource NumberToColor}}" />
-		<Label Content = "Balance" Grid.Row = "0" Grid.Column = "2" Opacity="0.5"/>
-		<TextBox Text = "{Binding Balance}" Grid.Row = "0" Grid.Column = "3" Opacity="0.5"/>
+		<Label FontSize="{StaticResource BigFontSize}" Content="Total" Margin="{StaticResource BigLeftMargin}"/>
+		<TextBox Text="{Binding Total}" FontSize="{StaticResource BigFontSize}"/>
 
-		<Label Content = "Upwork" Grid.Row = "1" Grid.Column = "0" />
-		<TextBox Text = "{Binding Upwork, StringFormat=\{0\}$}" Grid.Column = "1" Grid.Row = "1" IsEnabled="True"/>
-		<Label Content = "Cash" Grid.Column = "2" Grid.Row = "1" />
-		<TextBox Text = "{Binding Cash}" Grid.Column = "3" Grid.Row = "1" IsEnabled="True"/>
-		<Label Content = "Cards" Grid.Column = "4" Grid.Row = "1" />
-		<TextBox Text = "{Binding Cards}" Grid.Column = "5" Grid.Row = "1" />
-
-		<Label Content = "Debt" Grid.Row = "2" Grid.Column = "0" />
-		<TextBox Text = "{Binding Debt}" Grid.Row = "2" Grid.Column = "1" />
-		<Label Content = "Maxim" Grid.Row = "2" Grid.Column = "2" Opacity="0.5"/>
-		<TextBox Text = "{Binding Debts[Maxim]}" Grid.Row = "2" Grid.Column = "3" Opacity="0.5"/>
-		<Label Content = "Andrey" Grid.Column = "4" Grid.Row = "2" Opacity="0.5"/>
-		<TextBox Text = "{Binding Debts[Andrey]}" Grid.Column = "5" Grid.Row = "2" Opacity="0.5"/>
-
-		<Label FontSize = "50" Content = "Total" Grid.Column = "6" Grid.Row = "0" Grid.RowSpan = "3" Margin="80, 0, 10, 0" />
-		<TextBox Text = "{Binding Total}" FontSize = "50" Grid.Column = "7" Grid.Row = "0" Grid.RowSpan = "3" />
-
-	</Grid>
+		<Label Content="Divergence" FontSize="{StaticResource BigFontSize}" Margin="{StaticResource BigLeftMargin}"/>
+		<TextBox Text="{Binding Divergence, StringFormat={}{0:+#;-#;0}}" FontSize="{StaticResource BigFontSize}"
+		         Foreground="{Binding Divergence, Converter={StaticResource NumberToColor}}"/>
+	</StackPanel>
 
 </UserControl>

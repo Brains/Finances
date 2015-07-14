@@ -2,183 +2,61 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using System.Xml;
-using System.Xml.Linq;
-using System.Xml.Serialization;
 using Common;
 using Common.Events;
 using Finances.Properties;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.PubSubEvents;
-using Statistics.Banking;
+using Statistics.Storages;
+using Statistics.Storages.Banking;
 using Unity = Microsoft.Practices.Unity;
 
 namespace Statistics.ViewModels
 {
 	public class Funds : BindableBase
 	{
-		public const int ExchangeRate = 21;
-
 		private readonly IExpenses expenses;
 		private readonly IEventAggregator events;
 
-		private int cards;
-		private int debt;
-		private int cash;
-		private int upwork;
-		private int total;
-		private int balance;
-		private int divergence;
+		public IStorage<int> Upwork { get; set; }
+		public IStorage<int> Cards { get; set; }
+		public IStorage<int> Cash { get; set; }
+		public IStorage<int> Debt { get; set; }
 
-		public int Upwork
-		{
-			get { return upwork; }
-			set
-			{
-				upwork = value;
-				Update();
-				Save();
-				OnPropertyChanged(nameof(Upwork));
-			}
-		}
+		public int Total { get; set; }
+		public int Divergence { get; set; }
 
-		public int Cards
-		{
-			get { return cards; }
-			set
-			{
-				cards = value;
-				OnPropertyChanged(nameof(Cards));
-				Update();
-			}
-		}
-
-		public int Cash
-		{
-			get { return cash; }
-			set
-			{
-				cash = value;
-				Update();
-				Save();
-				OnPropertyChanged(nameof(Cash));
-			}
-		}
-
-		public int Debt
-		{
-			get { return debt; }
-			set
-			{
-				debt = value;
-				OnPropertyChanged(nameof(Debt));
-				Update();
-			}
-		}
-
-		public Dictionary<Record.Categories, decimal> Debts { get; set; }
-
-		public int Total
-		{
-			get { return total; }
-			set
-			{
-				total = value;
-				OnPropertyChanged(nameof(Total));
-			}
-		}
-
-		public int Balance
-		{
-			get { return balance; }
-			set
-			{
-				balance = value;
-				OnPropertyChanged(nameof(Balance));
-			}
-		}
-
-		public int Divergence
-		{
-			get { return divergence; }
-			set
-			{
-				divergence = value;
-				OnPropertyChanged(nameof(Divergence));
-			}
-		}
-
-		public Funds(IExpenses expenses, [Unity.Dependency("bank")] IFundsStorage bank,
-		             [Unity.Dependency("debt")] IFundsStorage debt, IEventAggregator eventAggregator)
+		public Funds(IExpenses expenses, IEventAggregator events)
 		{
 			this.expenses = expenses;
-			this.events = eventAggregator;
+			this.events = events;
 
-			Load();
+			Upwork = new Input(nameof(Upwork));
+			Cash = new Input(nameof(Cash));
+			Cards = new PrivatBank();
+			Debt = new Debts(expenses, events);
 
-			bank.Get(amount => Cards = (int) amount);
-			debt.Get(amount => Debt = (int) amount);
-
-			Debts = (debt as Debts).Calculate();
+			Upwork.PropertyChanged += Update;
+			Cash.PropertyChanged += Update;
+			Cards.PropertyChanged += Update;
+			Debt.PropertyChanged += Update;
 		}
 
-		private void Update()
+		private void Update(object sender, PropertyChangedEventArgs args)
 		{
-			Balance = Cards + Cash + Debt;
-			Divergence = Balance - CalculateEstimatedBalance();
+			var balance = Cards.Value + Cash.Value + Debt.Value;
 
-			Total = Balance + Upwork * ExchangeRate;
+			Divergence = balance - CalculateEstimatedBalance();
+			Total = balance + Upwork.Value * Settings.Default.ExchangeRate;
+
+			OnPropertyChanged(nameof(Total));
+			OnPropertyChanged(nameof(Divergence));
 
 			events.GetEvent<UpdateTotal>().Publish(Total);
-		}
-
-		private void Load()
-		{
-			var path = Path.Combine("Data", "Funds.xml");
-
-			if (!File.Exists(path)) return;
-
-			XElement file = XElement.Load(path);
-
-			Upwork = int.Parse(file.Element("Upwork").Value);
-			Cash = int.Parse(file.Element("Cash").Value);
-		}
-
-		private void Save()
-		{
-			var path = Path.Combine("Data", "Funds.xml");
-
-			if (!File.Exists(path))
-			{
-				CreateDocument(path);
-				return;
-			}
-
-			XElement file = XElement.Load(path);
-
-			file.Element("Upwork").SetValue(Upwork);
-			file.Element("Cash").SetValue(Cash);
-
-			var writer = XmlWriter.Create(path);
-			file.Save(writer);
-			writer.Close();
-        }
-
-		private void CreateDocument(string path)
-		{
-			XElement document = new XElement("data");
-
-			document.Add(new XElement("Upwork", Upwork));
-			document.Add(new XElement("Cash", Cash));
-
-			var writer = XmlWriter.Create(path);
-			document.Save(writer);
-			writer.Close();
 		}
 
 		public int CalculateEstimatedBalance()

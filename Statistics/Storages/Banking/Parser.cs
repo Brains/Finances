@@ -4,7 +4,7 @@ using System.Linq;
 using System.Xml.Linq;
 using Common;
 
-namespace Statistics.Banking
+namespace Statistics.Storages.Banking
 {
 	static class Parser
 	{

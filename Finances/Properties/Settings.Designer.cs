@@ -34,5 +34,17 @@ namespace Finances.Properties {
                 this["DataPath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("21")]
+        public int ExchangeRate {
+            get {
+                return ((int)(this["ExchangeRate"]));
+            }
+            set {
+                this["ExchangeRate"] = value;
+            }
+        }
     }
 }

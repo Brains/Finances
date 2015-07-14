@@ -5,5 +5,8 @@
     <Setting Name="DataPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">Data</Value>
     </Setting>
+    <Setting Name="ExchangeRate" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">21</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

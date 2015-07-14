@@ -3,7 +3,6 @@
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.Unity;
-using Statistics.Banking;
 using Statistics.ViewModels;
 
 namespace Statistics
@@ -19,10 +18,6 @@ namespace Statistics
 
 		public void Initialize ()
 		{
-			container.RegisterType<IFundsStorage, PrivatBank>("bank");
-			container.RegisterType<IFundsStorage, Debts>("debt");
-
-
 			var regionManager = container.Resolve<IRegionManager>();
 
 			regionManager.RegisterViewWithRegion("Funds", () => this.container.Resolve<Views.Funds>());

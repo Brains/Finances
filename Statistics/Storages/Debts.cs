@@ -1,51 +1,36 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Common;
 using Common.Events;
-using Microsoft.Practices.ObjectBuilder2;
+using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.PubSubEvents;
 
-namespace Statistics.Banking
+namespace Statistics.Storages
 {
-	public class Debts : IFundsStorage
+	public class Debts : BindableBase, IStorage<int>
 	{
-		private readonly IEnumerable<Record> records;
-		private Action<decimal> callback;
+		public int Value { get; set; }
+		public Dictionary<Record.Categories, decimal> Dudes { get; set; }
 
-		public Debts(IExpenses expenses, IEventAggregator eventAggregator)
+		public Debts(IExpenses expenses, IEventAggregator events)
 		{
-			eventAggregator.GetEvent<AddRecord>().Subscribe(record => CalculateDebts(callback), true);
+			events.GetEvent<AddRecord>().Subscribe(record => Calculate(expenses), true);
 
-			records = expenses.Records;
+			Calculate(expenses);
 		}
 
-		void IFundsStorage.Get(Action<decimal> callback)
+		private void Calculate(IExpenses expenses)
 		{
-			this.callback = callback;
+			Dudes = CalculateDebtsPerDude(expenses.Records);
 
-			CalculateDebts(callback);
+			Value = (int) Dudes.Sum(pair => pair.Value);
+			OnPropertyChanged("Value");
 		}
 
-		private void CalculateDebts(Action<decimal> callback)
-		{
-			var debts = CalculateDebts(records);
-
-			callback(debts.Sum(pair => pair.Value));
-		}
-
-		public Dictionary<Record.Categories, decimal> Calculate()
-		{
-			var debts = CalculateDebts(records);
-
-			return debts;
-		}
-
-		private Dictionary<Record.Categories, decimal> CalculateDebts(IEnumerable<Record> records )
+		private Dictionary<Record.Categories, decimal> CalculateDebtsPerDude(IEnumerable<Record> records )
 		{
 			var debts = CalculateAmountsPerDude(records);
-			var total = CalculateTotals(records, debts);
+			var total = CalculateTotalsPerDude(records, debts);
 
 			return total;
 		}
@@ -70,7 +55,7 @@ namespace Statistics.Banking
 			        }).ToDictionary(dude => dude.Name, dude => dude.Total);
 		}
 
-		private Dictionary<Record.Categories, decimal> CalculateTotals(IEnumerable<Record> records, Dictionary<Record.Categories, Dictionary<string, decimal>> debts)
+		private Dictionary<Record.Categories, decimal> CalculateTotalsPerDude(IEnumerable<Record> records, Dictionary<Record.Categories, Dictionary<string, decimal>> debts)
 		{
 			var shared = CalculateShared(records);
 
@@ -83,18 +68,18 @@ namespace Statistics.Banking
 			return total.ToDictionary(dude => dude.Name, dude => dude.Total);
 		}
 
+		private decimal CalculateShared(IEnumerable<Record> records)
+		{
+			return records.Where(record => record.Type == Record.Types.Shared)
+			              .Sum(record => record.Amount);
+		}
+
 		private decimal Get(KeyValuePair<Record.Categories, Dictionary<string, decimal>> dude, string direction)
 		{
 			decimal value;
 			dude.Value.TryGetValue(direction, out value);
 
 			return value;
-		}
-
-		private decimal CalculateShared(IEnumerable<Record> records)
-		{
-			return records.Where(record => record.Type == Record.Types.Shared)
-			              .Sum(record => record.Amount);
 		}
 	}
 }
