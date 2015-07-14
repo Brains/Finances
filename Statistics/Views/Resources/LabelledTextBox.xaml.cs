@@ -2,22 +2,19 @@
 
 namespace Statistics.Views.Resources
 {
-	/// <summary>
-	/// Interaction logic for LabelTextBox.xaml
-	/// </summary>
 	public partial class LabelledTextBox
 	{
 		public static readonly DependencyProperty LabelProperty = DependencyProperty
 			.Register("Label",
 					typeof(string),
 					typeof(LabelledTextBox),
-					new FrameworkPropertyMetadata("Unnamed Label"));
+					new FrameworkPropertyMetadata("Default"));
 
 		public static readonly DependencyProperty TextProperty = DependencyProperty
 			.Register("Text",
 					typeof(string),
 					typeof(LabelledTextBox),
-					new FrameworkPropertyMetadata("", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+					new FrameworkPropertyMetadata("Default", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
 		public LabelledTextBox()
 		{
