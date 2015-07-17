@@ -33,16 +33,16 @@ namespace Statistics.ViewModels
 		public Data Spending { get; set; }
 		public Data Incomes { get; set; }
 		public Data SpendingByType { get; set; }
-		public ICommand NextMonth { get; set; }
-		public ICommand PreviousMonth { get; set; }
+		public DelegateCommand NextMonth { get; set; }
+		public DelegateCommand PreviousMonth { get; set; }
 
 		public Charts(IExpenses expenses, IEventAggregator eventAggregator)
 		{
 			this.expenses = expenses;
 			eventAggregator.GetEvent<AddRecord>().Subscribe(record => Update(month));
 
-			NextMonth = new DelegateCommand(() => ShiftMonth(1));
-			PreviousMonth = new DelegateCommand(() => ShiftMonth(-1));
+			NextMonth = new DelegateCommand(() => ShiftMonth(1), CanSelectNextMonth);
+			PreviousMonth = new DelegateCommand(() => ShiftMonth(-1), CanSelectPreviousMonth);
 
 			Update(month);
 		}
@@ -158,6 +158,8 @@ namespace Statistics.ViewModels
 			};
 		}
 
+		#region Month Selection
+
 		private void ShiftMonth(int shift)
 		{
 			var year = DateTime.Now.Year;
@@ -165,7 +167,31 @@ namespace Statistics.ViewModels
 
 			month = date.AddMonths(shift).Month;
 
+			NextMonth.RaiseCanExecuteChanged();
+			PreviousMonth.RaiseCanExecuteChanged();
+
 			Update(month);
 		}
+
+		private bool CanSelectNextMonth()
+		{
+			var last = expenses.Records.Where(IsSpending).Last().Date.Month;
+
+			if (month < last)
+				return true;
+
+			return false;
+		}
+
+		private bool CanSelectPreviousMonth()
+		{
+			var first = expenses.Records.Where(IsSpending).First().Date.Month;
+			if (month > first)
+				return true;
+
+			return false;
+		}
+
+		#endregion
 	}
 }
