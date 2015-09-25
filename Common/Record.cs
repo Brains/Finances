@@ -68,10 +68,19 @@ namespace Common
 			CodeContracts.Requires.True(a.Category == b.Category, "a.Category == b.Category");
 			CodeContracts.Requires.True(a.Date.Day == b.Date.Day, "a.Date.Day == b.Date.Day");
 
-			var amount = a.Amount + b.Amount;
-			var description = $"{a.Description}: {a.Amount}\n{b.Description}: {b.Amount}";
+			return new Record(a.Amount + b.Amount, a.Type, a.Category, GetAggregatedDescription(a, b), a.Date);
+		}
 
-			return new Record(amount, a.Type, a.Category, description, a.Date);
+		private static string GetAggregatedDescription(Record a, Record b)
+		{
+			string first = $"{a.Description}";
+			var aggregated = a.Description.Contains("\n");
+			if (!aggregated) 
+				first += $": {a.Amount}";
+
+			string second = $"{b.Description}: {b.Amount}";
+
+			return $"{first}\n{second}";
 		}
 	}
 }

@@ -12,7 +12,7 @@
 	</controls:MetroWindow.Resources>
 	
 	<TabControl SelectedIndex = "0" TabStripPlacement = "Left" >
-				<TabItem Name = "Statistics" Header = "Statistics" HeaderTemplate = "{StaticResource TabItemHeaderDataTemplate}" >
+		<TabItem Name = "Statistics" Header = "Statistics" HeaderTemplate = "{StaticResource TabItemHeaderDataTemplate}" >
 			<Grid>
 				<Grid.RowDefinitions>
 					<RowDefinition Height = "Auto" />
