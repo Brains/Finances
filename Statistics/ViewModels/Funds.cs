@@ -44,6 +44,26 @@ namespace Statistics.ViewModels
 			Cash.PropertyChanged += Update;
 			Cards.PropertyChanged += Update;
 			Debt.PropertyChanged += Update;
+
+			DoSmt();
+
+		}
+
+		private void DoSmt()
+		{
+			var query = from record in expenses.Records
+//						where record.Date.Month == 3
+						where record.Description != null
+						group record by record.Description.Split().First()
+						into grouped
+//						where grouped.Key != "In" && grouped.Key != "Out"
+						orderby grouped.Count() descending 
+						select grouped;
+
+			var asd = query.Take(5)
+			               .ToDictionary(g => g.Key, group => group.Sum(record => record.Amount));
+
+
 		}
 
 		private void Update(object sender, PropertyChangedEventArgs args)
@@ -64,8 +84,12 @@ namespace Statistics.ViewModels
 			var previous = expenses.Records.Last(record => record.Type == Record.Types.Balance).Amount;
 
 			var records = expenses.Records.GroupBy(record => record.Type)
-			                      .Select(type => new {type.Key, Total = type.Sum(record => record.Amount)})
-			                      .ToDictionary(type => type.Key, type => type.Total);
+										  .Select(type => new
+										  {
+											  type.Key,
+											  Total = type.Sum(record => record.Amount)
+										  })
+										  .ToDictionary(type => type.Key, type => type.Total);
 
 			var spending = records[Record.Types.Expense] + records[Record.Types.Shared];
 			var income = records[Record.Types.Income];
