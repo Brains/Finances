@@ -44,8 +44,15 @@ namespace Common
 		[XmlAttribute]
 		public string Description { get; set; }
 
-		[XmlAttribute(DataType = "dateTime")]
+		[XmlIgnore]
 		public DateTime Date { get; set; }
+
+		[XmlAttribute("Date")]
+		public string DateFormatted
+		{
+			get { return Date.ToString("dd.MM.yy HH:mm:ss"); }
+			set { Date = DateTime.Parse(value); }
+		}
 
 		public Record () {}
 		
