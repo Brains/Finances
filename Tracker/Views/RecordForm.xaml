@@ -73,7 +73,7 @@
 				         FontWeight = "{Binding Path=Text, RelativeSource={RelativeSource Self}, Converter={StaticResource ValueToFontWeight}}"
 				         controls:TextBoxHelper.Watermark = "Amount" >
 					<TextBox.Text>
-						<Binding Path = "Amount" Converter = "{StaticResource AmountConverter}" >
+						<Binding Path = "Amount" Converter = "{StaticResource AmountConverter}" UpdateSourceTrigger="PropertyChanged">
 							<Binding.ValidationRules>
 								<converters:NumbersValidationRule />
 							</Binding.ValidationRules>
