@@ -73,8 +73,12 @@ namespace Common
 
 		private static string GetAggregatedDescription(Record a, Record b)
 		{
+			bool aggregated = false;
+
+			if (a.Description != null)
+				aggregated = a.Description.Contains("\n");
+
 			string first = $"{a.Description}";
-			var aggregated = a.Description.Contains("\n");
 			if (!aggregated) 
 				first += $": {a.Amount}";
 
