@@ -1,3 +1,4 @@
-namespace Temporary {
-    public interface IShell {}
+namespace Temporary
+{
+	public interface IShell {}
 }
