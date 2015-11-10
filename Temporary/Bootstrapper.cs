@@ -5,11 +5,11 @@ using Caliburn.Micro;
 
 namespace Temporary
 {
-	public class AppBootstrapper : BootstrapperBase
+	public class Bootstrapper : BootstrapperBase
 	{
 		private SimpleContainer container;
 
-		public AppBootstrapper()
+		public Bootstrapper()
 		{
 			Initialize();
 		}
