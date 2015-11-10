@@ -2,12 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using Caliburn.Micro;
+using Microsoft.Practices.Unity;
+using Singleton = Microsoft.Practices.Unity.ContainerControlledLifetimeManager;
+using PerResolve = Microsoft.Practices.Unity.PerResolveLifetimeManager;
 
 namespace Temporary
 {
 	public class Bootstrapper : BootstrapperBase
 	{
-		private SimpleContainer container;
+		private IUnityContainer container;
 
 		public Bootstrapper()
 		{
@@ -16,16 +19,16 @@ namespace Temporary
 
 		protected override void Configure()
 		{
-			container = new SimpleContainer();
+			container = new UnityContainer();
 
-			container.Singleton<IWindowManager, WindowManager>();
-			container.Singleton<IEventAggregator, EventAggregator>();
-			container.PerRequest<IShell, ShellViewModel>();
+			container.RegisterType<IWindowManager, WindowManager>(new Singleton());
+			container.RegisterType<IEventAggregator, EventAggregator>(new Singleton());
+			container.RegisterType<IShell, ShellViewModel>(new PerResolve());
 		}
 
 		protected override object GetInstance(Type service, string key)
 		{
-			var instance = container.GetInstance(service, key);
+			var instance = container.Resolve(service, key);
 			if (instance != null)
 				return instance;
 
@@ -34,7 +37,7 @@ namespace Temporary
 
 		protected override IEnumerable<object> GetAllInstances(Type service)
 		{
-			return container.GetAllInstances(service);
+			return container.ResolveAll(service);
 		}
 
 		protected override void BuildUp(object instance)
