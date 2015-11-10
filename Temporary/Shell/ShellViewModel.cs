@@ -1,6 +1,6 @@
 using Caliburn.Micro;
 
-namespace Temporary
+namespace Temporary.Shell
 {
 	public class ShellViewModel : PropertyChangedBase, IShell {}
 }

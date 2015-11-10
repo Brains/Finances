@@ -1,4 +1,4 @@
-namespace Temporary
+namespace Temporary.Shell
 {
 	public interface IShell {}
 }
