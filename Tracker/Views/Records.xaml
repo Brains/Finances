@@ -3,8 +3,7 @@
              xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d = "http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc = "http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:resources = "clr-namespace:Tracker.Views.Resources"
-			 d:DataContext = "{d:DesignData Source=/Views/Resources/SampleData.xaml}"
+             d:DataContext = "{d:DesignData Source=/../Temporary/Resources/SampleData.xaml}"
 			 d:DesignWidth="600"
              mc:Ignorable = "d"
              KeyboardNavigation.TabNavigation = "None" >
@@ -12,7 +11,7 @@
 	<UserControl.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source = "Resources/DataGridTemplates.xaml" />
+				<ResourceDictionary Source = "../Temporary/Resources/DataGridTemplates.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 			<resources:GroupItemHeaderTemplateSelector x:Key="GroupItemHeaderTemplateSelector" />
 		</ResourceDictionary>

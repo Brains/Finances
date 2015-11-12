@@ -104,27 +104,10 @@
       <DependentUpon>Records.xaml</DependentUpon>
     </Compile>
     <Compile Include="Module.cs" />
-    <Compile Include="Views\Resources\GroupItemHeaderTemplateSelector.cs" />
     <Page Include="Views\Records.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Resources\Colors.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Resources\DataGridTemplates.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Resources\Icons.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <DesignData Include="Views\Resources\SampleData.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </DesignData>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

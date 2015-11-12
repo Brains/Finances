@@ -98,6 +98,7 @@
       <DependentUpon>FormsQueueView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Records\FormViewModel.cs" />
+    <Compile Include="Resources\GroupItemHeaderTemplateSelector.cs" />
     <Compile Include="Shell\IShell.cs" />
     <Compile Include="Shell\ShellViewModel.cs" />
     <Page Include="Records\FormsQueueView.xaml">
@@ -105,6 +106,22 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Records\FormView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\DataGridTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\SampleData.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

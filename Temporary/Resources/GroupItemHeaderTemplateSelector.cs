@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace Tracker.Views.Resources
+namespace Temporary.Resources
 {
 	public class GroupItemHeaderTemplateSelector : DataTemplateSelector
 	{
