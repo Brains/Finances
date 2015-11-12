@@ -98,7 +98,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Expenses.cs" />
     <Compile Include="Module.cs" />
   </ItemGroup>
   <ItemGroup>

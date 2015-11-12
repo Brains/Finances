@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
-using Microsoft.Practices.Unity;
-using CodeContracts;
+using Caliburn.Micro;
 using Common;
 using Common.Events;
 using Finances.Properties;
-using Microsoft.Practices.Prism.PubSubEvents;
 
-namespace Tracker
+namespace Temporary
 {
     public class Expenses : IExpenses
     {
@@ -39,7 +36,7 @@ namespace Tracker
 
 			Save();
 
-			eventAggregator.GetEvent<AddRecord>().Publish(record);
+//			eventAggregator.GetEvent<AddRecord>().Publish(record);
 		}
 
 	    public void Load ()
