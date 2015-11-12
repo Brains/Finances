@@ -1,18 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows;
-using Common;
-using Microsoft.Practices.Prism.Mvvm;
-using static Common.Record;
-using static Common.Record.Types;
-using static Common.Record.Categories;
 
-namespace Tracker.ViewModels
+namespace Temporary.Records
 {
-	public class RecordForm : BindableBase
+	public class FormViewModel : pcb
 	{
 		// Model
 		private readonly IExpenses expenses;
@@ -39,7 +31,7 @@ namespace Tracker.ViewModels
 		private readonly Dictionary<Types, Categories[]> availableCategories;
 		public List<string> DescriptionSuggestions { get; set; }
 
-		public RecordForm(IExpenses expenses)
+		public FormViewModel(IExpenses expenses)
 		{
 			this.expenses = expenses;
 

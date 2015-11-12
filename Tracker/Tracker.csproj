@@ -100,7 +100,6 @@
   <ItemGroup>
     <Compile Include="Controls\AutoCompleteBehavior.cs" />
     <Compile Include="Expenses.cs" />
-    <Compile Include="ViewModels\RecordForm.cs" />
     <Compile Include="ViewModels\Records.cs" />
     <Compile Include="Views\Converters\AmountTextToDecimal.cs" />
     <Compile Include="Views\Converters\NumberToMonthConverter.cs" />
@@ -114,10 +113,6 @@
     </Compile>
     <Compile Include="Module.cs" />
     <Compile Include="Views\Resources\GroupItemHeaderTemplateSelector.cs" />
-    <Page Include="Views\RecordForm.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\Records.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
