@@ -1,19 +1,15 @@
-﻿using System.Windows.Controls;
-using Microsoft.Practices.Unity;
-
-namespace Tracker.Views
+﻿namespace Temporary.Records
 {
-    public partial class Records
+    public partial class RecordsView
     {
 	    //------------------------------------------------------------------
-		public Records()
+		public RecordsView()
         {
 			InitializeComponent();
         }
 
-		[InjectionConstructor]
 	    //------------------------------------------------------------------
-	    public Records (ViewModels.Records viewModel) : this()
+	    public RecordsView (RecordsViewModel viewModel) : this()
 	    {
 		    DataContext = viewModel;
 	    }

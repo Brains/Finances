@@ -22,7 +22,7 @@ namespace Tracker
 
 			var regionManager = container.Resolve<IRegionManager>();
 
-			regionManager.RegisterViewWithRegion("Records", () => this.container.Resolve<Views.Records>());
+//			regionManager.RegisterViewWithRegion("Records", () => this.container.Resolve<Views.Records>());
 //			regionManager.RegisterViewWithRegion("RecordFormsQueue", () => this.container.Resolve<Views.RecordFormsQueue>());
 		}
 	}

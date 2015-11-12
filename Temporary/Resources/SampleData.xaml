@@ -1,8 +1,8 @@
-﻿<models:Records
+﻿<models:RecordsViewModel
 	xmlns="clr-namespace:Tracker"
 	xmlns:models="clr-namespace:Tracker.ViewModels"
 	xmlns:common = "clr-namespace:Common;assembly=Common" >
-	<models:Records.RecordsList>
+	<models:RecordsViewModel.RecordsViewModelList>
 		<common:Record ID="349" Amount="251" Type="Income" Category="Permanent" Description="Техника" Date="2015-03-29" />
 		<common:Record ID="399" Amount="447" Type="Expense" Category="Food" Description="Novus" Date="2014-05-11" />
 		<common:Record ID="478" Amount="298" Type="Expense" Category="Technic" Description="Novus" Date="2014-01-16" />
@@ -56,7 +56,7 @@
 		<common:Record ID="38" Amount="604" Type="Debt" Category="Food" Description="Доктор" Date="2014-03-14" />
 		<common:Record ID="118" Amount="296" Type="Expense" Category="Permanent" Description="Computer" Date="2015-01-03" />
 		<common:Record ID="27" Amount="277" Type="Expense" Category="Food" Description="Препараты" Date="2014-07-16" />
-	</models:Records.RecordsList>
+	</models:RecordsViewModel.RecordsViewModelList>
 
 
-</models:Records>
+</models:RecordsViewModel>

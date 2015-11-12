@@ -99,15 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Expenses.cs" />
-    <Compile Include="ViewModels\Records.cs" />
-    <Compile Include="Views\Records.xaml.cs">
-      <DependentUpon>Records.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Module.cs" />
-    <Page Include="Views\Records.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -123,6 +115,7 @@
       <Name>Common</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

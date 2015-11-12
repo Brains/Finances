@@ -1,15 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 using Common;
+using Temporary.Converters;
 
-namespace Tracker.ViewModels
+namespace Temporary.Records
 {
-	public class Records
+	public class RecordsViewModel
 	{
 		// Model
 		private readonly IExpenses expenses;
@@ -17,7 +14,7 @@ namespace Tracker.ViewModels
 
 		public ObservableCollection<Record> RecordsList => expenses.Records;
 
-		public Records (IExpenses expenses)
+		public RecordsViewModel (IExpenses expenses)
 		{
 			this.expenses = expenses;
 			expenses.Load();
