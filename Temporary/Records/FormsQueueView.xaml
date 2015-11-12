@@ -12,7 +12,7 @@
 	<UserControl.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source = "RecordForm.xaml" />
+				<ResourceDictionary Source = "FormView.xaml" />
 				<ResourceDictionary Source = "pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 
