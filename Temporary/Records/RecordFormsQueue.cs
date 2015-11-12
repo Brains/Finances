@@ -1,19 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Globalization;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
-using Common;
-using Microsoft.Practices.ObjectBuilder2;
-using Microsoft.Practices.Prism.Commands;
 
-namespace Tracker.ViewModels
+namespace Temporary.Records
 {
 	public class RecordFormsQueue
 	{
@@ -76,7 +65,7 @@ namespace Tracker.ViewModels
 
 		public decimal Total()
 		{
-			return Forms.Select(record => record.Amount).Sum();
+			return Enumerable.Sum((IEnumerable<decimal>) Forms.Select(record => record.Amount));
 		}
 
 		public void Submit()

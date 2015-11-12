@@ -101,13 +101,9 @@
     <Compile Include="Controls\AutoCompleteBehavior.cs" />
     <Compile Include="Expenses.cs" />
     <Compile Include="ViewModels\RecordForm.cs" />
-    <Compile Include="ViewModels\RecordFormsQueue.cs" />
     <Compile Include="ViewModels\Records.cs" />
     <Compile Include="Views\Converters\AmountTextToDecimal.cs" />
     <Compile Include="Views\Converters\NumberToMonthConverter.cs" />
-    <Compile Include="Views\RecordFormsQueue.xaml.cs">
-      <DependentUpon>RecordFormsQueue.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Converters\DateTimeToDateConverter.cs" />
     <Compile Include="Views\Converters\StringToColor.cs" />
     <Compile Include="Views\Converters\EnumToIcon.cs" />
@@ -121,10 +117,6 @@
     <Page Include="Views\RecordForm.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\RecordFormsQueue.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Records.xaml">
       <Generator>MSBuild:Compile</Generator>

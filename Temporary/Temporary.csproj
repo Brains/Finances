@@ -85,8 +85,16 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Records\RecordFormsQueue.cs" />
+    <Compile Include="Records\RecordFormsQueue.xaml.cs">
+      <DependentUpon>RecordFormsQueue.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Shell\IShell.cs" />
     <Compile Include="Shell\ShellViewModel.cs" />
+    <Page Include="Records\RecordFormsQueue.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Shell\ShellView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
