@@ -1,10 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
+using Caliburn.Micro;
+using Common;
+using static Common.Record;
+using static Common.Record.Types;
+using static Common.Record.Categories;
 
 namespace Temporary.Records
 {
-	public class FormViewModel : pcb
+	public class FormViewModel : PropertyChangedBase
 	{
 		// Model
 		private readonly IExpenses expenses;
@@ -79,7 +85,7 @@ namespace Temporary.Records
 		private void OnTypeUpdate(Types value)
 		{
 			type = value;
-			OnPropertyChanged("Type");
+			NotifyOfPropertyChange(nameof(Type));
 			SetAvailableCategories(value);
 			ClearDescription();
 		}
@@ -87,15 +93,15 @@ namespace Temporary.Records
 		private void SetAvailableCategories(Types value)
 		{
 			AvailableCategories = availableCategories[value];
-			OnPropertyChanged("AvailableCategories");
+			NotifyOfPropertyChange(nameof(AvailableCategories));
 			Category = AvailableCategories.First();
-			OnPropertyChanged("Category");
+			NotifyOfPropertyChange(nameof(Category));
 		}
 
 		private void ClearDescription()
 		{
 			Description = null;
-			OnPropertyChanged("Description");
+			NotifyOfPropertyChange(nameof(Description));
 		}
 	}
 }
