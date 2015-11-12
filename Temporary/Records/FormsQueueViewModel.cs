@@ -2,31 +2,33 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using Common;
+using Microsoft.Practices.ObjectBuilder2;
 
 namespace Temporary.Records
 {
 	public class FormsQueueViewModel
 	{
 		private readonly IExpenses expenses;
-		public ObservableCollection<RecordForm> Forms { get; set; }
+		public ObservableCollection<FormViewModel> Forms { get; set; }
 
 		// Commands
 		public ICommand AddRecordCommand { get; private set; }
 		public ICommand RemoveRecordCommand { get; private set; }
-		public DelegateCommand SubmitCommand { get; set; }
+		public ICommand SubmitCommand { get; set; }
 
 		public FormsQueueViewModel(IExpenses expenses)
 		{
 			this.expenses = expenses;
-			AddRecordCommand = new DelegateCommand(() => AddForm());
-			RemoveRecordCommand = new DelegateCommand(RemoveLastForm);
-			SubmitCommand = new DelegateCommand(Submit);
-			Forms = new ObservableCollection<RecordForm>();
+//			AddRecordCommand = new DelegateCommand(() => AddForm());
+//			RemoveRecordCommand = new DelegateCommand(RemoveLastForm);
+//			SubmitCommand = new DelegateCommand(Submit);
+			Forms = new ObservableCollection<FormViewModel>();
 		}
 
-		public RecordForm AddForm()
+		public FormViewModel AddForm()
 		{
-			var form = new RecordForm(expenses);
+			var form = new FormViewModel(expenses);
 
 			if (Forms.Count == 0)
 				form.MarkPrimary();
