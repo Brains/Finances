@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Controls;
 
-namespace Tracker.Views.Converters
+namespace Temporary.Converters
 {
 	public class NumbersValidationRule : ValidationRule
 	{

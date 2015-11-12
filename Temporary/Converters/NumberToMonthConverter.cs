@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace Tracker.Views.Converters
+namespace Temporary.Converters
 {
 	internal class NumberToMonthConverter : IValueConverter
 	{

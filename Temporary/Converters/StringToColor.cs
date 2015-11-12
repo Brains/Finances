@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace Tracker.Views.Converters
+namespace Temporary.Converters
 {
 	public class StringToColor : IValueConverter
 	{

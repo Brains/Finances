@@ -1,15 +1,22 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Media;
 
-namespace Tracker.Views.Converters
+namespace Temporary.Converters
 {
-	public class DateTimeToDateConverter : IValueConverter
+	public class EnumToIcon : IValueConverter
 	{
 		public object Convert (object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			return ((DateTime) value).ToString("d MMMM, dddd");
+			string name = value?.ToString();
+
+			if (string.IsNullOrEmpty(name))
+				return null;
+
+			var visual = Application.Current.FindResource(name);
+			return visual as Visual;
 		}
 
 		public object ConvertBack (object value, Type targetType, object parameter, CultureInfo culture)
