@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using Caliburn.Micro;
+using Common;
 using Microsoft.Practices.Unity;
 using Temporary.Shell;
+using Tracker;
 using Singleton = Microsoft.Practices.Unity.ContainerControlledLifetimeManager;
 using PerResolve = Microsoft.Practices.Unity.PerResolveLifetimeManager;
 
@@ -25,6 +27,7 @@ namespace Temporary
 			container.RegisterType<IWindowManager, WindowManager>(new Singleton());
 			container.RegisterType<IEventAggregator, EventAggregator>(new Singleton());
 			container.RegisterType<IShell, ShellViewModel>(new PerResolve());
+			container.RegisterType<IExpenses, Expenses>(new Singleton());
 		}
 
 		protected override object GetInstance(Type service, string key)

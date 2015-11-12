@@ -177,6 +177,10 @@
       <Project>{d00dc305-ae73-479c-a3d8-0155cab23798}</Project>
       <Name>Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Tracker\Tracker.csproj">
+      <Project>{f31fa3eb-4f11-4a61-a67d-e6c77eec470c}</Project>
+      <Name>Tracker</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
