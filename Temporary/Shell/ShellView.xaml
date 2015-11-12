@@ -1,6 +1,7 @@
-<Window x:Class="Temporary.Shell.ShellView"
+<controls:MetroWindow  x:Class="Temporary.Shell.ShellView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls">
 
     <Window.Resources>
         <DataTemplate x:Key = "TabItemHeaderDataTemplate" >
@@ -15,4 +16,4 @@
         <TabItem Name = "Trends" Header = "Trends" HeaderTemplate = "{StaticResource TabItemHeaderDataTemplate}"/>
     </TabControl>
 
-</Window>
+</controls:MetroWindow>
