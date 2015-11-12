@@ -68,7 +68,8 @@
 				         RenderTransformOrigin = "0.5,0.5"
 				         FontSize = "{StaticResource FontSize}"
 				         Foreground = "{Binding Path=Type, Converter={StaticResource EnumToColor}}"
-				         FontWeight = "{Binding Path=Text, RelativeSource={RelativeSource Self}, Converter={StaticResource ValueToFontWeight}}">
+				         FontWeight = "{Binding Path=Text, RelativeSource={RelativeSource Self}, Converter={StaticResource ValueToFontWeight}}"
+				         controls:TextBoxHelper.Watermark = "Amount" >
 					<TextBox.Text>
 						<Binding Path = "Amount" Converter = "{StaticResource AmountConverter}" >
 							<Binding.ValidationRules>
@@ -93,7 +94,8 @@
 				         VerticalAlignment = "Center"
 				         FontSize = "{StaticResource FontSize}"
 				         Foreground = "{StaticResource DefaultColor}"
-				         behaviors:AutoCompleteBehavior.AutoCompleteItemsSource = "{Binding DescriptionSuggestions}" />
+				         behaviors:AutoCompleteBehavior.AutoCompleteItemsSource = "{Binding DescriptionSuggestions}" 
+				         controls:TextBoxHelper.Watermark = "Description" />
 				<ComboBox Grid.Column = "3"
 						  SelectedValue = "{Binding Description}"
 						  Style="{StaticResource ComboBoxVisibilityBasedOnRecordType}"
