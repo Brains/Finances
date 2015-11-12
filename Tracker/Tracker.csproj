@@ -98,7 +98,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\AutoCompleteBehavior.cs" />
     <Compile Include="Expenses.cs" />
     <Compile Include="ViewModels\Records.cs" />
     <Compile Include="Views\Converters\AmountTextToDecimal.cs" />

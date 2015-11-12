@@ -2,12 +2,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Tracker.Controls
+namespace Temporary.Controls
 {
 	public static class AutoCompleteBehavior
 	{
@@ -18,21 +17,21 @@ namespace Tracker.Controls
 			DependencyProperty.RegisterAttached
 				(
 					"AutoCompleteItemsSource",
-					typeof (IEnumerable<String>),
+					typeof (IEnumerable<string>),
 					typeof (AutoCompleteBehavior),
 					new UIPropertyMetadata(null, OnAutoCompleteItemsSource)
 				);
 
-		public static IEnumerable<String> GetAutoCompleteItemsSource(DependencyObject obj)
+		public static IEnumerable<string> GetAutoCompleteItemsSource(DependencyObject obj)
 		{
 			object objRtn = obj.GetValue(AutoCompleteItemsSource);
-			if (objRtn is IEnumerable<String>)
-				return (objRtn as IEnumerable<String>);
+			if (objRtn is IEnumerable<string>)
+				return (objRtn as IEnumerable<string>);
 
 			return null;
 		}
 
-		public static void SetAutoCompleteItemsSource(DependencyObject obj, IEnumerable<String> value)
+		public static void SetAutoCompleteItemsSource(DependencyObject obj, IEnumerable<string> value)
 		{
 			obj.SetValue(AutoCompleteItemsSource, value);
 		}
@@ -85,7 +84,7 @@ namespace Tracker.Controls
 			if (sender == null)
 				return;
 
-			IEnumerable<String> values = GetAutoCompleteItemsSource(tb);
+			IEnumerable<string> values = GetAutoCompleteItemsSource(tb);
 			//No reason to search if we don't have any values.
 			if (values == null)
 				return;

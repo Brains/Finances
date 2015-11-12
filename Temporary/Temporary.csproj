@@ -85,6 +85,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controls\AutoCompleteBehavior.cs" />
     <Compile Include="Records\FormsQueueViewModel.cs" />
     <Compile Include="Records\FormsQueueView.xaml.cs">
       <DependentUpon>FormsQueueView.xaml</DependentUpon>
