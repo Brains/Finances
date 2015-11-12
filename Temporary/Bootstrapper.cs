@@ -5,7 +5,6 @@ using Caliburn.Micro;
 using Common;
 using Microsoft.Practices.Unity;
 using Temporary.Shell;
-using Tracker;
 using Singleton = Microsoft.Practices.Unity.ContainerControlledLifetimeManager;
 using PerResolve = Microsoft.Practices.Unity.PerResolveLifetimeManager;
 
