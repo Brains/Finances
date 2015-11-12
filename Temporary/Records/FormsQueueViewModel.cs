@@ -4,7 +4,7 @@ using System.Windows.Input;
 
 namespace Temporary.Records
 {
-	public class RecordFormsQueue
+	public class FormsQueueViewModel
 	{
 		private readonly IExpenses expenses;
 		public ObservableCollection<RecordForm> Forms { get; set; }
@@ -14,7 +14,7 @@ namespace Temporary.Records
 		public ICommand RemoveRecordCommand { get; private set; }
 		public DelegateCommand SubmitCommand { get; set; }
 
-		public RecordFormsQueue(IExpenses expenses)
+		public FormsQueueViewModel(IExpenses expenses)
 		{
 			this.expenses = expenses;
 			AddRecordCommand = new DelegateCommand(() => AddForm());

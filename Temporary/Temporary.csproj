@@ -85,13 +85,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Records\RecordFormsQueue.cs" />
-    <Compile Include="Records\RecordFormsQueue.xaml.cs">
-      <DependentUpon>RecordFormsQueue.xaml</DependentUpon>
+    <Compile Include="Records\FormsQueueViewModel.cs" />
+    <Compile Include="Records\FormsQueueView.xaml.cs">
+      <DependentUpon>FormsQueueView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Shell\IShell.cs" />
     <Compile Include="Shell\ShellViewModel.cs" />
-    <Page Include="Records\RecordFormsQueue.xaml">
+    <Page Include="Records\FormsQueueView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
