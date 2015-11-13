@@ -6,10 +6,5 @@
 		{
 			InitializeComponent();
 		}
-
-		public FormsQueueView (FormsQueueViewModel viewModel) : this()
-	    {
-			DataContext = viewModel;
-        }
 	}
 }
