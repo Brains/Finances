@@ -2,12 +2,13 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using Caliburn.Micro;
 using Common;
 using Microsoft.Practices.ObjectBuilder2;
 
 namespace Temporary.Records
 {
-	public class FormsQueueViewModel
+	public class FormsQueueViewModel : PropertyChangedBase
 	{
 		private readonly IExpenses expenses;
 		public ObservableCollection<FormViewModel> Forms { get; set; }
@@ -20,13 +21,13 @@ namespace Temporary.Records
 		public FormsQueueViewModel(IExpenses expenses)
 		{
 			this.expenses = expenses;
-//			AddRecordCommand = new DelegateCommand(() => AddForm());
-//			RemoveRecordCommand = new DelegateCommand(RemoveLastForm);
+//			AddRecordCommand = new DelegateCommand(() => Add());
+//			RemoveRecordCommand = new DelegateCommand(Remove);
 //			SubmitCommand = new DelegateCommand(Submit);
 			Forms = new ObservableCollection<FormViewModel>();
 		}
 
-		public FormViewModel AddForm()
+		public FormViewModel Add()
 		{
 			var form = new FormViewModel(expenses);
 
@@ -38,7 +39,12 @@ namespace Temporary.Records
 			return form;
 		}
 
-		public void RemoveLastForm()
+		public bool CanAdd
+		{
+			get { return true; }
+		}
+
+		public void Remove()
 		{
 			if (!Forms.Any()) return;
 
