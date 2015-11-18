@@ -28,7 +28,7 @@ namespace Temporary
 			container.RegisterType<IEventAggregator, EventAggregator>(new Singleton());
 			container.RegisterType<IShell, ViewModels.Shell>(new PerResolve());
 			container.RegisterType<IExpenses, Expenses>(new Singleton());
-			container.RegisterType<IScreen, FormsQueueViewModel>(new Singleton());
+			container.RegisterType<IScreen, FormsQueue>(new Singleton());
 
 			ViewLocator.NameTransformer.AddRule("Model", string.Empty);
 

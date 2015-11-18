@@ -101,30 +101,17 @@
     <Compile Include="Converters\StringToColor.cs" />
     <Compile Include="Converters\ValueToFontWeight.cs" />
     <Compile Include="Expenses.cs" />
-    <Compile Include="Records\FormsQueueViewModel.cs" />
-    <Compile Include="Records\FormsQueueView.xaml.cs">
-      <DependentUpon>FormsQueueView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Records\FormViewModel.cs" />
-    <Compile Include="Records\RecordsViewModel.cs" />
-    <Compile Include="Records\RecordsView.xaml.cs">
-      <DependentUpon>RecordsView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Resources\GroupItemHeaderTemplateSelector.cs" />
-    <Compile Include="ViewModels\IShell.cs" />
+    <Compile Include="ViewModels\FormsQueue.cs" />
+    <Compile Include="ViewModels\Form.cs" />
+    <Compile Include="ViewModels\Records.cs" />
     <Compile Include="ViewModels\Shell.cs" />
-    <Page Include="Records\FormsQueueView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Records\FormView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Records\RecordsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
+    <Compile Include="Views\FormsQueue.xaml.cs">
+      <DependentUpon>FormsQueue.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Records.xaml.cs">
+      <DependentUpon>Records.xaml</DependentUpon>
+    </Compile>
     <Page Include="Resources\Colors.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -141,6 +128,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </None>
+    <Page Include="Views\FormsQueue.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Form.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Records.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Shell.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

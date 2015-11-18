@@ -4,9 +4,9 @@ using System.Windows.Data;
 using Common;
 using Temporary.Converters;
 
-namespace Temporary.Records
+namespace Temporary.ViewModels
 {
-	public class RecordsViewModel
+	public class Records
 	{
 		// Model
 		private readonly IExpenses expenses;
@@ -14,7 +14,7 @@ namespace Temporary.Records
 
 		public ObservableCollection<Record> RecordsList => expenses.Records;
 
-		public RecordsViewModel (IExpenses expenses)
+		public Records (IExpenses expenses)
 		{
 			this.expenses = expenses;
 			expenses.Load();

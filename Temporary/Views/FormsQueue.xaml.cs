@@ -1,4 +1,4 @@
-﻿namespace Temporary.Records
+﻿namespace Temporary.Views
 {
 	public partial class FormsQueueView
 	{
