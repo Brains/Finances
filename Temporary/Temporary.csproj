@@ -111,8 +111,8 @@
       <DependentUpon>RecordsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resources\GroupItemHeaderTemplateSelector.cs" />
-    <Compile Include="Shell\IShell.cs" />
-    <Compile Include="Shell\ShellViewModel.cs" />
+    <Compile Include="ViewModels\IShell.cs" />
+    <Compile Include="ViewModels\Shell.cs" />
     <Page Include="Records\FormsQueueView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -141,7 +141,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </None>
-    <Page Include="Shell\ShellView.xaml">
+    <Page Include="Views\Shell.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

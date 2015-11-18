@@ -1,4 +1,4 @@
-namespace Temporary.Shell
+namespace Temporary.ViewModels
 {
 	public interface IShell {}
 }

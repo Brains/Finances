@@ -5,7 +5,7 @@ using Caliburn.Micro;
 using Common;
 using Microsoft.Practices.Unity;
 using Temporary.Records;
-using Temporary.Shell;
+using Temporary.ViewModels;
 using Singleton = Microsoft.Practices.Unity.ContainerControlledLifetimeManager;
 using PerResolve = Microsoft.Practices.Unity.PerResolveLifetimeManager;
 
@@ -26,9 +26,12 @@ namespace Temporary
 
 			container.RegisterType<IWindowManager, WindowManager>(new Singleton());
 			container.RegisterType<IEventAggregator, EventAggregator>(new Singleton());
-			container.RegisterType<IShell, ShellViewModel>(new PerResolve());
+			container.RegisterType<IShell, ViewModels.Shell>(new PerResolve());
 			container.RegisterType<IExpenses, Expenses>(new Singleton());
 			container.RegisterType<IScreen, FormsQueueViewModel>(new Singleton());
+
+			ViewLocator.NameTransformer.AddRule("Model", string.Empty);
+
 		}
 
 		protected override object GetInstance(Type service, string key)
