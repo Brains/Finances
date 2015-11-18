@@ -5,7 +5,7 @@ using System.Windows;
 using Caliburn.Micro;
 using Common;
 
-namespace Temporary.ViewModels
+namespace Finances.ViewModels
 {
 	public class Form : PropertyChangedBase
 	{

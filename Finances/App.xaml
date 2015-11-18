@@ -1,7 +1,7 @@
-﻿<Application x:Class="Temporary.App"
+﻿<Application x:Class="Finances.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Temporary">
+             xmlns:local="clr-namespace:Finances">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

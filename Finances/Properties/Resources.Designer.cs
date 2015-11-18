@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Temporary.Properties
+namespace Finances.Properties
 {
 
 

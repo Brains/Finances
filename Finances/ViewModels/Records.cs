@@ -2,9 +2,9 @@
 using System.ComponentModel;
 using System.Windows.Data;
 using Common;
-using Temporary.Converters;
+using Finances.Converters;
 
-namespace Temporary.ViewModels
+namespace Finances.ViewModels
 {
 	public class Records
 	{

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Windows;
 using Caliburn.Micro;
 using Common;
+using Finances.ViewModels;
 using Microsoft.Practices.Unity;
-using Temporary.ViewModels;
 using Singleton = Microsoft.Practices.Unity.ContainerControlledLifetimeManager;
 using PerResolve = Microsoft.Practices.Unity.PerResolveLifetimeManager;
 
-namespace Temporary
+namespace Finances
 {
 	public class Bootstrapper : BootstrapperBase
 	{

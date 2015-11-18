@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace Temporary.Converters
+namespace Finances.Converters
 {
 	public class StringToColor : IValueConverter
 	{
