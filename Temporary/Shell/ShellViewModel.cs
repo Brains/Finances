@@ -1,15 +1,14 @@
+using System;
 using Caliburn.Micro;
 using Temporary.Records;
 
 namespace Temporary.Shell
 {
-	public class ShellViewModel : PropertyChangedBase, IShell
+	public class ShellViewModel : Conductor<IScreen>.Collection.OneActive, IShell
 	{
-		public ShellViewModel(FormsQueueViewModel forms)
+		public ShellViewModel(IScreen forms)
 		{
-			Forms = forms;
+			Items.Add(forms);
 		}
-
-		public FormsQueueViewModel Forms { get; }
 	}
 }
