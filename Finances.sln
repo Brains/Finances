@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracker.Tests", "Tests\Trac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{D00DC305-AE73-479C-A3D8-0155CAB23798}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finances", "Temporary\Finances.csproj", "{4973F950-534D-4326-85BE-D52544128618}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finances", "Finances\Finances.csproj", "{4973F950-534D-4326-85BE-D52544128618}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
