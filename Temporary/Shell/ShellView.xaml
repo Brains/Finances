@@ -6,16 +6,6 @@
                       xmlns:cal="http://www.caliburnproject.org">
 
 	<TabControl x:Name="Items"
-	            SelectedIndex="0"
-	            TabStripPlacement="Left">
-		<TabControl.ItemTemplate>
-			<DataTemplate>
-				<TextBlock Text="{Binding DisplayName}"
-				           FontWeight="Light"
-				           FontSize="40"
-				           Margin="10" />
-			</DataTemplate>
-		</TabControl.ItemTemplate>
-	</TabControl>
+	            TabStripPlacement="Left" />
 
 </controls:MetroWindow>
