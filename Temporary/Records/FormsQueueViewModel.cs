@@ -8,7 +8,7 @@ using Microsoft.Practices.ObjectBuilder2;
 
 namespace Temporary.Records
 {
-	public class FormsQueueViewModel : PropertyChangedBase
+	public class FormsQueueViewModel : Screen
 	{
 		private readonly IExpenses expenses;
 		public ObservableCollection<FormViewModel> Forms { get; set; }
@@ -22,7 +22,10 @@ namespace Temporary.Records
 		{
 			this.expenses = expenses;
 			Forms = new ObservableCollection<FormViewModel>();
-		}
+
+			DisplayName = "DisplayName";
+
+        }
 
 		public FormViewModel Add()
 		{
