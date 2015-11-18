@@ -26,8 +26,6 @@ namespace Finances
 			container.RegisterType<IWindowManager, WindowManager>(new Singleton());
 			container.RegisterType<IEventAggregator, EventAggregator>(new Singleton());
 			container.RegisterType<IShell, ViewModels.Shell>(new PerResolve());
-			container.RegisterType<IExpenses, Expenses>(new Singleton());
-			container.RegisterType<IScreen, FormsQueue>(new Singleton());
 
 			ViewLocator.NameTransformer.AddRule("Model", string.Empty);
 

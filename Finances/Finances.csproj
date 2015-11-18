@@ -106,7 +106,6 @@
     <Compile Include="Converters\NumberToMonthConverter.cs" />
     <Compile Include="Converters\StringToColor.cs" />
     <Compile Include="Converters\ValueToFontWeight.cs" />
-    <Compile Include="Expenses.cs" />
     <Compile Include="Resources\GroupItemHeaderTemplateSelector.cs" />
     <Compile Include="ViewModels\FormsQueue.cs" />
     <Compile Include="ViewModels\Form.cs" />
