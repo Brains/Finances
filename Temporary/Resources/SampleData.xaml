@@ -1,0 +1,62 @@
+﻿<models:RecordsViewModel
+	xmlns="clr-namespace:Tracker"
+	xmlns:models="clr-namespace:Tracker.ViewModels"
+	xmlns:common = "clr-namespace:Common;assembly=Common" >
+	<models:RecordsViewModel.RecordsViewModelList>
+		<common:Record ID="349" Amount="251" Type="Income" Category="Permanent" Description="Техника" Date="2015-03-29" />
+		<common:Record ID="399" Amount="447" Type="Expense" Category="Food" Description="Novus" Date="2014-05-11" />
+		<common:Record ID="478" Amount="298" Type="Expense" Category="Technic" Description="Novus" Date="2014-01-16" />
+		<common:Record ID="28" Amount="648" Type="Expense" Category="Permanent" Description="Paint: Краска" Date="2014-12-30" />
+		<common:Record ID="351" Amount="679" Type="Expense" Category="Other" Description="Sport: Мазь" Date="2015-01-02" />
+		<common:Record ID="555" Amount="691" Type="Balance" Category="Other" Description="Computer" Date="2014-02-06" />
+		<common:Record ID="618" Amount="336" Type="Expense" Category="Health" Description="Sport: Диск" Date="2014-12-25" />
+		<common:Record ID="349" Amount="251" Type="Expense" Category="Permanent" Description="Техника" Date="2015-03-29" />
+		<common:Record ID="399" Amount="447" Type="Expense" Category="Food" Description="Novus" Date="2014-05-11" />
+		<common:Record ID="478" Amount="298" Type="Expense" Category="Technic" Description="Novus" Date="2014-01-16" />
+		<common:Record ID="28" Amount="648" Type="Expense" Category="Permanent" Description="Paint: Краска" Date="2014-12-30" />
+		<common:Record ID="351" Amount="679" Type="Expense" Category="Other" Description="Sport: Мазь" Date="2015-01-02" />
+		<common:Record ID="555" Amount="691" Type="Expense" Category="Other" Description="Computer" Date="2014-02-06" />
+		<common:Record ID="618" Amount="336" Type="Expense" Category="Health" Description="Sport: Диск" Date="2014-12-25" />
+		<common:Record ID="813" Amount="180" Type="Expense" Category="Permanent" Description="Sport: Диск" Date="2014-10-31" />
+		<common:Record ID="649" Amount="592" Type="Expense" Category="Permanent" Description="Доктор" Date="2014-12-05" />
+		<common:Record ID="107" Amount="528" Type="Expense" Category="Permanent" Description="Novus" Date="2014-12-13" />
+		<common:Record ID="453" Amount="193" Type="Expense" Category="General" Description="Доктор" Date="2014-08-27" />
+		<common:Record ID="391" Amount="351" Type="Expense" Category="Food" Description="Препараты" Date="2014-07-04" />
+		<common:Record ID="711" Amount="254" Type="Expense" Category="Permanent" Description="Paint: Краска" Date="2015-01-12" />
+		<common:Record ID="779" Amount="319" Type="Expense" Category="Food" Description="Sport: Мазь" Date="2014-06-23" />
+		<common:Record ID="776" Amount="649" Type="Expense" Category="Housing" Description="Paint: Краска" Date="2014-11-08" />
+		<common:Record ID="49" Amount="167" Type="Balance" Category="Technic" Description="Sport: Мазь" Date="2014-09-26" />
+		<common:Record ID="413" Amount="59" Type="Income" Category="Technic" Description="Доктор" Date="2014-11-20" />
+		<common:Record ID="483" Amount="578" Type="Balance" Category="Food" Description="Paint: Грунт" Date="2014-12-23" />
+		<common:Record ID="528" Amount="648" Type="Expense" Category="General" Description="Novus" Date="2014-04-06" />
+		<common:Record ID="29" Amount="403" Type="Expense" Category="Food" Description="Paint: Грунт" Date="2014-03-16" />
+		<common:Record ID="975" Amount="154" Type="Balance" Category="Permanent" Description="Novus" Date="2014-08-29" />
+		<common:Record ID="738" Amount="319" Type="Expense" Category="Other" Description="Sport: Диск" Date="2015-01-19" />
+		<common:Record ID="689" Amount="322" Type="Balance" Category="Housing" Description="Paint: Краска" Date="2014-05-12" />
+		<common:Record ID="978" Amount="667" Type="Balance" Category="Housing" Description="Paint: Грунт" Date="2015-02-08" />
+		<common:Record ID="589" Amount="290" Type="Expense" Category="Food" Description="Препараты" Date="2014-01-26" />
+		<common:Record ID="572" Amount="235" Type="Expense" Category="General" Description="Paint: Краска" Date="2015-03-10" />
+		<common:Record ID="244" Amount="530" Type="Expense" Category="Food" Description="Paint: Краска" Date="2014-07-04" />
+		<common:Record ID="108" Amount="666" Type="Expense" Category="Health" Description="Sport: Диск" Date="2014-10-17" />
+		<common:Record ID="571" Amount="347" Type="Expense" Category="Other" Description="Sport: Диск" Date="2014-02-09" />
+		<common:Record ID="886" Amount="138" Type="Expense" Category="Technic" Description="Computer" Date="2015-03-20" />
+		<common:Record ID="813" Amount="286" Type="Income" Category="Technic" Description="Техника" Date="2014-12-03" />
+		<common:Record ID="418" Amount="254" Type="Expense" Category="Other" Description="Novus" Date="2014-05-19" />
+		<common:Record ID="207" Amount="286" Type="Expense" Category="General" Description="Sport: Диск" Date="2014-02-25" />
+		<common:Record ID="694" Amount="306" Type="Expense" Category="Other" Description="Препараты" Date="2015-01-02" />
+		<common:Record ID="614" Amount="600" Type="Debt" Category="Housing" Description="Computer" Date="2015-01-25" />
+		<common:Record ID="361" Amount="72" Type="Expense" Category="Permanent" Description="Препараты" Date="2014-06-21" />
+		<common:Record ID="107" Amount="256" Type="Expense" Category="General" Description="Доктор" Date="2015-03-13" />
+		<common:Record ID="62" Amount="258" Type="Debt" Category="Food" Description="Novus" Date="2014-10-03" />
+		<common:Record ID="832" Amount="193" Type="Expense" Category="Other" Description="Paint: Грунт" Date="2014-04-11" />
+		<common:Record ID="664" Amount="460" Type="Expense" Category="Other" Description="Novus" Date="2014-03-13" />
+		<common:Record ID="830" Amount="103" Type="Balance" Category="Food" Description="Paint: Грунт" Date="2015-04-02" />
+		<common:Record ID="359" Amount="664" Type="Expense" Category="Permanent" Description="Computer" Date="2014-11-19" />
+		<common:Record ID="501" Amount="245" Type="Income" Category="Housing" Description="Sport: Диск" Date="2014-03-10" />
+		<common:Record ID="38" Amount="604" Type="Debt" Category="Food" Description="Доктор" Date="2014-03-14" />
+		<common:Record ID="118" Amount="296" Type="Expense" Category="Permanent" Description="Computer" Date="2015-01-03" />
+		<common:Record ID="27" Amount="277" Type="Expense" Category="Food" Description="Препараты" Date="2014-07-16" />
+	</models:RecordsViewModel.RecordsViewModelList>
+
+
+</models:RecordsViewModel>

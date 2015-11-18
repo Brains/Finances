@@ -1,0 +1,11 @@
+<controls:MetroWindow x:Class="Temporary.Shell.ShellView"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:records="clr-namespace:Temporary.Records"
+                      xmlns:cal="http://www.caliburnproject.org">
+
+	<TabControl x:Name="Items"
+	            TabStripPlacement="Left" />
+
+</controls:MetroWindow>
