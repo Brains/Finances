@@ -8,6 +8,8 @@ namespace Temporary.Shell
 	{
 		public ShellViewModel(IScreen forms)
 		{
+			DisplayName = "Finances";
+
 			Items.Add(forms);
 		}
 	}
