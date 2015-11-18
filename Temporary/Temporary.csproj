@@ -106,12 +106,6 @@
     <Compile Include="ViewModels\Form.cs" />
     <Compile Include="ViewModels\Records.cs" />
     <Compile Include="ViewModels\Shell.cs" />
-    <Compile Include="Views\FormsQueue.xaml.cs">
-      <DependentUpon>FormsQueue.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Records.xaml.cs">
-      <DependentUpon>Records.xaml</DependentUpon>
-    </Compile>
     <Page Include="Resources\Colors.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
