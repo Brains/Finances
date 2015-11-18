@@ -21,9 +21,6 @@ namespace Temporary.Records
 		public FormsQueueViewModel(IExpenses expenses)
 		{
 			this.expenses = expenses;
-//			AddRecordCommand = new DelegateCommand(() => Add());
-//			RemoveRecordCommand = new DelegateCommand(Remove);
-//			SubmitCommand = new DelegateCommand(Submit);
 			Forms = new ObservableCollection<FormViewModel>();
 		}
 
@@ -37,11 +34,6 @@ namespace Temporary.Records
 			Forms.Add(form);
 
 			return form;
-		}
-
-		public bool CanAdd
-		{
-			get { return true; }
 		}
 
 		public void Remove()
@@ -74,7 +66,7 @@ namespace Temporary.Records
 
 		public decimal Total()
 		{
-			return Enumerable.Sum((IEnumerable<decimal>) Forms.Select(record => record.Amount));
+			return Forms.Select(record => record.Amount).Sum();
 		}
 
 		public void Submit()

@@ -60,25 +60,25 @@
 			              ItemTemplate = "{StaticResource FormTemplate}"
 			              HorizontalContentAlignment = "Stretch"
 			              IsTabStop = "False" />
-			<Button Grid.Row = "0"
-			        Grid.Column = "1"
-			        Content = "_Submit"
-			        Command = "{Binding SubmitCommand, ValidatesOnExceptions=True}"
-			        VerticalAlignment = "Top"
-			        IsDefault = "True"
-			        Style = "{StaticResource FlatAccentButtonWithVisibility}" />
-			<Button Grid.Row = "1"
-			        Grid.Column = "1"
-			        Command = "{Binding RemoveRecordCommand}"
-			        Content = "_Remove"
-			        VerticalAlignment = "Bottom"
-			        Style = "{StaticResource FlatAccentButtonWithVisibility}" />
-			<Button Grid.Row = "2"
-			        Grid.Column = "1"
-			        Command = "{Binding AddRecordCommand}"
-			        Content = "_Add"
-			        VerticalAlignment = "Bottom"
-			        Style = "{StaticResource FlatAccentButton}" />
+            <Button Name="Submit"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Content="_Submit"
+                    VerticalAlignment="Top"
+                    IsDefault="True"
+                    Style="{StaticResource FlatAccentButtonWithVisibility}" />
+			<Button Name="Remove"
+			        Grid.Row="1"
+			        Grid.Column="1"
+			        Content="_Remove"
+			        VerticalAlignment="Bottom"
+			        Style="{StaticResource FlatAccentButtonWithVisibility}" />
+			<Button Name="Add"
+			        Grid.Row="2"
+			        Grid.Column="1"
+			        Content="_Add"
+			        VerticalAlignment="Bottom"
+			        Style="{StaticResource FlatAccentButton}" />
 		</Grid>
 	</Border>
 
