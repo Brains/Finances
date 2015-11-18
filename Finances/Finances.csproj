@@ -177,9 +177,9 @@
     <Resource Include="Resources\Icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{d00dc305-ae73-479c-a3d8-0155cab23798}</Project>
-      <Name>Common</Name>
+    <ProjectReference Include="..\Records\Records.csproj">
+      <Project>{a00c293e-3df9-4b57-816e-59dfbd86fae1}</Project>
+      <Name>Records</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

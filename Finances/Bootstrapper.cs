@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using Caliburn.Micro;
-using Common;
 using Finances.ViewModels;
 using Microsoft.Practices.Unity;
 using Singleton = Microsoft.Practices.Unity.ContainerControlledLifetimeManager;
@@ -25,7 +24,8 @@ namespace Finances
 
 			container.RegisterType<IWindowManager, WindowManager>(new Singleton());
 			container.RegisterType<IEventAggregator, EventAggregator>(new Singleton());
-			container.RegisterType<IShell, ViewModels.Shell>(new PerResolve());
+			container.RegisterType<IShell, Shell>(new PerResolve());
+			container.RegisterType<IScreen, ViewModels.Records>(new PerResolve());
 
 			ViewLocator.NameTransformer.AddRule("Model", string.Empty);
 

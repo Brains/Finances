@@ -1,7 +1,7 @@
 using System;
 using System.Xml.Serialization;
 
-namespace Common
+namespace Records
 {
 	[Serializable]
     public class Record
@@ -72,8 +72,8 @@ namespace Common
 
 		public static Record operator +(Record a, Record b)
 		{
-			CodeContracts.Requires.True(a.Category == b.Category, "a.Category == b.Category");
-			CodeContracts.Requires.True(a.Date.Day == b.Date.Day, "a.Date.Day == b.Date.Day");
+//			CodeContracts.Requires.True(a.Category == b.Category, "a.Category == b.Category");
+//			CodeContracts.Requires.True(a.Date.Day == b.Date.Day, "a.Date.Day == b.Date.Day");
 
 			return new Record(a.Amount + b.Amount, a.Type, a.Category, GetAggregatedDescription(a, b), a.Date);
 		}
