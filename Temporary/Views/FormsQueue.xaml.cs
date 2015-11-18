@@ -1,8 +1,8 @@
 ﻿namespace Temporary.Views
 {
-	public partial class FormsQueueView
+	public partial class FormsQueue
 	{
-		public FormsQueueView ()
+		public FormsQueue ()
 		{
 			InitializeComponent();
 		}
