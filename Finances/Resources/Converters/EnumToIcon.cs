@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace Finances.Converters
+namespace Finances.Resources.Converters
 {
 	public class EnumToIcon : IValueConverter
 	{

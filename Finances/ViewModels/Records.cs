@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Windows.Data;
 using Caliburn.Micro;
-using Finances.Converters;
+using Finances.Resources.Converters;
 using Records;
 
 namespace Finances.ViewModels

@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace Finances.Converters
+namespace Finances.Resources.Converters
 {
 	internal class NumberToMonthConverter : IValueConverter
 	{
