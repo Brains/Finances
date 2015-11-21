@@ -7,7 +7,7 @@ using Records;
 
 namespace Finances.ViewModels
 {
-	public class FormsQueue : Screen
+	public class FormsQueue : Screen, IViewModel
 	{
 		private readonly IExpenses expenses;
 		public ObservableCollection<Form> Forms { get; set; }
