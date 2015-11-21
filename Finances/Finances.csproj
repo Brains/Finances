@@ -108,7 +108,6 @@
     <Compile Include="Resources\Converters\ValueToFontWeight.cs" />
     <Compile Include="Resources\Templates\GroupItemHeaderTemplateSelector.cs" />
     <Compile Include="ViewModels\FormsQueue.cs" />
-    <Compile Include="ViewModels\Form.cs" />
     <Compile Include="ViewModels\IViewModel.cs" />
     <Compile Include="ViewModels\Records.cs" />
     <Compile Include="ViewModels\Shell.cs" />
@@ -130,10 +129,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\FormsQueue.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Form.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
