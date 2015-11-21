@@ -98,15 +98,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Resources\Controls\AutoCompleteBehavior.cs" />
-    <Compile Include="Resources\Converters\AmountTextToDecimal.cs" />
-    <Compile Include="Resources\Converters\DateTimeToDateConverter.cs" />
-    <Compile Include="Resources\Converters\EnumToIcon.cs" />
-    <Compile Include="Resources\Converters\NumbersValidationRule.cs" />
-    <Compile Include="Resources\Converters\NumberToMonthConverter.cs" />
-    <Compile Include="Resources\Converters\StringToColor.cs" />
-    <Compile Include="Resources\Converters\ValueToFontWeight.cs" />
-    <Compile Include="Resources\Templates\GroupItemHeaderTemplateSelector.cs" />
     <Compile Include="ViewModels\FormsQueue.cs" />
     <Compile Include="ViewModels\IViewModel.cs" />
     <Compile Include="ViewModels\Records.cs" />
@@ -121,10 +112,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Resources\Icons\Modern.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Templates\DataGridTemplates.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
