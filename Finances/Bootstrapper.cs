@@ -4,7 +4,6 @@ using System.Windows;
 using Caliburn.Micro;
 using Finances.ViewModels;
 using Microsoft.Practices.Unity;
-using Records;
 using Singleton = Microsoft.Practices.Unity.ContainerControlledLifetimeManager;
 using PerResolve = Microsoft.Practices.Unity.PerResolveLifetimeManager;
 
@@ -29,10 +28,7 @@ namespace Finances
 			container.RegisterType<IEventAggregator, EventAggregator>(new Singleton());
 			container.RegisterType<IShell, Shell>(new PerResolve());
 
-			container.RegisterType<Random>(new Singleton(), new InjectionConstructor());
-			container.RegisterType<IExpenses, RandomExpenses>(new Singleton());
-
-			container.RegisterType<IViewModel, ViewModels.Records>("Records");
+			container.RegisterType<IViewModel, Records>("Records");
 			container.RegisterType<IViewModel, FormsQueue>("FormsQueue");
 			container.RegisterType<IScreen, Tracker>(new InjectionConstructor(
 				new ResolvedParameter<IViewModel>("Records"), 
