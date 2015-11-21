@@ -11,8 +11,8 @@
 		<ResourceDictionary Source = "pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
 		<ResourceDictionary Source = "pack://application:,,,/MahApps.Metro;component/Styles/Accents/lime.xaml" />
 		<ResourceDictionary Source = "pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
-		<ResourceDictionary Source =  "Resources/Templates/DataGridTemplates.xaml"/>
-        <ResourceDictionary Source =  "../Resources/FinancesIcons.xaml"/>
+		<ResourceDictionary Source =  "../Resources/Templates/DataGridTemplates.xaml"/>
+        <ResourceDictionary Source =  "../Resources/Icons/Icons.xaml"/>
 	</ResourceDictionary.MergedDictionaries>
 
 	<system:Double x:Key = "FontSize" >18</system:Double>
