@@ -8,7 +8,13 @@ namespace Finances.ViewModels
 {
 	public class Records : PropertyChangedBase, IViewModel
 	{
+		public IEnumerable<Record> RecordsList { get; }
 
-
+		public Records(IObservableCollection<Record> records)
+		{
+			RecordsList = records;
+		}
 	}
+
+	public class Record {}
 }
