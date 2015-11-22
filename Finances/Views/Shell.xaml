@@ -6,9 +6,14 @@
                       WindowState="Maximized" ShowIconOnTitleBar="True">
 
 	<TabControl x:Name="Items" TabStripPlacement="Left">
+		<TabControl.Resources>
+            <Style TargetType="{x:Type TabPanel}">
+                <Setter Property="Background" Value="{StaticResource AccentColorBrush}"></Setter>
+            </Style>
+        </TabControl.Resources>
 		<TabControl.ItemTemplate>
 			<DataTemplate DataType="viewModels:Tracker">
-				<TextBlock FontWeight="Light" FontSize="40" Margin="10" VerticalAlignment="Center">
+				<TextBlock FontWeight="Light" FontSize="40" Margin="10" VerticalAlignment="Center" Foreground="White" >
 					<Run Text="{Binding Icon}" FontFamily="Segoe MDL2 Assets" />
 					<Run Text="{Binding DisplayName}" />
 				</TextBlock>
