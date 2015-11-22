@@ -7,10 +7,13 @@ namespace Finances.ViewModels
 	{
 		public Tracker(IViewModel records, IViewModel formsQuery)
 		{
+			Icon = "\uE111";
 			DisplayName = "Tracker";
 
 			Items.Add(records);
 			Items.Add(formsQuery);
 		}
+
+		public string Icon { get; set; }
 	}
 }
