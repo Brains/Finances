@@ -24,8 +24,17 @@ namespace Statistics.Storages.Banking
 		public static decimal ParseBalance(string input)
 		{
 			XElement file = XElement.Parse(input);
+			string element;
 
-			var element = file.Descendants("av_balance").First().Value;
+			try
+			{
+				element = file.Descendants("av_balance").First().Value;
+			}
+			catch (InvalidOperationException)
+			{
+				Console.WriteLine(input);
+				element = "0";
+			}
 
 			return Math.Round(decimal.Parse(element));
 		}
