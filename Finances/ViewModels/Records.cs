@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Data;
 using Caliburn.Micro;
+using Records;
 
 namespace Finances.ViewModels
 {
@@ -15,6 +16,4 @@ namespace Finances.ViewModels
 			RecordsList = records;
 		}
 	}
-
-	public class Record {}
 }
