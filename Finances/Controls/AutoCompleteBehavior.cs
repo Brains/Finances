@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Temporary.Controls
+namespace Finances.Controls
 {
 	public static class AutoCompleteBehavior
 	{

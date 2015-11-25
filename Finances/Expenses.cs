@@ -9,7 +9,7 @@ using Common;
 using Common.Events;
 using Finances.Properties;
 
-namespace Temporary
+namespace Finances
 {
     public class Expenses : IExpenses
     {

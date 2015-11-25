@@ -1,38 +1,60 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using System.Windows;
-using Microsoft.Practices.Prism.Modularity;
-using Microsoft.Practices.Prism.UnityExtensions;
-using Microsoft.Practices.ServiceLocation;
+using Caliburn.Micro;
+using Common;
+using Finances.ViewModels;
+using Microsoft.Practices.Unity;
+using Singleton = Microsoft.Practices.Unity.ContainerControlledLifetimeManager;
+using PerResolve = Microsoft.Practices.Unity.PerResolveLifetimeManager;
 
 namespace Finances
 {
-	class Bootstrapper : UnityBootstrapper
+	public class Bootstrapper : BootstrapperBase
 	{
-		protected override DependencyObject CreateShell ()
+		private IUnityContainer container;
+
+		public Bootstrapper()
 		{
-			return ServiceLocator.Current.GetInstance<Shell>();
+			Initialize();
 		}
 
-		protected override void InitializeShell ()
+		protected override void Configure()
 		{
-			base.InitializeShell();
+			container = new UnityContainer();
 
-			Application.Current.MainWindow = (Window) Shell;
-			Application.Current.MainWindow.Show();
+			container.RegisterType<IWindowManager, WindowManager>(new Singleton());
+			container.RegisterType<IEventAggregator, EventAggregator>(new Singleton());
+			container.RegisterType<IShell, ViewModels.Shell>(new PerResolve());
+			container.RegisterType<IExpenses, Expenses>(new Singleton());
+			container.RegisterType<IScreen, FormsQueue>(new Singleton());
+
+			ViewLocator.NameTransformer.AddRule("Model", string.Empty);
+
 		}
 
-		protected override void ConfigureModuleCatalog ()
+		protected override object GetInstance(Type service, string key)
 		{
-			base.ConfigureModuleCatalog();
+			var instance = container.Resolve(service, key);
+			if (instance != null)
+				return instance;
 
-			Type tracker = typeof(Tracker.Module);
-			ModuleCatalog.AddModule(new ModuleInfo("Tracker", tracker.AssemblyQualifiedName));
+			throw new InvalidOperationException("Could not locate any instances.");
+		}
 
-			Type visualization = typeof(Statistics.Module);
-			ModuleCatalog.AddModule(new ModuleInfo("Statistics", visualization.AssemblyQualifiedName));
+		protected override IEnumerable<object> GetAllInstances(Type service)
+		{
+			return container.ResolveAll(service);
+		}
 
-			Type trends = typeof(Trends.Module);
-			ModuleCatalog.AddModule(new ModuleInfo("Trends", trends.AssemblyQualifiedName));
+		protected override void BuildUp(object instance)
+		{
+			container.BuildUp(instance);
+		}
+
+		protected override void OnStartup(object sender, StartupEventArgs e)
+		{
+			DisplayRootViewFor<IShell>();
 		}
 	}
 }

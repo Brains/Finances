@@ -5,8 +5,6 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{00D6A4C7-E74F-4098-A434-241C05E06E06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finances", "Finances\Finances.csproj", "{3D9C8E22-6A8C-4651-9440-163A12EFA35C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trends", "Trends\Trends.csproj", "{13FB303D-7AE5-48D6-A8DA-602526EC2C32}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trends.Tests", "Tests\Trends.Tests\Trends.Tests.csproj", "{0F72DA7F-C26D-4DCB-87A0-D3A06A9F23EA}"
@@ -21,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracker.Tests", "Tests\Trac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{D00DC305-AE73-479C-A3D8-0155CAB23798}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Temporary", "Temporary\Temporary.csproj", "{4973F950-534D-4326-85BE-D52544128618}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finances", "Finances\Finances.csproj", "{4973F950-534D-4326-85BE-D52544128618}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +27,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3D9C8E22-6A8C-4651-9440-163A12EFA35C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3D9C8E22-6A8C-4651-9440-163A12EFA35C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3D9C8E22-6A8C-4651-9440-163A12EFA35C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3D9C8E22-6A8C-4651-9440-163A12EFA35C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{13FB303D-7AE5-48D6-A8DA-602526EC2C32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{13FB303D-7AE5-48D6-A8DA-602526EC2C32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13FB303D-7AE5-48D6-A8DA-602526EC2C32}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Data;
 
-namespace Temporary.Converters
+namespace Finances.Converters
 {
 	public class AmountTextToDecimal : IValueConverter
 	{

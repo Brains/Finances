@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Controls;
 
-namespace Temporary.Converters
+namespace Finances.Converters
 {
 	public class NumbersValidationRule : ValidationRule
 	{

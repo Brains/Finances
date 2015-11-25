@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Caliburn.Micro;
 
-namespace Temporary.ViewModels
+namespace Finances.ViewModels
 {
 	public interface IShell {}
 

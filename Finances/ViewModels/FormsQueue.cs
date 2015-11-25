@@ -5,7 +5,7 @@ using Caliburn.Micro;
 using Common;
 using Microsoft.Practices.ObjectBuilder2;
 
-namespace Temporary.ViewModels
+namespace Finances.ViewModels
 {
 	public class FormsQueue : Screen
 	{

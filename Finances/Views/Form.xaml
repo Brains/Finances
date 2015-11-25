@@ -1,9 +1,9 @@
 ﻿<ResourceDictionary xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:converters = "clr-namespace:Temporary.Converters"
+                    xmlns:converters = "clr-namespace:Finances.Converters"
                     xmlns:controls = "http://metro.mahapps.com/winfx/xaml/controls"
                     xmlns:system = "clr-namespace:System;assembly=mscorlib"
-                    xmlns:behaviors = "clr-namespace:Temporary.Controls">
+                    xmlns:behaviors = "clr-namespace:Finances.Controls">
 
 	<ResourceDictionary.MergedDictionaries>
 		<ResourceDictionary Source = "pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />

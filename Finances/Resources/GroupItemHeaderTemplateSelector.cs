@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace Temporary.Resources
+namespace Finances.Resources
 {
 	public class GroupItemHeaderTemplateSelector : DataTemplateSelector
 	{
