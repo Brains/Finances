@@ -4,55 +4,52 @@ using System.Linq;
 using System.Windows;
 using Caliburn.Micro;
 using Common;
-using static Common.Record;
-using static Common.Record.Types;
-using static Common.Record.Categories;
 
-namespace Temporary.Records
+namespace Temporary.ViewModels
 {
-	public class FormViewModel : PropertyChangedBase
+	public class Form : PropertyChangedBase
 	{
 		// Model
 		private readonly IExpenses expenses;
 
 		// Record Fields
-		private Types type;
+		private Record.Types type;
 		public decimal Amount { get; set; }
 
-		public Types Type
+		public Record.Types Type
 		{
 			get { return type; }
 			set { OnTypeUpdate(value); }
 		}
 
-		public Categories Category { get; set; }
+		public Record.Categories Category { get; set; }
 		public string Description { get; set; }
 		public DateTime Date { get; set; }
 
 		// View needs
 		public Thickness Padding { get; set; }
 		public Thickness Border { get; set; }
-		public IEnumerable<Types> RecordTypes { get; set; }
-		public IEnumerable<Categories> AvailableCategories { get; set; }
-		private readonly Dictionary<Types, Categories[]> availableCategories;
+		public IEnumerable<Record.Types> RecordTypes { get; set; }
+		public IEnumerable<Record.Categories> AvailableCategories { get; set; }
+		private readonly Dictionary<Record.Types, Record.Categories[]> availableCategories;
 		public List<string> DescriptionSuggestions { get; set; }
 
-		public FormViewModel(IExpenses expenses)
+		public Form(IExpenses expenses)
 		{
 			this.expenses = expenses;
 
 			// Assign date here instead of the Submit() because of Primary and Secondary need to have different time
 			Date = DateTime.Now;
 
-			RecordTypes = Enum.GetValues(typeof (Types)).Cast<Types>();
+			RecordTypes = Enum.GetValues(typeof (Record.Types)).Cast<Record.Types>();
 
-			availableCategories = new Dictionary<Types, Categories[]>
+			availableCategories = new Dictionary<Record.Types, Record.Categories[]>
 			{
-				[Expense] = new[]	{Food, Health, House, General, Women, Other},
-				[Debt] = new[]		{Maxim, Andrey},
-				[Income] = new[]	{Deposit, ODesk},
-				[Shared] = new[]	{Food, House, General, Other},
-				[Balance] = new[]	{Other}
+				[Record.Types.Expense] = new[]	{Record.Categories.Food, Record.Categories.Health, Record.Categories.House, Record.Categories.General, Record.Categories.Women, Record.Categories.Other},
+				[Record.Types.Debt] = new[]		{Record.Categories.Maxim, Record.Categories.Andrey},
+				[Record.Types.Income] = new[]	{Record.Categories.Deposit, Record.Categories.ODesk},
+				[Record.Types.Shared] = new[]	{Record.Categories.Food, Record.Categories.House, Record.Categories.General, Record.Categories.Other},
+				[Record.Types.Balance] = new[]	{Record.Categories.Other}
 			};
 
 			DescriptionSuggestions = new List<string> {"Novus", "Kishenya", "Water", "Hygiene", "Domestic", "Passage",
@@ -64,7 +61,7 @@ namespace Temporary.Records
 
 		public void Submit()
 		{
-			if (Type == Shared)
+			if (Type == Record.Types.Shared)
 				Amount = Divide(Amount);
 
 			expenses.Add(Amount, Type, Category, Description, Date);
@@ -82,7 +79,7 @@ namespace Temporary.Records
 			Padding = new Thickness(5, 5, 40, 5);
 		}
 
-		private void OnTypeUpdate(Types value)
+		private void OnTypeUpdate(Record.Types value)
 		{
 			type = value;
 			NotifyOfPropertyChange(nameof(Type));
@@ -90,7 +87,7 @@ namespace Temporary.Records
 			ClearDescription();
 		}
 
-		private void SetAvailableCategories(Types value)
+		private void SetAvailableCategories(Record.Types value)
 		{
 			AvailableCategories = availableCategories[value];
 			NotifyOfPropertyChange(nameof(AvailableCategories));

@@ -1,35 +1,34 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using Caliburn.Micro;
 using Common;
 using Microsoft.Practices.ObjectBuilder2;
 
-namespace Temporary.Records
+namespace Temporary.ViewModels
 {
-	public class FormsQueueViewModel : Screen
+	public class FormsQueue : Screen
 	{
 		private readonly IExpenses expenses;
-		public ObservableCollection<FormViewModel> Forms { get; set; }
+		public ObservableCollection<Form> Forms { get; set; }
 
 		// Commands
 		public ICommand AddRecordCommand { get; private set; }
 		public ICommand RemoveRecordCommand { get; private set; }
 		public ICommand SubmitCommand { get; set; }
 
-		public FormsQueueViewModel(IExpenses expenses)
+		public FormsQueue(IExpenses expenses)
 		{
 			this.expenses = expenses;
-			Forms = new ObservableCollection<FormViewModel>();
+			Forms = new ObservableCollection<Form>();
 
 			DisplayName = "DisplayName";
 
         }
 
-		public FormViewModel Add()
+		public Form Add()
 		{
-			var form = new FormViewModel(expenses);
+			var form = new Form(expenses);
 
 			if (Forms.Count == 0)
 				form.MarkPrimary();

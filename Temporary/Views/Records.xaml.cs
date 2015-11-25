@@ -1,15 +1,17 @@
-﻿namespace Temporary.Records
+﻿using Temporary.ViewModels;
+
+namespace Temporary.Views
 {
-    public partial class RecordsView
+    public partial class Records
     {
 	    //------------------------------------------------------------------
-		public RecordsView()
+		public Records()
         {
 			InitializeComponent();
         }
 
 	    //------------------------------------------------------------------
-	    public RecordsView (RecordsViewModel viewModel) : this()
+	    public Records (ViewModels.Records viewModel) : this()
 	    {
 		    DataContext = viewModel;
 	    }
