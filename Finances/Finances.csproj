@@ -38,7 +38,7 @@
     <StartupObject>Finances.App</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Icons\Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Caliburn.Micro, Version=2.0.2.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
@@ -98,36 +98,37 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Controls\AutoCompleteBehavior.cs" />
-    <Compile Include="Converters\AmountTextToDecimal.cs" />
-    <Compile Include="Converters\DateTimeToDateConverter.cs" />
-    <Compile Include="Converters\EnumToIcon.cs" />
-    <Compile Include="Converters\NumbersValidationRule.cs" />
-    <Compile Include="Converters\NumberToMonthConverter.cs" />
-    <Compile Include="Converters\StringToColor.cs" />
-    <Compile Include="Converters\ValueToFontWeight.cs" />
-    <Compile Include="Expenses.cs" />
-    <Compile Include="Resources\GroupItemHeaderTemplateSelector.cs" />
+    <Compile Include="Resources\Controls\AutoCompleteBehavior.cs" />
+    <Compile Include="Resources\Converters\AmountTextToDecimal.cs" />
+    <Compile Include="Resources\Converters\DateTimeToDateConverter.cs" />
+    <Compile Include="Resources\Converters\EnumToIcon.cs" />
+    <Compile Include="Resources\Converters\NumbersValidationRule.cs" />
+    <Compile Include="Resources\Converters\NumberToMonthConverter.cs" />
+    <Compile Include="Resources\Converters\StringToColor.cs" />
+    <Compile Include="Resources\Converters\ValueToFontWeight.cs" />
+    <Compile Include="Resources\Templates\GroupItemHeaderTemplateSelector.cs" />
     <Compile Include="ViewModels\FormsQueue.cs" />
     <Compile Include="ViewModels\Form.cs" />
+    <Compile Include="ViewModels\IViewModel.cs" />
     <Compile Include="ViewModels\Records.cs" />
     <Compile Include="ViewModels\Shell.cs" />
+    <Compile Include="ViewModels\Tracker.cs" />
     <Page Include="Resources\Colors.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\DataGridTemplates.xaml">
+    <Page Include="Resources\Icons\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\FinancesIcons.xaml">
+    <Page Include="Resources\Icons\Modern.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <None Include="Resources\SampleData.xaml">
+    <Page Include="Resources\Templates\DataGridTemplates.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </None>
+    </Page>
     <Page Include="Views\FormsQueue.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -144,52 +145,41 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Tracker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <Resource Include="Resources\Entypo.ttf" />
+    <Resource Include="Resources\Icons\Entypo.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\WindowsIcons-license.txt" />
+    <Resource Include="Resources\Icons\Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Entypo-license.txt" />
+    <Resource Include="Resources\Icons\Icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{d00dc305-ae73-479c-a3d8-0155cab23798}</Project>
-      <Name>Common</Name>
+    <ProjectReference Include="..\Records\Records.csproj">
+      <Project>{a00c293e-3df9-4b57-816e-59dfbd86fae1}</Project>
+      <Name>Records</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

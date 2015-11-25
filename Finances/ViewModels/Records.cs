@@ -1,23 +1,30 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Data;
-using Common;
-using Finances.Converters;
+using Caliburn.Micro;
+using Finances.Resources.Converters;
+using Records;
 
 namespace Finances.ViewModels
 {
-	public class Records
+	public class Records : PropertyChangedBase, IViewModel
 	{
+		public ObservableCollection<Record> RecordsList { get; }
+
+
 		// Model
 		private readonly IExpenses expenses;
 
 
-		public ObservableCollection<Record> RecordsList => expenses.Records;
+
+
+
 
 		public Records (IExpenses expenses)
 		{
 			this.expenses = expenses;
-			expenses.Load();
+			RecordsList = expenses.Records;
 
 			Group();
 		}

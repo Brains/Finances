@@ -8,6 +8,15 @@
                       ShowIconOnTitleBar="True">
 
 	<TabControl x:Name="Items"
-	            TabStripPlacement="Left" />
+	            TabStripPlacement="Left">
+		<TabControl.ItemTemplate>
+			<DataTemplate>
+				<StackPanel Orientation="Horizontal">
+                    <TextBlock FontFamily="Emoticons" Text='&#128221; Sample' FontSize="40" Margin="10" />
+					<TextBlock Text="{Binding DisplayName}" FontWeight="Light" FontSize="40" Margin="10" />
+				</StackPanel>
+			</DataTemplate>
+		</TabControl.ItemTemplate>
+	</TabControl>
 
 </controls:MetroWindow>

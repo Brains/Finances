@@ -2,12 +2,12 @@
 using System.Linq;
 using System.Windows.Input;
 using Caliburn.Micro;
-using Common;
 using Microsoft.Practices.ObjectBuilder2;
+using Records;
 
 namespace Finances.ViewModels
 {
-	public class FormsQueue : Screen
+	public class FormsQueue : Screen, IViewModel
 	{
 		private readonly IExpenses expenses;
 		public ObservableCollection<Form> Forms { get; set; }
