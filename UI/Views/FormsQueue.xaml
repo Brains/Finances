@@ -1,6 +1,10 @@
 ﻿<UserControl x:Class="UI.Views.FormsQueue"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-
+<StackPanel>
+	<Button Name="Add">Add</Button>
+	<Button Name="Remove">Remove</Button>
+    <Button Name="Submit">Submit</Button>
+</StackPanel>
 
 </UserControl>
