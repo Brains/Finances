@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Windows;
 using Caliburn.Micro;
 using Microsoft.Practices.Unity;
@@ -22,6 +23,7 @@ namespace Finances
 		protected override void Configure()
 		{
 			ViewLocator.NameTransformer.AddRule("Model", string.Empty);
+			AssemblySource.Instance.Add(Assembly.GetAssembly(typeof(Shell)));
 
 			container = new UnityContainer();
 
@@ -35,10 +37,9 @@ namespace Finances
 				new ResolvedParameter<IViewModel>("Records"), 
 				new ResolvedParameter<IViewModel>("FormsQueue")));
 
-
+			container.RegisterType<Random>(new Singleton(), new InjectionConstructor());
 			container.RegisterType<IExpences, RandomRecords>(new Singleton());
-
-		}
+        }
 
 		protected override object GetInstance(Type service, string key)
 		{
