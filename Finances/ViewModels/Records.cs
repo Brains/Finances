@@ -3,12 +3,17 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Data;
 using Caliburn.Micro;
+using Records;
 
 namespace Finances.ViewModels
 {
 	public class Records : PropertyChangedBase, IViewModel
 	{
+		public IEnumerable<Record> RecordsList { get; }
 
-
+		public Records(IObservableCollection<Record> records)
+		{
+			RecordsList = records;
+		}
 	}
 }
