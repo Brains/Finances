@@ -1,6 +1,6 @@
 using Caliburn.Micro;
 
-namespace Finances.ViewModels
+namespace UI.ViewModels
 {
 	public interface IViewModel : INotifyPropertyChangedEx {}
 }
