@@ -9,7 +9,7 @@ using UI.ViewModels;
 using Singleton = Microsoft.Practices.Unity.ContainerControlledLifetimeManager;
 using PerResolve = Microsoft.Practices.Unity.PerResolveLifetimeManager;
 
-namespace Finances
+namespace Loader
 {
 	public class Bootstrapper : BootstrapperBase
 	{
@@ -23,7 +23,7 @@ namespace Finances
 		protected override void Configure()
 		{
 			ViewLocator.NameTransformer.AddRule("Model", string.Empty);
-			AssemblySource.Instance.Add(Assembly.GetAssembly(typeof(Shell)));
+			AssemblySource.Instance.Add(Assembly.GetAssembly(typeof(UI.ViewModels.Shell)));
 
 			container = new UnityContainer();
 

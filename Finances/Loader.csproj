@@ -7,7 +7,7 @@
     <ProjectGuid>{4973F950-534D-4326-85BE-D52544128618}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Finances</RootNamespace>
+    <RootNamespace>Loader</RootNamespace>
     <AssemblyName>Finances</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -35,7 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Finances.App</StartupObject>
+    <StartupObject>Loader.App</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Resources\Icons\Icon.ico</ApplicationIcon>
