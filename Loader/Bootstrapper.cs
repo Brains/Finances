@@ -22,24 +22,38 @@ namespace Loader
 
 		protected override void Configure()
 		{
-			ViewLocator.NameTransformer.AddRule("Model", string.Empty);
-			AssemblySource.Instance.Add(Assembly.GetAssembly(typeof(UI.ViewModels.Shell)));
+			ConfigureCaliburn();
+			ConfigureUnity();
+		}
 
+		private static void ConfigureCaliburn()
+		{
+			ViewLocator.NameTransformer.AddRule("Model", string.Empty);
+			AssemblySource.Instance.Add(Assembly.GetAssembly(typeof (UI.ViewModels.Shell)));
+		}
+
+		private void ConfigureUnity()
+		{
 			container = new UnityContainer();
 
 			container.RegisterType<IWindowManager, WindowManager>(new Singleton());
 			container.RegisterType<IEventAggregator, EventAggregator>(new Singleton());
 			container.RegisterType<IShell, Shell>(new PerResolve());
 
+			container.RegisterType<Random>(new Singleton(), new InjectionConstructor());
+			container.RegisterType<IExpences, RandomRecords>(new Singleton());
+
+			ConfigureViewModels();
+		}
+
+		private void ConfigureViewModels()
+		{
 			container.RegisterType<IViewModel, UI.ViewModels.Records>("Records");
 			container.RegisterType<IViewModel, FormsQueue>("FormsQueue");
 			container.RegisterType<IScreen, Tracker>(new InjectionConstructor(
-				new ResolvedParameter<IViewModel>("Records"), 
+				new ResolvedParameter<IViewModel>("Records"),
 				new ResolvedParameter<IViewModel>("FormsQueue")));
-
-			container.RegisterType<Random>(new Singleton(), new InjectionConstructor());
-			container.RegisterType<IExpences, RandomRecords>(new Singleton());
-        }
+		}
 
 		protected override object GetInstance(Type service, string key)
 		{
