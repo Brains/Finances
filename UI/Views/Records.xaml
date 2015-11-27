@@ -1,6 +1,5 @@
-﻿<UserControl x:Class="Finances.Views.FormsQueue"
+﻿<UserControl x:Class="UI.Views.Records"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-
-
+    <DataGrid Name="RecordsList" />
 </UserControl>

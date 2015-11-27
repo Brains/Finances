@@ -1,4 +1,4 @@
-﻿namespace Finances
+﻿namespace Loader
 {
 	using System.Windows;
 	public partial class App : Application

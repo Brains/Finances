@@ -1,7 +1,6 @@
-using System;
 using Caliburn.Micro;
 
-namespace Finances.ViewModels
+namespace UI.ViewModels
 {
 	public class Tracker : Conductor<object>.Collection.AllActive
 	{
