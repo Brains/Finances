@@ -10,10 +10,10 @@ namespace UI.ViewModels
 		private const int Limit = 5;
 		public List<Form> Forms { get; }
 
-		public FormsQueue()
+		public FormsQueue(IFormFactory factory)
 		{
 			Forms = new List<Form>();
-			factory = new FormFactory();
+			this.factory = factory;
 		}
 
 		public void Add()
