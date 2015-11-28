@@ -54,6 +54,15 @@ namespace UITests.ViewModels
 			Expect(actual, True);
 		}
 
+		[Test]
+		public void CanSubmit_NoForms_ReturnsFalse()
+		{
+			var forms = new FormsQueue();
+
+			var actual = forms.CanSubmit();
+
+			Expect(actual, False);
+		}
 
 	}
 }
