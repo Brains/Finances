@@ -1,4 +1,5 @@
 using Microsoft.Practices.Unity;
+using UI.Interfaces;
 using UI.ViewModels;
 
 namespace Loader.Factories

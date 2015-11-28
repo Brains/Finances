@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Caliburn.Micro;
 using Records;
+using UI.Interfaces;
 
 namespace UI.ViewModels
 {

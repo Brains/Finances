@@ -5,6 +5,7 @@ using System.Windows;
 using Caliburn.Micro;
 using Microsoft.Practices.Unity;
 using Records;
+using UI.Interfaces;
 using UI.ViewModels;
 using Singleton = Microsoft.Practices.Unity.ContainerControlledLifetimeManager;
 using PerResolve = Microsoft.Practices.Unity.PerResolveLifetimeManager;

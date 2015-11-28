@@ -1,4 +1,4 @@
-namespace UI.ViewModels
+namespace UI.Interfaces
 {
 	public interface IFormFactory
 	{
