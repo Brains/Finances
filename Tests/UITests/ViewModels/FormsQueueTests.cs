@@ -1,4 +1,6 @@
-﻿using NSubstitute;
+﻿using System.Collections.Generic;
+using System.Linq;
+using NSubstitute;
 using NUnit.Framework;
 using UI.Interfaces;
 using UI.ViewModels;
@@ -88,6 +90,24 @@ namespace UITests.ViewModels
 			forms.Add();
 
 			Expect(forms.Forms, Contains(form));
+		}
+
+		[Test]
+		public void Remove_Always_RemovesLastForm()
+		{
+			var forms = Create();
+			forms.Forms = new List<IForm>
+			{
+				For<IForm>(),
+				For<IForm>(),
+				For<IForm>(),
+			};
+			var last = forms.Forms.Last();
+
+			forms.Remove();
+
+			Expect(forms.Forms, Not.Contains(last));
+			Expect(forms.Forms, Count.EqualTo(2));
 		}
 	}
 }

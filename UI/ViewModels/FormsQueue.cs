@@ -9,7 +9,7 @@ namespace UI.ViewModels
 	{
 		private readonly IFormFactory factory;
 		private const int Limit = 5;
-		public List<IForm> Forms { get; }
+		public List<IForm> Forms { get; set; }
 
 		public FormsQueue(IFormFactory factory)
 		{
@@ -23,7 +23,10 @@ namespace UI.ViewModels
 			Forms.Add(factory.Create());
 		}
 
-		public void Remove() {}
+		public void Remove()
+		{
+			Forms.RemoveAt(Forms.Count - 1);
+		}
 
 		public void Submit() {}
 
