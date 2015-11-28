@@ -1,22 +1,26 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Caliburn.Micro;
+using UI.Interfaces;
 
 namespace UI.ViewModels
 {
 	public class FormsQueue : PropertyChangedBase, IViewModel
 	{
+		private readonly IFormFactory factory;
 		private const int Limit = 5;
-		public List<Form> Forms { get; }
+		public List<IForm> Forms { get; }
 
-		public FormsQueue()
+		public FormsQueue(IFormFactory factory)
 		{
-			Forms = new List<Form>();
+			Forms = new List<IForm>();
+
+			this.factory = factory;
 		}
 
 		public void Add()
 		{
-			Forms.Add(new Form());
+			Forms.Add(factory.Create());
 		}
 
 		public void Remove() {}

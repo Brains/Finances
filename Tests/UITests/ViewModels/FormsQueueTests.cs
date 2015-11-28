@@ -5,10 +5,16 @@ namespace UITests.ViewModels
 {
 	public class FormsQueueTests : AssertionHelper
 	{
+		private FormsQueue Create()
+		{
+			var forms = Create();
+			return forms;
+		}
+
 		[Test]
 		public void CanAdd_LessThanFourForms_ReturnsTrue()
 		{
-			var forms = new FormsQueue();
+			var forms = Create();
 
 			forms.Add();
 			var actual = forms.CanAdd();
@@ -19,7 +25,7 @@ namespace UITests.ViewModels
 		[Test]
 		public void CanAdd_MoreThanFourForms_ReturnsFalse()
 		{
-			var forms = new FormsQueue();
+			var forms = Create();
 
 			forms.Add();
 			forms.Add();
@@ -34,7 +40,7 @@ namespace UITests.ViewModels
 		[Test]
 		public void CanRemove_NoForms_ReturnsFalse()
 		{
-			var forms = new FormsQueue();
+			var forms = Create();
 
 			var actual = forms.CanRemove();
 
@@ -44,7 +50,7 @@ namespace UITests.ViewModels
 		[Test]
 		public void CanRemove_FewForms_ReturnsTrue()
 		{
-			var forms = new FormsQueue();
+			var forms = Create();
 
 			forms.Add();
 			forms.Add();
@@ -57,7 +63,7 @@ namespace UITests.ViewModels
 		[Test]
 		public void CanSubmit_NoForms_ReturnsFalse()
 		{
-			var forms = new FormsQueue();
+			var forms = Create();
 
 			var actual = forms.CanSubmit();
 
