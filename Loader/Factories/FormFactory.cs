@@ -1,10 +1,7 @@
-namespace UI.ViewModels
-{
-	public interface IFormFactory
-	{
-		Form Create();
-	}
+using UI.ViewModels;
 
+namespace Loader.Factories
+{
 	public class FormFactory : IFormFactory
 	{
 		public Form Create()
