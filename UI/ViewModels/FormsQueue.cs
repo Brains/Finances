@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Caliburn.Micro;
 
 namespace UI.ViewModels
@@ -23,7 +24,7 @@ namespace UI.ViewModels
 		public void Submit() {}
 
 		public bool CanAdd() => Forms.Count < Limit;
-		public bool CanRemove() => false;
+		public bool CanRemove() => Forms.Any();
 		public bool CanSubmit() => false;
 	}
 }

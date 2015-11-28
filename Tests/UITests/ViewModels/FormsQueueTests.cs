@@ -30,5 +30,30 @@ namespace UITests.ViewModels
 
 			Expect(actual, False);
 		}
+
+		[Test]
+		public void CanRemove_NoForms_ReturnsFalse()
+		{
+			var forms = new FormsQueue();
+
+			var actual = forms.CanRemove();
+
+			Expect(actual, False);
+		}
+
+		[Test]
+		public void CanRemove_FewForms_ReturnsTrue()
+		{
+			var forms = new FormsQueue();
+
+			forms.Add();
+			forms.Add();
+			forms.Add();
+			var actual = forms.CanRemove();
+
+			Expect(actual, True);
+		}
+
+
 	}
 }
