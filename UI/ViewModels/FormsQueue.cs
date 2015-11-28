@@ -6,17 +6,19 @@ namespace UI.ViewModels
 {
 	public class FormsQueue : PropertyChangedBase, IViewModel
 	{
+		private readonly IFormFactory factory;
 		private const int Limit = 5;
 		public List<Form> Forms { get; }
 
 		public FormsQueue()
 		{
 			Forms = new List<Form>();
+			factory = new FormFactory();
 		}
 
 		public void Add()
 		{
-			Forms.Add(new Form());
+			Forms.Add(factory.Create());
 		}
 
 		public void Remove() {}
