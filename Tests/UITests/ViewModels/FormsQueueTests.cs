@@ -1,5 +1,8 @@
-﻿using NUnit.Framework;
+﻿using NSubstitute;
+using NUnit.Framework;
+using UI.Interfaces;
 using UI.ViewModels;
+using static NSubstitute.Substitute;
 
 namespace UITests.ViewModels
 {
@@ -7,8 +10,12 @@ namespace UITests.ViewModels
 	{
 		private FormsQueue Create()
 		{
-			var forms = Create();
-			return forms;
+			return new FormsQueue(For<IFormFactory>());
+		}
+
+		private FormsQueue Create(IFormFactory factory)
+		{
+			return new FormsQueue(factory);
 		}
 
 		[Test]
@@ -70,5 +77,17 @@ namespace UITests.ViewModels
 			Expect(actual, False);
 		}
 
+		[Test]
+		public void Add_Always_AddsFormFromFactory()
+		{
+			var factory = For<IFormFactory>();
+			var form = For<IForm>();
+			var forms = Create(factory);
+			factory.Create().Returns(form);
+
+			forms.Add();
+
+			Expect(forms.Forms, Contains(form));
+		}
 	}
 }
