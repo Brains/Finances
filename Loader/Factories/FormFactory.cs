@@ -4,7 +4,7 @@ namespace Loader.Factories
 {
 	public class FormFactory : IFormFactory
 	{
-		public Form Create()
+		public IForm Create()
 		{
 			return new Form();
 		}

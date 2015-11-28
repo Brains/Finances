@@ -8,11 +8,12 @@ namespace UI.ViewModels
 	{
 		private readonly IFormFactory factory;
 		private const int Limit = 5;
-		public List<Form> Forms { get; }
+		public List<IForm> Forms { get; }
 
 		public FormsQueue(IFormFactory factory)
 		{
-			Forms = new List<Form>();
+			Forms = new List<IForm>();
+
 			this.factory = factory;
 		}
 

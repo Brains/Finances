@@ -1,4 +1,4 @@
 namespace UI.ViewModels
 {
-	public class Form { }
+	public class Form : IForm {}
 }
