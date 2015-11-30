@@ -100,6 +100,17 @@ namespace UITests.ViewModels
 		}
 
 		[Test]
+		public void CanSubmit_OneForm_ReturnsTrue()
+		{
+			var forms = Create();
+			forms.Add();
+
+			var actual = forms.CanSubmit();
+
+			Expect(actual, True);
+		}
+
+		[Test]
 		public void Add_Always_AddsFormFromFactory()
 		{
 			var form = For<IForm>();
