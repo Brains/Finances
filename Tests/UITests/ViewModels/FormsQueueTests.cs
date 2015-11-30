@@ -25,6 +25,21 @@ namespace UITests.ViewModels
 			factory.Create().Returns(primary, secondary, secondary);
 		}
 
+		private List<IForm> GetForms(int formsCount, int defaultAmount = 10)
+		{
+			return Enumerable.Range(1, formsCount)
+			                 .Select(index => CreateForm(defaultAmount))
+			                 .ToList();
+		}
+
+		private static IForm CreateForm(int defaultAmount)
+		{
+			var form = For<IForm>();
+			form.Amount = defaultAmount;
+
+			return form;
+		}
+
 		[Test]
 		public void CanAdd_LessThanFourForms_ReturnsTrue()
 		{
@@ -104,7 +119,7 @@ namespace UITests.ViewModels
 			{
 				For<IForm>(),
 				For<IForm>(),
-				For<IForm>(),
+				For<IForm>()
 			};
 			var last = forms.Forms.Last();
 
@@ -127,23 +142,31 @@ namespace UITests.ViewModels
 			forms.Forms[0].Received().Submit();
 			forms.Forms[1].Received().Submit();
 			forms.Forms[2].Received().Submit();
-        }
+		}
 
 		[Test]
-		public void Submit_Always_SubstractsSubsequentFormsFromFirstOne()
+		public void Submit_SingleForm_PreservesItsAmount()
 		{
 			var forms = Create();
-			ConfigureFormSeries(forms.Factory);
+			forms.Forms = GetForms(1, 100);
 
-			forms.Add();
-			forms.Add();
-			forms.Add();
+			forms.Submit();
+
+			Expect(forms.Forms[0].Amount, EqualTo(100));
+		}
+
+		[Test]
+		public void Submit_FewForm_SubstractsSubsequentFormsFromFirstOne()
+		{
+			var forms = Create();
+			forms.Forms = GetForms(3);
+			forms.Forms[0].Amount = 100;
 
 			forms.Submit();
 
 			Expect(forms.Forms[0].Amount, EqualTo(80));
 			Expect(forms.Forms[1].Amount, EqualTo(10));
 			Expect(forms.Forms[2].Amount, EqualTo(10));
-        }
+		}
 	}
 }
