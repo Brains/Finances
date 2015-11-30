@@ -15,9 +15,14 @@ namespace UITests.ViewModels
 			return new FormsQueue(For<IFormFactory>());
 		}
 
-		private FormsQueue Create(IFormFactory factory)
+		private void ConfigureFormSeries(IFormFactory factory)
 		{
-			return new FormsQueue(factory);
+			var primary = For<IForm>();
+			var secondary = For<IForm>();
+			primary.Amount = 100;
+			secondary.Amount = 10;
+
+			factory.Create().Returns(primary, secondary, secondary);
 		}
 
 		[Test]
@@ -82,10 +87,9 @@ namespace UITests.ViewModels
 		[Test]
 		public void Add_Always_AddsFormFromFactory()
 		{
-			var factory = For<IFormFactory>();
 			var form = For<IForm>();
-			var forms = Create(factory);
-			factory.Create().Returns(form);
+			var forms = Create();
+			forms.Factory.Create().Returns(form);
 
 			forms.Add();
 
@@ -109,6 +113,7 @@ namespace UITests.ViewModels
 			Expect(forms.Forms, Not.Contains(last));
 			Expect(forms.Forms, Count.EqualTo(2));
 		}
+
 		[Test]
 		public void Submit_Always_CallsSubmitForEachForm()
 		{
@@ -122,6 +127,23 @@ namespace UITests.ViewModels
 			forms.Forms[0].Received().Submit();
 			forms.Forms[1].Received().Submit();
 			forms.Forms[2].Received().Submit();
+        }
+
+		[Test]
+		public void Submit_Always_SubstractsSubsequentFormsFromFirstOne()
+		{
+			var forms = Create();
+			ConfigureFormSeries(forms.Factory);
+
+			forms.Add();
+			forms.Add();
+			forms.Add();
+
+			forms.Submit();
+
+			Expect(forms.Forms[0].Amount, EqualTo(80));
+			Expect(forms.Forms[1].Amount, EqualTo(10));
+			Expect(forms.Forms[2].Amount, EqualTo(10));
         }
 	}
 }

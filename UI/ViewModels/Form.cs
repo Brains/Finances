@@ -7,5 +7,7 @@ namespace UI.ViewModels
 		{
 			throw new System.NotImplementedException();
 		}
+
+		public int Amount { get; set; }
 	}
 }

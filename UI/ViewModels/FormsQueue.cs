@@ -7,20 +7,19 @@ namespace UI.ViewModels
 {
 	public class FormsQueue : PropertyChangedBase, IViewModel
 	{
-		private readonly IFormFactory factory;
+		public IFormFactory Factory { get; }
 		private const int Limit = 5;
 		public List<IForm> Forms { get; set; }
 
 		public FormsQueue(IFormFactory factory)
 		{
 			Forms = new List<IForm>();
-
-			this.factory = factory;
+			Factory = factory;
 		}
 
 		public void Add()
 		{
-			Forms.Add(factory.Create());
+			Forms.Add(Factory.Create());
 		}
 
 		public void Remove()
@@ -30,7 +29,16 @@ namespace UI.ViewModels
 
 		public void Submit()
 		{
+			SubstractFromPrimary();
+
 			Forms.ForEach(form => form.Submit());
+		}
+
+		private void SubstractFromPrimary()
+		{
+			var primary = Forms.First();
+			var secondaries = Forms.Skip(1);
+			primary.Amount -= secondaries.Sum(form => form.Amount);
 		}
 
 		public bool CanAdd() => Forms.Count < Limit;
