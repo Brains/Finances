@@ -109,5 +109,19 @@ namespace UITests.ViewModels
 			Expect(forms.Forms, Not.Contains(last));
 			Expect(forms.Forms, Count.EqualTo(2));
 		}
+		[Test]
+		public void Submit_Always_CallsSubmitForEachForm()
+		{
+			var forms = Create();
+			forms.Add();
+			forms.Add();
+			forms.Add();
+
+			forms.Submit();
+
+			forms.Forms[0].Received().Submit();
+			forms.Forms[1].Received().Submit();
+			forms.Forms[2].Received().Submit();
+        }
 	}
 }

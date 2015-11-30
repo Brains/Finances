@@ -1,4 +1,7 @@
 namespace UI.Interfaces
 {
-	public interface IForm { }
+	public interface IForm
+	{
+		void Submit();
+	}
 }

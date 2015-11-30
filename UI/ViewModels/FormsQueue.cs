@@ -28,7 +28,10 @@ namespace UI.ViewModels
 			Forms.RemoveAt(Forms.Count - 1);
 		}
 
-		public void Submit() {}
+		public void Submit()
+		{
+			Forms.ForEach(form => form.Submit());
+		}
 
 		public bool CanAdd() => Forms.Count < Limit;
 		public bool CanRemove() => Forms.Any();
