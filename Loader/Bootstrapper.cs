@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Windows;
 using Caliburn.Micro;
+using Loader.Factories;
 using Microsoft.Practices.Unity;
 using Records;
 using UI.Interfaces;
@@ -54,6 +55,10 @@ namespace Loader
 			container.RegisterType<IScreen, Tracker>(new InjectionConstructor(
 				new ResolvedParameter<IViewModel>("Records"),
 				new ResolvedParameter<IViewModel>("FormsQueue")));
+
+			container.RegisterType<IFormFactory, FormFactory>();
+			container.RegisterType<IForm, Form>();
+
 		}
 
 		protected override object GetInstance(Type service, string key)
