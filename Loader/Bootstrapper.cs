@@ -58,7 +58,6 @@ namespace Loader
 
 			container.RegisterType<IFormFactory, FormFactory>();
 			container.RegisterType<IForm, Form>();
-
 		}
 
 		protected override object GetInstance(Type service, string key)
