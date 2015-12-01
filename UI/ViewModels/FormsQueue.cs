@@ -41,8 +41,8 @@ namespace UI.ViewModels
 			primary.Amount -= secondaries.Sum(form => form.Amount);
 		}
 
-		public bool CanAdd() => Forms.Count < Limit;
-		public bool CanRemove() => Forms.Any();
-		public bool CanSubmit() => Forms.Any();
+		public bool CanAdd => Forms.Count < Limit;
+		public bool CanRemove => Forms.Any();
+		public bool CanSubmit => Forms.Any();
 	}
 }

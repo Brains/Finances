@@ -46,9 +46,8 @@ namespace UITests.ViewModels
 			var forms = Create();
 
 			forms.Add();
-			var actual = forms.CanAdd();
 
-			Expect(actual, True);
+			Expect(forms.CanAdd, True);
 		}
 
 		[Test]
@@ -61,9 +60,8 @@ namespace UITests.ViewModels
 			forms.Add();
 			forms.Add();
 			forms.Add();
-			var actual = forms.CanAdd();
 
-			Expect(actual, False);
+			Expect(forms.CanAdd, False);
 		}
 
 		[Test]
@@ -71,9 +69,7 @@ namespace UITests.ViewModels
 		{
 			var forms = Create();
 
-			var actual = forms.CanRemove();
-
-			Expect(actual, False);
+			Expect(forms.CanRemove, False);
 		}
 
 		[Test]
@@ -84,9 +80,8 @@ namespace UITests.ViewModels
 			forms.Add();
 			forms.Add();
 			forms.Add();
-			var actual = forms.CanRemove();
 
-			Expect(actual, True);
+			Expect(forms.CanRemove, True);
 		}
 
 		[Test]
@@ -94,9 +89,7 @@ namespace UITests.ViewModels
 		{
 			var forms = Create();
 
-			var actual = forms.CanSubmit();
-
-			Expect(actual, False);
+			Expect(forms.CanSubmit, False);
 		}
 
 		[Test]
@@ -105,9 +98,7 @@ namespace UITests.ViewModels
 			var forms = Create();
 			forms.Add();
 
-			var actual = forms.CanSubmit();
-
-			Expect(actual, True);
+			Expect(forms.CanSubmit, True);
 		}
 
 		[Test]
