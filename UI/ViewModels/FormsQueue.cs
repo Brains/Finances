@@ -20,11 +20,15 @@ namespace UI.ViewModels
 		public void Add()
 		{
 			Forms.Add(Factory.Create());
+
+			NotifyAllProperties();
 		}
 
 		public void Remove()
 		{
 			Forms.RemoveAt(Forms.Count - 1);
+
+			NotifyAllProperties();
 		}
 
 		public void Submit()
@@ -32,6 +36,8 @@ namespace UI.ViewModels
 			SubstractFromPrimary();
 
 			Forms.ForEach(form => form.Submit());
+
+			NotifyAllProperties();
 		}
 
 		private void SubstractFromPrimary()
@@ -39,6 +45,13 @@ namespace UI.ViewModels
 			var primary = Forms.First();
 			var secondaries = Forms.Skip(1);
 			primary.Amount -= secondaries.Sum(form => form.Amount);
+		}
+
+		private void NotifyAllProperties()
+		{
+			NotifyOfPropertyChange(nameof(CanAdd));
+			NotifyOfPropertyChange(nameof(CanRemove));
+			NotifyOfPropertyChange(nameof(CanSubmit));
 		}
 
 		public bool CanAdd => Forms.Count < Limit;

@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using NSubstitute;
 using NUnit.Framework;
 using UI.Interfaces;
 using UI.ViewModels;
 using static NSubstitute.Substitute;
+using Handler = System.ComponentModel.PropertyChangedEventHandler;
+using Args = System.ComponentModel.PropertyChangedEventArgs;
 
 namespace UITests.ViewModels
 {
@@ -114,6 +117,20 @@ namespace UITests.ViewModels
 		}
 
 		[Test]
+		public void Add_Always_RaisesAllPropertiesChanged()
+		{
+			var forms = Create();
+			var handler = For<Handler>();
+			forms.PropertyChanged += handler;
+
+			forms.Add();
+
+			handler.Received(1).Invoke(forms, Arg.Is<Args>(args => args.PropertyName == "CanAdd"));
+			handler.Received(1).Invoke(forms, Arg.Is<Args>(args => args.PropertyName == "CanRemove"));
+			handler.Received(1).Invoke(forms, Arg.Is<Args>(args => args.PropertyName == "CanSubmit"));
+		}
+
+		[Test]
 		public void Remove_Always_RemovesLastForm()
 		{
 			var forms = Create();
@@ -129,6 +146,21 @@ namespace UITests.ViewModels
 
 			Expect(forms.Forms, Not.Contains(last));
 			Expect(forms.Forms, Count.EqualTo(2));
+		}
+
+		[Test]
+		public void Remove_Always_RaisesAllPropertiesChanged()
+		{
+			var forms = Create();
+			forms.Forms = GetForms(1);
+			var handler = For<Handler>();
+			forms.PropertyChanged += handler;
+
+			forms.Remove();
+
+			handler.Received(1).Invoke(forms, Arg.Is<Args>(args => args.PropertyName == "CanAdd"));
+			handler.Received(1).Invoke(forms, Arg.Is<Args>(args => args.PropertyName == "CanRemove"));
+			handler.Received(1).Invoke(forms, Arg.Is<Args>(args => args.PropertyName == "CanSubmit"));
 		}
 
 		[Test]
@@ -169,6 +201,21 @@ namespace UITests.ViewModels
 			Expect(forms.Forms[0].Amount, EqualTo(80));
 			Expect(forms.Forms[1].Amount, EqualTo(10));
 			Expect(forms.Forms[2].Amount, EqualTo(10));
+		}
+
+		[Test]
+		public void Submit_Always_RaisesAllPropertiesChanged()
+		{
+			var forms = Create();
+			forms.Forms = GetForms(1);
+			var handler = For<Handler>();
+			forms.PropertyChanged += handler;
+
+			forms.Submit();
+
+			handler.Received(1).Invoke(forms, Arg.Is<Args>(args => args.PropertyName == "CanAdd"));
+			handler.Received(1).Invoke(forms, Arg.Is<Args>(args => args.PropertyName == "CanRemove"));
+			handler.Received(1).Invoke(forms, Arg.Is<Args>(args => args.PropertyName == "CanSubmit"));
 		}
 	}
 }
