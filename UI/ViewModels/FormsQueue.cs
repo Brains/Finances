@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Linq;
 using Caliburn.Micro;
 using MoreLinq;
 using UI.Interfaces;
@@ -9,9 +7,13 @@ namespace UI.ViewModels
 {
 	public class FormsQueue : PropertyChangedBase, IViewModel
 	{
-		public IFormFactory Factory { get; }
 		private const int Limit = 5;
+		public IFormFactory Factory { get; }
 		public IObservableCollection<IForm> Forms { get; set; }
+
+		public bool CanAdd => Forms.Count < Limit;
+		public bool CanRemove => Forms.Any();
+		public bool CanSubmit => Forms.Any();
 
 		public FormsQueue(IFormFactory factory)
 		{
@@ -55,9 +57,5 @@ namespace UI.ViewModels
 			NotifyOfPropertyChange(nameof(CanRemove));
 			NotifyOfPropertyChange(nameof(CanSubmit));
 		}
-
-		public bool CanAdd => Forms.Count < Limit;
-		public bool CanRemove => Forms.Any();
-		public bool CanSubmit => Forms.Any();
 	}
 }
