@@ -170,12 +170,13 @@ namespace UITests.ViewModels
 			forms.Add();
 			forms.Add();
 			forms.Add();
+			var saved = forms.Forms.ToList();
 
 			forms.Submit();
 
-			forms.Forms[0].Received().Submit();
-			forms.Forms[1].Received().Submit();
-			forms.Forms[2].Received().Submit();
+			saved[0].Received().Submit();
+			saved[1].Received().Submit();
+			saved[2].Received().Submit();
 		}
 
 		[Test]
@@ -183,24 +184,22 @@ namespace UITests.ViewModels
 		{
 			var forms = Create();
 			forms.Forms = GetForms(1, 100);
+			var saved = forms.Forms.ToList();
 
 			forms.Submit();
 
-			Expect(forms.Forms[0].Amount, EqualTo(100));
+			Expect(saved[0].Amount, EqualTo(100));
 		}
 
 		[Test]
-		public void Submit_FewForm_SubstractsSubsequentFormsFromFirstOne()
+		public void Submit_FewForms_RemovesThemAll()
 		{
 			var forms = Create();
 			forms.Forms = GetForms(3);
-			forms.Forms[0].Amount = 100;
 
 			forms.Submit();
 
-			Expect(forms.Forms[0].Amount, EqualTo(80));
-			Expect(forms.Forms[1].Amount, EqualTo(10));
-			Expect(forms.Forms[2].Amount, EqualTo(10));
+			Expect(forms.Forms, Empty);
 		}
 
 		[Test]
@@ -216,6 +215,21 @@ namespace UITests.ViewModels
 			handler.Received(1).Invoke(forms, Arg.Is<Args>(args => args.PropertyName == "CanAdd"));
 			handler.Received(1).Invoke(forms, Arg.Is<Args>(args => args.PropertyName == "CanRemove"));
 			handler.Received(1).Invoke(forms, Arg.Is<Args>(args => args.PropertyName == "CanSubmit"));
+		}
+
+		[Test]
+		public void Submit_FewForms_SubstractsSubsequentFormsFromFirstOne()
+		{
+			var forms = Create();
+			forms.Forms = GetForms(3);
+			forms.Forms[0].Amount = 100;
+			var saved = forms.Forms.ToList();
+
+			forms.Submit();
+
+			Expect(saved[0].Amount, EqualTo(80));
+			Expect(saved[1].Amount, EqualTo(10));
+			Expect(saved[2].Amount, EqualTo(10));
 		}
 	}
 }

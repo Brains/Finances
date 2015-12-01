@@ -34,8 +34,8 @@ namespace UI.ViewModels
 		public void Submit()
 		{
 			SubstractFromPrimary();
-
 			Forms.ForEach(form => form.Submit());
+			Forms.Clear();
 
 			NotifyAllProperties();
 		}
