@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Caliburn.Micro;
+using MoreLinq;
 using UI.Interfaces;
 
 namespace UI.ViewModels
@@ -9,11 +11,11 @@ namespace UI.ViewModels
 	{
 		public IFormFactory Factory { get; }
 		private const int Limit = 5;
-		public List<IForm> Forms { get; set; }
+		public IObservableCollection<IForm> Forms { get; set; }
 
 		public FormsQueue(IFormFactory factory)
 		{
-			Forms = new List<IForm>();
+			Forms = new BindableCollection<IForm>();
 			Factory = factory;
 		}
 

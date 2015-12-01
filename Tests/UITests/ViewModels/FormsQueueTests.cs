@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.Linq;
+using Caliburn.Micro;
 using NSubstitute;
 using NUnit.Framework;
 using UI.Interfaces;
@@ -18,21 +17,13 @@ namespace UITests.ViewModels
 			return new FormsQueue(For<IFormFactory>());
 		}
 
-		private void ConfigureFormSeries(IFormFactory factory)
+		private BindableCollection<IForm> GetForms(int formsCount, int defaultAmount = 10)
 		{
-			var primary = For<IForm>();
-			var secondary = For<IForm>();
-			primary.Amount = 100;
-			secondary.Amount = 10;
+			var forms = Enumerable.Range(1, formsCount)
+			                           .Select(index => CreateForm(defaultAmount))
+			                           .ToList();
 
-			factory.Create().Returns(primary, secondary, secondary);
-		}
-
-		private List<IForm> GetForms(int formsCount, int defaultAmount = 10)
-		{
-			return Enumerable.Range(1, formsCount)
-			                 .Select(index => CreateForm(defaultAmount))
-			                 .ToList();
+			return new BindableCollection<IForm>(forms);
 		}
 
 		private static IForm CreateForm(int defaultAmount)
@@ -134,12 +125,7 @@ namespace UITests.ViewModels
 		public void Remove_Always_RemovesLastForm()
 		{
 			var forms = Create();
-			forms.Forms = new List<IForm>
-			{
-				For<IForm>(),
-				For<IForm>(),
-				For<IForm>()
-			};
+			forms.Forms = GetForms(3);
 			var last = forms.Forms.Last();
 
 			forms.Remove();
