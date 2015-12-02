@@ -12,6 +12,14 @@ namespace UI.ViewModels
 	{
 		private readonly ISettings settings;
 		private Types selectedType;
+
+		public Form(ISettings settings)
+		{
+			this.settings = settings;
+
+			Types = Enum.GetValues(typeof (Types)).Cast<Types>();
+		}
+
 		public IEnumerable<Types> Types { get; set; }
 		public IEnumerable<Categories> Categories { get; set; }
 
@@ -28,13 +36,6 @@ namespace UI.ViewModels
 
 		public Categories SelectedCategory { get; set; }
 		public string Description { get; set; }
-
-		public Form(ISettings settings)
-		{
-			this.settings = settings;
-
-			Types = Enum.GetValues(typeof (Types)).Cast<Types>();
-		}
 
 		public int Amount { get; set; }
 
