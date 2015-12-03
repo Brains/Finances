@@ -6,7 +6,7 @@ namespace UI.Interfaces
 {
 	public interface IForm
 	{
-		int Amount { get; set; }
+		decimal Amount { get; set; }
 		void Submit();
 	}
 }
