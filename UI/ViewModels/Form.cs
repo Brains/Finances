@@ -20,6 +20,7 @@ namespace UI.ViewModels
 			this.aggregator = aggregator;
 
 			Types = Enum.GetValues(typeof (Types)).Cast<Types>();
+			UpdateCategories(selectedType);
 
 			DateTime = DateTime.Now;
         }
