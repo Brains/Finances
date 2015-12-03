@@ -23,30 +23,20 @@ namespace Loader.Factories
 
 		public void Configure()
 		{
-			ConventionManager.ApplyValueConverter = ApplyValueConverter;
-			ConventionManager.ApplyUpdateSourceTrigger = ApplyUpdateSourceTrigger;
+			ConventionManager.ApplyUpdateSourceTrigger = ConfigureBinding;
 		}
 
-		private void ApplyUpdateSourceTrigger(DependencyProperty dependency, DependencyObject element, Binding binding, PropertyInfo property)
+		private void ConfigureBinding(DependencyProperty dependency, DependencyObject element, Binding binding, PropertyInfo property)
 		{
-			if (dependency == TextBox.TextProperty && typeof (decimal).IsAssignableFrom(property.PropertyType))
+			if (dependency == TextBox.TextProperty 
+				&& typeof (decimal).IsAssignableFrom(property.PropertyType)
+				&& property.Name == "Amount")
 			{
-				binding.UpdateSourceTrigger = UpdateSourceTrigger.LostFocus;
-
 				var textBox = (TextBox) element;
-				var context = (Form) textBox.DataContext;
-				binding.ConverterParameter = context;
-			}
-		}
-
-		private void ApplyValueConverter(Binding binding, DependencyProperty dependency, PropertyInfo property)
-		{
-			previous(binding, dependency, property);
-
-			if (dependency == TextBox.TextProperty && typeof (decimal).IsAssignableFrom(property.PropertyType))
-			{
+				binding.ConverterParameter = (Form) textBox.DataContext;
 				binding.Converter = container.Resolve<IValueConverter>("AmountTextToDecimal");
-            }
+				binding.UpdateSourceTrigger = UpdateSourceTrigger.LostFocus;
+			}
 		}
 	}
 }
