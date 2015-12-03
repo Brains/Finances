@@ -62,7 +62,7 @@ namespace UITests.ViewModels
 
 			form.Submit();
 
-			var record = new Record(form.Amount, form.SelectedType, form.SelectedCategory, form.Description, DateTime.Now);
+			var record = new Record(form.Amount, form.SelectedType, form.SelectedCategory, form.Description, form.DateTime);
 			storage.Received().Add(record);
 		}
 

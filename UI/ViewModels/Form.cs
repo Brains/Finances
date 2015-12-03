@@ -10,8 +10,8 @@ namespace UI.ViewModels
 {
 	public class Form : PropertyChangedBase, IForm
 	{
-		private readonly ISettings settings;
 		private readonly IRecordsStorage aggregator;
+		private readonly ISettings settings;
 		private Types selectedType;
 
 		public Form(ISettings settings, IRecordsStorage aggregator)
@@ -20,7 +20,9 @@ namespace UI.ViewModels
 			this.aggregator = aggregator;
 
 			Types = Enum.GetValues(typeof (Types)).Cast<Types>();
-		}
+
+			DateTime = DateTime.Now;
+        }
 
 		public IEnumerable<Types> Types { get; set; }
 		public IEnumerable<Categories> Categories { get; set; }
@@ -38,12 +40,13 @@ namespace UI.ViewModels
 
 		public Categories SelectedCategory { get; set; }
 		public string Description { get; set; }
+		public DateTime DateTime { get; set; }
 
 		public int Amount { get; set; }
 
 		public void Submit()
 		{
-			aggregator.Add(new Record(Amount, SelectedType, SelectedCategory, Description, DateTime.Now));
+			aggregator.Add(new Record(Amount, SelectedType, SelectedCategory, Description, DateTime));
 		}
 
 		private void UpdateCategories(Types type)
