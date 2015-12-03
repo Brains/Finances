@@ -65,31 +65,5 @@ namespace UITests.ViewModels
 			var record = new Record(form.Amount, form.SelectedType, form.SelectedCategory, form.Description, form.DateTime);
 			storage.Received().Add(record);
 		}
-
-		[Test]
-		public void Submit_Shared_DividesAmountIntoThree()
-		{
-			var form = CreateForm();
-			form.SelectedType = Shared;
-			form.Amount = 30;
-
-			form.Submit();
-
-			storage.Received().Add(Arg.Is<Record>(record => record.Amount == 10));
-		}
-
-		[TestCase(Expense)]
-		[TestCase(Debt)]
-        [TestCase(Income)]
-		public void Submit_AllTypesExceptShared_DontChangeAmount(Types selectedType)
-		{
-			var form = CreateForm();
-			form.SelectedType = selectedType;
-			form.Amount = 10;
-
-			form.Submit();
-
-			storage.Received().Add(Arg.Is<Record>(record => record.Amount == 10));
-		}
 	}
 }

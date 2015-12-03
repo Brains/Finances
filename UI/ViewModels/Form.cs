@@ -47,17 +47,7 @@ namespace UI.ViewModels
 
 		public void Submit()
 		{
-			if (SelectedType == Record.Types.Shared)
-				Amount = Divide();
-
 			aggregator.Add(new Record(Amount, SelectedType, SelectedCategory, Description, DateTime));
-		}
-
-		private decimal Divide()
-		{
-			decimal customers = 3;
-
-			return Math.Round(Amount / customers);
 		}
 
 		private void UpdateCategories(Types type)
