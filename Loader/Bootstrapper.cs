@@ -44,6 +44,8 @@ namespace Loader
 
 			container.RegisterType<Random>(new Singleton(), new InjectionConstructor());
 			container.RegisterType<IExpences, RandomRecords>(new Singleton());
+			container.RegisterType<ISettings, Settings.Settings>(new Singleton());
+			container.RegisterType<IRecordsStorage, RandomRecords>(new Singleton());
 
 			ConfigureViewModels();
 		}
@@ -56,7 +58,7 @@ namespace Loader
 				new ResolvedParameter<IViewModel>("Records"),
 				new ResolvedParameter<IViewModel>("FormsQueue")));
 
-			container.RegisterType<IFormFactory, FormFactory>();
+			container.RegisterType<IFormFactory, FormFactory>(new Singleton());
 			container.RegisterType<IForm, Form>();
 		}
 
