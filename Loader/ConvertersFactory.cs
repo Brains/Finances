@@ -23,14 +23,27 @@ namespace Loader
 		public void Configure()
 		{
 			ConventionManager.ApplyValueConverter = ApplyValueConverter;
+			ConventionManager.ApplyUpdateSourceTrigger = ApplyUpdateSourceTrigger;
 		}
 
-		private void ApplyValueConverter(Binding binding, DependencyProperty bindableProperty, PropertyInfo property)
+		private void ApplyUpdateSourceTrigger(DependencyProperty dependency, DependencyObject dependencyObject, Binding binding, PropertyInfo property)
 		{
-			previous(binding, bindableProperty, property);
-
-			if (bindableProperty == TextBlock.TextProperty && typeof (DateTime).IsAssignableFrom(property.PropertyType))
+			if (dependency == TextBox.TextProperty && typeof (decimal).IsAssignableFrom(property.PropertyType))
+			{
+				binding.UpdateSourceTrigger = UpdateSourceTrigger.LostFocus;
 				binding.Converter = container.Resolve<IValueConverter>("AmountTextToDecimal");
+
+			}
+		}
+
+		private void ApplyValueConverter(Binding binding, DependencyProperty dependency, PropertyInfo property)
+		{
+			previous(binding, dependency, property);
+
+			if (dependency == TextBox.TextProperty && typeof (decimal).IsAssignableFrom(property.PropertyType))
+			{
+				binding.Converter = container.Resolve<IValueConverter>("AmountTextToDecimal");
+            }
 		}
 	}
 }
