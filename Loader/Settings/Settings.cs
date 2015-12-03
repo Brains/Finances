@@ -11,10 +11,10 @@ namespace Loader.Settings
 	{
 		public Mapping CategoriesMapping { get; set; } = new Mapping
 		{
-			[Expense] =	new[]{Food, Health, Women, House, General, Other},
-			[Debt] =	new[]{Maxim, Andrey},
-			[Income] =	new[]{Deposit, ODesk, Other},
-			[Shared] =	new[]{Food, House, General, Other},
+			[Expense]	= new[]{Food, Health, Women, House, General, Other},
+			[Debt]		= new[]{Maxim, Andrey},
+			[Income]	= new[]{Deposit, ODesk, Other},
+			[Shared]	= new[]{Food, House, General, Other},
 		};
 	}
 }

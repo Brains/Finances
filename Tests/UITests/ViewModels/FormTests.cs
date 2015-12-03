@@ -24,10 +24,10 @@ namespace UITests.ViewModels
 
 			settings.CategoriesMapping = new Dictionary<Types, Categories[]>
 			{
-				[Expense] = new[] {Food, Health, House, General, Women, Other},
-				[Debt] =	new[] {Maxim, Andrey},
-				[Income] =	new[] {Deposit, ODesk},
-				[Shared] =	new[] {Food, House, General, Other},
+				[Expense]	= new[] {Food, Health, House, General, Women, Other},
+				[Debt]		= new[] {Maxim, Andrey},
+				[Income]	= new[] {Deposit, ODesk},
+				[Shared]	= new[] {Food, House, General, Other},
 			};
 
 			return new Form(settings, storage);
