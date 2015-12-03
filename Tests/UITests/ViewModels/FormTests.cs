@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using NSubstitute;
 using NUnit.Framework;
 using Records;
 using UI.ViewModels;
@@ -12,9 +14,13 @@ namespace UITests.ViewModels
 {
 	public class FormTests : AssertionHelper
 	{
+		private static ISettings settings;
+		private static IRecordsStorage storage;
+
 		private static Form CreateForm()
 		{
-			var settings = For<ISettings>();
+			settings = For<ISettings>();
+			storage = For<IRecordsStorage>();
 
 			settings.CategoriesMapping = new Dictionary<Types, Categories[]>
 			{
@@ -24,7 +30,7 @@ namespace UITests.ViewModels
 				[Shared] =	new[] {Food, House, General, Other},
 			};
 
-			return new Form(settings, For<IRecordsStorage>());
+			return new Form(settings, storage);
 		}
 
 		[Test]
@@ -56,7 +62,8 @@ namespace UITests.ViewModels
 
 			form.Submit();
 
-
+			var record = new Record(form.Amount, form.SelectedType, form.SelectedCategory, form.Description, DateTime.Now);
+			storage.Received().Add(record);
 		}
 
 	}
