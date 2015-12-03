@@ -11,11 +11,13 @@ namespace UI.ViewModels
 	public class Form : PropertyChangedBase, IForm
 	{
 		private readonly ISettings settings;
+		private readonly IRecordsStorage aggregator;
 		private Types selectedType;
 
-		public Form(ISettings settings)
+		public Form(ISettings settings, IRecordsStorage aggregator)
 		{
 			this.settings = settings;
+			this.aggregator = aggregator;
 
 			Types = Enum.GetValues(typeof (Types)).Cast<Types>();
 		}
@@ -41,7 +43,7 @@ namespace UI.ViewModels
 
 		public void Submit()
 		{
-			throw new NotImplementedException();
+			aggregator.Add(new Record(Amount, SelectedType, SelectedCategory, Description, DateTime.Now));
 		}
 
 		private void UpdateCategories(Types type)

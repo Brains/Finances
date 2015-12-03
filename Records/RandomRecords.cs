@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Records
 {
-	public class RandomRecords : IExpences
+	public class RandomRecords : IExpences, IRecordsStorage
 	{
 		private readonly Random random;
 
@@ -18,6 +18,8 @@ namespace Records
 			var records = Enumerable.Range(0, 30).Select(index => CreateRandomRecord());
 			Records = new ObservableCollection<Record>(records);
 		}
+
+		public void Add(Record record) => Records.Add(record);
 
 		private Record CreateRandomRecord()
 		{

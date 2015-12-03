@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IExpences.cs" />
+    <Compile Include="IRecordsStorage.cs" />
     <Compile Include="ISettings.cs" />
     <Compile Include="RandomRecords.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

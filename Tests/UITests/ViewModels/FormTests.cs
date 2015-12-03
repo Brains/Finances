@@ -25,7 +25,7 @@ namespace UITests.ViewModels
 				[Balance] = new[] {Other}
 			};
 
-			return new Form(settings);
+			return new Form(settings, For<IRecordsStorage>());
 		}
 
 		[Test]
@@ -50,5 +50,16 @@ namespace UITests.ViewModels
 
 			Expect(form.Categories, EquivalentTo(expected));
 		}
+
+		[Test]
+		public void Submit_Always_CallsAggregatorAdd()
+		{
+			var form = CreateForm();
+
+			form.Submit();
+
+
+		}
+
 	}
 }
