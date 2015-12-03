@@ -64,7 +64,18 @@ namespace Records
 
 		public override string ToString()
 		{
-			return $"{Amount}; {Type}; {Category}; {Description}; {Date.ToString("M")}";
+			return $"{Amount}; {Type}; {Category}; {Description}; {Date.ToString("g")}";
+		}
+
+		public override bool Equals(object other)
+		{
+			var compared = (Record) other;
+
+			return compared.Amount == Amount
+				&& compared.Type == Type
+				&& compared.Category == Category
+				&& compared.Description == Description
+				&& compared.Date == Date;
 		}
 	}
 }
