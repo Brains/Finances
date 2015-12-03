@@ -2,12 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 using Caliburn.Micro;
 using Loader.Factories;
 using Microsoft.Practices.Unity;
 using Records;
 using UI.Interfaces;
 using UI.ViewModels;
+using UI.Views.Converters;
 using Singleton = Microsoft.Practices.Unity.ContainerControlledLifetimeManager;
 using PerResolve = Microsoft.Practices.Unity.PerResolveLifetimeManager;
 
@@ -24,14 +27,8 @@ namespace Loader
 
 		protected override void Configure()
 		{
-			ConfigureCaliburn();
 			ConfigureUnity();
-		}
-
-		private static void ConfigureCaliburn()
-		{
-			ViewLocator.NameTransformer.AddRule("Model", string.Empty);
-			AssemblySource.Instance.Add(Assembly.GetAssembly(typeof (UI.ViewModels.Shell)));
+			ConfigureCaliburn();
 		}
 
 		private void ConfigureUnity()
@@ -40,24 +37,43 @@ namespace Loader
 
 			container.RegisterType<IWindowManager, WindowManager>(new Singleton());
 			container.RegisterType<IEventAggregator, EventAggregator>(new Singleton());
-			container.RegisterType<IShell, Shell>(new PerResolve());
 
 			container.RegisterType<Random>(new Singleton(), new InjectionConstructor());
 			container.RegisterType<IExpences, RandomRecords>(new Singleton());
+			container.RegisterType<ISettings, Settings.Settings>(new Singleton());
+			container.RegisterType<IRecordsStorage, RandomRecords>(new Singleton());
 
 			ConfigureViewModels();
+			ConfigureConverters();
+		}
+
+		private void ConfigureConverters()
+		{
+			container.RegisterType<IAdder, Adder>(new Singleton());
+			container.RegisterType<IValueConverter, SharedConverter>("AmountConverter", new Singleton(),
+				new InjectionConstructor(new ResolvedParameter<AmountConverter>()));
 		}
 
 		private void ConfigureViewModels()
 		{
+			container.RegisterType<IShell, Shell>(new PerResolve());
+
 			container.RegisterType<IViewModel, UI.ViewModels.Records>("Records");
 			container.RegisterType<IViewModel, FormsQueue>("FormsQueue");
 			container.RegisterType<IScreen, Tracker>(new InjectionConstructor(
 				new ResolvedParameter<IViewModel>("Records"),
 				new ResolvedParameter<IViewModel>("FormsQueue")));
 
-			container.RegisterType<IFormFactory, FormFactory>();
+			container.RegisterType<IFormFactory, FormFactory>(new Singleton());
 			container.RegisterType<IForm, Form>();
+		}
+
+		private void ConfigureCaliburn()
+		{
+			ViewLocator.NameTransformer.AddRule("Model", string.Empty);
+			AssemblySource.Instance.Add(Assembly.GetAssembly(typeof (UI.ViewModels.Shell)));
+
+			new ConvertersFactory(container).Configure();
 		}
 
 		protected override object GetInstance(Type service, string key)

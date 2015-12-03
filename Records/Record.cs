@@ -6,14 +6,12 @@ namespace Records
 	[Serializable]
 	public class Record
 	{
-		//------------------------------------------------------------------
 		public enum Types
 		{
 			Expense,
 			Income,
 			Shared,
-			Debt,
-			Balance,
+			Debt
 		}
 
 		public enum Categories
@@ -29,7 +27,16 @@ namespace Records
 			Deposit,
 
 			Maxim,
-			Andrey,
+			Andrey
+		}
+
+		public Record(decimal amount, Types type, Categories category, string description, DateTime date)
+		{
+			Type = type;
+			Amount = amount;
+			Category = category;
+			Description = description;
+			Date = date;
 		}
 
 		[XmlAttribute]
@@ -54,18 +61,20 @@ namespace Records
 			set { Date = DateTime.Parse(value); }
 		}
 
-		public Record(decimal amount, Types type, Categories category, string description, DateTime date)
-		{
-			Type = type;
-			Amount = amount;
-			Category = category;
-			Description = description;
-			Date = date;
-		}
-
 		public override string ToString()
 		{
-			return $"{Amount}; {Type}; {Category}; {Description}; {Date.ToString("M")}";
+			return $"{Amount}; {Type}; {Category}; {Description}; {Date.ToString("g")}";
+		}
+
+		public override bool Equals(object other)
+		{
+			var compared = (Record) other;
+
+			return compared.Amount == Amount
+			       && compared.Type == Type
+			       && compared.Category == Category
+			       && compared.Description == Description
+			       && compared.Date == Date;
 		}
 	}
 }
