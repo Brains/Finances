@@ -6,11 +6,11 @@ namespace UI.ViewModels
 {
 	public class MonthDiagrams : PropertyChangedBase, IViewModel
 	{
-		private IExpences expences;
+		private IExpenses expenses;
 
-		public MonthDiagrams(IExpences expences)
+		public MonthDiagrams(IExpenses expenses)
 		{
-			this.expences = expences;
+			this.expenses = expenses;
 		}
 	}
 }

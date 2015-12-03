@@ -2,7 +2,7 @@
 
 namespace Records
 {
-	public interface IExpences
+	public interface IExpenses
 	{
 		ObservableCollection<Record> Records { get; set; }
 	}
