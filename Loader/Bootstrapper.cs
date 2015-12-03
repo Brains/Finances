@@ -70,7 +70,8 @@ namespace Loader
 
 			// Statistics
 			container.RegisterType<IScreen, Statistics>("Statistics", new InjectionConstructor(
-				new ResolvedParameter<IViewModel>("Records")));
+				new ResolvedParameter<IViewModel>("MonthDiagrams")));
+			container.RegisterType<IViewModel, MonthDiagrams>("MonthDiagrams");
 		}
 
 		private void ConfigureCaliburn()
@@ -105,4 +106,8 @@ namespace Loader
 			DisplayRootViewFor<IShell>();
 		}
 	}
+}
+
+namespace UI.ViewModels
+{
 }

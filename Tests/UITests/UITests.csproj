@@ -56,6 +56,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\FormsQueueTests.cs" />
     <Compile Include="ViewModels\FormTests.cs" />
+    <Compile Include="ViewModels\MonthDiagramsTests.cs" />
     <Compile Include="Views\Converters\AmountConverterTests.cs" />
     <Compile Include="Views\Converters\SharedConverterTests.cs" />
   </ItemGroup>
