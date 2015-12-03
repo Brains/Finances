@@ -24,7 +24,7 @@ namespace UI.Views.Converters
 			return Summarize(amount);
 		}
 
-		public static decimal Summarize(string amount)
+		public decimal Summarize(string amount)
 		{
 			if (string.IsNullOrEmpty(amount))
 				throw new ArgumentNullException("Empty");

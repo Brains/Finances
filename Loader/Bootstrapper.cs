@@ -2,12 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 using Caliburn.Micro;
 using Loader.Factories;
 using Microsoft.Practices.Unity;
 using Records;
 using UI.Interfaces;
 using UI.ViewModels;
+using UI.Views.Converters;
 using Singleton = Microsoft.Practices.Unity.ContainerControlledLifetimeManager;
 using PerResolve = Microsoft.Practices.Unity.PerResolveLifetimeManager;
 
@@ -48,6 +51,14 @@ namespace Loader
 			container.RegisterType<IRecordsStorage, RandomRecords>(new Singleton());
 
 			ConfigureViewModels();
+			ConfigureConverters();
+		}
+
+		private void ConfigureConverters()
+		{
+			container.RegisterType<IValueConverter, AmountTextToDecimal>("AmountTextToDecimal", new Singleton());
+
+			new ConvertersFactory(container).Configure();
 		}
 
 		private void ConfigureViewModels()

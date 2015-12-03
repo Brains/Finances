@@ -98,6 +98,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ConvertersFactory.cs" />
     <Compile Include="Settings\Settings.cs" />
   </ItemGroup>
   <ItemGroup>
