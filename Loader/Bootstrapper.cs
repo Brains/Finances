@@ -27,14 +27,8 @@ namespace Loader
 
 		protected override void Configure()
 		{
-			ConfigureCaliburn();
 			ConfigureUnity();
-		}
-
-		private void ConfigureCaliburn()
-		{
-			ViewLocator.NameTransformer.AddRule("Model", string.Empty);
-			AssemblySource.Instance.Add(Assembly.GetAssembly(typeof (UI.ViewModels.Shell)));
+			ConfigureCaliburn();
 		}
 
 		private void ConfigureUnity()
@@ -65,6 +59,14 @@ namespace Loader
 
 			container.RegisterType<IFormFactory, FormFactory>(new Singleton());
 			container.RegisterType<IForm, Form>();
+		}
+
+		private void ConfigureCaliburn()
+		{
+			ViewLocator.NameTransformer.AddRule("Model", string.Empty);
+			AssemblySource.Instance.Add(Assembly.GetAssembly(typeof (UI.ViewModels.Shell)));
+
+			new ConvertersFactory(container).Configure();
 		}
 
 		protected override object GetInstance(Type service, string key)
