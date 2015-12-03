@@ -56,16 +56,23 @@ namespace Loader
 
 		private void ConfigureViewModels()
 		{
+			container.RegisterType<IEnumerable<IScreen>, IScreen[]>();
 			container.RegisterType<IShell, Shell>(new PerResolve());
 
-			container.RegisterType<IViewModel, UI.ViewModels.Records>("Records");
-			container.RegisterType<IViewModel, FormsQueue>("FormsQueue");
-			container.RegisterType<IScreen, Tracker>(new InjectionConstructor(
+			// Tracker
+			container.RegisterType<IScreen, Tracker>("Tracker", new InjectionConstructor(
 				new ResolvedParameter<IViewModel>("Records"),
 				new ResolvedParameter<IViewModel>("FormsQueue")));
-
+			container.RegisterType<IViewModel, UI.ViewModels.Records>("Records");
+			container.RegisterType<IViewModel, FormsQueue>("FormsQueue");
 			container.RegisterType<IFormFactory, FormFactory>(new Singleton());
 			container.RegisterType<IForm, Form>();
+
+			// Statistics
+			container.RegisterType<IScreen, Statistics>("Statistics", new InjectionConstructor(
+				new ResolvedParameter<IViewModel>("Records")));
+
+
 		}
 
 		private void ConfigureCaliburn()

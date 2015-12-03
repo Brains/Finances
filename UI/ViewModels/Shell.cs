@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Caliburn.Micro;
 
 namespace UI.ViewModels
@@ -6,11 +7,11 @@ namespace UI.ViewModels
 
 	public class Shell : Conductor<IScreen>.Collection.OneActive, IShell
 	{
-		public Shell(IScreen forms)
+		public Shell(IEnumerable<IScreen> screens)
 		{
 			DisplayName = "Finances";
 
-			Items.Add(forms);
+			Items.AddRange(screens);
 		}
 	}
 }
