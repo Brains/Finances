@@ -35,8 +35,6 @@ namespace Loader
 		{
 			ViewLocator.NameTransformer.AddRule("Model", string.Empty);
 			AssemblySource.Instance.Add(Assembly.GetAssembly(typeof (UI.ViewModels.Shell)));
-
-			new ConvertersFactory(container).Configure();
 		}
 
 		private void ConfigureUnity()

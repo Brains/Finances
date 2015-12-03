@@ -7,7 +7,7 @@ using Caliburn.Micro;
 using Microsoft.Practices.Unity;
 using UI.ViewModels;
 
-namespace Loader
+namespace Loader.Factories
 {
 	public class ConvertersFactory
 	{
