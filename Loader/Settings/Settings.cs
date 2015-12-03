@@ -15,7 +15,6 @@ namespace Loader.Settings
 			[Debt] =	new[]{Maxim, Andrey},
 			[Income] =	new[]{Deposit, ODesk, Other},
 			[Shared] =	new[]{Food, House, General, Other},
-			[Balance] = new[]{Other}
 		};
 	}
 }

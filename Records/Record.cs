@@ -13,7 +13,6 @@ namespace Records
 			Income,
 			Shared,
 			Debt,
-			Balance,
 		}
 
 		public enum Categories
