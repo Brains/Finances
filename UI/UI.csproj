@@ -78,6 +78,7 @@
     <Compile Include="ViewModels\Tracker.cs" />
     <Compile Include="Views\Converters\AmountConverter.cs" />
     <Compile Include="Views\Converters\Adder.cs" />
+    <Compile Include="Views\Converters\SharedConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

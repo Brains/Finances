@@ -37,20 +37,27 @@ namespace Loader
 
 			container.RegisterType<IWindowManager, WindowManager>(new Singleton());
 			container.RegisterType<IEventAggregator, EventAggregator>(new Singleton());
-			container.RegisterType<IShell, Shell>(new PerResolve());
 
 			container.RegisterType<Random>(new Singleton(), new InjectionConstructor());
 			container.RegisterType<IExpences, RandomRecords>(new Singleton());
 			container.RegisterType<ISettings, Settings.Settings>(new Singleton());
 			container.RegisterType<IRecordsStorage, RandomRecords>(new Singleton());
 
-			container.RegisterType<IValueConverter, AmountConverter>("AmountConverter", new Singleton());
-
 			ConfigureViewModels();
+			ConfigureConverters();
+		}
+
+		private void ConfigureConverters()
+		{
+			container.RegisterType<IAdder, Adder>(new Singleton());
+			container.RegisterType<IValueConverter, SharedConverter>("AmountConverter", new Singleton(),
+				new InjectionConstructor(new ResolvedParameter<AmountConverter>()));
 		}
 
 		private void ConfigureViewModels()
 		{
+			container.RegisterType<IShell, Shell>(new PerResolve());
+
 			container.RegisterType<IViewModel, UI.ViewModels.Records>("Records");
 			container.RegisterType<IViewModel, FormsQueue>("FormsQueue");
 			container.RegisterType<IScreen, Tracker>(new InjectionConstructor(
