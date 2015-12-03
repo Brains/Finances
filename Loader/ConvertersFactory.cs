@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using Caliburn.Micro;
 using Microsoft.Practices.Unity;
+using UI.ViewModels;
 
 namespace Loader
 {
@@ -26,13 +27,15 @@ namespace Loader
 			ConventionManager.ApplyUpdateSourceTrigger = ApplyUpdateSourceTrigger;
 		}
 
-		private void ApplyUpdateSourceTrigger(DependencyProperty dependency, DependencyObject dependencyObject, Binding binding, PropertyInfo property)
+		private void ApplyUpdateSourceTrigger(DependencyProperty dependency, DependencyObject element, Binding binding, PropertyInfo property)
 		{
 			if (dependency == TextBox.TextProperty && typeof (decimal).IsAssignableFrom(property.PropertyType))
 			{
 				binding.UpdateSourceTrigger = UpdateSourceTrigger.LostFocus;
-				binding.Converter = container.Resolve<IValueConverter>("AmountTextToDecimal");
 
+				var textBox = (TextBox) element;
+				var context = (Form) textBox.DataContext;
+				binding.ConverterParameter = context;
 			}
 		}
 
