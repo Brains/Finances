@@ -7,6 +7,13 @@ namespace UI.Views.Converters
 {
 	public class AmountTextToDecimal : IValueConverter
 	{
+		private readonly IAdder adder;
+
+		public AmountTextToDecimal(IAdder adder)
+		{
+			this.adder = adder;
+		}
+
 		public object Convert (object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			decimal amount = (decimal) value;
@@ -21,22 +28,7 @@ namespace UI.Views.Converters
 		{
 			string amount = (string) value;
 
-			return Summarize(amount);
-		}
-
-		public decimal Summarize(string amount)
-		{
-			if (string.IsNullOrEmpty(amount))
-				throw new ArgumentNullException("Empty");
-
-			string[] amounts = amount.Split('+');
-			decimal[] decimals = amounts.Select(decimal.Parse).ToArray();
-			var sum = decimals.Sum();
-
-			if (sum <= 0)
-				throw new ArgumentException("Negative");
-
-			return sum;
+			return adder.Convert(amount);
 		}
 	}
 }
