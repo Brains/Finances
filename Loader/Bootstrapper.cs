@@ -71,8 +71,6 @@ namespace Loader
 			// Statistics
 			container.RegisterType<IScreen, Statistics>("Statistics", new InjectionConstructor(
 				new ResolvedParameter<IViewModel>("Records")));
-
-
 		}
 
 		private void ConfigureCaliburn()
