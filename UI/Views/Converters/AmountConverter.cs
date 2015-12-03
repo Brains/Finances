@@ -5,11 +5,11 @@ using System.Windows.Data;
 
 namespace UI.Views.Converters
 {
-	public class AmountTextToDecimal : IValueConverter
+	public class AmountConverter : IValueConverter
 	{
 		private readonly IAdder adder;
 
-		public AmountTextToDecimal(IAdder adder)
+		public AmountConverter(IAdder adder)
 		{
 			this.adder = adder;
 		}
@@ -18,8 +18,7 @@ namespace UI.Views.Converters
 		{
 			decimal amount = (decimal) value;
 
-			if (amount == 0)
-				return string.Empty;
+			if (amount == 0) return string.Empty;
 
 			return amount.ToString(CultureInfo.InvariantCulture);
 		}

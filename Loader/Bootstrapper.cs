@@ -44,7 +44,7 @@ namespace Loader
 			container.RegisterType<ISettings, Settings.Settings>(new Singleton());
 			container.RegisterType<IRecordsStorage, RandomRecords>(new Singleton());
 
-			container.RegisterType<IValueConverter, AmountTextToDecimal>("AmountTextToDecimal", new Singleton());
+			container.RegisterType<IValueConverter, AmountConverter>("AmountConverter", new Singleton());
 
 			ConfigureViewModels();
 		}

@@ -34,7 +34,7 @@ namespace Loader.Factories
 			{
 				var textBox = (TextBox) element;
 				binding.ConverterParameter = (Form) textBox.DataContext;
-				binding.Converter = container.Resolve<IValueConverter>("AmountTextToDecimal");
+				binding.Converter = container.Resolve<IValueConverter>("AmountConverter");
 				binding.UpdateSourceTrigger = UpdateSourceTrigger.LostFocus;
 			}
 		}

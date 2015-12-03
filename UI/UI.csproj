@@ -76,7 +76,7 @@
     <Compile Include="ViewModels\Records.cs" />
     <Compile Include="ViewModels\Shell.cs" />
     <Compile Include="ViewModels\Tracker.cs" />
-    <Compile Include="Views\Converters\AmountTextToDecimal.cs" />
+    <Compile Include="Views\Converters\AmountConverter.cs" />
     <Compile Include="Views\Converters\Adder.cs" />
   </ItemGroup>
   <ItemGroup>
