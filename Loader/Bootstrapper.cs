@@ -31,10 +31,12 @@ namespace Loader
 			ConfigureUnity();
 		}
 
-		private static void ConfigureCaliburn()
+		private void ConfigureCaliburn()
 		{
 			ViewLocator.NameTransformer.AddRule("Model", string.Empty);
 			AssemblySource.Instance.Add(Assembly.GetAssembly(typeof (UI.ViewModels.Shell)));
+
+			new ConvertersFactory(container).Configure();
 		}
 
 		private void ConfigureUnity()
@@ -50,15 +52,9 @@ namespace Loader
 			container.RegisterType<ISettings, Settings.Settings>(new Singleton());
 			container.RegisterType<IRecordsStorage, RandomRecords>(new Singleton());
 
-			ConfigureViewModels();
-			ConfigureConverters();
-		}
-
-		private void ConfigureConverters()
-		{
 			container.RegisterType<IValueConverter, AmountTextToDecimal>("AmountTextToDecimal", new Singleton());
 
-			new ConvertersFactory(container).Configure();
+			ConfigureViewModels();
 		}
 
 		private void ConfigureViewModels()
