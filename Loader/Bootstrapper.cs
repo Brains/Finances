@@ -56,7 +56,6 @@ namespace Loader
 
 		private void ConfigureViewModels()
 		{
-			container.RegisterType<IEnumerable<IScreen>, IScreen[]>();
 			container.RegisterType<IShell, Shell>(new PerResolve());
 
 			// Tracker
@@ -67,7 +66,7 @@ namespace Loader
 			container.RegisterType<IViewModel, FormsQueue>("FormsQueue");
 			container.RegisterType<IFormFactory, FormFactory>(new Singleton());
 			container.RegisterType<IForm, Form>();
-
+			
 			// Statistics
 			container.RegisterType<IScreen, Statistics>("Statistics", new InjectionConstructor(
 				new ResolvedParameter<IViewModel>("MonthDiagrams")));
