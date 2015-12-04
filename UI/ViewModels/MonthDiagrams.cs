@@ -24,6 +24,12 @@ namespace UI.ViewModels
 			var enumerable = types[Types.Debt];
 		}
 
+		public IEnumerable<Record> FilterByMonth(IEnumerable<Record> records, int month)
+		{
+			return records.Where(record => record.Date.Month == month);
+
+		}
+
 		public IEnumerable<IGrouping<Types, Record>> GroupByType(IEnumerable<Record> records)
 		{
 			return records.GroupBy(record => record.Type);
@@ -34,10 +40,10 @@ namespace UI.ViewModels
 			return records.GroupBy(record => record.Category);
 		}
 
-		public IEnumerable<Record> FilterByMonth(IEnumerable<Record> records, int month)
+		public IEnumerable<IGrouping<string, Record>> GroupByDay(IEnumerable<Record> records)
 		{
-			return records.Where(record => record.Date.Month == month);
-
+			return records.GroupBy(record => record.Date.ToString("dd"))
+			              .OrderBy(group => group.Key);
 		}
 	}
 }
