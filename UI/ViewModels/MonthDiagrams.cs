@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Caliburn.Micro;
 using Records;
 using UI.Interfaces;
-using Data = System.Collections.Generic.Dictionary<string, int>;
+using static Records.Record;
 
 namespace UI.ViewModels
 {
@@ -16,13 +17,11 @@ namespace UI.ViewModels
 			this.expenses = expenses;
 		}
 
-		public Dictionary<Record.Types, List<Record>> GroupByType(IEnumerable<Record> records)
+		public IEnumerable<IGrouping<Types, Record>> GroupByType(IEnumerable<Record> records)
 		{
-			return records.GroupBy(record => record.Type)
-			              .ToDictionary(grouping => grouping.Key, grouping => grouping.ToList());
+			return records.GroupBy(record => record.Type);
 		}
 
-		public Data GetExpensesByType(IEnumerable<Record> records)
 		{
 			var query = from record in records
 						group record by record.Type

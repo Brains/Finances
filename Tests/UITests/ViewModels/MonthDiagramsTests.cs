@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Linq;
 using NUnit.Framework;
 using Records;
 using UI.ViewModels;
 using static NSubstitute.Substitute;
+using static Records.Record;
 using static Records.Record.Categories;
 using static Records.Record.Types;
 
@@ -13,29 +13,36 @@ namespace UITests.ViewModels
 {
 	public class MonthDiagramsTests : AssertionHelper
 	{
-		private IExpenses expenses;
 		private static readonly DateTime Date = DateTime.MinValue;
 
 		private MonthDiagrams Create()
 		{
+			return new MonthDiagrams(For<IExpenses>());
+		}
+
+		private Record Create(Types type) => new Record(10, type, Food, "", Date);
+		private Record Create(Categories category) => new Record(10, Expense, category, "", Date);
+		private Record Create(int amount) => new Record(amount, Expense, Food, "", Date);
+		private Record Create(string description) => new Record(10, Expense, Food, description, Date);
+		private Record Create(DateTime date) => new Record(10, Expense, Food, "", date);
+
+		[Test]
+		public void GroupByType_Always_GroupsRecordsByType()
+		{
+			var diagrams = Create();
 			var records = new[]
 			{
 				Create(Expense),
-                Create(Income),
-                Create(Shared),
-                Create(Debt),
-            };
+				Create(Income),
+				Create(Shared),
+				Create(Debt)
+			};
 
-			expenses = For<IExpenses>();
-			expenses.Records = new ObservableCollection<Record>(records);
+			var actual = diagrams.GroupByType(records).Select(grouping => grouping.Key);
 
-			return new MonthDiagrams(expenses);
+			var expected = new[] {Expense, Debt, Expense, Shared, Income};
+			Expect(actual, EquivalentTo(expected));
 		}
-
-		private static Record Create(Record.Types type) => new Record(10,  type, Food, "", Date);
-		private static Record Create(Record.Categories category) => new Record(10,  Expense, category, "", Date);
-		private static Record Create(int amount) => new Record(amount, Expense, Food, "", Date);
-		private static Record Create(string description) => new Record(10,  Expense, Food, description, Date);
 
 		[Test]
 		public void GroupByType_Always_GroupsRecordsByType()
