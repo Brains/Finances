@@ -22,13 +22,17 @@ namespace UI.ViewModels
 			return records.GroupBy(record => record.Type);
 		}
 
+		public IEnumerable<Record> FilterByMonth(IEnumerable<Record> records, int month)
 		{
-			var query = from record in records
-						group record by record.Type
-						into grouped
-						select new { Key = grouped.Key, Value = grouped.Sum(record => record.Amount) };
+			return records.Where(record => record.Date.Month == month);
 
-			return query.ToDictionary(x => x.Key.ToString(), x => (int) x.Value);
+		}
+
+		private void Calculate(IEnumerable<Record> records)
+		{
+			var types = GroupByType(records).ToLookup(grouped => grouped.Key, grouped => grouped.ToArray());
+
+			var enumerable = types[Types.Debt];
 		}
 	}
 }

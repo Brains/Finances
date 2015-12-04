@@ -45,20 +45,20 @@ namespace UITests.ViewModels
 		}
 
 		[Test]
-		public void GroupByType_Always_GroupsRecordsByType()
+		public void FilterByMonth_Always_GivesRecordsFilteredByMonth()
 		{
 			var diagrams = Create();
-			var expected = new Dictionary<Record.Types, Record[]>
+			var records = new[]
 			{
-				[Expense]	= new []{Create(Expense) },
-				[Income]	= new []{Create(Income) },
-				[Shared]	= new []{Create(Shared) },
-				[Debt]		= new []{Create(Debt) },
+				Create(new DateTime(1, 10, 1)),
+				Create(new DateTime(1, 11, 1)),
+				Create(new DateTime(1, 12, 1))
 			};
 
-			var actual = diagrams.GroupByType(expenses.Records);
+			var actual = diagrams.FilterByMonth(records, 12).ToList();
 
-			Expect(actual, EquivalentTo(expected));
+			Expect(actual, Count.EqualTo(1));
+			Expect(actual, All.Property("Date").Property("Month").EqualTo(12));
 		}
 	}
 }
