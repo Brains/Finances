@@ -1,21 +1,27 @@
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using Caliburn.Micro;
 using Records;
 using UI.Interfaces;
 using static Records.Record;
+using Data = System.Collections.Generic.Dictionary<string, int>;
 
 namespace UI.ViewModels
 {
 	public class MonthDiagrams : PropertyChangedBase, IViewModel
 	{
-		private IExpenses expenses;
+		private readonly IExpenses expenses;
 
 		public MonthDiagrams(IExpenses expenses)
 		{
 			this.expenses = expenses;
+
+			Test = GroupByCategory(this.expenses.Records).ToDictionary(
+				group => group.Key.ToString(),
+				group => group.Sum(record => (int) record.Amount));
 		}
+
+		public Data Test { get; set; }
 
 		private void Calculate(IEnumerable<Record> records)
 		{
@@ -27,7 +33,6 @@ namespace UI.ViewModels
 		public IEnumerable<Record> FilterByMonth(IEnumerable<Record> records, int month)
 		{
 			return records.Where(record => record.Date.Month == month);
-
 		}
 
 		public IEnumerable<IGrouping<Types, Record>> GroupByType(IEnumerable<Record> records)
