@@ -6,7 +6,5 @@
              xmlns:local="clr-namespace:UI.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    
-	<ContentControl />
-	
+    <ItemsControl Name="Items"/>
 </UserControl>
