@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Records;
@@ -32,16 +31,17 @@ namespace UITests.ViewModels
 			var diagrams = Create();
 			var records = new[]
 			{
-				Create(Expense),
-				Create(Income),
-				Create(Shared),
-				Create(Debt)
+				Create(Expense),Create(Expense),
+				Create(Income),	Create(Income),
+				Create(Shared),	Create(Shared),
+				Create(Debt),	Create(Debt),
 			};
 
-			var actual = diagrams.GroupByType(records).Select(grouping => grouping.Key);
+			var actual = diagrams.GroupByType(records).ToArray();
 
-			var expected = new[] {Expense, Debt, Expense, Shared, Income};
-			Expect(actual, EquivalentTo(expected));
+			var expected = new[] {Expense, Debt, Shared, Income};
+			Expect(actual.Select(grouping => grouping.Key), EquivalentTo(expected));
+			Expect(actual.Select(grouping => grouping.Count()), All.EqualTo(2));
 		}
 
 		[Test]
@@ -55,10 +55,30 @@ namespace UITests.ViewModels
 				Create(new DateTime(1, 12, 1))
 			};
 
-			var actual = diagrams.FilterByMonth(records, 12).ToList();
+			var actual = diagrams.FilterByMonth(records, 12)
+			                     .Select(record => record.Date.Month)
+								 .ToList();
 
 			Expect(actual, Count.EqualTo(1));
-			Expect(actual, All.Property("Date").Property("Month").EqualTo(12));
+			Expect(actual, All.EqualTo(12));
+		}
+
+		[Test]
+		public void GroupByCategory_Always_GroupsThem()
+		{
+			var diagrams = Create();
+			var records = new[]
+			{
+				Create(Food),	Create(Food),
+				Create(House),	Create(House),
+				Create(Deposit),Create(Deposit),
+			};
+
+			var actual = diagrams.GroupByCategory(records).ToList();
+
+			var expected = new[] {Food, House, Deposit};
+			Expect(actual.Select(grouping => grouping.Key), EquivalentTo(expected));
+			Expect(actual.Select(grouping => grouping.Count()), All.EqualTo(2));
 		}
 	}
 }
