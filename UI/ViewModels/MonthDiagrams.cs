@@ -8,26 +8,25 @@ using Data = System.Collections.Generic.Dictionary<string, int>;
 
 namespace UI.ViewModels
 {
-	public class MonthDiagrams : PropertyChangedBase, IViewModel
+	public class MonthDiagrams : Screen, IViewModel
 	{
 		private readonly IExpenses expenses;
+		private ILookup<Types, Record> types;
 
 		public MonthDiagrams(IExpenses expenses)
 		{
 			this.expenses = expenses;
-
-			Test = GroupByCategory(this.expenses.Records).ToDictionary(
-				group => group.Key.ToString(),
-				group => group.Sum(record => (int) record.Amount));
 		}
 
 		public Data Test { get; set; }
 
-		private void Calculate(IEnumerable<Record> records)
-		{
-			var types = GroupByType(records).ToLookup(grouped => grouped.Key, grouped => grouped.ToArray());
+		public Dictionary<string, ILookup<int, Record>> BalanceByMonth { get; set; }
 
-			var enumerable = types[Types.Debt];
+		protected override void OnInitialize()
+		{
+			base.OnInitialize();
+
+			types = expenses.Records.ToLookup(record => record.Type);
 		}
 
 		public IEnumerable<Record> FilterByMonth(IEnumerable<Record> records, int month)
@@ -35,9 +34,9 @@ namespace UI.ViewModels
 			return records.Where(record => record.Date.Month == month);
 		}
 
-		public IEnumerable<IGrouping<Types, Record>> GroupByType(IEnumerable<Record> records)
+		public ILookup<Types, Record> GroupByType(IEnumerable<Record> records)
 		{
-			return records.GroupBy(record => record.Type);
+			return records.ToLookup(record => record.Type);
 		}
 
 		public IEnumerable<IGrouping<Categories, Record>> GroupByCategory(IEnumerable<Record> records)
@@ -47,7 +46,7 @@ namespace UI.ViewModels
 
 		public IEnumerable<IGrouping<string, Record>> GroupByDay(IEnumerable<Record> records)
 		{
-			return records.GroupBy(record => record.Date.ToString("dd"))
+			return records.GroupBy(record => record.Date.ToString("d"))
 			              .OrderBy(group => group.Key);
 		}
 	}
