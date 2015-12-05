@@ -39,9 +39,10 @@ namespace Loader
 			container.RegisterType<IEventAggregator, EventAggregator>(new Singleton());
 
 			container.RegisterType<Random>(new Singleton(), new InjectionConstructor());
-			container.RegisterType<IExpenses, RandomRecords>(new Singleton());
 			container.RegisterType<ISettings, Settings.Settings>(new Singleton());
-			container.RegisterType<IRecordsStorage, RandomRecords>(new Singleton());
+
+			container.RegisterType<IExpenses, FixedRecords>(new Singleton());
+			container.RegisterType<IRecordsStorage, FixedRecords>(new Singleton());
 
 			ConfigureViewModels();
 			ConfigureConverters();
@@ -71,6 +72,7 @@ namespace Loader
 			container.RegisterType<IScreen, Statistics>("Statistics", new InjectionConstructor(
 				new ResolvedParameter<IViewModel>("MonthDiagrams")));
 			container.RegisterType<IViewModel, MonthDiagrams>("MonthDiagrams");
+			container.RegisterType<IAnalyzer, Analyzer>();
 		}
 
 		private void ConfigureCaliburn()
