@@ -5,7 +5,16 @@ using static Records.Record;
 
 namespace UI.ViewModels
 {
-	public class Analyzer
+	public interface IAnalyzer
+	{
+		ILookup<Types, Record> GroupByType(IEnumerable<Record> records);
+		IEnumerable<Record> FilterByMonth(IEnumerable<Record> records, int month);
+		IEnumerable<IGrouping<Categories, Record>> GroupByCategory(IEnumerable<Record> records);
+		IEnumerable<IGrouping<string, Record>> GroupByDay(IEnumerable<Record> records);
+		Dictionary<int, decimal> CalculateTotalByMonth(IEnumerable<Record> records);
+	}
+
+	public class Analyzer : IAnalyzer
 	{
 		public ILookup<Types, Record> GroupByType(IEnumerable<Record> records)
 		{
@@ -25,7 +34,7 @@ namespace UI.ViewModels
 		public IEnumerable<IGrouping<string, Record>> GroupByDay(IEnumerable<Record> records)
 		{
 			return records.GroupBy(record => record.Date.ToString("%d"))
-						  .OrderBy(group => group.Key);
+			              .OrderBy(group => group.Key);
 		}
 
 		public Dictionary<int, decimal> CalculateTotalByMonth(IEnumerable<Record> records)

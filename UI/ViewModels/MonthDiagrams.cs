@@ -11,10 +11,10 @@ namespace UI.ViewModels
 	public class MonthDiagrams : PropertyChangedBase, IViewModel
 	{
 		private readonly IExpenses expenses;
-		private readonly Analyzer analyzer;
+		private readonly IAnalyzer analyzer;
 		private ILookup<Types, Record> types;
 
-		public MonthDiagrams(IExpenses expenses, Analyzer analyzer)
+		public MonthDiagrams(IExpenses expenses, IAnalyzer analyzer)
 		{
 			this.expenses = expenses;
 			this.analyzer = analyzer;
