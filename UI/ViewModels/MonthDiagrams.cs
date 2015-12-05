@@ -11,11 +11,13 @@ namespace UI.ViewModels
 	public class MonthDiagrams : Screen, IViewModel
 	{
 		private readonly IExpenses expenses;
+		private readonly Analyzer analyzer;
 		private ILookup<Types, Record> types;
 
-		public MonthDiagrams(IExpenses expenses)
+		public MonthDiagrams(IExpenses expenses, Analyzer analyzer)
 		{
 			this.expenses = expenses;
+			this.analyzer = analyzer;
 		}
 
 		public Data Test { get; set; }
@@ -26,28 +28,23 @@ namespace UI.ViewModels
 		{
 			base.OnInitialize();
 
+			Update();
+		}
+
+		public void Update()
+		{
 			types = expenses.Records.ToLookup(record => record.Type);
 		}
 
-		public IEnumerable<Record> FilterByMonth(IEnumerable<Record> records, int month)
-		{
-			return records.Where(record => record.Date.Month == month);
-		}
+		
 
-		public ILookup<Types, Record> GroupByType(IEnumerable<Record> records)
+		public Dictionary<Types, Dictionary<int, decimal>> CalculateBalanceByMonth()
 		{
-			return records.ToLookup(record => record.Type);
-		}
-
-		public IEnumerable<IGrouping<Categories, Record>> GroupByCategory(IEnumerable<Record> records)
-		{
-			return records.GroupBy(record => record.Category);
-		}
-
-		public IEnumerable<IGrouping<string, Record>> GroupByDay(IEnumerable<Record> records)
-		{
-			return records.GroupBy(record => record.Date.ToString("%d"))
-			              .OrderBy(group => group.Key);
+			return new Dictionary<Types, Dictionary<int, decimal>>
+			{
+				[Types.Expense] = analyzer.CalculateTotalByMonth(types[Types.Expense].Concat(types[Types.Shared])),
+				[Types.Income] = analyzer.CalculateTotalByMonth(types[Types.Income])
+			};
 		}
 	}
 }

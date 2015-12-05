@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AnalyzerTests.cs" />
     <Compile Include="ViewModels\FormsQueueTests.cs" />
     <Compile Include="ViewModels\FormTests.cs" />
     <Compile Include="ViewModels\MonthDiagramsTests.cs" />
