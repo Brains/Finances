@@ -14,18 +14,34 @@ namespace UITests.ViewModels
 {
 	public class MonthDiagramsTests : AssertionHelper
 	{
-		private static readonly DateTime Date = DateTime.MinValue;
+		private readonly Record[] records = 
+		{
+			// October
+			new Record(100, Expense,Food,	"Novus",	new DateTime(2015, 10, 1)),
+			new Record(100, Income,	Deposit,"",			new DateTime(2015, 10, 2)),
+			new Record(100, Shared,	House,	"O3",		new DateTime(2015, 10, 3)),
+			new Record(100, Debt,	Maxim,	"Out",		new DateTime(2015, 10, 4)),
+			new Record(100, Expense,Health, "Pharmacy", new DateTime(2015, 10, 5)),
+
+			// November
+			new Record(100, Expense,Food,	"Novus",	new DateTime(2015, 11, 1)),
+			new Record(100, Income,	Deposit,"",			new DateTime(2015, 11, 2)),
+			new Record(100, Shared,	House,	"O3",		new DateTime(2015, 11, 3)),
+			new Record(100, Debt,	Maxim,	"Out",		new DateTime(2015, 11, 4)),
+			new Record(100, Expense,Health, "Pharmacy", new DateTime(2015, 11, 5)),
+
+			// December
+			new Record(100, Expense,Food,	"Novus",	new DateTime(2015, 12, 1)),
+			new Record(100, Income,	Deposit,"",			new DateTime(2015, 12, 2)),
+			new Record(100, Shared,	House,	"O3",		new DateTime(2015, 12, 3)),
+			new Record(100, Debt,	Maxim,	"Out",		new DateTime(2015, 12, 4)),
+			new Record(100, Expense,Health, "Pharmacy", new DateTime(2015, 12, 5)),
+		};
 
 		private MonthDiagrams Create()
 		{
-			return new MonthDiagrams(For<IExpenses>());
+			return new MonthDiagrams(null);
 		}
-
-		private Record Create(Types type) => new Record(10, type, Food, "", Date);
-		private Record Create(Categories category) => new Record(10, Expense, category, "", Date);
-		private Record Create(int amount) => new Record(amount, Expense, Food, "", Date);
-		private Record Create(string description) => new Record(10, Expense, Food, description, Date);
-		private Record Create(DateTime date) => new Record(10, Expense, Food, "", date);
 
 		private void Print<T>(IEnumerable<T> items) => items.ForEach(item => Console.WriteLine(item));
 
@@ -33,13 +49,6 @@ namespace UITests.ViewModels
 		public void GroupByType_Always_GroupsRecordsByType()
 		{
 			var diagrams = Create();
-			var records = new[]
-			{
-				Create(Expense),
-				Create(Income),
-				Create(Shared),
-				Create(Debt)
-			};
 
 			var actual = diagrams.GroupByType(records)
 			                     .Select(grouping => grouping.Key)
@@ -53,37 +62,25 @@ namespace UITests.ViewModels
 		public void FilterByMonth_Always_GivesRecordsFilteredByMonth()
 		{
 			var diagrams = Create();
-			var records = new[]
-			{
-				Create(new DateTime(1, 10, 1)),
-				Create(new DateTime(1, 11, 1)),
-				Create(new DateTime(1, 12, 1))
-			};
 
 			var actual = diagrams.FilterByMonth(records, 12)
 			                     .Select(record => record.Date.Month)
 			                     .ToList();
 
-			Expect(actual, Count.EqualTo(1));
 			Expect(actual, All.EqualTo(12));
+			Expect(actual, Count.EqualTo(5));
 		}
 
 		[Test]
 		public void GroupByCategory_Always_GroupsThem()
 		{
 			var diagrams = Create();
-			var records = new[]
-			{
-				Create(Food),
-				Create(House),
-				Create(Deposit)
-			};
 
 			var actual = diagrams.GroupByCategory(records)
 			                     .Select(grouping => grouping.Key)
 			                     .ToList();
 
-			var expected = new[] {Food, House, Deposit};
+			var expected = new[] {Food, House, Deposit, Health, Maxim};
 			Expect(actual, EquivalentTo(expected));
 		}
 
@@ -91,20 +88,14 @@ namespace UITests.ViewModels
 		public void GroupByDay_Always_GroupsThem()
 		{
 			var diagrams = Create();
-			var records = new[]
-			{
-				Create(new DateTime(1, 1, 10)),
-				Create(new DateTime(1, 1, 11)),
-				Create(new DateTime(1, 1, 12)),
-			};
 
-			var actual = diagrams.GroupByDay(records)
-			                     .Select(grouping => grouping.Key)
-			                     .ToList();
-
-			var expected = new[] {"10", "11", "12" };
-			Expect(actual, EquivalentTo(expected));
-			Expect(actual, Ordered);
+			var actual = diagrams.GroupByDay(records).ToList();
+			                     
+			var expected = new[] {"1", "2", "3", "4", "5"};
+			var keys = actual.Select(grouping => grouping.Key).ToList();
+			Expect(keys, EquivalentTo(expected));
+			Expect(keys, Ordered);
+			Expect(actual.Select(grouping => grouping.Count()), All.EqualTo(3));
 		}
 	}
 }
