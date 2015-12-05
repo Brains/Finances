@@ -46,7 +46,7 @@ namespace UI.ViewModels
 
 		public IEnumerable<IGrouping<string, Record>> GroupByDay(IEnumerable<Record> records)
 		{
-			return records.GroupBy(record => record.Date.ToString("d"))
+			return records.GroupBy(record => record.Date.ToString("%d"))
 			              .OrderBy(group => group.Key);
 		}
 	}
