@@ -8,7 +8,7 @@ using Data = System.Collections.Generic.Dictionary<string, int>;
 
 namespace UI.ViewModels
 {
-	public class MonthDiagrams : Screen, IViewModel
+	public class MonthDiagrams : PropertyChangedBase, IViewModel
 	{
 		private readonly IExpenses expenses;
 		private readonly Analyzer analyzer;
@@ -18,25 +18,18 @@ namespace UI.ViewModels
 		{
 			this.expenses = expenses;
 			this.analyzer = analyzer;
+
+			Update();
 		}
 
 		public Data Test { get; set; }
 
 		public Dictionary<string, ILookup<int, Record>> BalanceByMonth { get; set; }
 
-		protected override void OnInitialize()
-		{
-			base.OnInitialize();
-
-			Update();
-		}
-
 		public void Update()
 		{
 			types = expenses.Records.ToLookup(record => record.Type);
 		}
-
-		
 
 		public Dictionary<Types, Dictionary<int, decimal>> CalculateBalanceByMonth()
 		{
