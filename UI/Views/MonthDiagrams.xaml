@@ -7,7 +7,8 @@
 	<StackPanel>
 		<metro:ClusteredColumnChart Name="TestChart" ChartTitle="Types" ChartSubTitle="Test" MinHeight="800" Background="White">
 			<metro:ClusteredColumnChart.Series>
-                <metro:ChartSeries DisplayMember="Key" ValueMember="Value" ItemsSource="{Binding Test}" />
+                <metro:ChartSeries Caption="Expense" DisplayMember="Key" ValueMember="Value" ItemsSource="{Binding BalanceByMonth[Expense]}" />
+                <metro:ChartSeries  Caption="Income" DisplayMember="Key" ValueMember="Value" ItemsSource="{Binding BalanceByMonth[Income]}" />
 			</metro:ClusteredColumnChart.Series>
 		</metro:ClusteredColumnChart>
 	</StackPanel>
