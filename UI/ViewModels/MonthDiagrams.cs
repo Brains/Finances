@@ -24,14 +24,16 @@ namespace UI.ViewModels
 
 		public Data Test { get; set; }
 
-		public Dictionary<string, ILookup<int, Record>> BalanceByMonth { get; set; }
+		public Dictionary<Types, Dictionary<int, decimal>> BalanceByMonth { get; set; }
 
 		public void Update()
 		{
 			types = expenses.Records.ToLookup(record => record.Type);
+
+			BalanceByMonth = CalculateBalanceByMonth();
 		}
 
-		public Dictionary<Types, Dictionary<int, decimal>> CalculateBalanceByMonth()
+		private Dictionary<Types, Dictionary<int, decimal>> CalculateBalanceByMonth()
 		{
 			return new Dictionary<Types, Dictionary<int, decimal>>
 			{
