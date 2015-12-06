@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:local="clr-namespace:UI.Views"
              xmlns:metro="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart" mc:Ignorable="d"
              d:DesignHeight="800" d:DesignWidth="800">
-	<ScrollViewer>
+    <ScrollViewer>
 		<Grid>
 
 			<Grid.RowDefinitions>
@@ -16,24 +16,24 @@
 				<ColumnDefinition />
 			</Grid.ColumnDefinitions>
 
-			<metro:ClusteredColumnChart Name="TestChart" ChartTitle="Types" ChartSubTitle="Test" Background="White">
+			<metro:ClusteredColumnChart Name="TestChart" ChartTitle="Types" ChartSubTitle="Test" Background="White" IsRowColumnSwitched="True">
 				<metro:ClusteredColumnChart.Series>
-					<metro:ChartSeries ItemsSource="{Binding BalanceByMonth[Expense]}" Caption="Expense" DisplayMember="Key" ValueMember="Value" />
-					<metro:ChartSeries ItemsSource="{Binding BalanceByMonth[Income]}" Caption="Income" DisplayMember="Key" ValueMember="Value" />
+					<metro:ChartSeries ItemsSource="{Binding BalanceByMonth[Expense]}" SeriesTitle="Expense" DisplayMember="Key" ValueMember="Value" />
+					<metro:ChartSeries ItemsSource="{Binding BalanceByMonth[Income]}" SeriesTitle="Income" DisplayMember="Key" ValueMember="Value" />
 				</metro:ClusteredColumnChart.Series>
 			</metro:ClusteredColumnChart>
 
-            <metro:PieChart Grid.Row="1" Grid.Column="0" ChartTitle="Expense" ChartSubTitle="Month" Background="White">
-				<metro:PieChart.Series>
-                    <metro:ChartSeries ItemsSource="{Binding ExpenseByCategory}" Caption="ExpenseByCategory" DisplayMember="Key" ValueMember="Value" />
-				</metro:PieChart.Series>
-			</metro:PieChart>
+            <metro:DoughnutChart Grid.Row="1" Grid.Column="0" ChartTitle="Expense" InnerRadiusRatio="0.5" ChartSubTitle="Month" Background="White">
+                <metro:DoughnutChart.Series>
+                    <metro:ChartSeries ItemsSource="{Binding ExpenseByCategory}" SeriesTitle="ExpenseByCategory" DisplayMember="Key" ValueMember="Value" />
+				</metro:DoughnutChart.Series>
+			</metro:DoughnutChart>
 
-            <metro:PieChart Grid.Row="1" Grid.Column="1" ChartTitle="Income" ChartSubTitle="Month" Background="White">
-				<metro:PieChart.Series>
-                    <metro:ChartSeries ItemsSource="{Binding IncomeByCategory}" Caption="IncomeByCategory" DisplayMember="Key" ValueMember="Value" />
-				</metro:PieChart.Series>
-			</metro:PieChart>
+            <metro:DoughnutChart Grid.Row="1" Grid.Column="1" ChartTitle="Income" InnerRadiusRatio="0.5" ChartSubTitle="Month" Background="White">
+                <metro:DoughnutChart.Series>
+                    <metro:ChartSeries ItemsSource="{Binding IncomeByCategory}" SeriesTitle="IncomeByCategory" DisplayMember="Key" ValueMember="Value" />
+				</metro:DoughnutChart.Series>
+			</metro:DoughnutChart>
 
 		</Grid>
 	</ScrollViewer>
