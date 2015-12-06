@@ -8,16 +8,21 @@ using Data = System.Collections.Generic.Dictionary<string, int>;
 
 namespace UI.ViewModels
 {
-	public class MonthDiagrams : PropertyChangedBase, IViewModel
+	public class MonthDiagrams : Screen, IViewModel
 	{
-		private readonly IExpenses expenses;
 		private readonly IAnalyzer analyzer;
+		private readonly IExpenses expenses;
 		private ILookup<Types, Record> types;
 
 		public MonthDiagrams(IExpenses expenses, IAnalyzer analyzer)
 		{
 			this.expenses = expenses;
 			this.analyzer = analyzer;
+		}
+
+		protected override void OnInitialize()
+		{
+			base.OnInitialize();
 
 			Update();
 		}
@@ -25,12 +30,23 @@ namespace UI.ViewModels
 		public Data Test { get; set; }
 
 		public Dictionary<Types, Dictionary<int, decimal>> BalanceByMonth { get; set; }
+		public Dictionary<Categories, decimal> ExpenseByCategory { get; set; }
+		public Dictionary<Categories, decimal> IncomeByCategory { get; set; }
 
 		public void Update()
 		{
-			types = expenses.Records.ToLookup(record => record.Type);
+			types = analyzer.GroupByType(expenses.Records);
 
 			BalanceByMonth = CalculateBalanceByMonth();
+			ExpenseByCategory = GroupByCategory(types[Types.Expense].Concat(types[Types.Shared]));
+			IncomeByCategory = GroupByCategory(types[Types.Income]);
+		}
+
+		private Dictionary<Categories, decimal> GroupByCategory(IEnumerable<Record> records)
+		{
+			return analyzer.GroupByCategory(records).ToDictionary(
+				grouping => grouping.Key,
+				grouping => grouping.Sum(record => record.Amount));
 		}
 
 		private Dictionary<Types, Dictionary<int, decimal>> CalculateBalanceByMonth()

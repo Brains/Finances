@@ -9,7 +9,7 @@ namespace UI.ViewModels
 	{
 		ILookup<Types, Record> GroupByType(IEnumerable<Record> records);
 		IEnumerable<Record> FilterByMonth(IEnumerable<Record> records, int month);
-		IEnumerable<IGrouping<Categories, Record>> GroupByCategory(IEnumerable<Record> records);
+		ILookup<Categories, Record> GroupByCategory(IEnumerable<Record> records);
 		IEnumerable<IGrouping<string, Record>> GroupByDay(IEnumerable<Record> records);
 		Dictionary<int, decimal> CalculateTotalByMonth(IEnumerable<Record> records);
 	}
@@ -26,9 +26,9 @@ namespace UI.ViewModels
 			return records.Where(record => record.Date.Month == month);
 		}
 
-		public IEnumerable<IGrouping<Categories, Record>> GroupByCategory(IEnumerable<Record> records)
+		public ILookup<Categories, Record> GroupByCategory(IEnumerable<Record> records)
 		{
-			return records.GroupBy(record => record.Category);
+			return records.ToLookup(record => record.Category);
 		}
 
 		public IEnumerable<IGrouping<string, Record>> GroupByDay(IEnumerable<Record> records)

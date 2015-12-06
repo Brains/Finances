@@ -1,15 +1,40 @@
 ﻿<UserControl x:Class="UI.Views.MonthDiagrams" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:local="clr-namespace:UI.Views"
-             xmlns:metro="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart"
-             mc:Ignorable="d" d:DesignHeight="800" d:DesignWidth="800">
-	<StackPanel>
-		<metro:ClusteredColumnChart Name="TestChart" ChartTitle="Types" ChartSubTitle="Test" MinHeight="800" Background="White">
-			<metro:ClusteredColumnChart.Series>
-                <metro:ChartSeries Caption="Expense" DisplayMember="Key" ValueMember="Value" ItemsSource="{Binding BalanceByMonth[Expense]}" />
-                <metro:ChartSeries  Caption="Income" DisplayMember="Key" ValueMember="Value" ItemsSource="{Binding BalanceByMonth[Income]}" />
-			</metro:ClusteredColumnChart.Series>
-		</metro:ClusteredColumnChart>
-	</StackPanel>
+             xmlns:metro="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart" mc:Ignorable="d"
+             d:DesignHeight="800" d:DesignWidth="800">
+	<ScrollViewer>
+		<Grid>
+
+			<Grid.RowDefinitions>
+				<RowDefinition MinHeight="600" />
+                <RowDefinition MinHeight="600" />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+
+			<metro:ClusteredColumnChart Name="TestChart" ChartTitle="Types" ChartSubTitle="Test" Background="White">
+				<metro:ClusteredColumnChart.Series>
+					<metro:ChartSeries ItemsSource="{Binding BalanceByMonth[Expense]}" Caption="Expense" DisplayMember="Key" ValueMember="Value" />
+					<metro:ChartSeries ItemsSource="{Binding BalanceByMonth[Income]}" Caption="Income" DisplayMember="Key" ValueMember="Value" />
+				</metro:ClusteredColumnChart.Series>
+			</metro:ClusteredColumnChart>
+
+            <metro:PieChart Grid.Row="1" Grid.Column="0" ChartTitle="Expense" ChartSubTitle="Month" Background="White">
+				<metro:PieChart.Series>
+                    <metro:ChartSeries ItemsSource="{Binding ExpenseByCategory}" Caption="ExpenseByCategory" DisplayMember="Key" ValueMember="Value" />
+				</metro:PieChart.Series>
+			</metro:PieChart>
+
+            <metro:PieChart Grid.Row="1" Grid.Column="1" ChartTitle="Income" ChartSubTitle="Month" Background="White">
+				<metro:PieChart.Series>
+                    <metro:ChartSeries ItemsSource="{Binding IncomeByCategory}" Caption="IncomeByCategory" DisplayMember="Key" ValueMember="Value" />
+				</metro:PieChart.Series>
+			</metro:PieChart>
+
+		</Grid>
+	</ScrollViewer>
 </UserControl>
