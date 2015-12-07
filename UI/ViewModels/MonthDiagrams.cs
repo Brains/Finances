@@ -12,7 +12,6 @@ namespace UI.ViewModels
 	{
 		public class CategoryData
 		{
-			public CategoryData() {}
 			public Categories Category { get; set; }
 			public decimal Amount { get; set; }
 			public string Description { get; set; }
