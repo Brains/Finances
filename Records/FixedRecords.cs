@@ -12,24 +12,27 @@ namespace Records
 		{
 			// October
 			new Record(100, Expense,Food,   "Novus",    new DateTime(2015, 10, 1)),
+			new Record(100, Shared, Food,	"Water",    new DateTime(2015, 10, 1)),
+			new Record(100, Expense,Health, "Pharmacy", new DateTime(2015, 10, 1)),
+			new Record(100, Shared, House,  "O3",       new DateTime(2015, 10, 2)),
 			new Record(100, Income, Deposit,"",         new DateTime(2015, 10, 2)),
-			new Record(100, Shared, House,  "O3",       new DateTime(2015, 10, 3)),
-			new Record(100, Debt,   Maxim,  "Out",      new DateTime(2015, 10, 4)),
-			new Record(100, Expense,Health, "Pharmacy", new DateTime(2015, 10, 5)),
-
+			new Record(100, Debt,   Maxim,  "Out",      new DateTime(2015, 10, 3)),
+			
 			// November
 			new Record(100, Expense,Food,   "Novus",    new DateTime(2015, 11, 1)),
+			new Record(100, Shared, Food,	"Water",    new DateTime(2015, 11, 1)),
+			new Record(100, Expense,Health, "Pharmacy", new DateTime(2015, 11, 1)),
+			new Record(100, Shared, House,  "O3",       new DateTime(2015, 11, 2)),
 			new Record(100, Income, Deposit,"",         new DateTime(2015, 11, 2)),
-			new Record(100, Shared, House,  "O3",       new DateTime(2015, 11, 3)),
-			new Record(100, Debt,   Maxim,  "Out",      new DateTime(2015, 11, 4)),
-			new Record(100, Expense,Health, "Pharmacy", new DateTime(2015, 11, 5)),
-
+			new Record(100, Debt,   Maxim,  "Out",      new DateTime(2015, 11, 3)),
+			
 			// December
 			new Record(100, Expense,Food,   "Novus",    new DateTime(2015, 12, 1)),
+			new Record(100, Shared, Food,	"Water",    new DateTime(2015, 12, 1)),
+			new Record(100, Expense,Health, "Pharmacy", new DateTime(2015, 12, 1)),
+			new Record(100, Shared, House,  "O3",       new DateTime(2015, 12, 2)),
 			new Record(100, Income, Deposit,"",         new DateTime(2015, 12, 2)),
-			new Record(100, Shared, House,  "O3",       new DateTime(2015, 12, 3)),
-			new Record(100, Debt,   Maxim,  "Out",      new DateTime(2015, 12, 4)),
-			new Record(100, Expense,Health, "Pharmacy", new DateTime(2015, 12, 5)),
+			new Record(100, Debt,   Maxim,  "Out",      new DateTime(2015, 12, 3)),
 		};
 
 

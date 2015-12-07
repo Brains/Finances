@@ -36,7 +36,7 @@ namespace UITests.ViewModels
 								 .ToList();
 
 			Expect(actual, All.EqualTo(12));
-			Expect(actual, Count.EqualTo(5));
+			Expect(actual, Count.EqualTo(6));
 		}
 
 		[Test]
@@ -59,10 +59,9 @@ namespace UITests.ViewModels
 
 			var actual = diagrams.GroupByDay(records).ToList();
 
-			var expected = new[] {"1", "2", "3", "4", "5"};
-			Expect(actual.Select(g => g.Key), EquivalentTo(expected));
+			Expect(actual.Select(g => g.Key), EquivalentTo(new[] {"1", "2", "3"}));
 			Expect(actual.Select(g => g.Key), Ordered);
-			Expect(actual.Select(g => g.Count()), All.EqualTo(3));
+			Expect(actual.Select(g => g.Count()), EquivalentTo(new[] { 9, 6, 3 }));
 		}
 
 		[Test]
@@ -74,7 +73,7 @@ namespace UITests.ViewModels
 
 			Expect(actual, Count.EqualTo(3));
 			Expect(actual.Select(p => p.Key), EquivalentTo(new[] {10, 11, 12}));
-			Expect(actual.Select(p => p.Value), All.EqualTo(500));
+			Expect(actual.Select(p => p.Value), All.EqualTo(600));
 		}
 	}
 }

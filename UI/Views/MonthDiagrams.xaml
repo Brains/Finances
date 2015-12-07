@@ -1,14 +1,18 @@
-﻿<UserControl x:Class="UI.Views.MonthDiagrams" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:local="clr-namespace:UI.Views"
-             xmlns:metro="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart" mc:Ignorable="d"
+﻿<UserControl x:Class="UI.Views.MonthDiagrams" 
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:charts="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart" 
+			 mc:Ignorable="d"
              d:DesignHeight="800" d:DesignWidth="800">
     <ScrollViewer>
 		<Grid>
 
 			<Grid.RowDefinitions>
-				<RowDefinition MinHeight="600" />
-                <RowDefinition MinHeight="600" />
+				<RowDefinition MinHeight="600"/>
+                <RowDefinition MinHeight="600"/>
+                <RowDefinition MinHeight="600"/>
 			</Grid.RowDefinitions>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="*"/>
@@ -16,25 +20,37 @@
 				<ColumnDefinition />
 			</Grid.ColumnDefinitions>
 
-			<metro:ClusteredColumnChart Name="TestChart" ChartTitle="Types" ChartSubTitle="Test" Background="White" IsRowColumnSwitched="True">
-				<metro:ClusteredColumnChart.Series>
-					<metro:ChartSeries ItemsSource="{Binding BalanceByMonth[Expense]}" SeriesTitle="Expense" DisplayMember="Key" ValueMember="Value" />
-					<metro:ChartSeries ItemsSource="{Binding BalanceByMonth[Income]}" SeriesTitle="Income" DisplayMember="Key" ValueMember="Value" />
-				</metro:ClusteredColumnChart.Series>
-			</metro:ClusteredColumnChart>
+            <!-- Stacked Columns: Spending by Date -->
+			<charts:StackedColumnChart Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" SeriesSource="{Binding ExpenseByDay}" ChartTitle="Days" ChartSubTitle="{Binding Month}" SelectedBrush="Transparent">
+				<charts:StackedColumnChart.SeriesTemplate>
+					<DataTemplate>
+						<charts:ChartSeries SeriesTitle="{Binding Key}" DisplayMember="Category" ValueMember="Amount" ItemsSource="{Binding Value}" />
+					</DataTemplate>
+				</charts:StackedColumnChart.SeriesTemplate>
+			</charts:StackedColumnChart>
 
-            <metro:DoughnutChart Grid.Row="1" Grid.Column="0" ChartTitle="Expense" InnerRadiusRatio="0.5" ChartSubTitle="Month" Background="White">
-                <metro:DoughnutChart.Series>
-                    <metro:ChartSeries ItemsSource="{Binding ExpenseByCategory}" SeriesTitle="ExpenseByCategory" DisplayMember="Key" ValueMember="Value" />
-				</metro:DoughnutChart.Series>
-			</metro:DoughnutChart>
+            <!--Doughnut: Spending by Categories-->
+            <charts:DoughnutChart Grid.Row="1" Grid.Column="0" ChartTitle="Expense" InnerRadiusRatio="0.5" ChartSubTitle="{Binding Month}" Background="White">
+                <charts:DoughnutChart.Series>
+                    <charts:ChartSeries ItemsSource="{Binding ExpenseByCategory}" SeriesTitle="ExpenseByCategory" DisplayMember="Key" ValueMember="Value" />
+				</charts:DoughnutChart.Series>
+			</charts:DoughnutChart>
 
-            <metro:DoughnutChart Grid.Row="1" Grid.Column="1" ChartTitle="Income" InnerRadiusRatio="0.5" ChartSubTitle="Month" Background="White">
-                <metro:DoughnutChart.Series>
-                    <metro:ChartSeries ItemsSource="{Binding IncomeByCategory}" SeriesTitle="IncomeByCategory" DisplayMember="Key" ValueMember="Value" />
-				</metro:DoughnutChart.Series>
-			</metro:DoughnutChart>
+            <!--Doughnut: Incomes by Categories-->
+            <charts:DoughnutChart Grid.Row="1" Grid.Column="1" ChartTitle="Income" InnerRadiusRatio="0.5" ChartSubTitle="{Binding Month}" Background="White">
+                <charts:DoughnutChart.Series>
+                    <charts:ChartSeries ItemsSource="{Binding IncomeByCategory}" SeriesTitle="IncomeByCategory" DisplayMember="Key" ValueMember="Value" />
+				</charts:DoughnutChart.Series>
+			</charts:DoughnutChart>
 
-		</Grid>
+            <!-- Columns: Balance monthly -->
+            <charts:ClusteredColumnChart Grid.Row="2" Grid.ColumnSpan="3" Grid.Column="0" Name="TestChart" ChartTitle="Types" ChartSubTitle="Test" Background="White" IsRowColumnSwitched="True">
+                <charts:ClusteredColumnChart.Series>
+                    <charts:ChartSeries ItemsSource="{Binding BalanceByMonth[Expense]}" SeriesTitle="Expense" DisplayMember="Key" ValueMember="Value" />
+                    <charts:ChartSeries ItemsSource="{Binding BalanceByMonth[Income]}" SeriesTitle="Income" DisplayMember="Key" ValueMember="Value" />
+                </charts:ClusteredColumnChart.Series>
+            </charts:ClusteredColumnChart>
+
+        </Grid>
 	</ScrollViewer>
 </UserControl>
