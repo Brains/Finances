@@ -7,7 +7,7 @@ using UI.ViewModels;
 using static Records.Record.Types;
 using static Records.Record.Categories;
 
-namespace UITests.ViewModels
+namespace UI.Tests.ViewModels
 {
 	public class AnalyzerTests : AssertionHelper
 	{

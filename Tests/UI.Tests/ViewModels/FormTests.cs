@@ -10,7 +10,7 @@ using static Records.Record;
 using static Records.Record.Categories;
 using static Records.Record.Types;
 
-namespace UITests.ViewModels
+namespace UI.Tests.ViewModels
 {
 	public class FormTests : AssertionHelper
 	{

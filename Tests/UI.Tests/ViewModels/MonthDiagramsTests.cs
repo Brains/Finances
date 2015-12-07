@@ -10,7 +10,7 @@ using UI.ViewModels;
 using static NSubstitute.Substitute;
 using static Records.Record;
 
-namespace UITests.ViewModels
+namespace UI.Tests.ViewModels
 {
 	public class MonthDiagramsTests : AssertionHelper
 	{
