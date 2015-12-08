@@ -4,13 +4,12 @@ using Caliburn.Micro;
 using Records;
 using UI.Interfaces;
 using static Records.Record;
-using Data = System.Collections.Generic.Dictionary<string, int>;
 
 namespace UI.ViewModels
 {
 	public class MonthDiagrams : Screen, IViewModel
 	{
-		public class CategoryData
+		public class Data
 		{
 			public Categories Category { get; set; }
 			public decimal Amount { get; set; }
@@ -36,11 +35,10 @@ namespace UI.ViewModels
 			Update();
 		}
 
-		public Data Test { get; set; }
 		public Dictionary<Types, Dictionary<int, decimal>> BalanceByMonth { get; private set; }
 		public Dictionary<Categories, decimal> ExpenseByCategory { get; private set; }
 		public Dictionary<Categories, decimal> IncomeByCategory { get; private set; }
-		public Dictionary<string, CategoryData[]> ExpenseByDay { get; private set; }
+		public Dictionary<string, Data[]> ExpenseByDay { get; private set; }
 
 		public void Update()
 		{
@@ -53,7 +51,7 @@ namespace UI.ViewModels
 			ExpenseByDay = GroupByDay(expense);
 		}
 
-		private Dictionary<string, CategoryData[]> GroupByDay(IEnumerable<Record> records)
+		private Dictionary<string, Data[]> GroupByDay(IEnumerable<Record> records)
 		{
 			return analyzer.GroupByDay(records).ToDictionary(
 				day => day.Key,
@@ -78,9 +76,9 @@ namespace UI.ViewModels
 			};
 		}
 
-		private CategoryData SquashRecords(IGrouping<Categories, Record> group)
+		private Data SquashRecords(IGrouping<Categories, Record> group)
 		{
-			return new CategoryData
+			return new Data
 			{
 				Category	= group.Key,
 				Amount		= group.Sum(r => r.Amount),
