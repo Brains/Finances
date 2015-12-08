@@ -49,6 +49,11 @@ namespace UI.ViewModels
 			ExpenseByCategory = GroupByCategory(expense);
 			IncomeByCategory = GroupByCategory(types[Types.Income]);
 			ExpenseByDay = GroupByDay(expense);
+
+			NotifyOfPropertyChange(nameof(BalanceByMonth));
+			NotifyOfPropertyChange(nameof(ExpenseByCategory));
+			NotifyOfPropertyChange(nameof(IncomeByCategory));
+			NotifyOfPropertyChange(nameof(ExpenseByDay));
 		}
 
 		private Dictionary<string, Data[]> GroupByDay(IEnumerable<Record> records)

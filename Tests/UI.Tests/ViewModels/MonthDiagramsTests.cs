@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using MoreLinq;
 using NSubstitute;
@@ -9,6 +10,7 @@ using Records;
 using UI.ViewModels;
 using static NSubstitute.Substitute;
 using static Records.Record;
+using Args = System.ComponentModel.PropertyChangedEventArgs;
 
 namespace UI.Tests.ViewModels
 {
@@ -124,5 +126,20 @@ namespace UI.Tests.ViewModels
 			Expect(actual["1"][1],	Property("Description").Contain("Pharmacy"));
 			Expect(actual["2"],		All.Property("Description").Contain("O3"));
 		}
+
+		[Test]
+		public void Update_Always_NotifiesAboutDataSetsChanges()
+		{
+			var diagrams = Create();
+			var handler = For<PropertyChangedEventHandler>();
+			diagrams.PropertyChanged += handler;
+
+			diagrams.Update();
+
+			handler.Received(1).Invoke(diagrams, Arg.Is<Args>(args => args.PropertyName == "BalanceByMonth"));
+			handler.Received(1).Invoke(diagrams, Arg.Is<Args>(args => args.PropertyName == "ExpenseByCategory"));
+			handler.Received(1).Invoke(diagrams, Arg.Is<Args>(args => args.PropertyName == "IncomeByCategory"));
+			handler.Received(1).Invoke(diagrams, Arg.Is<Args>(args => args.PropertyName == "ExpenseByDay"));
+        }
 	}
 }
