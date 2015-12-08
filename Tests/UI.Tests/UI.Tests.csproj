@@ -58,11 +58,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\AnalyzerTests.cs" />
+    <Compile Include="Services\AnalyzerTests.cs" />
+    <Compile Include="Services\MonthPickerTests.cs" />
     <Compile Include="ViewModels\FormsQueueTests.cs" />
     <Compile Include="ViewModels\FormTests.cs" />
     <Compile Include="ViewModels\DiagramsTests.cs" />
-    <Compile Include="ViewModels\MonthPickerTests.cs" />
     <Compile Include="Views\Converters\AmountConverterTests.cs" />
     <Compile Include="Views\Converters\SharedConverterTests.cs" />
   </ItemGroup>

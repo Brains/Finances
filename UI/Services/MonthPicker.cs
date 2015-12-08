@@ -1,7 +1,7 @@
 using System;
 using System.Globalization;
 
-namespace UI.ViewModels
+namespace UI.Services
 {
 	public class MonthPicker
 	{

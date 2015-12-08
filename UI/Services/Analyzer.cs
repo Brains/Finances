@@ -1,22 +1,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using Records;
-using static Records.Record;
 
-namespace UI.ViewModels
+namespace UI.Services
 {
 	public interface IAnalyzer
 	{
-		ILookup<Types, Record> GroupByType(IEnumerable<Record> records);
+		ILookup<Record.Types, Record> GroupByType(IEnumerable<Record> records);
 		IEnumerable<Record> FilterByMonth(IEnumerable<Record> records, int month);
-		ILookup<Categories, Record> GroupByCategory(IEnumerable<Record> records);
+		ILookup<Record.Categories, Record> GroupByCategory(IEnumerable<Record> records);
 		ILookup<string, Record> GroupByDay(IEnumerable<Record> records);
 		Dictionary<int, decimal> CalculateTotalByMonth(IEnumerable<Record> records);
 	}
 
 	public class Analyzer : IAnalyzer
 	{
-		public ILookup<Types, Record> GroupByType(IEnumerable<Record> records)
+		public ILookup<Record.Types, Record> GroupByType(IEnumerable<Record> records)
 		{
 			return records.ToLookup(record => record.Type);
 		}
@@ -26,7 +25,7 @@ namespace UI.ViewModels
 			return records.Where(record => record.Date.Month == month);
 		}
 
-		public ILookup<Categories, Record> GroupByCategory(IEnumerable<Record> records)
+		public ILookup<Record.Categories, Record> GroupByCategory(IEnumerable<Record> records)
 		{
 			return records.ToLookup(record => record.Category);
 		}

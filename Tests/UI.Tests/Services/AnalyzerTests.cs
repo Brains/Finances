@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Records;
-using UI.ViewModels;
-using static Records.Record.Types;
-using static Records.Record.Categories;
+using UI.Services;
 
-namespace UI.Tests.ViewModels
+namespace UI.Tests.Services
 {
 	public class AnalyzerTests : AssertionHelper
 	{
@@ -22,7 +18,7 @@ namespace UI.Tests.ViewModels
 								 .Select(grouping => grouping.Key)
 								 .ToArray();
 
-			var expected = new[] { Expense, Debt, Shared, Income };
+			var expected = new[] { Record.Types.Expense, Record.Types.Debt, Record.Types.Shared, Record.Types.Income };
 			Expect(actual, EquivalentTo(expected));
 		}
 
@@ -48,7 +44,7 @@ namespace UI.Tests.ViewModels
 								 .Select(grouping => grouping.Key)
 								 .ToList();
 
-			var expected = new[] { Food, House, Deposit, Health, Maxim };
+			var expected = new[] { Record.Categories.Food, Record.Categories.House, Record.Categories.Deposit, Record.Categories.Health, Record.Categories.Maxim };
 			Expect(actual, EquivalentTo(expected));
 		}
 

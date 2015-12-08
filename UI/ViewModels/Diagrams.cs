@@ -3,6 +3,7 @@ using System.Linq;
 using Caliburn.Micro;
 using Records;
 using UI.Interfaces;
+using UI.Services;
 using static Records.Record;
 
 namespace UI.ViewModels

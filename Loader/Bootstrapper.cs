@@ -9,6 +9,7 @@ using Loader.Factories;
 using Microsoft.Practices.Unity;
 using Records;
 using UI.Interfaces;
+using UI.Services;
 using UI.ViewModels;
 using UI.Views.Converters;
 using Singleton = Microsoft.Practices.Unity.ContainerControlledLifetimeManager;
