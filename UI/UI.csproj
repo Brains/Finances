@@ -78,7 +78,7 @@
     <Compile Include="ViewModels\Analyzer.cs" />
     <Compile Include="ViewModels\Form.cs" />
     <Compile Include="ViewModels\FormsQueue.cs" />
-    <Compile Include="ViewModels\MonthDiagrams.cs" />
+    <Compile Include="ViewModels\Diagrams.cs" />
     <Compile Include="ViewModels\MonthPicker.cs" />
     <Compile Include="ViewModels\Records.cs" />
     <Compile Include="ViewModels\Shell.cs" />
@@ -119,7 +119,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\MonthDiagrams.xaml">
+    <Page Include="Views\Diagrams.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

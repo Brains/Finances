@@ -14,7 +14,7 @@ using Args = System.ComponentModel.PropertyChangedEventArgs;
 
 namespace UI.Tests.ViewModels
 {
-	public class MonthDiagramsTests : AssertionHelper
+	public class DiagramsTests : AssertionHelper
 	{
 		private readonly Record[] records = FixedRecords.Data;
 		private IAnalyzer analyzer;
@@ -22,13 +22,13 @@ namespace UI.Tests.ViewModels
 
 		public IEnumerable<Record> Any => Arg.Any<IEnumerable<Record>>();
 
-		private MonthDiagrams Create()
+		private Diagrams Create()
 		{
 			analyzer = For<IAnalyzer>();
 			expenses = For<IExpenses>();
 			expenses.Records = new ObservableCollection<Record>(records);
 
-			return new MonthDiagrams(expenses, analyzer);
+			return new Diagrams(expenses, analyzer);
 		}
 
 		private void Print<T>(IEnumerable<T> items) => items.ForEach(item => Console.WriteLine(item));

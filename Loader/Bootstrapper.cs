@@ -70,8 +70,8 @@ namespace Loader
 			
 			// Statistics
 			container.RegisterType<IScreen, Statistics>("Statistics", new InjectionConstructor(
-				new ResolvedParameter<IViewModel>("MonthDiagrams")));
-			container.RegisterType<IViewModel, MonthDiagrams>("MonthDiagrams");
+				new ResolvedParameter<IViewModel>("Diagrams")));
+			container.RegisterType<IViewModel, Diagrams>("Diagrams");
 			container.RegisterType<IAnalyzer, Analyzer>();
 		}
 

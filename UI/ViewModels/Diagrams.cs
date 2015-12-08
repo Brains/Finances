@@ -7,7 +7,7 @@ using static Records.Record;
 
 namespace UI.ViewModels
 {
-	public class MonthDiagrams : Screen, IViewModel
+	public class Diagrams : Screen, IViewModel
 	{
 		public class Data
 		{
@@ -22,7 +22,7 @@ namespace UI.ViewModels
 
 		private ILookup<Types, Record> types;
 
-		public MonthDiagrams(IExpenses expenses, IAnalyzer analyzer)
+		public Diagrams(IExpenses expenses, IAnalyzer analyzer)
 		{
 			this.expenses = expenses;
 			this.analyzer = analyzer;
