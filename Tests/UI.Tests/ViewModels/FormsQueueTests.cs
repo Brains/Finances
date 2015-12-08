@@ -8,7 +8,7 @@ using static NSubstitute.Substitute;
 using Handler = System.ComponentModel.PropertyChangedEventHandler;
 using Args = System.ComponentModel.PropertyChangedEventArgs;
 
-namespace UITests.ViewModels
+namespace UI.Tests.ViewModels
 {
 	public class FormsQueueTests : AssertionHelper
 	{

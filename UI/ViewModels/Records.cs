@@ -9,9 +9,9 @@ namespace UI.ViewModels
 	{
 		public IEnumerable<Record> RecordsList { get; }
 
-		public Records(IExpences expences)
+		public Records(IExpenses expenses)
 		{
-			RecordsList = expences.Records;
+			RecordsList = expenses.Records;
 		}
 	}
 }

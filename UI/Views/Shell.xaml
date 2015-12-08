@@ -3,7 +3,5 @@
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       Width="1000" Height="800"
                       WindowState="Maximized" ShowIconOnTitleBar="True">
-	
-	<TabControl x:Name="Items" TabStripPlacement="Left" />
-	
+	<TabControl x:Name="Items" TabStripPlacement="Left"/>
 </controls:MetroWindow>

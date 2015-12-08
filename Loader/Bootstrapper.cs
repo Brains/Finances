@@ -39,9 +39,10 @@ namespace Loader
 			container.RegisterType<IEventAggregator, EventAggregator>(new Singleton());
 
 			container.RegisterType<Random>(new Singleton(), new InjectionConstructor());
-			container.RegisterType<IExpences, RandomRecords>(new Singleton());
 			container.RegisterType<ISettings, Settings.Settings>(new Singleton());
-			container.RegisterType<IRecordsStorage, RandomRecords>(new Singleton());
+
+			container.RegisterType<IExpenses, FixedRecords>(new Singleton());
+			container.RegisterType<IRecordsStorage, FixedRecords>(new Singleton());
 
 			ConfigureViewModels();
 			ConfigureConverters();
@@ -56,7 +57,6 @@ namespace Loader
 
 		private void ConfigureViewModels()
 		{
-			container.RegisterType<IEnumerable<IScreen>, IScreen[]>();
 			container.RegisterType<IShell, Shell>(new PerResolve());
 
 			// Tracker
@@ -67,10 +67,12 @@ namespace Loader
 			container.RegisterType<IViewModel, FormsQueue>("FormsQueue");
 			container.RegisterType<IFormFactory, FormFactory>(new Singleton());
 			container.RegisterType<IForm, Form>();
-
+			
 			// Statistics
 			container.RegisterType<IScreen, Statistics>("Statistics", new InjectionConstructor(
-				new ResolvedParameter<IViewModel>("Records")));
+				new ResolvedParameter<IViewModel>("MonthDiagrams")));
+			container.RegisterType<IViewModel, MonthDiagrams>("MonthDiagrams");
+			container.RegisterType<IAnalyzer, Analyzer>();
 		}
 
 		private void ConfigureCaliburn()
@@ -105,4 +107,8 @@ namespace Loader
 			DisplayRootViewFor<IShell>();
 		}
 	}
+}
+
+namespace UI.ViewModels
+{
 }

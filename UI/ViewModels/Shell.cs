@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System.Linq;
 using Caliburn.Micro;
 
 namespace UI.ViewModels
@@ -7,11 +7,14 @@ namespace UI.ViewModels
 
 	public class Shell : Conductor<IScreen>.Collection.OneActive, IShell
 	{
-		public Shell(IEnumerable<IScreen> screens)
+		public IScreen SelectedItem { get; set; }
+		public Shell(IScreen[] screens)
 		{
 			DisplayName = "Finances";
 
 			Items.AddRange(screens);
-		}
+
+			ActivateItem(Items.Last());
+        }
 	}
 }

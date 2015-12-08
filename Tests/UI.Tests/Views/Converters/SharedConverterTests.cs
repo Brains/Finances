@@ -6,7 +6,7 @@ using UI.Interfaces;
 using UI.Views.Converters;
 using static NSubstitute.Substitute;
 
-namespace UITests.Views.Converters
+namespace UI.Tests.Views.Converters
 {
 	public class SharedConverterTests : AssertionHelper
 	{

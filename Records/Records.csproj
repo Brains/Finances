@@ -40,7 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IExpences.cs" />
+    <Compile Include="FixedRecords.cs" />
+    <Compile Include="IExpenses.cs" />
     <Compile Include="IRecordsStorage.cs" />
     <Compile Include="ISettings.cs" />
     <Compile Include="RandomRecords.cs" />

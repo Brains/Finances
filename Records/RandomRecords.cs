@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Records
 {
-	public class RandomRecords : IExpences, IRecordsStorage
+	public class RandomRecords : IExpenses, IRecordsStorage
 	{
 		private readonly Random random;
 
