@@ -62,6 +62,7 @@
     <Compile Include="ViewModels\FormsQueueTests.cs" />
     <Compile Include="ViewModels\FormTests.cs" />
     <Compile Include="ViewModels\MonthDiagramsTests.cs" />
+    <Compile Include="ViewModels\MonthPickerTests.cs" />
     <Compile Include="Views\Converters\AmountConverterTests.cs" />
     <Compile Include="Views\Converters\SharedConverterTests.cs" />
   </ItemGroup>

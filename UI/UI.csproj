@@ -79,6 +79,7 @@
     <Compile Include="ViewModels\Form.cs" />
     <Compile Include="ViewModels\FormsQueue.cs" />
     <Compile Include="ViewModels\MonthDiagrams.cs" />
+    <Compile Include="ViewModels\MonthPicker.cs" />
     <Compile Include="ViewModels\Records.cs" />
     <Compile Include="ViewModels\Shell.cs" />
     <Compile Include="ViewModels\Statistics.cs" />
