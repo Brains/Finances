@@ -1,7 +1,10 @@
+using System.Threading.Tasks;
+
 namespace UI.Services
 {
 	public interface IFundsSource
 	{
-		decimal Get();
+		string Name { get; set; }
+		decimal Value { get; set; }
 	}
 }
