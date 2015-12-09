@@ -72,9 +72,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Records\Records.csproj">
+    <ProjectReference Include="..\..\Records\Common.csproj">
       <Project>{12291e9c-e39e-4867-9459-9aa6bd4792f7}</Project>
-      <Name>Records</Name>
+      <Name>Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\UI\UI.csproj">
       <Project>{0fd59724-0c03-44ca-b2ff-7e87a643dc28}</Project>

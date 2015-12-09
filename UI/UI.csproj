@@ -96,9 +96,9 @@
     <Resource Include="Resources\Icons\Entypo.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Records\Records.csproj">
+    <ProjectReference Include="..\Records\Common.csproj">
       <Project>{12291e9c-e39e-4867-9459-9aa6bd4792f7}</Project>
-      <Name>Records</Name>
+      <Name>Common</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
