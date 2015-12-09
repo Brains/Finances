@@ -8,13 +8,13 @@ using Funds.Bank;
 
 namespace Funds.Bank
 {
-	public struct PersonalData
+	public struct Data
 	{
 		public readonly string ID;
 		public readonly string Card;
 		public readonly string Password;
 
-		public PersonalData(string id, string password, string card)
+		public Data(string id, string password, string card)
 		{
 			ID = id;
 			Password = password;
@@ -37,7 +37,7 @@ namespace Funds.Bank
 			return Regex.Replace(file.ToString(SaveOptions.DisableFormatting), pattern, string.Empty);
 		}
 
-		public string Build(string xml, PersonalData personal)
+		public string Build(string xml, Data personal)
 		{
 			xml = InsertPersonalData(xml, personal);
 			xml = InsertDatesRange(xml, DateTime.Now.AddDays(-5), DateTime.Now);
@@ -46,7 +46,7 @@ namespace Funds.Bank
 			return file.ToString(SaveOptions.DisableFormatting);
 		}
 
-		public string InsertPersonalData(string xml, PersonalData personal)
+		public string InsertPersonalData(string xml, Data personal)
 		{
 			XElement file = XElement.Parse(xml);
 
@@ -60,7 +60,7 @@ namespace Funds.Bank
 
 		}
 
-		private XElement PutSignature(string xml, PersonalData personal)
+		private XElement PutSignature(string xml, Data personal)
 		{
 			var data = ExtractData(xml);
 			var signature = encryption.CalculateSignature(data + personal.Password);
