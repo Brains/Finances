@@ -4,5 +4,6 @@ namespace Common
 	{
 		string Name { get; }
 		decimal Value { get; set; }
+		void PullValue();
 	}
 }

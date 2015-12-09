@@ -9,14 +9,11 @@ namespace Funds
 		public BankSource()
 		{
 			Name = "BankSource";
-
-			PullValue();
 		}
 
 		public sealed override void PullValue()
 		{
 			Value = 100;
-
 		}
 
 		private const string Request =
