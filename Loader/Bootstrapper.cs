@@ -60,20 +60,23 @@ namespace Loader
 		{
 			container.RegisterType<IShell, Shell>(new PerResolve());
 
-			// Tracker
 			container.RegisterType<IScreen, Tracker>("Tracker", new InjectionConstructor(
-				new ResolvedParameter<IViewModel>("Records"),
-				new ResolvedParameter<IViewModel>("FormsQueue")));
-			container.RegisterType<IViewModel, UI.ViewModels.Records>("Records");
-			container.RegisterType<IViewModel, FormsQueue>("FormsQueue");
-			container.RegisterType<IFormFactory, FormFactory>(new Singleton());
-			container.RegisterType<IForm, Form>();
-			
-			// Statistics
+					new ResolvedArrayParameter<IViewModel>(
+						new ResolvedParameter<IViewModel>("Records"),
+						new ResolvedParameter<IViewModel>("FormsQueue"))))
+			         .RegisterType<IViewModel, UI.ViewModels.Records>("Records")
+			         .RegisterType<IViewModel, FormsQueue>("FormsQueue")
+			         .RegisterType<IFormFactory, FormFactory>(new Singleton())
+			         .RegisterType<IForm, Form>();
+
 			container.RegisterType<IScreen, Statistics>("Statistics", new InjectionConstructor(
-				new ResolvedParameter<IViewModel>("Diagrams")));
-			container.RegisterType<IViewModel, Diagrams>("Diagrams");
-			container.RegisterType<IAnalyzer, Analyzer>();
+					new ResolvedArrayParameter<IViewModel>(
+						new ResolvedParameter<IViewModel>("Funds"),
+						new ResolvedParameter<IViewModel>("Diagrams"))))
+			         .RegisterType<IViewModel, Diagrams>("Diagrams")
+			         .RegisterType<IViewModel, Funds>("Funds")
+			         .RegisterType<IAnalyzer, Analyzer>()
+			         .RegisterType<IFundsSource, PrivatBank>("PrivatBank");
 		}
 
 		private void ConfigureCaliburn()
