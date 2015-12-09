@@ -13,9 +13,10 @@ namespace Funds
 			PullValue();
 		}
 
-		protected sealed override void PullValue()
+		public sealed override void PullValue()
 		{
-			throw new System.NotImplementedException();
+			Value = 100;
+
 		}
 
 		private const string Request =

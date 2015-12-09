@@ -17,7 +17,7 @@ namespace Funds
 
 		public string Name { get; protected set; }
 
-		protected abstract void PullValue() ;
+		public abstract void PullValue() ;
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
