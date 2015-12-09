@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FundsSource.cs" />
     <Compile Include="PrivatBank.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

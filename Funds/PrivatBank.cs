@@ -1,33 +1,21 @@
 ﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using Common;
 
 namespace Funds
 {
-	public class PrivatBank : INotifyPropertyChanged, IFundsSource
+	public class PrivatBank : FundsSource
 	{
 		private readonly string url = "https://api.privatbank.ua/p24api/balance";
-		private decimal value;
 
 		public PrivatBank()
 		{
-			UpdateValue();
+			Name = "PrivatBank";
+
+			PullValue();
 		}
 
-		public string Name { get; set; } = "PrivatBank";
-
-		public decimal Value
+		protected sealed override void PullValue()
 		{
-			get { return value; }
-			set { this.value = value; OnPropertyChanged();}
-		}
-
-		private async void UpdateValue()
-		{
-			await Task.Delay(5000);
-
-			Value = 5;
+			throw new System.NotImplementedException();
 		}
 
 		private const string Request =
@@ -49,12 +37,5 @@ namespace Funds
 					</payment>
 				</data>
 			</request>";
-
-		public event PropertyChangedEventHandler PropertyChanged;
-
-		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-		{
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-		}
 	}
 }
