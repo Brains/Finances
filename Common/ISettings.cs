@@ -5,6 +5,6 @@ namespace Common
 {
 	public interface ISettings
 	{
-		Dictionary<Record.Types, Record.Categories[]> CategoriesMapping { get; set; }
+		Dictionary<Types, Categories[]> CategoriesMapping { get; set; }
 	}
 }

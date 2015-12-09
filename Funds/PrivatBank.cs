@@ -1,9 +1,11 @@
-﻿using System.Threading.Tasks;
-using Caliburn.Micro;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using Common;
 
-namespace UI.Services
+namespace Funds
 {
-	public class PrivatBank : PropertyChangedBase, IFundsSource
+	public class PrivatBank : INotifyPropertyChanged, IFundsSource
 	{
 		private readonly string url = "https://api.privatbank.ua/p24api/balance";
 		private decimal value;
@@ -18,11 +20,7 @@ namespace UI.Services
 		public decimal Value
 		{
 			get { return value; }
-			set
-			{
-				this.value = value;
-				NotifyOfPropertyChange(nameof(Value));
-			}
+			set { this.value = value; OnPropertyChanged();}
 		}
 
 		private async void UpdateValue()
@@ -51,5 +49,12 @@ namespace UI.Services
 					</payment>
 				</data>
 			</request>";
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+		{
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+		}
 	}
 }
