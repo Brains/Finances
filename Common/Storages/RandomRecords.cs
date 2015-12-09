@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace Records
+namespace Common.Storages
 {
 	public class RandomRecords : IExpenses, IRecordsStorage
 	{

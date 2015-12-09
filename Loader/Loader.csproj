@@ -113,9 +113,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Records\Records.csproj">
+    <ProjectReference Include="..\Common\Common.csproj">
       <Project>{12291e9c-e39e-4867-9459-9aa6bd4792f7}</Project>
-      <Name>Records</Name>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Funds\Funds.csproj">
+      <Project>{1a01ca3a-a33f-4a61-b797-33b635c67bad}</Project>
+      <Name>Funds</Name>
     </ProjectReference>
     <ProjectReference Include="..\UI\UI.csproj">
       <Project>{0fd59724-0c03-44ca-b2ff-7e87a643dc28}</Project>

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using static Records.Record;
+using static Common.Record;
 
-namespace Records
+namespace Common
 {
 	public interface ISettings
 	{

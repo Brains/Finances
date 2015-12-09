@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using Records;
-using static Records.Record;
-using static Records.Record.Categories;
-using static Records.Record.Types;
-using Mapping = System.Collections.Generic.Dictionary<Records.Record.Types, Records.Record.Categories[]>;
+using Common;
+using static Common.Record;
+using static Common.Record.Categories;
+using static Common.Record.Types;
+using Mapping = System.Collections.Generic.Dictionary<Common.Record.Types, Common.Record.Categories[]>;
 
 namespace Loader.Settings
 {

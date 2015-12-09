@@ -3,12 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using NSubstitute;
 using NUnit.Framework;
-using Records;
+using Common;
+using Common.Storages;
 using UI.ViewModels;
 using static NSubstitute.Substitute;
-using static Records.Record;
-using static Records.Record.Categories;
-using static Records.Record.Types;
+using static Common.Record;
+using static Common.Record.Categories;
+using static Common.Record.Types;
 
 namespace UI.Tests.ViewModels
 {

@@ -1,35 +1,21 @@
-﻿using System.Threading.Tasks;
-using Caliburn.Micro;
+﻿using System.ComponentModel;
 
-namespace UI.Services
+namespace Funds
 {
-	public class PrivatBank : PropertyChangedBase, IFundsSource
+	public class PrivatBank : FundsSource
 	{
 		private readonly string url = "https://api.privatbank.ua/p24api/balance";
-		private decimal value;
 
 		public PrivatBank()
 		{
-			UpdateValue();
+			Name = "PrivatBank";
+
+			PullValue();
 		}
 
-		public string Name { get; set; } = "PrivatBank";
-
-		public decimal Value
+		protected sealed override void PullValue()
 		{
-			get { return value; }
-			set
-			{
-				this.value = value;
-				NotifyOfPropertyChange(nameof(Value));
-			}
-		}
-
-		private async void UpdateValue()
-		{
-			await Task.Delay(5000);
-
-			Value = 5;
+			throw new System.NotImplementedException();
 		}
 
 		private const string Request =

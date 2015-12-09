@@ -7,7 +7,9 @@ using System.Windows.Data;
 using Caliburn.Micro;
 using Loader.Factories;
 using Microsoft.Practices.Unity;
-using Records;
+using Common;
+using Common.Storages;
+using Funds;
 using UI.Interfaces;
 using UI.Services;
 using UI.ViewModels;
@@ -74,7 +76,7 @@ namespace Loader
 						new ResolvedParameter<IViewModel>("Funds"),
 						new ResolvedParameter<IViewModel>("Diagrams"))))
 			         .RegisterType<IViewModel, Diagrams>("Diagrams")
-			         .RegisterType<IViewModel, Funds>("Funds")
+			         .RegisterType<IViewModel, UI.ViewModels.Funds>("Funds")
 			         .RegisterType<IAnalyzer, Analyzer>()
 			         .RegisterType<IFundsSource, PrivatBank>("PrivatBank");
 		}

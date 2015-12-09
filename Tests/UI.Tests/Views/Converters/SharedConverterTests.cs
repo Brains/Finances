@@ -1,7 +1,7 @@
 ﻿using System.Windows.Data;
 using NSubstitute;
 using NUnit.Framework;
-using Records;
+using Common;
 using UI.Interfaces;
 using UI.Views.Converters;
 using static NSubstitute.Substitute;
