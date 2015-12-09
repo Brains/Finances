@@ -76,7 +76,7 @@
     <Compile Include="Interfaces\IViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Analyzer.cs" />
-    <Compile Include="Services\FundsSource.cs" />
+    <Compile Include="Services\PrivatBank.cs" />
     <Compile Include="Services\IFundsSource.cs" />
     <Compile Include="Services\MonthPicker.cs" />
     <Compile Include="ViewModels\Form.cs" />
@@ -123,6 +123,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Diagrams.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Funds.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
