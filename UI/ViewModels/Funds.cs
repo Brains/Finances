@@ -32,7 +32,6 @@ namespace UI.ViewModels
 			return real - estimated;
 		}
 
-
 		public decimal CalculateEstimatedBalance(Record[] records)
 		{
 			var types = records.ToLookup(record => record.Type)
