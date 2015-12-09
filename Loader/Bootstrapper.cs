@@ -8,6 +8,7 @@ using Caliburn.Micro;
 using Loader.Factories;
 using Microsoft.Practices.Unity;
 using Common;
+using Common.Storages;
 using UI.Interfaces;
 using UI.Services;
 using UI.ViewModels;

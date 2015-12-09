@@ -1,6 +1,7 @@
 using System.Linq;
 using NUnit.Framework;
 using Common;
+using Common.Storages;
 using UI.Services;
 
 namespace UI.Tests.Services

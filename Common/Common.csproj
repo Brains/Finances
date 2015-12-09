@@ -40,13 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FixedRecords.cs" />
-    <Compile Include="IExpenses.cs" />
-    <Compile Include="IRecordsStorage.cs" />
     <Compile Include="ISettings.cs" />
-    <Compile Include="RandomRecords.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Record.cs" />
+    <Compile Include="Storages\FixedRecords.cs" />
+    <Compile Include="Storages\IExpenses.cs" />
+    <Compile Include="Storages\IRecordsStorage.cs" />
+    <Compile Include="Storages\RandomRecords.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

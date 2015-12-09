@@ -7,6 +7,7 @@ using MoreLinq;
 using NSubstitute;
 using NUnit.Framework;
 using Common;
+using Common.Storages;
 using UI.Services;
 using UI.ViewModels;
 using static NSubstitute.Substitute;

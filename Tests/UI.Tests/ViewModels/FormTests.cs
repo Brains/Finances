@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using NSubstitute;
 using NUnit.Framework;
 using Common;
+using Common.Storages;
 using UI.ViewModels;
 using static NSubstitute.Substitute;
 using static Common.Record;

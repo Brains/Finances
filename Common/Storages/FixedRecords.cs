@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using static Common.Record.Types;
 using static Common.Record.Categories;
 
-namespace Common
+namespace Common.Storages
 {
 	public class FixedRecords : IExpenses, IRecordsStorage
 	{
