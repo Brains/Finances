@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Funds.Bank
 {
-	internal interface IEncryption
+	public interface IEncryption
 	{
 		string CalculateSignature(string data);
 	}
