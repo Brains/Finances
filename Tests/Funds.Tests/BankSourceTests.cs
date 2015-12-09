@@ -1,6 +1,6 @@
 ﻿namespace Funds.Tests
 {
-	public class PrivatBankTests
+	public class BankSourceTests
 	{
 		 
 	}

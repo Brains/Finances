@@ -2,13 +2,13 @@
 
 namespace Funds
 {
-	public class PrivatBank : FundsSource
+	public class BankSource : FundsSource
 	{
 		private readonly string url = "https://api.privatbank.ua/p24api/balance";
 
-		public PrivatBank()
+		public BankSource()
 		{
-			Name = "PrivatBank";
+			Name = "BankSource";
 
 			PullValue();
 		}

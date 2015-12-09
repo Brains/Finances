@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FundsSource.cs" />
-    <Compile Include="PrivatBank.cs" />
+    <Compile Include="BankSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
