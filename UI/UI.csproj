@@ -96,12 +96,6 @@
     <Resource Include="Resources\Icons\Entypo.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Records\Common.csproj">
-      <Project>{12291e9c-e39e-4867-9459-9aa6bd4792f7}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Page Include="Resources\Colors.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -146,6 +140,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{12291e9c-e39e-4867-9459-9aa6bd4792f7}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
