@@ -2,12 +2,12 @@
 using System.Linq;
 using NSubstitute;
 using NUnit.Framework;
-using Records;
+using Common;
 using UI.Services;
 using UI.ViewModels;
 using static NSubstitute.Substitute;
-using static Records.Record.Types;
-using static Records.Record.Categories;
+using static Common.Record.Types;
+using static Common.Record.Categories;
 
 namespace UI.Tests.ViewModels
 {

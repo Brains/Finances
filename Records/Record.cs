@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-namespace Records
+namespace Common
 {
 	[Serializable]
 	public class Record

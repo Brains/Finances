@@ -1,4 +1,4 @@
-namespace Records
+namespace Common
 {
 	public interface IRecordsStorage
 	{

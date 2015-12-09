@@ -6,10 +6,10 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Caliburn.Micro;
-using Records;
+using Common;
 using UI.Interfaces;
 using UI.Services;
-using static Records.Record.Types;
+using static Common.Record.Types;
 
 namespace UI.ViewModels
 {

@@ -7,7 +7,7 @@ using System.Windows.Data;
 using Caliburn.Micro;
 using Loader.Factories;
 using Microsoft.Practices.Unity;
-using Records;
+using Common;
 using UI.Interfaces;
 using UI.Services;
 using UI.ViewModels;

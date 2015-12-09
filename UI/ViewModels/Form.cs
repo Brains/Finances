@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Caliburn.Micro;
-using Records;
+using Common;
 using UI.Interfaces;
-using static Records.Record;
+using static Common.Record;
 
 namespace UI.ViewModels
 {

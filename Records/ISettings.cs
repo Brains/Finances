@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using static Records.Record;
+using static Common.Record;
 
-namespace Records
+namespace Common
 {
 	public interface ISettings
 	{
-		Dictionary<Types, Categories[]> CategoriesMapping { get; set; }
+		Dictionary<Record.Types, Record.Categories[]> CategoriesMapping { get; set; }
 	}
 }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace Records
+namespace Common
 {
 	public interface IExpenses
 	{
