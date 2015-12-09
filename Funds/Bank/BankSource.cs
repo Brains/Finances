@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace Funds
+﻿namespace Funds.Bank
 {
 	public class BankSource : FundsSource
 	{

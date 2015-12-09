@@ -3,7 +3,7 @@ using System.Text;
 
 // ReSharper disable InconsistentNaming
 
-namespace Funds
+namespace Funds.Bank
 {
 	internal interface IEncryption
 	{

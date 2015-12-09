@@ -10,6 +10,7 @@ using Microsoft.Practices.Unity;
 using Common;
 using Common.Storages;
 using Funds;
+using Funds.Bank;
 using UI.Interfaces;
 using UI.Services;
 using UI.ViewModels;

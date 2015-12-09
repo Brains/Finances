@@ -1,6 +1,7 @@
-﻿using NUnit.Framework;
+﻿using Funds.Bank;
+using NUnit.Framework;
 
-namespace Funds.Tests
+namespace Funds.Tests.Bank
 {
 	public class BankSourceTests
 	{
