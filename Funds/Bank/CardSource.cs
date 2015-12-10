@@ -1,12 +1,12 @@
 ﻿namespace Funds.Bank
 {
-	public class BankSource : FundsSource
+	public class CardSource : FundsSource
 	{
 		private readonly string url = "https://api.privatbank.ua/p24api/balance";
 
-		public BankSource()
+		public CardSource()
 		{
-			Name = "BankSource";
+			Name = "CardSource";
 		}
 
 		public sealed override void PullValue()
@@ -14,5 +14,6 @@
 			Value = 100;
 		}
 
+		
 	}
 }

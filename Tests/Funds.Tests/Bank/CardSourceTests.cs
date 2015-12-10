@@ -3,12 +3,12 @@ using NUnit.Framework;
 
 namespace Funds.Tests.Bank
 {
-	public class BankSourceTests
+	public class CardSourceTests
 	{
 		[Test]
 		public void PullValue_Always_SetCorrectValue()
 		{
-			var source = new BankSource();
+			var source = new CardSource();
 
 			source.PullValue();
 

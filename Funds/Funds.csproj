@@ -45,7 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bank\BankSource.cs" />
+    <Compile Include="Bank\CardSource.cs" />
     <Compile Include="Bank\Encryption.cs" />
     <Compile Include="Bank\RequestBuilder.cs" />
     <Compile Include="FundsSource.cs" />
