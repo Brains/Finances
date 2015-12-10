@@ -1,11 +1,10 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using Common;
 
-namespace Funds
+namespace Funds.Sources
 {
-	public abstract class FundsSource : IFundsSource, INotifyPropertyChanged
+	public abstract class Base : IFundsSource, INotifyPropertyChanged
 	{
 		private decimal value;
 

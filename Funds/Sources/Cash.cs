@@ -1,15 +1,15 @@
 ﻿using Common;
 
-namespace Funds
+namespace Funds.Sources
 {
-	public class SavedSource : FundsSource
+	public class Cash : Base
 	{
 		private readonly ISettings settings;
 
-		public SavedSource(ISettings settings)
+		public Cash(ISettings settings)
 		{
 			this.settings = settings;
-			Name = "SavedSource";
+			Name = "Cash";
 
 			PropertyChanged += (s, a) => settings.Save("Cash", Value);
 		}

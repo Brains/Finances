@@ -11,6 +11,7 @@ using Common;
 using Common.Storages;
 using Funds;
 using Funds.Bank;
+using Funds.Sources;
 using UI.Interfaces;
 using UI.Services;
 using UI.ViewModels;
@@ -83,8 +84,8 @@ namespace Loader
 			         .RegisterType<IViewModel, Diagrams>("Diagrams")
 			         .RegisterType<IViewModel, UI.ViewModels.Funds>("Funds")
 			         .RegisterType<IAnalyzer, Analyzer>()
-			         .RegisterType<IFundsSource, CardSource>("CardSource")
-			         .RegisterType<IFundsSource, SavedSource>("SavedSource");
+			         .RegisterType<IFundsSource, Card>("Card")
+			         .RegisterType<IFundsSource, Cash>("Cash");
 		}
 
 		private void ConfigureCaliburn()
