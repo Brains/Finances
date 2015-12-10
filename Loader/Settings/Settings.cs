@@ -16,5 +16,25 @@ namespace Loader.Settings
 			[Income]	= new[]{Deposit, ODesk, Other},
 			[Shared]	= new[]{Food, House, General, Other},
 		};
+
+		private const string BankRequest =
+			@"<?xml version=""1.0"" encoding=""UTF-8""?>
+			<request version=""1.0"">
+				<merchant>
+					<id>NULL</id>
+					<signature>NULL</signature>
+				</merchant>
+				<data>
+					<oper>cmt</oper>
+					<wait>0</wait>
+					<test>0</test>
+					<payment id="""">
+						<prop name=""card"" value=""NULL"" />
+						<prop name=""country"" value=""UA"" />
+						<prop name=""sd"" value=""NULL"" />
+						<prop name=""ed"" value=""NULL"" />
+					</payment>
+				</data>
+			</request>";
 	}
 }
