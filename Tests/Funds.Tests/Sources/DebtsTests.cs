@@ -1,9 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using Common;
+using Common.Storages;
 using Funds.Sources;
 using NUnit.Framework;
 using static Common.Record.Types;
 using static Common.Record.Categories;
+using static NSubstitute.Substitute;
+using Directions = System.Collections.Generic.Dictionary<string, decimal>;
 
 namespace Funds.Tests.Sources
 {
@@ -22,11 +28,46 @@ namespace Funds.Tests.Sources
 		[Test]
 		public void PullValue_Always_SetsValueToTotalDebt()
 		{
-			var debts = new Debts();
+			var expenses = For<IExpenses>();
+			expenses.Records = new ObservableCollection<Record>(Data);
+			var debts = new Debts(expenses);
 
 			debts.PullValue();
 
 			Assert.That(debts.Value, Is.EqualTo(200));
+		}
+
+		[Test]
+		public void CalculateAmountsPerDude_Always_ReturnsTotalByDudeForEachDirection()
+		{
+			var debts = new Debts(null);
+			var expected = new Dictionary<Record.Categories, Directions>
+			{
+				[Maxim] = new Directions(){	["Out"] = 200,	["In"] = 100,},
+				[Andrey] = new Directions(){["Out"] = 200,	["In"] = 100, }
+			};
+
+			var actual = debts.CalculateAmountsPerDude(Data);
+
+			Assert.That(actual, Is.EquivalentTo(expected));
+		}
+
+		[Test]
+		public void Validate_ValidRecords_DoesNotThrowExceptions()
+		{
+			var debts = new Debts(null);
+
+			Assert.That(() => debts.Validate(Data), Throws.Nothing);
+		}
+
+		[Test]
+		public void Validate_InvalidRecords_ThrowsArgumentException()
+		{
+			var debts = new Debts(null);
+			var invalid = Data.ToList();
+			invalid.Add(new Record(100, Debt, Maxim, "ERROR", new DateTime(1, 1, 1)));
+
+			Assert.That(() => debts.Validate(invalid), Throws.ArgumentException.With.Message.Contain("Wrong Description for Debt record"));
 		}
 	}
 }

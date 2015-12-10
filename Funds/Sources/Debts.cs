@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Common;
 using Common.Storages;
 using static Common.Record;
+using static Common.Record.Types;
+using Directions = System.Collections.Generic.Dictionary<string, decimal>;
 
 namespace Funds.Sources
 {
@@ -15,33 +18,55 @@ namespace Funds.Sources
 			this.expenses = expenses;
 		}
 
+		public Dictionary<Categories, decimal> Dudes { get; set; }
+
 		public override void PullValue()
 		{
-			Value = 200;
+			var records = expenses.Records;
+			var shared = records.Where(r => r.Type == Shared)
+			                    .Sum(r => r.Amount);
 
-			var res = CalculateAmountsPerDude()
+			var debtType = records.Where(r => r.Type == Debt).ToArray();
+			Validate(debtType);
+
+			var debts = CalculateAmountsPerDude(debtType);
+			Dudes = CalculateTotalsPerDude(debts, shared);
+
+			Value = Dudes.Sum(pair => pair.Value);
         }
 
-		private Dictionary<Categories, Dictionary<string, decimal>> CalculateAmountsPerDude(IEnumerable<Record> records)
+		private static Dictionary<Categories, decimal> CalculateTotalsPerDude(Dictionary<Categories, Directions> debts,
+		                                                                      decimal shared)
 		{
-			return (from record in records.Where(record => record.Type == Types.Debt)
-					group record by record.Category // Each Dude is a separate Category
-					into dude
-					select new
-					{
-						Name = dude.Key,
-						Total = (from record in dude
-								 group record by record.Description // Descriptions are either "In" or "Out" mean Direction of debt
-								 into grouped
-								 select new
-								 {
-									 Direction = grouped.Key,
-									 Total = grouped.Sum(record => record.Amount)
-								 })
-							.ToDictionary(kind => kind.Direction, kind => kind.Total)
-					}).ToDictionary(dude => dude.Name, dude => dude.Total);
+			return debts.ToDictionary(dude => dude.Key,
+			                          dude => shared + dude.Value["Out"] - dude.Value["In"]);
 		}
 
+		public Dictionary<Categories, Directions> CalculateAmountsPerDude(IEnumerable<Record> records)
+		{
+			return records.ToLookup(record => record.Category)
+			              .ToDictionary(dude => dude.Key, GetTotalForEachDirection);
+		}
 
+		private static Directions GetTotalForEachDirection(IGrouping<Categories, Record> dude)
+		{
+			return dude.ToLookup(record => record.Description)
+			           .ToDictionary(direction => direction.Key,
+			                         direction => direction.Sum(record => record.Amount));
+		}
+
+		public void Validate(IEnumerable<Record> records)
+		{
+			var invalid = records.Where(record =>
+			{
+				var input = record.Description.Equals("In");
+				var output = record.Description.Equals("Out");
+
+				return !input && !output;
+			});
+
+			if (invalid.Any())
+				throw new ArgumentException("Wrong Description for Debt record");
+		}
 	}
 }
