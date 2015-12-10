@@ -10,6 +10,7 @@ using Microsoft.Practices.Unity;
 using Common;
 using Common.Storages;
 using Funds;
+using Funds.Bank;
 using UI.Interfaces;
 using UI.Services;
 using UI.ViewModels;
@@ -44,8 +45,12 @@ namespace Loader
 			container.RegisterType<Random>(new Singleton(), new InjectionConstructor());
 			container.RegisterType<ISettings, Settings.Settings>(new Singleton());
 
-			container.RegisterType<IExpenses, FixedRecords>(new Singleton());
-			container.RegisterType<IRecordsStorage, FixedRecords>(new Singleton());
+			container.RegisterType<IExpenses, FixedRecords>(new Singleton())
+			         .RegisterType<IRecordsStorage, FixedRecords>(new Singleton());
+
+			container.RegisterType<IRequestBuilder, RequestBuilder>()
+                     .RegisterType<IResponceParser, ResponceParser>(new Singleton())
+                     .RegisterType<IEncryption, Encryption>(new Singleton());
 
 			ConfigureViewModels();
 			ConfigureConverters();
@@ -78,7 +83,7 @@ namespace Loader
 			         .RegisterType<IViewModel, Diagrams>("Diagrams")
 			         .RegisterType<IViewModel, UI.ViewModels.Funds>("Funds")
 			         .RegisterType<IAnalyzer, Analyzer>()
-			         .RegisterType<IFundsSource, BankSource>("BankSource");
+			         .RegisterType<IFundsSource, CardSource>("CardSource");
 		}
 
 		private void ConfigureCaliburn()

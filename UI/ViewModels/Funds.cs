@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using Common;
+using MoreLinq;
 using UI.Interfaces;
 using UI.Services;
 using static Common.Record.Types;
@@ -19,9 +20,10 @@ namespace UI.ViewModels
 
 		public Funds(IFundsSource[] sources)
 		{
-			Sources = sources;
+			if (!sources.Any()) throw new ArgumentException();
 
-            if (!sources.Any()) throw new ArgumentException();
+			Sources = sources;
+			Sources.ForEach(source => source.PullValue());
 		}
 
 		public decimal CalculateDivergence(IFundsSource[] sources, Record[] records)
