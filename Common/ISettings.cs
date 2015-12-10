@@ -10,5 +10,6 @@ namespace Common
 		string Password { get; set; }
 		string Card { get; set; }
 		string BankRequest { get; }
+		string Cash { get; set; }
 	}
 }

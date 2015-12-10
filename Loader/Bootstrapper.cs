@@ -83,7 +83,8 @@ namespace Loader
 			         .RegisterType<IViewModel, Diagrams>("Diagrams")
 			         .RegisterType<IViewModel, UI.ViewModels.Funds>("Funds")
 			         .RegisterType<IAnalyzer, Analyzer>()
-			         .RegisterType<IFundsSource, CardSource>("CardSource");
+			         .RegisterType<IFundsSource, CardSource>("CardSource")
+			         .RegisterType<IFundsSource, SavedSource>("SavedSource");
 		}
 
 		private void ConfigureCaliburn()
