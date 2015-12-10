@@ -65,15 +65,8 @@ namespace Funds.Bank
 		{
 			var data = ExtractDataElement(file);
 			var signature = encryption.CalculateSignature(data + personal.Password);
-			file = InsertSignature(file, signature);
 
-			return file;
-		}
-
-		private XElement InsertSignature(XElement file, string signature)
-		{
-			var signatureElement = file.Element("merchant").Element("signature");
-			signatureElement.SetValue(signature);
+			file.Descendants("signature").Single().Value = signature;
 
 			return file;
 		}

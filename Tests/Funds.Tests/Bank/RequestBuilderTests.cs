@@ -61,7 +61,8 @@ namespace Funds.Tests.Bank
 			var file = XElement.Parse(Request);
 			var actual = builder.InsertSignature(file, data);
 
-			Assert.That(actual.Descendants("signature").Single().Value, Is.EqualTo("MD5HASH"));
+			var signature = actual.Descendants("signature").Single().Value;
+			Assert.That(signature, Is.EqualTo("MD5HASH"));
 		}
 	}
 }
