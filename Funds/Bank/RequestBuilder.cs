@@ -84,10 +84,12 @@ namespace Funds.Bank
 		}
 
 
-		public string Repair(XElement file)
+		public XElement Repair(XElement file)
 		{
 			var pattern = @"[^\x20-\x7e]";
-			return Regex.Replace(file.ToString(SaveOptions.DisableFormatting), pattern, string.Empty);
+			var repaired = Regex.Replace(file.ToString(SaveOptions.DisableFormatting), pattern, string.Empty);
+
+			return XElement.Parse(repaired);
 		}
 	}
 }
