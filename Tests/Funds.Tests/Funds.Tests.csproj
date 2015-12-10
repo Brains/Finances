@@ -48,8 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bank\CardSourceTests.cs" />
     <Compile Include="Bank\RequestBuilderTests.cs" />
+    <Compile Include="Bank\ResponceParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

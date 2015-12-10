@@ -47,6 +47,7 @@
     <Compile Include="Bank\CardSource.cs" />
     <Compile Include="Bank\Encryption.cs" />
     <Compile Include="Bank\RequestBuilder.cs" />
+    <Compile Include="Bank\ResponceParser.cs" />
     <Compile Include="FundsSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
