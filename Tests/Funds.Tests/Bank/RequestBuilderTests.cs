@@ -10,8 +10,6 @@ namespace Funds.Tests.Bank
 {
 	public class RequestBuilderTests
 	{
-		private IEncryption encryption;
-
 		private const string Request =
 			@"<?xml version=""1.0"" encoding=""UTF-8""?>
 			<request version=""1.0"">
@@ -32,6 +30,8 @@ namespace Funds.Tests.Bank
 				</data>
 			</request>";
 
+		private IEncryption encryption;
+
 		private RequestBuilder Create()
 		{
 			encryption = For<IEncryption>();
@@ -43,10 +43,11 @@ namespace Funds.Tests.Bank
 		public void InsertSecuredData_Always_InsertsSecuredDataIntoCorrespondingElements()
 		{
 			var builder = Create();
-			var data = new Data("1111", "", "9999");
+			builder.ID = "1111";
+			builder.Card = "9999";
 
 			var file = XElement.Parse(Request);
-			var actual = builder.InsertSecuredData(file, data);
+			var actual = builder.InsertSecuredData(file);
 
 			Assert.That(actual.Descendants("id").Single().Value, Is.EqualTo("1111"));
 			Assert.That(actual.Descendants("prop").First().LastAttribute.Value, Is.EqualTo("9999"));
@@ -56,11 +57,10 @@ namespace Funds.Tests.Bank
 		public void InsertSignature_Always_InsertsSignatureIntoCorrespondingElement()
 		{
 			var builder = Create();
-			var data = new Data("", "qwerty", "");
 			encryption.CalculateSignature(Arg.Any<string>()).Returns("MD5HASH");
 
 			var file = XElement.Parse(Request);
-			var actual = builder.InsertSignature(file, data.Password);
+			var actual = builder.InsertSignature(file);
 
 			var signature = actual.Descendants("signature").Single().Value;
 			Assert.That(signature, Is.EqualTo("MD5HASH"));
@@ -70,30 +70,28 @@ namespace Funds.Tests.Bank
 		public void InsertDatesRange_Always_InsertsDatesIntoCorrespondingElements()
 		{
 			var builder = Create();
-			DateTime start = new DateTime(2010, 1, 1);
-			DateTime end = new DateTime(2015, 12, 31);
+			var date = new DateTime(2010, 1, 6);
+			builder.Date = date;
 
 			var file = XElement.Parse(Request);
-			var actual = builder.InsertDatesRange(file, start, end);
+			var actual = builder.InsertDatesRange(file);
 
 			var dates = actual.Descendants("prop").Skip(2).ToList();
-			Assert.That(dates.First().Attribute("value").Value, Is.EqualTo(start.ToString("dd.MM.yyyy")));
-			Assert.That(dates.Last().Attribute("value").Value, Is.EqualTo(end.ToString("dd.MM.yyyy")));
+			Assert.That(dates.Last().Attribute("value").Value, Is.EqualTo(date.ToString("dd.MM.yyyy")));
+			Assert.That(dates.First().Attribute("value").Value, Is.EqualTo(date.AddDays(-5).ToString("dd.MM.yyyy")));
 		}
 
 		[Test]
 		public void ExtractDataElement_Always_ExtractsAllDataElement()
 		{
 			var builder = Create();
-			DateTime start = new DateTime(2010, 1, 1);
-			DateTime end = new DateTime(2015, 12, 31);
 
 			var file = XElement.Parse(Request);
 			var actual = builder.ExtractDataElement(file);
 
-			Assert.That(actual, Does.Contain("oper")); 
-			Assert.That(actual, Does.Contain("wait")); 
-			Assert.That(actual, Does.Contain("test")); 
+			Assert.That(actual, Does.Contain("oper"));
+			Assert.That(actual, Does.Contain("wait"));
+			Assert.That(actual, Does.Contain("test"));
 			Assert.That(actual, Does.Contain("payment"));
 		}
 	}

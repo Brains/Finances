@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -10,64 +11,63 @@ using MoreLinq;
 
 namespace Funds.Bank
 {
-	public struct Data
-	{
-		public readonly string ID;
-		public readonly string Card;
-		public readonly string Password;
-
-		public Data(string id, string password, string card)
-		{
-			ID = id;
-			Password = password;
-			Card = card;
-		}
-	}
-
 	public class RequestBuilder
 	{
 		private readonly IEncryption encryption;
+		public string ID { get; set; }
+		public string Password { get; set; }
+		public string Card { get; set; }
 
 		public RequestBuilder(IEncryption encryption)
 		{
 			this.encryption = encryption;
+
+			Date = DateTime.Now;
+
+			var settings = ConfigurationManager.AppSettings;
+			ID = settings["id"];
+			Password = settings["Password"];
+			Card = settings["Card"];
 		}
 
-		public string Build(string xml, Data secured)
+		public string Build(string xml)
 		{
 			XElement file = XElement.Parse(xml);
 
-			file = InsertSecuredData(file, secured);
-			file = InsertDatesRange(file, DateTime.Now.AddDays(-5), DateTime.Now);
-			file = InsertSignature(file, secured.Password);
+			InsertSecuredData(file);
+			InsertDatesRange(file);
+			InsertSignature(file);
 
 			return file.ToString(SaveOptions.DisableFormatting);
 		}
 
-		public XElement InsertSecuredData(XElement file, Data secured)
+		public XElement InsertSecuredData(XElement file)
 		{
-			file.Descendants("id").Single().Value = secured.ID;
+			file.Descendants("id").Single().Value = ID;
 			file.Descendants("prop")
 				.Single(e => e.Attribute("name").Value == "card")
-				.SetAttributeValue("value", secured.Card);
+				.SetAttributeValue("value", Card);
 
 			return file;
 		}
 
-		public XElement InsertDatesRange(XElement file, DateTime start, DateTime end)
+		public XElement InsertDatesRange(XElement file)
 		{
+			var format = "dd.MM.yyyy";
 			var properties = file.Descendants("prop").Skip(2).ToList();
-			properties.First().SetAttributeValue("value", start.ToString("dd.MM.yyyy"));
-			properties.Last().SetAttributeValue("value", end.ToString("dd.MM.yyyy"));
+			properties.First().SetAttributeValue("value", Date.AddDays(-5).ToString(format));
+			properties.Last().SetAttributeValue("value", Date.ToString(format));
 
 			return file;
 		}
 
-		public XElement InsertSignature(XElement file, string password)
+		public DateTime Date { get; set; }
+
+		public XElement InsertSignature(XElement file)
 		{
 			var data = ExtractDataElement(file);
-			var signature = encryption.CalculateSignature(data + password);
 
+			var signature = encryption.CalculateSignature(data + Password);
 			file.Descendants("signature").Single().Value = signature;
 
 			return file;
@@ -82,6 +82,7 @@ namespace Funds.Bank
 
 			return data.ToString();
 		}
+
 
 		public string Repair(XElement file)
 		{
