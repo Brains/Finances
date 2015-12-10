@@ -44,11 +44,11 @@ namespace Funds.Tests.Bank
 			var builder = Create();
 			var data = new Data("1111", "", "9999");
 
-			var actual = builder.InsertSecuredData(Request, data);
+			var file = XElement.Parse(Request);
+			var actual = builder.InsertSecuredData(file, data);
 
-			var file = XElement.Parse(actual);
-			Assert.That(file.Descendants("id").Single().Value, Is.EqualTo("1111"));
-			Assert.That(file.Descendants("prop").First().LastAttribute.Value, Is.EqualTo("9999"));
+			Assert.That(actual.Descendants("id").Single().Value, Is.EqualTo("1111"));
+			Assert.That(actual.Descendants("prop").First().LastAttribute.Value, Is.EqualTo("9999"));
 		}
 
 		[Test]
@@ -58,7 +58,8 @@ namespace Funds.Tests.Bank
 			var data = new Data("", "qwerty", "");
 			encryption.CalculateSignature(Arg.Any<string>()).Returns("MD5HASH");
 
-			var actual = builder.InsertSignature(Request, data);
+			var file = XElement.Parse(Request);
+			var actual = builder.InsertSignature(file, data);
 
 			Assert.That(actual.Descendants("signature").Single().Value, Is.EqualTo("MD5HASH"));
 		}
