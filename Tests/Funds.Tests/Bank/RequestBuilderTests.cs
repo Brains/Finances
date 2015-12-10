@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Xml.Linq;
 using Funds.Bank;
 using NSubstitute;
@@ -63,6 +64,21 @@ namespace Funds.Tests.Bank
 
 			var signature = actual.Descendants("signature").Single().Value;
 			Assert.That(signature, Is.EqualTo("MD5HASH"));
+		}
+
+		[Test]
+		public void InsertDatesRange_Always_InsertsDatesIntoCorrespondingElements()
+		{
+			var builder = Create();
+			DateTime start = new DateTime(2010, 1, 1);
+			DateTime end = new DateTime(2015, 12, 31);
+
+			var file = XElement.Parse(Request);
+			var actual = builder.InsertDatesRange(file, start, end);
+
+			var dates = actual.Descendants("prop").Skip(2).ToList();
+			Assert.That(dates.First().Attribute("value").Value, Is.EqualTo(start.ToString("dd.MM.yyyy")));
+			Assert.That(dates.Last().Attribute("value").Value, Is.EqualTo(end.ToString("dd.MM.yyyy")));
 		}
 	}
 }
