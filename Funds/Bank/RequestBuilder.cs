@@ -11,7 +11,12 @@ using MoreLinq;
 
 namespace Funds.Bank
 {
-	public class RequestBuilder
+	public interface IRequestBuilder
+	{
+		string Build(string xml);
+	}
+
+	public class RequestBuilder : IRequestBuilder
 	{
 		private readonly IEncryption encryption;
 		public string ID { get; set; }
