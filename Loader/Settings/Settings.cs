@@ -9,7 +9,7 @@ namespace Loader.Settings
 {
 	public class Settings : ISettings
 	{
-		private const string BankRequest =
+		public string BankRequest { get; } = 
 			@"<?xml version=""1.0"" encoding=""UTF-8""?>
 			<request version=""1.0"">
 				<merchant>

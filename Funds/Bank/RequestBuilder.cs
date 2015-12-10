@@ -14,7 +14,7 @@ namespace Funds.Bank
 {
 	public interface IRequestBuilder
 	{
-		string Build(string xml);
+		string Build();
 	}
 
 	public class RequestBuilder : IRequestBuilder
@@ -30,9 +30,9 @@ namespace Funds.Bank
 			Date = DateTime.Now;
 		}
 
-		public string Build(string xml)
+		public string Build()
 		{
-			XElement file = XElement.Parse(xml);
+			XElement file = XElement.Parse(settings.BankRequest);
 
 			InsertSecuredData(file);
 			InsertDatesRange(file);
