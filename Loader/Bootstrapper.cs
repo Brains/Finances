@@ -45,8 +45,12 @@ namespace Loader
 			container.RegisterType<Random>(new Singleton(), new InjectionConstructor());
 			container.RegisterType<ISettings, Settings.Settings>(new Singleton());
 
-			container.RegisterType<IExpenses, FixedRecords>(new Singleton());
-			container.RegisterType<IRecordsStorage, FixedRecords>(new Singleton());
+			container.RegisterType<IExpenses, FixedRecords>(new Singleton())
+			         .RegisterType<IRecordsStorage, FixedRecords>(new Singleton());
+
+			container.RegisterType<IRequestBuilder, RequestBuilder>()
+                     .RegisterType<IResponceParser, ResponceParser>(new Singleton())
+                     .RegisterType<IEncryption, Encryption>(new Singleton());
 
 			ConfigureViewModels();
 			ConfigureConverters();

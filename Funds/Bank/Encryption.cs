@@ -10,7 +10,7 @@ namespace Funds.Bank
 		string CalculateSignature(string data);
 	}
 
-	internal class Encryption : IEncryption
+	public class Encryption : IEncryption
 	{
 		public string CalculateSignature(string data)
 		{

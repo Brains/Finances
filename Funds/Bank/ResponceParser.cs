@@ -23,7 +23,6 @@ namespace Funds.Bank
 			}
 			catch (InvalidOperationException)
 			{
-				Console.WriteLine(input);
 				element = "0";
 			}
 
