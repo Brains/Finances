@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using Common;
 using Funds.Bank;
 using MoreLinq;
 
@@ -19,20 +20,14 @@ namespace Funds.Bank
 	public class RequestBuilder : IRequestBuilder
 	{
 		private readonly IEncryption encryption;
-		public string ID { get; set; }
-		public string Password { get; set; }
-		public string Card { get; set; }
+		private readonly ISettings settings;
 
-		public RequestBuilder(IEncryption encryption)
+		public RequestBuilder(IEncryption encryption, ISettings settings)
 		{
 			this.encryption = encryption;
+			this.settings = settings;
 
 			Date = DateTime.Now;
-
-			var settings = ConfigurationManager.AppSettings;
-			ID = settings["id"];
-			Password = settings["Password"];
-			Card = settings["Card"];
 		}
 
 		public string Build(string xml)
@@ -48,10 +43,10 @@ namespace Funds.Bank
 
 		public XElement InsertSecuredData(XElement file)
 		{
-			file.Descendants("id").Single().Value = ID;
+			file.Descendants("id").Single().Value = settings.ID;
 			file.Descendants("prop")
 				.Single(e => e.Attribute("name").Value == "card")
-				.SetAttributeValue("value", Card);
+				.SetAttributeValue("value", settings.Card);
 
 			return file;
 		}
@@ -72,7 +67,7 @@ namespace Funds.Bank
 		{
 			var data = ExtractDataElement(file);
 
-			var signature = encryption.CalculateSignature(data + Password);
+			var signature = encryption.CalculateSignature(data + settings.Password);
 			file.Descendants("signature").Single().Value = signature;
 
 			return file;

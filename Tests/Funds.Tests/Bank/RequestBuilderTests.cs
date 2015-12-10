@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Xml.Linq;
+using Common;
 using Funds.Bank;
 using NSubstitute;
 using NUnit.Framework;
@@ -31,20 +32,22 @@ namespace Funds.Tests.Bank
 			</request>";
 
 		private IEncryption encryption;
+		private ISettings settings;
 
 		private RequestBuilder Create()
 		{
 			encryption = For<IEncryption>();
+			settings = For<ISettings>();
 
-			return new RequestBuilder(encryption);
+			return new RequestBuilder(encryption, settings);
 		}
 
 		[Test]
 		public void InsertSecuredData_Always_InsertsSecuredDataIntoCorrespondingElements()
 		{
 			var builder = Create();
-			builder.ID = "1111";
-			builder.Card = "9999";
+			settings.ID = "1111";
+			settings.Card = "9999";
 
 			var file = XElement.Parse(Request);
 			var actual = builder.InsertSecuredData(file);
