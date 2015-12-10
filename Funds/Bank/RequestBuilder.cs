@@ -31,53 +31,34 @@ namespace Funds.Bank
 			this.encryption = encryption;
 		}
 
-		public string Repair(XElement file)
+		public string Build(string xml, Data secured)
 		{
-			var pattern = @"[^\x20-\x7e]";
-			return Regex.Replace(file.ToString(SaveOptions.DisableFormatting), pattern, string.Empty);
-		}
-
-		public string Build(string xml, Data personal)
-		{
-			xml = InsertPersonalData(xml, personal);
+			xml = InsertSecuredData(xml, secured);
 			xml = InsertDatesRange(xml, DateTime.Now.AddDays(-5), DateTime.Now);
-			var file = PutSignature(xml, personal);
+			var file = InsertSignature(xml, secured);
 
 			return file.ToString(SaveOptions.DisableFormatting);
 		}
 
-		public string InsertPersonalData(string xml, Data personal)
+		public string InsertSecuredData(string xml, Data secured)
 		{
 			XElement file = XElement.Parse(xml);
 
-			file.Element("merchant").SetElementValue("id", personal.ID);
+			file.Element("merchant").SetElementValue("id", secured.ID);
 
 			file.Descendants("prop")
 				.Single(e => e.Attribute("name").Value == "card")
-				.SetAttributeValue("value", personal.Card);
+				.SetAttributeValue("value", secured.Card);
 
 			return file.ToString(SaveOptions.DisableFormatting);
-
 		}
 
-		private XElement PutSignature(string xml, Data personal)
+		public XElement InsertSignature(string xml, Data personal)
 		{
-			var data = ExtractData(xml);
+			var data = ExtractDataElement(xml);
 			var signature = encryption.CalculateSignature(data + personal.Password);
 			var file = InsertSignature(xml, signature);
 			return file;
-		}
-
-		private string ExtractData(string xml)
-		{
-			XElement file = XElement.Parse(xml);
-
-			var data = new StringBuilder();
-
-			foreach (var element in file.Element("data").Nodes())
-				data.Append(element.ToString(SaveOptions.DisableFormatting));
-
-			return data.ToString();
 		}
 
 		private XElement InsertSignature(string xml, string signature)
@@ -89,6 +70,18 @@ namespace Funds.Bank
 			return file;
 		}
 
+		private string ExtractDataElement(string xml)
+		{
+			XElement file = XElement.Parse(xml);
+
+			var data = new StringBuilder();
+
+			foreach (var element in file.Element("data").Nodes())
+				data.Append(element.ToString(SaveOptions.DisableFormatting));
+
+			return data.ToString();
+		}
+
 		public string InsertDatesRange(string xml, DateTime start, DateTime end)
 		{
 			XElement file = XElement.Parse(xml);
@@ -98,6 +91,12 @@ namespace Funds.Bank
 			properties.Last().SetAttributeValue("value", end.ToString("dd.MM.yyyy"));
 
 			return file.ToString(SaveOptions.DisableFormatting);
+		}
+
+		public string Repair(XElement file)
+		{
+			var pattern = @"[^\x20-\x7e]";
+			return Regex.Replace(file.ToString(SaveOptions.DisableFormatting), pattern, string.Empty);
 		}
 	}
 }
