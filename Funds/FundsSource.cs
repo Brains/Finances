@@ -9,7 +9,7 @@ namespace Funds
 	{
 		private decimal value;
 
-		public decimal Value
+		public virtual decimal Value
 		{
 			get { return value; }
 			set { this.value = value; OnPropertyChanged();}

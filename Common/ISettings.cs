@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using static Common.Record;
 
 namespace Common
@@ -11,5 +12,6 @@ namespace Common
 		string Card { get; set; }
 		string BankRequest { get; }
 		string Cash { get; set; }
+		void Save(string name, decimal value);
 	}
 }

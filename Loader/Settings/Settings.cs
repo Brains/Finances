@@ -1,5 +1,9 @@
 using System.Collections.Specialized;
 using System.Configuration;
+using System.Globalization;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Windows;
 using Common;
 using static Common.Record.Categories;
 using static Common.Record.Types;
@@ -39,6 +43,7 @@ namespace Loader.Settings
 		public string ID		{ get; set; } = AppSettings["ID"];
 		public string Password	{ get; set; } = AppSettings["Password"];
 		public string Card		{ get; set; } = AppSettings["Card"];
+		public string Cash		{ get; set; } = AppSettings["Cash"];
 
 		public Mapping CategoriesMapping { get; set; } = new Mapping
 		{
@@ -47,5 +52,20 @@ namespace Loader.Settings
 			[Income] =	new[] {Deposit, ODesk, Other},
 			[Shared] =	new[] {Food, House, General, Other}
 		};
+
+		public void Save(string name, decimal value)
+		{
+			var path = System.Reflection.Assembly.GetExecutingAssembly().Location;
+			Configuration config = ConfigurationManager.OpenExeConfiguration(path);
+
+			config.AppSettings.Settings[name].Value = value.ToString(CultureInfo.InvariantCulture);
+
+			// Remove Secured settings
+			config.AppSettings.Settings.Remove("ID");
+			config.AppSettings.Settings.Remove("Password");
+			config.AppSettings.Settings.Remove("Card");
+
+			config.Save(ConfigurationSaveMode.Minimal);
+		}
 	}
 }
