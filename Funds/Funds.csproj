@@ -51,6 +51,7 @@
     <Compile Include="Sources\Card.cs" />
     <Compile Include="Sources\Base.cs" />
     <Compile Include="Sources\Cash.cs" />
+    <Compile Include="Sources\Debts.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
