@@ -85,7 +85,7 @@ namespace Funds.Tests.Bank
 		}
 
 		[Test]
-		public void ExtractDataElement_Always_ExtractsAllDataElement()
+		public void ExtractDataElement_Always_ExtractsAllDatasElement()
 		{
 			var builder = Create();
 
