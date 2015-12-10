@@ -4,6 +4,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using Funds.Bank;
+using MoreLinq;
+
 // ReSharper disable PossibleNullReferenceException
 
 namespace Funds.Bank
@@ -37,7 +39,7 @@ namespace Funds.Bank
 
 			file = InsertSecuredData(file, secured);
 			file = InsertDatesRange(file, DateTime.Now.AddDays(-5), DateTime.Now);
-			file = InsertSignature(file, secured);
+			file = InsertSignature(file, secured.Password);
 
 			return file.ToString(SaveOptions.DisableFormatting);
 		}
@@ -61,22 +63,22 @@ namespace Funds.Bank
 			return file;
 		}
 
-		public XElement InsertSignature(XElement file, Data personal)
+		public XElement InsertSignature(XElement file, string password)
 		{
 			var data = ExtractDataElement(file);
-			var signature = encryption.CalculateSignature(data + personal.Password);
+			var signature = encryption.CalculateSignature(data + password);
 
 			file.Descendants("signature").Single().Value = signature;
 
 			return file;
 		}
 
-		private string ExtractDataElement(XElement file)
+		public string ExtractDataElement(XElement file)
 		{
 			var data = new StringBuilder();
 
-			foreach (var element in file.Element("data").Nodes())
-				data.Append(element.ToString(SaveOptions.DisableFormatting));
+			file.Element("data").Nodes()
+				.ForEach(node => data.Append(node.ToString(SaveOptions.DisableFormatting)));
 
 			return data.ToString();
 		}
