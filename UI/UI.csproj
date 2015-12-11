@@ -85,6 +85,8 @@
     <Compile Include="ViewModels\Shell.cs" />
     <Compile Include="ViewModels\Statistics.cs" />
     <Compile Include="ViewModels\Tracker.cs" />
+    <Compile Include="ViewModels\Trend.cs" />
+    <Compile Include="ViewModels\Trends.cs" />
     <Compile Include="Views\Converters\AmountConverter.cs" />
     <Compile Include="Views\Converters\Adder.cs" />
     <Compile Include="Views\Converters\SharedConverter.cs" />
