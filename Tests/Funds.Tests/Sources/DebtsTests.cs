@@ -9,7 +9,6 @@ using NUnit.Framework;
 using static Common.Record.Types;
 using static Common.Record.Categories;
 using static NSubstitute.Substitute;
-using Directions = System.Collections.Generic.Dictionary<string, decimal>;
 
 namespace Funds.Tests.Sources
 {
@@ -41,13 +40,13 @@ namespace Funds.Tests.Sources
 		public void CalculateAmountsPerDude_Always_ReturnsTotalByDudeForEachDirection()
 		{
 			var debts = new Debts(null);
-			var expected = new Dictionary<Record.Categories, Directions>
+			var expected = new Dictionary<Record.Categories, decimal>
 			{
-				[Maxim] = new Directions(){	["Out"] = 200,	["In"] = 100,},
-				[Andrey] = new Directions(){["Out"] = 200,	["In"] = 100, }
+				[Maxim] = 100,
+				[Andrey] = 100,
 			};
 
-			var actual = debts.CalculateAmountsPerDude(Data);
+			var actual = debts.Calculate(Data);
 
 			Assert.That(actual, Is.EquivalentTo(expected));
 		}

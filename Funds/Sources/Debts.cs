@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Common;
 using Common.Storages;
@@ -22,33 +23,30 @@ namespace Funds.Sources
 
 		public override void PullValue()
 		{
-			var records = expenses.Records;
-			var shared = records.Where(r => r.Type == Shared)
-			                    .Sum(r => r.Amount);
+			var debts = expenses.Records.Where(record => record.Type == Debt).ToArray();
+			Validate(debts);
 
-			var debtType = records.Where(r => r.Type == Debt).ToArray();
-			Validate(debtType);
-
-			var debts = CalculateAmountsPerDude(debtType);
-			Dudes = CalculateTotalsPerDude(debts, shared);
-
+			Dudes = Calculate(debts);
 			Value = Dudes.Sum(pair => pair.Value);
         }
 
-		private static Dictionary<Categories, decimal> CalculateTotalsPerDude(Dictionary<Categories, Directions> debts,
-		                                                                      decimal shared)
+		public Dictionary<Categories, decimal> Calculate(IEnumerable<Record> records)
 		{
+			var debts = CalculateDirections(records);
+			var shared = records.Where(record => record.Type == Shared)
+								.Sum(record => record.Amount);
+
 			return debts.ToDictionary(dude => dude.Key,
 			                          dude => shared + dude.Value["Out"] - dude.Value["In"]);
 		}
 
-		public Dictionary<Categories, Directions> CalculateAmountsPerDude(IEnumerable<Record> records)
+		private Dictionary<Categories, Directions> CalculateDirections(IEnumerable<Record> records)
 		{
 			return records.ToLookup(record => record.Category)
-			              .ToDictionary(dude => dude.Key, GetTotalForEachDirection);
+			              .ToDictionary(dude => dude.Key, CalculateTotalForDirections);
 		}
 
-		private static Directions GetTotalForEachDirection(IGrouping<Categories, Record> dude)
+		private Directions CalculateTotalForDirections(IGrouping<Categories, Record> dude)
 		{
 			return dude.ToLookup(record => record.Description)
 			           .ToDictionary(direction => direction.Key,

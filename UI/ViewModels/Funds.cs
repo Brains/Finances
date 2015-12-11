@@ -36,12 +36,12 @@ namespace UI.ViewModels
 
 		public decimal CalculateEstimatedBalance(Record[] records)
 		{
-			var types = records.ToLookup(record => record.Type)
+			var totals = records.ToLookup(record => record.Type)
 			                   .ToDictionary(type => type.Key,
 			                                 type => type.Sum(record => record.Amount));
 
-			var spending = types[Expense] + types[Shared];
-			var income = types[Income];
+			var spending = totals[Expense] + totals[Shared];
+			var income = totals[Income];
 
 			return income - spending;
 		}
