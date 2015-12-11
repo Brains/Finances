@@ -46,8 +46,8 @@ namespace Loader
 			container.RegisterType<Random>(new Singleton(), new InjectionConstructor());
 			container.RegisterType<ISettings, Settings.Settings>(new Singleton());
 
-			container.RegisterType<IExpenses, FixedRecords>(new Singleton())
-			         .RegisterType<IRecordsStorage, FixedRecords>(new Singleton());
+			container.RegisterType<IExpenses, RandomRecords>(new Singleton())
+			         .RegisterType<IRecordsStorage, RandomRecords>(new Singleton());
 
 			container.RegisterType<IRequestBuilder, RequestBuilder>()
                      .RegisterType<IResponceParser, ResponceParser>(new Singleton())
@@ -85,7 +85,8 @@ namespace Loader
 			         .RegisterType<IViewModel, UI.ViewModels.Funds>("Funds")
 			         .RegisterType<IAnalyzer, Analyzer>()
 			         .RegisterType<IFundsSource, Card>("Card")
-			         .RegisterType<IFundsSource, Cash>("Cash");
+			         .RegisterType<IFundsSource, Cash>("Cash")
+					 .RegisterType<IFundsSource, Debts>("Debts");
 		}
 
 		private void ConfigureCaliburn()

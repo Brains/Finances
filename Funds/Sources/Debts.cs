@@ -17,6 +17,8 @@ namespace Funds.Sources
 		public Debts(IExpenses expenses)
 		{
 			this.expenses = expenses;
+
+			Name = "Debts";
 		}
 
 		public Dictionary<Categories, decimal> Dudes { get; set; }
