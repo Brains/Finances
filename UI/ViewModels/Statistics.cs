@@ -5,12 +5,12 @@ namespace UI.ViewModels
 {
 	public class Statistics : Conductor<object>.Collection.AllActive
 	{
-		public Statistics(IViewModel month)
+		public Statistics(IViewModel[] viewModels)
 		{
 			Icon = "\uE111";
 			DisplayName = "Statistics";
 
-			Items.Add(month);
+			Items.AddRange(viewModels);
 		}
 
 		public string Icon { get; set; }

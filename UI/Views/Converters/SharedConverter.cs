@@ -1,7 +1,7 @@
 using System;
 using System.Globalization;
 using System.Windows.Data;
-using Records;
+using Common;
 using UI.Interfaces;
 
 namespace UI.Views.Converters

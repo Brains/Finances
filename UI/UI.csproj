@@ -80,6 +80,7 @@
     <Compile Include="ViewModels\Form.cs" />
     <Compile Include="ViewModels\FormsQueue.cs" />
     <Compile Include="ViewModels\Diagrams.cs" />
+    <Compile Include="ViewModels\Funds.cs" />
     <Compile Include="ViewModels\Records.cs" />
     <Compile Include="ViewModels\Shell.cs" />
     <Compile Include="ViewModels\Statistics.cs" />
@@ -91,12 +92,6 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Resource Include="Resources\Icons\Entypo.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Records\Records.csproj">
-      <Project>{12291e9c-e39e-4867-9459-9aa6bd4792f7}</Project>
-      <Name>Records</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Resources\Colors.xaml">
@@ -123,6 +118,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Funds.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Records.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -139,6 +138,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{12291e9c-e39e-4867-9459-9aa6bd4792f7}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

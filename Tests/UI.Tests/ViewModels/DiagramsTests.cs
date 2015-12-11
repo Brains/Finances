@@ -6,11 +6,12 @@ using System.Linq;
 using MoreLinq;
 using NSubstitute;
 using NUnit.Framework;
-using Records;
+using Common;
+using Common.Storages;
 using UI.Services;
 using UI.ViewModels;
 using static NSubstitute.Substitute;
-using static Records.Record;
+using static Common.Record;
 using Args = System.ComponentModel.PropertyChangedEventArgs;
 
 namespace UI.Tests.ViewModels

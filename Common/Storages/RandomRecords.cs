@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using static Common.Record.Types;
+using static Common.Record.Categories;
 
-namespace Records
+namespace Common.Storages
 {
 	public class RandomRecords : IExpenses, IRecordsStorage
 	{
@@ -15,8 +16,19 @@ namespace Records
 		{
 			this.random = random;
 
-			var records = Enumerable.Range(0, 30).Select(index => CreateRandomRecord());
-			Records = new ObservableCollection<Record>(records);
+			var records = Enumerable.Range(0, 100).Select(index => CreateRandomRecord()).ToList();
+
+			Record[] debts =
+			{
+				new Record(200, Debt, Maxim, "Out", RandomDay()),
+				new Record(200, Debt, Andrey,"Out", RandomDay()),
+				new Record(100, Debt, Maxim, "In",	RandomDay()),
+				new Record(100, Debt, Andrey,"In",	RandomDay()),
+			};
+
+			records.RemoveAll(record => record.Type == Debt);
+
+			Records = new ObservableCollection<Record>(records.Concat(debts));
 		}
 
 		public void Add(Record record) => Records.Add(record);
