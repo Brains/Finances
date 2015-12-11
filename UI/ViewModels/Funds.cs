@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using Common;
+using Common.Storages;
 using MoreLinq;
 using UI.Interfaces;
 using UI.Services;
@@ -17,13 +18,16 @@ namespace UI.ViewModels
 	public class Funds : PropertyChangedBase, IViewModel
 	{
 		public IFundsSource[] Sources { get; }
+		public decimal Divergence { get; set; }
 
-		public Funds(IFundsSource[] sources)
+		public Funds(IFundsSource[] sources, IExpenses expenses)
 		{
 			if (!sources.Any()) throw new ArgumentException();
 
 			Sources = sources;
 			Sources.ForEach(source => source.PullValue());
+
+			Divergence = CalculateDivergence(Sources, expenses.Records.ToArray());
 		}
 
 		public decimal CalculateDivergence(IFundsSource[] sources, Record[] records)
