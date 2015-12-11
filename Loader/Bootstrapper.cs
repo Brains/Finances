@@ -7,8 +7,13 @@ using System.Windows.Data;
 using Caliburn.Micro;
 using Loader.Factories;
 using Microsoft.Practices.Unity;
-using Records;
+using Common;
+using Common.Storages;
+using Funds;
+using Funds.Bank;
+using Funds.Sources;
 using UI.Interfaces;
+using UI.Services;
 using UI.ViewModels;
 using UI.Views.Converters;
 using Singleton = Microsoft.Practices.Unity.ContainerControlledLifetimeManager;
@@ -39,9 +44,14 @@ namespace Loader
 			container.RegisterType<IEventAggregator, EventAggregator>(new Singleton());
 
 			container.RegisterType<Random>(new Singleton(), new InjectionConstructor());
-			container.RegisterType<IExpences, RandomRecords>(new Singleton());
 			container.RegisterType<ISettings, Settings.Settings>(new Singleton());
-			container.RegisterType<IRecordsStorage, RandomRecords>(new Singleton());
+
+			container.RegisterType<IExpenses, RandomRecords>(new Singleton())
+			         .RegisterType<IRecordsStorage, RandomRecords>(new Singleton());
+
+			container.RegisterType<IRequestBuilder, RequestBuilder>()
+                     .RegisterType<IResponceParser, ResponceParser>(new Singleton())
+                     .RegisterType<IEncryption, Encryption>(new Singleton());
 
 			ConfigureViewModels();
 			ConfigureConverters();
@@ -58,14 +68,25 @@ namespace Loader
 		{
 			container.RegisterType<IShell, Shell>(new PerResolve());
 
-			container.RegisterType<IViewModel, UI.ViewModels.Records>("Records");
-			container.RegisterType<IViewModel, FormsQueue>("FormsQueue");
-			container.RegisterType<IScreen, Tracker>(new InjectionConstructor(
-				new ResolvedParameter<IViewModel>("Records"),
-				new ResolvedParameter<IViewModel>("FormsQueue")));
+			container.RegisterType<IScreen, Tracker>("Tracker", new InjectionConstructor(
+					new ResolvedArrayParameter<IViewModel>(
+						new ResolvedParameter<IViewModel>("Records"),
+						new ResolvedParameter<IViewModel>("FormsQueue"))))
+			         .RegisterType<IViewModel, UI.ViewModels.Records>("Records")
+			         .RegisterType<IViewModel, FormsQueue>("FormsQueue")
+			         .RegisterType<IFormFactory, FormFactory>(new Singleton())
+			         .RegisterType<IForm, Form>();
 
-			container.RegisterType<IFormFactory, FormFactory>(new Singleton());
-			container.RegisterType<IForm, Form>();
+			container.RegisterType<IScreen, Statistics>("Statistics", new InjectionConstructor(
+					new ResolvedArrayParameter<IViewModel>(
+						new ResolvedParameter<IViewModel>("Funds"),
+						new ResolvedParameter<IViewModel>("Diagrams"))))
+			         .RegisterType<IViewModel, Diagrams>("Diagrams")
+			         .RegisterType<IViewModel, UI.ViewModels.Funds>("Funds")
+			         .RegisterType<IAnalyzer, Analyzer>()
+			         .RegisterType<IFundsSource, Card>("Card")
+			         .RegisterType<IFundsSource, Cash>("Cash")
+					 .RegisterType<IFundsSource, Debts>("Debts");
 		}
 
 		private void ConfigureCaliburn()
@@ -100,4 +121,8 @@ namespace Loader
 			DisplayRootViewFor<IShell>();
 		}
 	}
+}
+
+namespace UI.ViewModels
+{
 }

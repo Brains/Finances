@@ -23,6 +23,7 @@ namespace Loader.Factories
 
 		public void Configure()
 		{
+			// Use ApplyUpdateSourceTrigger because it has DependencyObject parameter
 			ConventionManager.ApplyUpdateSourceTrigger = ConfigureBinding;
 		}
 

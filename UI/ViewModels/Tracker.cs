@@ -5,13 +5,12 @@ namespace UI.ViewModels
 {
 	public class Tracker : Conductor<object>.Collection.AllActive
 	{
-		public Tracker(IViewModel records, IViewModel formsQuery)
+		public Tracker(IViewModel[] viewModels)
 		{
 			Icon = "\uE111";
 			DisplayName = "Tracker";
 
-			Items.Add(records);
-			Items.Add(formsQuery);
+			Items.AddRange(viewModels);
 		}
 
 		public string Icon { get; set; }
