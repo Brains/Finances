@@ -25,31 +25,17 @@ namespace UI.ViewModels
 			Operations.Add(new Operation(-500, new DateTime(2015, 5, 1, 6, 0, 0), TimeSpan.FromDays(7), "Сorrection"));
 		}
 
-		public IEnumerable<DateTime> CalculateCalendar(decimal startFunds, DateTime start, DateTime end)
+		public IEnumerable<IEnumerable<DateTime>> CalculateCalendar(decimal startFunds, DateTime start, DateTime end)
 		{
-			var result = Operations.SelectMany(operation =>
+			var result = Operations.Select(operation =>
 			{
-				var interval = end - start;
-				var count = interval.Ticks / operation.Period.Ticks;
+				var count = (end - start).Ticks / operation.Period.Ticks;
 
 				return Enumerable.Range(0, (int) count).Select(index =>
 				{
-					var increment = index * operation.Period.Ticks;
-					return start + TimeSpan.FromTicks(increment);
+					var shift = index * operation.Period.Ticks;
+					return start + TimeSpan.FromTicks(shift);
 				});
-
-
-				var calendar = new List<DateTime>();
-				var date = operation.Start;
-
-
-
-				while ((date += operation.Period) < end)
-				{
-					if (date >= start) calendar.Add(date);
-				}
-
-				return calendar;
 			});
 
 
