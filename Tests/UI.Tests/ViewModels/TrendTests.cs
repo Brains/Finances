@@ -19,7 +19,7 @@ namespace UI.Tests.ViewModels
 
 			DateTime start = new DateTime(2, 1, 1);
 			DateTime end = new DateTime(2, 2, 1);
-			var calendar = trend.CalculateCalendar(0, start, end);
+			var calendar = trend.Calculate(0, start, end);
 
 			calendar.ForEach(date => Console.WriteLine(date));
 		}

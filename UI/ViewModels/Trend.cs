@@ -25,24 +25,45 @@ namespace UI.ViewModels
 			Operations.Add(new Operation(-500, new DateTime(2015, 5, 1, 6, 0, 0), TimeSpan.FromDays(7), "Сorrection"));
 		}
 
-		public IEnumerable<IEnumerable<DateTime>> CalculateCalendar(decimal startFunds, DateTime start, DateTime end)
+		public IEnumerable<dynamic> Calculate(decimal startFunds, DateTime start, DateTime end)
 		{
-			var result = Operations.Select(operation =>
-			{
-				var count = (end - start).Ticks / operation.Period.Ticks;
+			var calendars  = Operations.Select(operation => CalculateCalendar(start, end - start, operation));
 
-				return Enumerable.Range(0, (int) count).Select(index =>
-				{
-					var shift = index * operation.Period.Ticks;
-					return start + TimeSpan.FromTicks(shift);
-				});
-			});
+			var transactions = Operations.Zip(calendars,
+			                                  (operation, dates) => dates.Select(date => new
+			                                  {
+				                                  Amount = operation.Amount,
+				                                  Date = date,
+				                                  Description = operation.Description
+			                                  }))
+			                             .SelectMany(operation => operation.ToArray())
+			                             .OrderBy(arg => arg.Date);
 
 
 
-			
 
-			return result;
+
+				var points = transactions.Aggregate((a, b) => new
+								{
+									Amount = a.Amount + b.Amount,
+									Date = a.Date,
+									Description = a.Description
+								});
+
+			return transactions;
+		}
+
+		private static IEnumerable<DateTime> CalculateCalendar(DateTime start, TimeSpan interval, Operation operation)
+		{
+			var period = operation.Period.Ticks;
+			var quantity = interval.Ticks / period;
+
+			return Enumerable.Range(0, (int) quantity)
+			                 .Select(index =>
+			                 {
+				                 var shift = TimeSpan.FromTicks(index * period);
+				                 return start + shift;
+			                 });
 		}
 	}
 
