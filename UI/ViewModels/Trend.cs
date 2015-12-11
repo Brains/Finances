@@ -27,6 +27,9 @@ namespace UI.ViewModels
 
 		public IEnumerable<dynamic> Calculate(decimal startFunds, DateTime start, DateTime end)
 		{
+			decimal accumulator = 1000;
+			var seed = new[] { accumulator };
+
 			var calendars  = Operations.Select(operation => CalculateCalendar(start, end - start, operation));
 
 			var transactions = Operations.Zip(calendars,
@@ -37,20 +40,19 @@ namespace UI.ViewModels
 				                                  Description = operation.Description
 			                                  }))
 			                             .SelectMany(operation => operation.ToArray())
-			                             .OrderBy(arg => arg.Date);
+			                             .OrderBy(transaction => transaction.Date);
 
+			var amounts = transactions.Select(transaction => accumulator += transaction.Amount);
+			amounts = seed.Concat(amounts);
 
+			var data = transactions.Zip(amounts, (transaction, amount) => new
+			{
+				Amount = amount,
+				Date = transaction.Date,
+				Description = transaction.Description
+			});
 
-
-
-				var points = transactions.Aggregate((a, b) => new
-								{
-									Amount = a.Amount + b.Amount,
-									Date = a.Date,
-									Description = a.Description
-								});
-
-			return transactions;
+			return data;
 		}
 
 		private static IEnumerable<DateTime> CalculateCalendar(DateTime start, TimeSpan interval, Operation operation)
