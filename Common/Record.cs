@@ -30,6 +30,8 @@ namespace Common
 			Andrey
 		}
 
+		public Record() {}
+
 		public Record(decimal amount, Types type, Categories category, string description, DateTime date)
 		{
 			Type = type;
