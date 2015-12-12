@@ -12,6 +12,7 @@ namespace Common
 		string Card { get; set; }
 		string BankRequest { get; }
 		string Cash { get; set; }
+		PermanentOperation[] PermanentOperations { get; set; }
 		void Save(string name, decimal value);
 	}
 }
