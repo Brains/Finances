@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Caliburn.Micro;
 using Common;
-using MoreLinq;
 using UI.Interfaces;
+using static System.DateTime;
+using static System.Linq.Enumerable;
 using static System.TimeSpan;
 
 namespace UI.ViewModels
@@ -16,33 +17,36 @@ namespace UI.ViewModels
 			Operations = settings.PermanentOperations;
 		}
 
+		public PermanentOperation[] Operations { get; set; }
+
+		public IEnumerable<object> Transactions { get; set; }
+
 		protected override void OnInitialize()
 		{
 			base.OnInitialize();
 
 			ShiftTime(Operations);
+			Transactions = Calculate(0, Now, Now.AddMonths(3));
 		}
 
 		public void ShiftTime(PermanentOperation[] operations)
 		{
-			operations.ForEach((operation, index) => operation.Start += FromHours(index + 1));
-        }
-
-		public PermanentOperation[] Operations { get; set; }
+			MoreLinq.MoreEnumerable.ForEach(operations, (operation, index) => operation.Start += FromHours(index + 1));
+		}
 
 		public IEnumerable<dynamic> Calculate(decimal startFunds, DateTime start, DateTime end)
 		{
 			decimal accumulator = 1000;
-			var seed = new[] { accumulator };
+			var seed = new[] {accumulator};
 
-			var calendars  = Operations.Select(operation => CalculateCalendar(start, end - start, operation));
+			var calendars = Operations.Select(operation => CalculateCalendar(start, end - start, operation));
 
-			var transactions = Enumerable.Zip(Operations, calendars,
+			var transactions = Operations.Zip(calendars,
 			                                  (operation, dates) => dates.Select(date => new
 			                                  {
-				                                  Amount = operation.Amount,
+				                                  operation.Amount,
 				                                  Date = date,
-				                                  Description = operation.Description
+				                                  operation.Description
 			                                  }))
 			                             .SelectMany(operation => operation.ToArray())
 			                             .OrderBy(transaction => transaction.Date);
@@ -50,11 +54,11 @@ namespace UI.ViewModels
 			var amounts = transactions.Select(transaction => accumulator += transaction.Amount);
 			amounts = seed.Concat(amounts);
 
-			var data = Enumerable.Zip(transactions, amounts, (transaction, amount) => new
+			var data = transactions.Zip(amounts, (transaction, amount) => new
 			{
 				Amount = amount,
-				Date = transaction.Date,
-				Description = transaction.Description
+				transaction.Date,
+				transaction.Description
 			});
 
 			return data;
@@ -65,12 +69,8 @@ namespace UI.ViewModels
 			var period = operation.Period.Ticks;
 			var quantity = interval.Ticks / period;
 
-			return Enumerable.Range(0, (int) quantity)
-			                 .Select(index =>
-			                 {
-				                 var shift = FromTicks(index * period);
-				                 return start + shift;
-			                 });
+			return Range(0, (int) quantity)
+			                 .Select(index => start + FromTicks(index * period));
 		}
 	}
 }
