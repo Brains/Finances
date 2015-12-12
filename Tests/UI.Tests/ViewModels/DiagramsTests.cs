@@ -11,7 +11,8 @@ using Common.Storages;
 using UI.Services;
 using UI.ViewModels;
 using static NSubstitute.Substitute;
-using static Common.Record;
+using static Common.Record.Categories;
+using static Common.Record.Types;
 using Args = System.ComponentModel.PropertyChangedEventArgs;
 
 namespace UI.Tests.ViewModels
@@ -28,17 +29,20 @@ namespace UI.Tests.ViewModels
 		{
 			analyzer = For<IAnalyzer>();
 			expenses = For<IExpenses>();
-			expenses.Records = new ObservableCollection<Record>(records);
+			SetRecords(records);
 
 			return new Diagrams(expenses, analyzer);
 		}
 
-		private void Print<T>(IEnumerable<T> items) => items.ForEach(item => Console.WriteLine(item));
+		private void SetRecords(Record[] records)
+		{
+			expenses.Records = new ObservableCollection<Record>(records);
+		}
 
 		private bool IsExpense(Record record)
 		{
-			return record.Type == Types.Expense
-			       || record.Type == Types.Shared;
+			return record.Type == Expense
+			       || record.Type == Shared;
 		}
 
 		[Test]
@@ -55,10 +59,10 @@ namespace UI.Tests.ViewModels
 			// Assserts
 			var keys = diagrams.BalanceByMonth.Select(pair => pair.Key);
 			var expected = new[] {10, 11, 12};
-			var expense = diagrams.BalanceByMonth[Types.Expense];
-			var income = diagrams.BalanceByMonth[Types.Income];
+			var expense = diagrams.BalanceByMonth[Expense];
+			var income = diagrams.BalanceByMonth[Income];
 
-			Expect(keys, EquivalentTo(new[] {Types.Expense, Types.Income}));
+			Expect(keys, EquivalentTo(new[] {Expense, Income}));
 			Expect(expense.Select(p => p.Key), EquivalentTo(expected));
 			Expect(income.Select(p => p.Key), EquivalentTo(expected));
 			Expect(expense.Select(p => p.Value), All.EqualTo(300));
@@ -78,7 +82,7 @@ namespace UI.Tests.ViewModels
 			// Assserts
 			var keys = diagrams.ExpenseByCategory.Select(pair => pair.Key);
 			var values = diagrams.ExpenseByCategory.Select(pair => pair.Value);
-			var expected = new[] {Categories.Food, Categories.Health, Categories.House};
+			var expected = new[] {Food, Health, House};
 
 			Expect(keys, EquivalentTo(expected));
 			Expect(values, EquivalentTo(new[] { 600, 300, 300 }));
@@ -89,7 +93,7 @@ namespace UI.Tests.ViewModels
 		{
 			var diagrams = Create();
 			analyzer.GroupByCategory(Any)
-			        .Returns(records.Where(r => r.Type == Types.Income)
+			        .Returns(records.Where(r => r.Type == Income)
 			                        .ToLookup(record => record.Category));
 
 			diagrams.Update();
@@ -97,7 +101,7 @@ namespace UI.Tests.ViewModels
 			// Assserts
 			var keys = diagrams.IncomeByCategory.Select(pair => pair.Key);
 			var values = diagrams.IncomeByCategory.Select(pair => pair.Value);
-			var expected = new[] {Categories.Deposit};
+			var expected = new[] {Deposit};
 
 			Expect(keys, EquivalentTo(expected));
 			Expect(values, All.EqualTo(300));
@@ -118,9 +122,9 @@ namespace UI.Tests.ViewModels
 			Expect(actual, Count.EqualTo(2));
 			Expect(actual["1"].Length, EqualTo(2));
 			Expect(actual["2"].Length, EqualTo(1));
-			Expect(actual["1"][0],	Property("Category").EqualTo(Categories.Food));
-			Expect(actual["1"][1],	Property("Category").EqualTo(Categories.Health));
-			Expect(actual["2"],		All.Property("Category").EqualTo(Categories.House));
+			Expect(actual["1"][0],	Property("Category").EqualTo(Food));
+			Expect(actual["1"][1],	Property("Category").EqualTo(Health));
+			Expect(actual["2"],		All.Property("Category").EqualTo(House));
 			Expect(actual["1"][0],	Property("Amount").EqualTo(600));
 			Expect(actual["1"][1],	Property("Amount").EqualTo(300));
 			Expect(actual["2"],		All.Property("Amount").EqualTo(300));
