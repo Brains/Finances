@@ -70,13 +70,24 @@ namespace Common
 
 		public override bool Equals(object other)
 		{
-			var compared = (Record) other;
+			if (ReferenceEquals(null, other)) return false;
+			if (ReferenceEquals(this, other)) return true;
+			if (other.GetType() != this.GetType()) return false;
+			return Equals((Record) other);
+		}
 
-			return compared.Amount == Amount
-			       && compared.Type == Type
-			       && compared.Category == Category
-			       && compared.Description == Description
-			       && compared.Date == Date;
+		protected bool Equals(Record other)
+		{
+			return Amount == other.Amount 
+				&& Type == other.Type 
+				&& Category == other.Category 
+				&& string.Equals(Description, other.Description) 
+				&& Date.Equals(other.Date);
+		}
+
+		public override int GetHashCode()
+		{
+			return ToString().GetHashCode();
 		}
 	}
 }
