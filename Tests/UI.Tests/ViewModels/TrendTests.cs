@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using MoreLinq;
 using NUnit.Framework;
 using UI.ViewModels;
+using static UI.ViewModels.Trend;
 
 namespace UI.Tests.ViewModels
 {
@@ -12,9 +13,9 @@ namespace UI.Tests.ViewModels
 		public void CalculateCalendar()
 		{
 			var trend = new Trend();
-			trend.Operations = new List<Operation>()
+			trend.Operations = new List<PermanentOperation>()
 			{
-				new Operation(-100, new DateTime(1, 1, 1), TimeSpan.FromDays(3), "Test")
+				new PermanentOperation(-100, new DateTime(1, 1, 1), TimeSpan.FromDays(3), "Test")
 			};
 
 			DateTime start = new DateTime(2, 1, 1);
