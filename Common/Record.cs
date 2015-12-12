@@ -6,14 +6,6 @@ namespace Common
 	[Serializable]
 	public class Record
 	{
-		public enum Types
-		{
-			Expense,
-			Income,
-			Shared,
-			Debt
-		}
-
 		public enum Categories
 		{
 			Food,
@@ -27,7 +19,15 @@ namespace Common
 			Deposit,
 
 			Maxim,
-			Andrey
+			Andrey,
+		}
+
+		public enum Types
+		{
+			Expense,
+			Income,
+			Shared,
+			Debt,
 		}
 
 		public Record() {}
@@ -72,22 +72,20 @@ namespace Common
 		{
 			if (ReferenceEquals(null, other)) return false;
 			if (ReferenceEquals(this, other)) return true;
-			if (other.GetType() != this.GetType()) return false;
+			if (other.GetType() != GetType()) return false;
+
 			return Equals((Record) other);
 		}
 
 		protected bool Equals(Record other)
 		{
-			return Amount == other.Amount 
-				&& Type == other.Type 
-				&& Category == other.Category 
-				&& string.Equals(Description, other.Description) 
-				&& Date.Equals(other.Date);
+			return Amount == other.Amount
+			       && Type == other.Type
+			       && Category == other.Category
+			       && string.Equals(Description, other.Description)
+			       && Date.Equals(other.Date);
 		}
 
-		public override int GetHashCode()
-		{
-			return ToString().GetHashCode();
-		}
+		public override int GetHashCode() => ToString().GetHashCode();
 	}
 }
