@@ -36,11 +36,6 @@ namespace UI.ViewModels
 			Transactions = Calculate(10000, Now, Now.AddMonths(3));
 		}
 
-		public void ShiftTime(PermanentOperation[] operations)
-		{
-			MoreLinq.MoreEnumerable.ForEach(operations, (operation, index) => operation.Start += FromHours(index + 1));
-		}
-
 		public IEnumerable<Transaction> Calculate(decimal startFunds, DateTime start, DateTime end)
 		{
 			decimal accumulator = startFunds;
@@ -74,6 +69,11 @@ namespace UI.ViewModels
 			var quantity = (int) (interval.Ticks / period);
 
 			return Range(0, quantity).Select(index => start + FromTicks(index * period));
+		}
+
+		public void ShiftTime(PermanentOperation[] operations)
+		{
+			MoreLinq.MoreEnumerable.ForEach(operations, (operation, index) => operation.Start += FromHours(index + 1));
 		}
 	}
 }
