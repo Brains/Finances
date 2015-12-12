@@ -87,7 +87,11 @@ namespace Loader
 			         .RegisterType<IFundsSource, Card>("Card")
 			         .RegisterType<IFundsSource, Cash>("Cash")
 					 .RegisterType<IFundsSource, Debts>("Debts");
-		}
+
+			container.RegisterType<IScreen, Trends>("Trends", new InjectionConstructor(
+						new ResolvedParameter<IViewModel>("Trend")))
+			         .RegisterType<IViewModel, Trend>("Trend");
+        }
 
 		private void ConfigureCaliburn()
 		{

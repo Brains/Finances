@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using NSubstitute;
 using NUnit.Framework;
 using Common;
+using Common.Storages;
 using UI.Services;
 using UI.ViewModels;
 using static NSubstitute.Substitute;
@@ -31,7 +33,9 @@ namespace UI.Tests.ViewModels
 			                        })
 			                        .ToArray();
 
-			return new Funds(sources);
+			var expenses = For<IExpenses>( );
+			expenses.Records = new ObservableCollection<Record>(Enumerable.Empty<Record>());
+			return new Funds(sources, expenses);
 		}
 
 		[Test]
