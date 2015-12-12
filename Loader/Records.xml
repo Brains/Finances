@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfRecord xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Record Amount="35" Type="Expense" Category="Food" Description="Dinner" Date="02.12.15 11:55:19" />
+  <Record Amount="6" Type="Shared" Category="Food" Description="Water" Date="02.12.15 11:55:27" />
+  <Record Amount="18" Type="Debt" Category="Maxim" Description="In" Date="02.12.15 11:55:53" />
+  <Record Amount="333" Type="Expense" Category="Food" Description="Novus" Date="03.12.15 10:39:39" />
+  <Record Amount="45" Type="Expense" Category="Health" Description="Hygiene" Date="03.12.15 10:40:23" />
+  <Record Amount="40" Type="Expense" Category="Food" Description="Dinner" Date="03.12.15 10:41:30" />
+  <Record Amount="40" Type="Expense" Category="Food" Description="Dinner" Date="05.12.15 13:10:33" />
+  <Record Amount="150" Type="Expense" Category="Women" Description="Afterparty" Date="05.12.15 13:10:49" />
+  <Record Amount="60" Type="Expense" Category="Other" Description="Passage" Date="05.12.15 13:11:08" />
+  <Record Amount="18" Type="Debt" Category="Andrey" Description="In" Date="05.12.15 13:11:23" />
+  <Record Amount="6" Type="Shared" Category="Food" Description="Water" Date="05.12.15 13:12:24" />
+  <Record Amount="151" Type="Expense" Category="General" Description="Mozy" Date="05.12.15 13:13:35" />
+  <Record Amount="33" Type="Shared" Category="House" Description="O3" Date="05.12.15 13:13:59" />
+  <Record Amount="140" Type="Expense" Category="Food" Description="Kishenya" Date="05.12.15 15:17:35" />
+  <Record Amount="40" Type="Expense" Category="Food" Description="Dinner" Date="07.12.15 14:18:30" />
+  <Record Amount="140" Type="Expense" Category="Women" Description="Party" Date="07.12.15 14:18:43" />
+  <Record Amount="343" Type="Expense" Category="Food" Description="Novus" Date="07.12.15 14:19:59" />
+  <Record Amount="352" Type="Expense" Category="Health" Description="Hygiene" Date="07.12.15 14:20:31" />
+  <Record Amount="40" Type="Shared" Category="House" Description="Domestic" Date="07.12.15 14:20:43" />
+  <Record Amount="2620" Type="Income" Category="Deposit" Date="08.12.15 10:16:43" />
+  <Record Amount="18" Type="Debt" Category="Maxim" Description="In" Date="08.12.15 10:17:51" />
+  <Record Amount="6" Type="Shared" Category="Food" Description="Water" Date="09.12.15 09:18:00" />
+  <Record Amount="40" Type="Expense" Category="Food" Description="Dinner" Date="09.12.15 09:59:20" />
+  <Record Amount="82" Type="Expense" Category="Health" Description="Аптека" Date="09.12.15 09:59:29" />
+  <Record Amount="120" Type="Expense" Category="Women" Description="Ксения" Date="09.12.15 10:00:06" />
+  <Record Amount="118" Type="Expense" Category="Food" Description="Kishenya" Date="11.12.15 13:24:09" />
+  <Record Amount="18" Type="Debt" Category="Andrey" Description="In" Date="11.12.15 11:31:43" />
+  <Record Amount="6" Type="Shared" Category="Food" Description="Water" Date="11.12.15 11:31:53" />
+  <Record Amount="342" Type="Expense" Category="Food" Description="Novus" Date="12.12.15 09:42:43" />
+  <Record Amount="174" Type="Expense" Category="Health" Description="Сердалут" Date="12.12.15 09:43:24" />
+  <Record Amount="20" Type="Expense" Category="Food" Description="Dinner" Date="12.12.15 09:43:49" />
+  <Record Amount="80" Type="Expense" Category="Women" Description="Party" Date="12.12.15 09:44:13" />
+  <Record Amount="2500" Type="Debt" Category="Andrey" Description="In" Date="12.12.15 09:44:27" />
+  <Record Amount="20" Type="Expense" Category="Other" Description="Passage" Date="12.12.15 09:46:20" />
+  <Record Amount="20" Type="Expense" Category="Food" Description="Булочки" Date="12.12.15 17:10:52" />
+  <Record Amount="30" Type="Expense" Category="Food" Description="Помидоры" Date="12.12.15 17:11:16" />
+</ArrayOfRecord>
