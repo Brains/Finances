@@ -39,10 +39,11 @@ namespace Loader.Settings
 			AppSettings = ConfigurationManager.AppSettings;
 		}
 
-		public string ID		{ get; set; } = AppSettings["ID"];
-		public string Password	{ get; set; } = AppSettings["Password"];
-		public string Card		{ get; set; } = AppSettings["Card"];
-		public string Cash		{ get; set; } = AppSettings["Cash"];
+		public string ID			{ get; set; } = AppSettings["ID"];
+		public string Password		{ get; set; } = AppSettings["Password"];
+		public string Card			{ get; set; } = AppSettings["Card"];
+		public string Cash			{ get; set; } = AppSettings["Cash"];
+		public string RecordsPath	{ get; set; } = AppSettings["RecordsPath"];
 
 		public Mapping CategoriesMapping { get; set; } = new Mapping
 		{
