@@ -39,7 +39,7 @@ namespace UI.ViewModels
 			ExpenseByDay = GroupByDay(expense);
 			ExpenseByCategory = GroupByCategory(expense);
 			IncomeByCategory = GroupByCategory(types[Income]);
-			BalanceByMonth = CalculateBalanceByMonth();
+			BalanceByMonth = CalculateBalanceByMonth(types);
 
 			NotifyOfPropertyChange(nameof(BalanceByMonth));
 			NotifyOfPropertyChange(nameof(ExpenseByCategory));
@@ -64,12 +64,12 @@ namespace UI.ViewModels
 			                            group => group.Sum(record => record.Amount));
 		}
 
-		public Dictionary<Types, Dictionary<int, decimal>> CalculateBalanceByMonth()
+		public Dictionary<Types, Dictionary<int, decimal>> CalculateBalanceByMonth(ILookup<Types, Record> records)
 		{
 			return new Dictionary<Types, Dictionary<int, decimal>>
 			{
-				[Expense] = CalculateTotalByMonth(types[Expense].Concat(types[Shared])),
-				[Income] = CalculateTotalByMonth(types[Income])
+				[Expense] = CalculateTotalByMonth(records[Expense].Concat(records[Shared])),
+				[Income] = CalculateTotalByMonth(records[Income])
 			};
 		}
 

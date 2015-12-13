@@ -22,7 +22,10 @@ namespace UI.Tests.ViewModels
 
 		private Diagrams Create()
 		{
-			return new Diagrams(null);
+			var expenses = For<IExpenses>();
+			expenses.Records = new ObservableCollection<Record>();
+
+			return new Diagrams(expenses);
 		}
 
 		[Test]
@@ -189,21 +192,27 @@ namespace UI.Tests.ViewModels
 		public void CalculateBalanceByMonth_Always_HasExpensesToIncomeRationGroupedByMonth()
 		{
 			var diagrams = Create();
-			var monthes = new[] {10, 11, 12};
+			Record[] records =
+			{
+				new Record(100, Expense,0, "", new DateTime(1, 10, 1)),
+				new Record(100, Shared,	0, "", new DateTime(1, 10, 1)),
+				new Record(100, Income, 0, "", new DateTime(1, 10, 1)),
+				new Record(100, Expense,0, "", new DateTime(1, 11, 1)),
+				new Record(100, Shared,	0, "", new DateTime(1, 11, 1)),
+				new Record(100, Income, 0, "", new DateTime(1, 11, 1)),
+				new Record(100, Expense,0, "", new DateTime(1, 12, 1)),
+				new Record(100, Shared,	0, "", new DateTime(1, 12, 1)),
+				new Record(100, Income, 0, "", new DateTime(1, 12, 1)),
+			};
+			var types = records.ToLookup(r => r.Type);
 
-			diagrams.Update();
+			var actual = diagrams.CalculateBalanceByMonth(types);
 
-			// Assserts
-			var keys = diagrams.BalanceByMonth.Select(pair => pair.Key);
-			var expected = new[] {10, 11, 12};
-			var expense = diagrams.BalanceByMonth[Expense];
-			var income = diagrams.BalanceByMonth[Income];
-
-			Expect(keys, EquivalentTo(new[] {Expense, Income}));
-			Expect(expense.Select(p => p.Key), EquivalentTo(expected));
-			Expect(income.Select(p => p.Key), EquivalentTo(expected));
-			Expect(expense.Select(p => p.Value), All.EqualTo(300));
-			Expect(income.Select(p => p.Value), All.EqualTo(100));
+			Assert.That(actual.Select(p => p.Key), Is.EquivalentTo(new[] { Expense, Income }));
+			Assert.That(actual[Expense].Select(p => p.Key), Is.EquivalentTo(new[] { 10, 11, 12 }));
+			Assert.That(actual[Income].Select(p => p.Key),	Is.EquivalentTo(new[] { 10, 11, 12 }));
+			Assert.That(actual[Expense].Select(p => p.Value),	All.EqualTo(200));
+			Assert.That(actual[Income].Select(p => p.Value),	All.EqualTo(100));
 		}
 
 		[Test]
