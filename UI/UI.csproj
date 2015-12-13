@@ -88,6 +88,8 @@
     <Compile Include="ViewModels\Trends.cs" />
     <Compile Include="Views\Converters\AmountConverter.cs" />
     <Compile Include="Views\Converters\Adder.cs" />
+    <Compile Include="Views\Converters\GroupingDate.cs" />
+    <Compile Include="Views\Converters\GroupingMonth.cs" />
     <Compile Include="Views\Converters\SharedConverter.cs" />
   </ItemGroup>
   <ItemGroup>
