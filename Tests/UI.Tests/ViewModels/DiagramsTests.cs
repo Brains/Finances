@@ -18,22 +18,9 @@ namespace UI.Tests.ViewModels
 {
 	public class DiagramsTests : AssertionHelper
 	{
-		private readonly Record[] records = FixedRecords.Data;
-		private IExpenses expenses;
-
-		public IEnumerable<Record> Any => Arg.Any<IEnumerable<Record>>();
-
 		private Diagrams Create()
 		{
-			expenses = For<IExpenses>();
-			SetRecords(records);
-
-			return new Diagrams(expenses);
-		}
-
-		private void SetRecords(Record[] records)
-		{
-			expenses.Records = new ObservableCollection<Record>(records);
+			return new Diagrams(null);
 		}
 
 		[Test]
