@@ -12,20 +12,12 @@ namespace UI.ViewModels
 {
 	public class Trend : Screen, IViewModel
 	{
-		public class Transaction
-		{
-			public decimal Amount { get; set; }
-			public DateTime Date { get; set; }
-			public string Description { get; set; }
-		}
-
 		public Trend(ISettings settings)
 		{
 			Operations = settings.PermanentOperations;
 		}
 
 		public PermanentOperation[] Operations { get; set; }
-
 		public IEnumerable<Transaction> Transactions { get; set; }
 
 		protected override void OnInitialize()
@@ -74,6 +66,13 @@ namespace UI.ViewModels
 		public void ShiftTime(PermanentOperation[] operations)
 		{
 			MoreLinq.MoreEnumerable.ForEach(operations, (operation, index) => operation.Start += FromHours(index + 1));
+		}
+
+		public class Transaction
+		{
+			public decimal Amount { get; set; }
+			public DateTime Date { get; set; }
+			public string Description { get; set; }
 		}
 	}
 }
