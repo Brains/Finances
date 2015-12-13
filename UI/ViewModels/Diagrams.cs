@@ -12,7 +12,6 @@ namespace UI.ViewModels
 	public class Diagrams : Screen, IViewModel
 	{
 		private readonly IExpenses expenses;
-
 		private ILookup<Types, Record> types;
 
 		public Diagrams(IExpenses expenses)
@@ -48,7 +47,7 @@ namespace UI.ViewModels
 			NotifyOfPropertyChange(nameof(ExpenseByDay));
 		}
 
-		private Dictionary<string, Data[]> GroupByDay(IEnumerable<Record> records)
+		public Dictionary<string, Data[]> GroupByDay(IEnumerable<Record> records)
 		{
 			return records.GroupBy(record => record.Date.ToString("%d"))
 			              .ToDictionary(day => day.Key,
@@ -57,14 +56,14 @@ namespace UI.ViewModels
 			                                      .ToArray());
 		}
 
-		private Dictionary<Categories, decimal> GroupByCategory(IEnumerable<Record> records)
+		public Dictionary<Categories, decimal> GroupByCategory(IEnumerable<Record> records)
 		{
 			return records.GroupBy(record => record.Category)
 			              .ToDictionary(group => group.Key,
 			                            group => group.Sum(record => record.Amount));
 		}
 
-		private Dictionary<Types, Dictionary<int, decimal>> CalculateBalanceByMonth()
+		public Dictionary<Types, Dictionary<int, decimal>> CalculateBalanceByMonth()
 		{
 			return new Dictionary<Types, Dictionary<int, decimal>>
 			{
@@ -80,7 +79,7 @@ namespace UI.ViewModels
 			                            group => group.Sum(record => record.Amount));
 		}
 
-		private Data SquashRecords(IGrouping<Categories, Record> group)
+		public Data SquashRecords(IGrouping<Categories, Record> group)
 		{
 			return new Data
 			{

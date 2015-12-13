@@ -8,7 +8,6 @@ using NSubstitute;
 using NUnit.Framework;
 using Common;
 using Common.Storages;
-using UI.Services;
 using UI.ViewModels;
 using static NSubstitute.Substitute;
 using static Common.Record.Categories;
@@ -20,14 +19,12 @@ namespace UI.Tests.ViewModels
 	public class DiagramsTests : AssertionHelper
 	{
 		private readonly Record[] records = FixedRecords.Data;
-		private IAnalyzer analyzer;
 		private IExpenses expenses;
 
 		public IEnumerable<Record> Any => Arg.Any<IEnumerable<Record>>();
 
 		private Diagrams Create()
 		{
-			analyzer = For<IAnalyzer>();
 			expenses = For<IExpenses>();
 			SetRecords(records);
 
@@ -39,10 +36,72 @@ namespace UI.Tests.ViewModels
 			expenses.Records = new ObservableCollection<Record>(records);
 		}
 
-		private bool IsExpense(Record record)
+		[Test]
+		public void FilterByMonth_Always_GivesRecordsFilteredByMonth()
 		{
-			return record.Type == Expense
-			       || record.Type == Shared;
+			var diagrams = Create();
+			Record[] records =
+			{
+				new Record(0, 0, 0, "", new DateTime(1, 10, 1)),
+				new Record(0, 0, 0, "", new DateTime(1, 10, 1)),
+				new Record(0, 0, 0, "", new DateTime(1, 11, 1)),
+				new Record(0, 0, 0, "", new DateTime(1, 11, 1)),
+				new Record(0, 0, 0, "", new DateTime(1, 12, 1)),
+				new Record(0, 0, 0, "", new DateTime(1, 12, 1)),
+			};
+
+
+			var actual = diagrams.FilterByMonth(records, 12)
+			                     .Select(record => record.Date.Month)
+			                     .ToList();
+
+			Expect(actual, All.EqualTo(12));
+			Expect(actual, Count.EqualTo(2));
+		}
+
+		[Test]
+		public void GroupByDay_Always_GroupsThem()
+		{
+			var diagrams = Create();
+			Record[] records =
+			{
+				new Record(0, 0, 0, "", new DateTime(1, 1, 3)),
+				new Record(0, 0, 0, "", new DateTime(1, 1, 3)),
+				new Record(0, 0, 0, "", new DateTime(1, 1, 6)),
+				new Record(0, 0, 0, "", new DateTime(1, 1, 6)),
+				new Record(0, 0, 0, "", new DateTime(1, 1, 9)),
+				new Record(0, 0, 0, "", new DateTime(1, 1, 9)),
+			};
+
+			var actual = diagrams.GroupByDay(records).ToList();
+
+			Expect(actual.Select(g => g.Key), EquivalentTo(new[] { "3", "6", "9" }));
+			Expect(actual.Select(g => g.Key), Ordered);
+			Expect(actual.Select(g => g.Value.Count()), All.EqualTo(2));
+		}
+
+		[Test]
+		public void CalculateTotalByMonth_Always_CalculateSummaryAmountForEachMonth()
+		{
+			var analyzer = Create();
+			Record[] records =
+			{
+				new Record(10, 0, 0, "", new DateTime(1, 10, 1)),
+				new Record(20, 0, 0, "", new DateTime(1, 10, 1)),
+				new Record(30, 0, 0, "", new DateTime(1, 10, 1)),
+				new Record(10, 0, 0, "", new DateTime(1, 11, 1)),
+				new Record(20, 0, 0, "", new DateTime(1, 11, 1)),
+				new Record(30, 0, 0, "", new DateTime(1, 11, 1)),
+				new Record(10, 0, 0, "", new DateTime(1, 12, 1)),
+				new Record(20, 0, 0, "", new DateTime(1, 12, 1)),
+				new Record(30, 0, 0, "", new DateTime(1, 12, 1)),
+			};
+
+			var actual = analyzer.CalculateTotalByMonth(records);
+
+			Expect(actual, Count.EqualTo(3));
+			Expect(actual.Select(p => p.Key), EquivalentTo(new[] { 10, 11, 12 }));
+			Expect(actual.Select(p => p.Value), All.EqualTo(60));
 		}
 
 		[Test]
@@ -50,9 +109,6 @@ namespace UI.Tests.ViewModels
 		{
 			var diagrams = Create();
 			var monthes = new[] {10, 11, 12};
-			analyzer.CalculateTotalByMonth(Any).Returns(
-				monthes.ToDictionary(month => month, month => 300m),
-				monthes.ToDictionary(month => month, month => 100m));
 
 			diagrams.Update();
 
@@ -73,9 +129,6 @@ namespace UI.Tests.ViewModels
 		public void UpdateExpenseByCategory_Always_HasExpenseCategoriesWithTotalAmount()
 		{
 			var diagrams = Create();
-			analyzer.GroupByCategory(Any)
-			        .Returns(records.Where(IsExpense)
-			                        .ToLookup(record => record.Category));
 
 			diagrams.Update();
 
@@ -92,9 +145,6 @@ namespace UI.Tests.ViewModels
 		public void UpdateIncomeByCategory_Always_HasIncomeCategoriesWithTotalAmount()
 		{
 			var diagrams = Create();
-			analyzer.GroupByCategory(Any)
-			        .Returns(records.Where(r => r.Type == Income)
-			                        .ToLookup(record => record.Category));
 
 			diagrams.Update();
 
@@ -111,9 +161,6 @@ namespace UI.Tests.ViewModels
 		public void UpdateExpenseByDay_Always_HasExpenceGroupedByDay()
 		{
 			var diagrams = Create();
-			analyzer.GroupByDay(Any)
-			        .Returns(records.Where(IsExpense)
-			                        .ToLookup(record => record.Date.ToString("%d")));
 
 			diagrams.Update();
 
@@ -147,74 +194,5 @@ namespace UI.Tests.ViewModels
 			handler.Received(1).Invoke(diagrams, Arg.Is<Args>(args => args.PropertyName == "IncomeByCategory"));
 			handler.Received(1).Invoke(diagrams, Arg.Is<Args>(args => args.PropertyName == "ExpenseByDay"));
         }
-
-
-		[Test]
-		public void FilterByMonth_Always_GivesRecordsFilteredByMonth()
-		{
-			var diagrams = new Analyzer();
-			Record[] records =
-{
-				new Record(0, 0, 0, "", new DateTime(1, 10, 1)),
-				new Record(0, 0, 0, "", new DateTime(1, 10, 1)),
-				new Record(0, 0, 0, "", new DateTime(1, 11, 1)),
-				new Record(0, 0, 0, "", new DateTime(1, 11, 1)),
-				new Record(0, 0, 0, "", new DateTime(1, 12, 1)),
-				new Record(0, 0, 0, "", new DateTime(1, 12, 1)),
-			};
-
-
-			var actual = diagrams.FilterByMonth(records, 12)
-								 .Select(record => record.Date.Month)
-								 .ToList();
-
-			Expect(actual, All.EqualTo(12));
-			Expect(actual, Count.EqualTo(2));
-		}
-
-		[Test]
-		public void GroupByDay_Always_GroupsThem()
-		{
-			var diagrams = new Analyzer();
-			Record[] records =
-{
-				new Record(0, 0, 0, "", new DateTime(1, 1, 3)),
-				new Record(0, 0, 0, "", new DateTime(1, 1, 3)),
-				new Record(0, 0, 0, "", new DateTime(1, 1, 6)),
-				new Record(0, 0, 0, "", new DateTime(1, 1, 6)),
-				new Record(0, 0, 0, "", new DateTime(1, 1, 9)),
-				new Record(0, 0, 0, "", new DateTime(1, 1, 9)),
-			};
-
-			var actual = diagrams.GroupByDay(records).ToList();
-
-			Expect(actual.Select(g => g.Key), EquivalentTo(new[] { "3", "6", "9" }));
-			Expect(actual.Select(g => g.Key), Ordered);
-			Expect(actual.Select(g => g.Count()), All.EqualTo(2));
-		}
-
-		[Test]
-		public void CalculateTotalByMonth_Always_CalculateSummaryAmountForEachMonth()
-		{
-			var analyzer = new Analyzer();
-			Record[] records =
-{
-				new Record(10, 0, 0, "", new DateTime(1, 10, 1)),
-				new Record(20, 0, 0, "", new DateTime(1, 10, 1)),
-				new Record(30, 0, 0, "", new DateTime(1, 10, 1)),
-				new Record(10, 0, 0, "", new DateTime(1, 11, 1)),
-				new Record(20, 0, 0, "", new DateTime(1, 11, 1)),
-				new Record(30, 0, 0, "", new DateTime(1, 11, 1)),
-				new Record(10, 0, 0, "", new DateTime(1, 12, 1)),
-				new Record(20, 0, 0, "", new DateTime(1, 12, 1)),
-				new Record(30, 0, 0, "", new DateTime(1, 12, 1)),
-			};
-
-			var actual = analyzer.CalculateTotalByMonth(records);
-
-			Expect(actual, Count.EqualTo(3));
-			Expect(actual.Select(p => p.Key), EquivalentTo(new[] { 10, 11, 12 }));
-			Expect(actual.Select(p => p.Value), All.EqualTo(60));
-		}
 	}
 }

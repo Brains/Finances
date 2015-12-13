@@ -13,7 +13,6 @@ using Funds;
 using Funds.Bank;
 using Funds.Sources;
 using UI.Interfaces;
-using UI.Services;
 using UI.ViewModels;
 using UI.Views.Converters;
 using Singleton = Microsoft.Practices.Unity.ContainerControlledLifetimeManager;
@@ -83,7 +82,6 @@ namespace Loader
 						new ResolvedParameter<IViewModel>("Diagrams"))))
 			         .RegisterType<IViewModel, Diagrams>("Diagrams")
 			         .RegisterType<IViewModel, UI.ViewModels.Funds>("Funds")
-			         .RegisterType<IAnalyzer, Analyzer>()
 			         .RegisterType<IFundsSource, Card>("Card")
 			         .RegisterType<IFundsSource, Cash>("Cash")
 					 .RegisterType<IFundsSource, Debts>("Debts");
