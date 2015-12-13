@@ -1,23 +1,13 @@
-using System;
+﻿using System;
 using System.Xml.Serialization;
 
 namespace Common
 {
 	[Serializable]
-    public class Record
+	public class Record
 	{
-        //------------------------------------------------------------------
-	    public enum Types
-	    {
-		    Expense,
-		    Income,
-		    Shared,
-		    Debt,
-		    Balance,
-		}
-
 		public enum Categories
-        {
+		{
 			Food,
 			House,
 			Health,
@@ -30,7 +20,26 @@ namespace Common
 
 			Maxim,
 			Andrey,
-        }
+		}
+
+		public enum Types
+		{
+			Expense,
+			Income,
+			Shared,
+			Debt,
+		}
+
+		public Record() {}
+
+		public Record(decimal amount, Types type, Categories category, string description, DateTime date)
+		{
+			Type = type;
+			Amount = amount;
+			Category = category;
+			Description = description;
+			Date = date;
+		}
 
 		[XmlAttribute]
 		public decimal Amount { get; set; }
@@ -54,44 +63,29 @@ namespace Common
 			set { Date = DateTime.Parse(value); }
 		}
 
-		public Record () {}
-		
-        public Record (decimal amount, Types type, Categories category, string description, DateTime date)
-        {
-            Type = type;
-            Amount = amount;
-            Category = category;
-            Description = description;
-            Date = date;
-        }
-
 		public override string ToString()
 		{
-			return $"{Amount}; {Type}; {Category}; {Description}; {Date.ToString("M")}";
+			return $"{Amount}; {Type}; {Category}; {Description}; {Date.ToString("g")}";
 		}
 
-		public static Record operator +(Record a, Record b)
+		public override bool Equals(object other)
 		{
-			CodeContracts.Requires.True(a.Category == b.Category, "a.Category == b.Category");
-			CodeContracts.Requires.True(a.Date.Day == b.Date.Day, "a.Date.Day == b.Date.Day");
+			if (ReferenceEquals(null, other)) return false;
+			if (ReferenceEquals(this, other)) return true;
+			if (other.GetType() != GetType()) return false;
 
-			return new Record(a.Amount + b.Amount, a.Type, a.Category, GetAggregatedDescription(a, b), a.Date);
+			return Equals((Record) other);
 		}
 
-		private static string GetAggregatedDescription(Record a, Record b)
+		protected bool Equals(Record other)
 		{
-			bool aggregated = false;
-
-			if (a.Description != null)
-				aggregated = a.Description.Contains("\n");
-
-			string first = $"{a.Description}";
-			if (!aggregated) 
-				first += $": {a.Amount}";
-
-			string second = $"{b.Description}: {b.Amount}";
-
-			return $"{first}\n{second}";
+			return Amount == other.Amount
+			       && Type == other.Type
+			       && Category == other.Category
+			       && string.Equals(Description, other.Description)
+			       && Date.Equals(other.Date);
 		}
+
+		public override int GetHashCode() => ToString().GetHashCode();
 	}
 }
