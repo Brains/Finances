@@ -6,51 +6,50 @@
              xmlns:charts="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart" 
 			 mc:Ignorable="d"
              d:DesignHeight="800" d:DesignWidth="800">
-    <ScrollViewer>
-		<Grid>
+	<Grid>
 
-			<Grid.RowDefinitions>
-				<RowDefinition MinHeight="600"/>
-                <RowDefinition MinHeight="600"/>
-                <RowDefinition MinHeight="600"/>
-			</Grid.RowDefinitions>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="*"/>
-				<ColumnDefinition />
-				<ColumnDefinition />
-			</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition MinHeight="600"/>
+			<RowDefinition MinHeight="600"/>
+			<RowDefinition MinHeight="600"/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
 
-            <!-- Stacked Columns: Spending by Date -->
-			<charts:StackedColumnChart Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" SeriesSource="{Binding ExpenseByDay}" ChartTitle="Days" ChartSubTitle="{Binding Month}" SelectedBrush="Transparent">
-				<charts:StackedColumnChart.SeriesTemplate>
-					<DataTemplate>
-						<charts:ChartSeries SeriesTitle="{Binding Key}" DisplayMember="Category" ValueMember="Amount" ItemsSource="{Binding Value}" />
-					</DataTemplate>
-				</charts:StackedColumnChart.SeriesTemplate>
-			</charts:StackedColumnChart>
+		<!-- Stacked Columns: Spending by Date -->
+		<charts:StackedColumnChart Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" SeriesSource="{Binding ExpenseByDay}" ChartTitle="Days" ChartSubTitle="{Binding Month}" SelectedBrush="Transparent">
+			<charts:StackedColumnChart.SeriesTemplate>
+				<DataTemplate>
+					<charts:ChartSeries SeriesTitle="{Binding Key}" DisplayMember="Category" ValueMember="Amount" ItemsSource="{Binding Value}" />
+				</DataTemplate>
+			</charts:StackedColumnChart.SeriesTemplate>
+		</charts:StackedColumnChart>
 
-            <!--Doughnut: Spending by Categories-->
-            <charts:DoughnutChart Grid.Row="1" Grid.Column="0" ChartTitle="Expense" InnerRadiusRatio="0.5" ChartSubTitle="{Binding Month}" Background="White">
-                <charts:DoughnutChart.Series>
-                    <charts:ChartSeries ItemsSource="{Binding ExpenseByCategory}" SeriesTitle="ExpenseByCategory" DisplayMember="Key" ValueMember="Value" />
-				</charts:DoughnutChart.Series>
-			</charts:DoughnutChart>
+		<!--Doughnut: Spending by Categories-->
+		<charts:DoughnutChart Grid.Row="1" Grid.Column="0" ChartTitle="Expense" InnerRadiusRatio="0.5" ChartSubTitle="{Binding Month}" Background="White">
+			<charts:DoughnutChart.Series>
+				<charts:ChartSeries ItemsSource="{Binding ExpenseByCategory}" SeriesTitle="ExpenseByCategory" DisplayMember="Key" ValueMember="Value" />
+			</charts:DoughnutChart.Series>
+		</charts:DoughnutChart>
 
-            <!--Doughnut: Incomes by Categories-->
-            <charts:DoughnutChart Grid.Row="1" Grid.Column="1" ChartTitle="Income" InnerRadiusRatio="0.5" ChartSubTitle="{Binding Month}" Background="White">
-                <charts:DoughnutChart.Series>
-                    <charts:ChartSeries ItemsSource="{Binding IncomeByCategory}" SeriesTitle="IncomeByCategory" DisplayMember="Key" ValueMember="Value" />
-				</charts:DoughnutChart.Series>
-			</charts:DoughnutChart>
+		<!--Doughnut: Incomes by Categories-->
+		<charts:DoughnutChart Grid.Row="1" Grid.Column="1" ChartTitle="Income" InnerRadiusRatio="0.5" ChartSubTitle="{Binding Month}" Background="White">
+			<charts:DoughnutChart.Series>
+				<charts:ChartSeries ItemsSource="{Binding IncomeByCategory}" SeriesTitle="IncomeByCategory" DisplayMember="Key" ValueMember="Value" />
+			</charts:DoughnutChart.Series>
+		</charts:DoughnutChart>
 
-            <!-- Columns: Balance monthly -->
-            <charts:ClusteredColumnChart Grid.Row="2" Grid.ColumnSpan="3" Grid.Column="0" Name="TestChart" ChartTitle="Types" ChartSubTitle="Test" Background="White" IsRowColumnSwitched="True">
-                <charts:ClusteredColumnChart.Series>
-                    <charts:ChartSeries ItemsSource="{Binding BalanceByMonth[Expense]}" SeriesTitle="Expense" DisplayMember="Key" ValueMember="Value" />
-                    <charts:ChartSeries ItemsSource="{Binding BalanceByMonth[Income]}" SeriesTitle="Income" DisplayMember="Key" ValueMember="Value" />
-                </charts:ClusteredColumnChart.Series>
-            </charts:ClusteredColumnChart>
+		<!-- Columns: Balance monthly -->
+		<charts:ClusteredColumnChart Grid.Row="2" Grid.ColumnSpan="3" Grid.Column="0" Name="TestChart" ChartTitle="Types" ChartSubTitle="Test" Background="White" IsRowColumnSwitched="True">
+			<charts:ClusteredColumnChart.Series>
+				<charts:ChartSeries ItemsSource="{Binding BalanceByMonth[Expense]}" SeriesTitle="Expense" DisplayMember="Key" ValueMember="Value" />
+				<charts:ChartSeries ItemsSource="{Binding BalanceByMonth[Income]}" SeriesTitle="Income" DisplayMember="Key" ValueMember="Value" />
+			</charts:ClusteredColumnChart.Series>
+		</charts:ClusteredColumnChart>
 
-        </Grid>
-	</ScrollViewer>
+	</Grid>
+
 </UserControl>
