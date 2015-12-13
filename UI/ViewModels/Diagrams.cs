@@ -50,6 +50,7 @@ namespace UI.ViewModels
 		public Dictionary<string, Data[]> GroupByDay(IEnumerable<Record> records)
 		{
 			return records.GroupBy(record => record.Date.ToString("%d"))
+			              .OrderBy(day => day.Key)
 			              .ToDictionary(day => day.Key,
 			                            day => day.GroupBy(record => record.Category)
 			                                      .Select(SquashRecords)
