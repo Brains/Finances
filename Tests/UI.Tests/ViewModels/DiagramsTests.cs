@@ -28,18 +28,28 @@ namespace UI.Tests.ViewModels
 			return new Diagrams(expenses);
 		}
 
+		private static DateTime Month(int month)
+		{
+			return new DateTime(1, month, 1);
+		}
+
+		private static DateTime Day(int day)
+		{
+			return new DateTime(1, 1, day);
+		}
+
 		[Test]
 		public void FilterByMonth_Always_GivesRecordsFilteredByMonth()
 		{
 			var diagrams = Create();
 			Record[] records =
 			{
-				new Record(0, 0, 0, "", new DateTime(1, 10, 1)),
-				new Record(0, 0, 0, "", new DateTime(1, 10, 1)),
-				new Record(0, 0, 0, "", new DateTime(1, 11, 1)),
-				new Record(0, 0, 0, "", new DateTime(1, 11, 1)),
-				new Record(0, 0, 0, "", new DateTime(1, 12, 1)),
-				new Record(0, 0, 0, "", new DateTime(1, 12, 1)),
+				new Record(0, 0, 0, "", Month(10)),
+				new Record(0, 0, 0, "", Month(10)),
+				new Record(0, 0, 0, "", Month(11)),
+				new Record(0, 0, 0, "", Month(11)),
+				new Record(0, 0, 0, "", Month(12)),
+				new Record(0, 0, 0, "", Month(12)),
 			};
 
 			var actual = diagrams.FilterByMonth(records, 12)
@@ -56,9 +66,9 @@ namespace UI.Tests.ViewModels
 			var diagrams = Create();
 			Record[] records =
 			{
-				new Record(100, 0, Food, "First", date),
-				new Record(100, 0, Food, "Second", date),
-				new Record(100, 0, Food, "Third", date),
+				new Record(100, 0, 0, "", date),
+				new Record(100, 0, 0, "", date),
+				new Record(100, 0, 0, "", date),
 			};
 			var grouping = records.GroupBy(r => r.Category).First();
 
@@ -73,9 +83,9 @@ namespace UI.Tests.ViewModels
 			var diagrams = Create();
 			Record[] records =
 			{
-				new Record(100, 0, Food, "First", date),
-				new Record(100, 0, Food, "Second", date),
-				new Record(100, 0, Food, "Third", date),
+				new Record(0, 0, 0, "First", date),
+				new Record(0, 0, 0, "Second", date),
+				new Record(0, 0, 0, "Third", date),
 			};
 			var grouping = records.GroupBy(r => r.Category).First();
 
@@ -90,12 +100,12 @@ namespace UI.Tests.ViewModels
 			var diagrams = Create();
 			Record[] records =
 			{
-				new Record(0, 0, Food,	"", new DateTime(1, 1, 3)),
-				new Record(0, 0, House, "", new DateTime(1, 1, 3)),
-				new Record(0, 0, Food,	"", new DateTime(1, 1, 6)),
-				new Record(0, 0, House, "", new DateTime(1, 1, 6)),
-				new Record(0, 0, Food,	"", new DateTime(1, 1, 9)),
-				new Record(0, 0, House, "", new DateTime(1, 1, 9)),
+				new Record(0, 0, Food,	"", Day(3)),
+				new Record(0, 0, House, "", Day(3)),
+				new Record(0, 0, Food,	"", Day(6)),
+				new Record(0, 0, House, "", Day(6)),
+				new Record(0, 0, Food,	"", Day(9)),
+				new Record(0, 0, House, "", Day(9)),
 			};
 
 			var actual = diagrams.GroupByDay(records).ToList();
@@ -109,12 +119,12 @@ namespace UI.Tests.ViewModels
 			var diagrams = Create();
 			Record[] records =
 			{
-				new Record(0, 0, Food,	"", new DateTime(1, 1, 3)),
-				new Record(0, 0, House, "", new DateTime(1, 1, 3)),
-				new Record(0, 0, Food,	"", new DateTime(1, 1, 6)),
-				new Record(0, 0, House, "", new DateTime(1, 1, 6)),
-				new Record(0, 0, Food,	"", new DateTime(1, 1, 9)),
-				new Record(0, 0, House, "", new DateTime(1, 1, 9)),
+				new Record(0, 0, Food,	"", Day(3)),
+				new Record(0, 0, House, "", Day(3)),
+				new Record(0, 0, Food,	"", Day(6)),
+				new Record(0, 0, House, "", Day(6)),
+				new Record(0, 0, Food,	"", Day(9)),
+				new Record(0, 0, House, "", Day(9)),
 			};
 
 			var actual = diagrams.GroupByDay(records).ToList();
@@ -129,12 +139,12 @@ namespace UI.Tests.ViewModels
 			var diagrams = Create();
 			Record[] records =
 			{
-				new Record(0, 0, 0, "", new DateTime(1, 1, 6)),
-				new Record(0, 0, 0, "", new DateTime(1, 1, 3)),
-				new Record(0, 0, 0, "", new DateTime(1, 1, 6)),
-				new Record(0, 0, 0, "", new DateTime(1, 1, 9)),
-				new Record(0, 0, 0, "", new DateTime(1, 1, 3)),
-				new Record(0, 0, 0, "", new DateTime(1, 1, 9)),
+				new Record(0, 0, 0, "", Day(6)),
+				new Record(0, 0, 0, "", Day(3)),
+				new Record(0, 0, 0, "", Day(6)),
+				new Record(0, 0, 0, "", Day(9)),
+				new Record(0, 0, 0, "", Day(3)),
+				new Record(0, 0, 0, "", Day(9)),
 			};
 
 			var actual = diagrams.GroupByDay(records).ToList();
@@ -148,22 +158,22 @@ namespace UI.Tests.ViewModels
 			var diagrams = Create();
 			Record[] records =
 			{
-				new Record(10, 0, 0, "", new DateTime(1, 10, 1)),
-				new Record(20, 0, 0, "", new DateTime(1, 10, 1)),
-				new Record(30, 0, 0, "", new DateTime(1, 10, 1)),
-				new Record(10, 0, 0, "", new DateTime(1, 11, 1)),
-				new Record(20, 0, 0, "", new DateTime(1, 11, 1)),
-				new Record(30, 0, 0, "", new DateTime(1, 11, 1)),
-				new Record(10, 0, 0, "", new DateTime(1, 12, 1)),
-				new Record(20, 0, 0, "", new DateTime(1, 12, 1)),
-				new Record(30, 0, 0, "", new DateTime(1, 12, 1)),
+				new Record(100, 0, 0, "", Month(10)),
+				new Record(100, 0, 0, "", Month(10)),
+				new Record(100, 0, 0, "", Month(10)),
+				new Record(100, 0, 0, "", Month(11)),
+				new Record(100, 0, 0, "", Month(11)),
+				new Record(100, 0, 0, "", Month(11)),
+				new Record(100, 0, 0, "", Month(12)),
+				new Record(100, 0, 0, "", Month(12)),
+				new Record(100, 0, 0, "", Month(12)),
 			};
 
 			var actual = diagrams.CalculateTotalByMonth(records);
 
 			Expect(actual, Count.EqualTo(3));
 			Expect(actual.Select(p => p.Key), EquivalentTo(new[] { 10, 11, 12 }));
-			Expect(actual.Select(p => p.Value), All.EqualTo(60));
+			Expect(actual.Select(p => p.Value), All.EqualTo(300));
 		}
 
 		[Test]
@@ -173,12 +183,12 @@ namespace UI.Tests.ViewModels
 			Record[] records =
 			{
 				new Record(100, 0, House, "", date),
-				new Record(100, 0, Food, "", date),
-				new Record(100, 0, Deposit, "", date),
-				new Record(100, 0, Health, "", date),
 				new Record(100, 0, House, "", date),
-				new Record(100, 0, Health, "", date),
 				new Record(100, 0, Deposit, "", date),
+				new Record(100, 0, Deposit, "", date),
+				new Record(100, 0, Health, "", date),
+				new Record(100, 0, Health, "", date),
+				new Record(100, 0, Food, "", date),
 				new Record(100, 0, Food, "", date),
 			};
 
@@ -194,15 +204,15 @@ namespace UI.Tests.ViewModels
 			var diagrams = Create();
 			Record[] records =
 			{
-				new Record(100, Expense,0, "", new DateTime(1, 10, 1)),
-				new Record(100, Shared,	0, "", new DateTime(1, 10, 1)),
-				new Record(100, Income, 0, "", new DateTime(1, 10, 1)),
-				new Record(100, Expense,0, "", new DateTime(1, 11, 1)),
-				new Record(100, Shared,	0, "", new DateTime(1, 11, 1)),
-				new Record(100, Income, 0, "", new DateTime(1, 11, 1)),
-				new Record(100, Expense,0, "", new DateTime(1, 12, 1)),
-				new Record(100, Shared,	0, "", new DateTime(1, 12, 1)),
-				new Record(100, Income, 0, "", new DateTime(1, 12, 1)),
+				new Record(100, Expense,0, "", Month(10)),
+				new Record(100, Expense,0, "", Month(11)),
+				new Record(100, Expense,0, "", Month(12)),
+				new Record(100, Shared,	0, "", Month(10)),
+				new Record(100, Shared,	0, "", Month(11)),
+				new Record(100, Shared,	0, "", Month(12)),
+				new Record(100, Income, 0, "", Month(11)),
+				new Record(100, Income, 0, "", Month(10)),
+				new Record(100, Income, 0, "", Month(12)),
 			};
 			var types = records.ToLookup(r => r.Type);
 
