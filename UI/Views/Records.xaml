@@ -17,8 +17,14 @@
             </selectors:GroupHeaderSelector.MonthHeader>
 		</selectors:GroupHeaderSelector>
 	</UserControl.Resources>
-	
-	<DataGrid Name="List">
+
+    <DataGrid Name="List" AutoGenerateColumns = "False" ColumnWidth = "*" MaxColumnWidth="200">
+        <DataGrid.Columns>
+            <DataGridTextColumn Header = "Type" Binding = "{Binding Type}"/>
+            <DataGridTextColumn Header = "Amount" Binding = "{Binding Amount}"/>
+            <DataGridTextColumn Header = "Category" Binding = "{Binding Category}"/>
+            <DataGridTextColumn Header = "Description" Binding = "{Binding Description}" Foreground = "DimGray" />
+        </DataGrid.Columns>
         <DataGrid.GroupStyle>
             <GroupStyle HeaderTemplateSelector="{StaticResource GroupHeaderSelector}" />
         </DataGrid.GroupStyle>
