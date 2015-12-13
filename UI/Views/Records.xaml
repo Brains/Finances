@@ -18,6 +18,10 @@
 		</CollectionViewSource>
 	</UserControl.Resources>
 	
-	<DataGrid ItemsSource="{Binding Source={StaticResource Grouped}}"  />
-	
+	<DataGrid ItemsSource="{Binding Source={StaticResource Grouped}}">
+        <DataGrid.GroupStyle>
+            <GroupStyle HeaderTemplateSelector="{StaticResource GroupItemHeaderTemplateSelector}" />
+        </DataGrid.GroupStyle>
+    </DataGrid>
+
 </UserControl>
