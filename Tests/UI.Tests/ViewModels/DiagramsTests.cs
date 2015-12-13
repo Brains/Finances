@@ -82,25 +82,46 @@ namespace UI.Tests.ViewModels
 		}
 
 		[Test]
-		public void GroupByDay_Always_ReturnsGroupedByDayRecords()
+		public void GroupByDay_Always_ReturnsGroupedByDayCategoryData()
 		{
 			var diagrams = Create();
 			Record[] records =
 			{
-				new Record(0, 0, 0, "", new DateTime(1, 1, 6)),
-				new Record(0, 0, 0, "", new DateTime(1, 1, 3)),
-				new Record(0, 0, 0, "", new DateTime(1, 1, 6)),
-				new Record(0, 0, 0, "", new DateTime(1, 1, 9)),
-				new Record(0, 0, 0, "", new DateTime(1, 1, 3)),
-				new Record(0, 0, 0, "", new DateTime(1, 1, 9)),
+				new Record(0, 0, Food,	"", new DateTime(1, 1, 3)),
+				new Record(0, 0, House, "", new DateTime(1, 1, 3)),
+				new Record(0, 0, Food,	"", new DateTime(1, 1, 6)),
+				new Record(0, 0, House, "", new DateTime(1, 1, 6)),
+				new Record(0, 0, Food,	"", new DateTime(1, 1, 9)),
+				new Record(0, 0, House, "", new DateTime(1, 1, 9)),
 			};
 
 			var actual = diagrams.GroupByDay(records).ToList();
 
-			Expect(actual.Select(g => g.Key), EquivalentTo(new[] { "3", "6", "9" }));
+			Expect(actual.Select(p => p.Key), EquivalentTo(new[] { "3", "6", "9" }));
 		}
+
 		[Test]
-		public void GroupByDay_Always_ReturnsOrderedRecords()
+		public void GroupByDay_WithTwoCategoriesPerDay_ReturnsDaysWithThisTwoCategories()
+		{
+			var diagrams = Create();
+			Record[] records =
+			{
+				new Record(0, 0, Food,	"", new DateTime(1, 1, 3)),
+				new Record(0, 0, House, "", new DateTime(1, 1, 3)),
+				new Record(0, 0, Food,	"", new DateTime(1, 1, 6)),
+				new Record(0, 0, House, "", new DateTime(1, 1, 6)),
+				new Record(0, 0, Food,	"", new DateTime(1, 1, 9)),
+				new Record(0, 0, House, "", new DateTime(1, 1, 9)),
+			};
+
+			var actual = diagrams.GroupByDay(records).ToList();
+
+			var categories = actual.SelectMany(p => p.Value.Select(d => d.Category));
+			Expect(categories, EquivalentTo(new[] { Food, House, Food, House, Food, House }));
+		}
+
+		[Test]
+		public void GroupByDay_Always_ReturnsOrderedDays()
 		{
 			var diagrams = Create();
 			Record[] records =
@@ -143,27 +164,6 @@ namespace UI.Tests.ViewModels
 		}
 
 		[Test]
-		public void CalculateBalanceByMonth_Always_HasExpensesToIncomeRationGroupedByMonth()
-		{
-			var diagrams = Create();
-			var monthes = new[] {10, 11, 12};
-
-			diagrams.Update();
-
-			// Assserts
-			var keys = diagrams.BalanceByMonth.Select(pair => pair.Key);
-			var expected = new[] {10, 11, 12};
-			var expense = diagrams.BalanceByMonth[Expense];
-			var income = diagrams.BalanceByMonth[Income];
-
-			Expect(keys, EquivalentTo(new[] {Expense, Income}));
-			Expect(expense.Select(p => p.Key), EquivalentTo(expected));
-			Expect(income.Select(p => p.Key), EquivalentTo(expected));
-			Expect(expense.Select(p => p.Value), All.EqualTo(300));
-			Expect(income.Select(p => p.Value), All.EqualTo(100));
-		}
-
-		[Test]
 		public void GroupByCategory_Always_ReturnsCategoriesWithTotalAmount()
 		{
 			var diagrams = Create();
@@ -186,35 +186,24 @@ namespace UI.Tests.ViewModels
 		}
 
 		[Test]
-		public void GroupByDay_Always_ReturnsCategoriesGroupedByDay()
+		public void CalculateBalanceByMonth_Always_HasExpensesToIncomeRationGroupedByMonth()
 		{
 			var diagrams = Create();
-			Record[] records =
-{
-				new Record(100, 0, House, "", date),
-				new Record(100, 0, Food, "", date),
-				new Record(100, 0, Deposit, "", date),
-				new Record(100, 0, Health, "", date),
-				new Record(100, 0, House, "", date),
-				new Record(100, 0, Health, "", date),
-				new Record(100, 0, Deposit, "", date),
-				new Record(100, 0, Food, "", date),
-			};
+			var monthes = new[] {10, 11, 12};
 
-			var actual = diagrams.GroupByDay(records);
+			diagrams.Update();
 
-			Expect(actual, Count.EqualTo(2));
-			Expect(actual["1"].Length, EqualTo(2));
-			Expect(actual["2"].Length, EqualTo(1));
-			Expect(actual["1"][0],	Property("Category").EqualTo(Food));
-			Expect(actual["1"][1],	Property("Category").EqualTo(Health));
-			Expect(actual["2"],		All.Property("Category").EqualTo(House));
-			Expect(actual["1"][0],	Property("Amount").EqualTo(600));
-			Expect(actual["1"][1],	Property("Amount").EqualTo(300));
-			Expect(actual["2"],		All.Property("Amount").EqualTo(300));
-			Expect(actual["1"][0],	Property("Description").Contain("Novus\nWater"));
-			Expect(actual["1"][1],	Property("Description").Contain("Pharmacy"));
-			Expect(actual["2"],		All.Property("Description").Contain("O3"));
+			// Assserts
+			var keys = diagrams.BalanceByMonth.Select(pair => pair.Key);
+			var expected = new[] {10, 11, 12};
+			var expense = diagrams.BalanceByMonth[Expense];
+			var income = diagrams.BalanceByMonth[Income];
+
+			Expect(keys, EquivalentTo(new[] {Expense, Income}));
+			Expect(expense.Select(p => p.Key), EquivalentTo(expected));
+			Expect(income.Select(p => p.Key), EquivalentTo(expected));
+			Expect(expense.Select(p => p.Value), All.EqualTo(300));
+			Expect(income.Select(p => p.Value), All.EqualTo(100));
 		}
 
 		[Test]
