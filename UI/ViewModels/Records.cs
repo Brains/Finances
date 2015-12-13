@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Data;
 using Caliburn.Micro;
 using Common;
 using Common.Storages;
 using UI.Interfaces;
+using UI.Views.Converters;
 
 namespace UI.ViewModels
 {
@@ -14,6 +17,14 @@ namespace UI.ViewModels
 		public Records(IExpenses expenses)
 		{
 			List = expenses.Records;
+
+			ICollectionView view = CollectionViewSource.GetDefaultView(List);
+
+			view.SortDescriptions.Clear();
+			view.SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Descending));
+			view.GroupDescriptions.Clear();
+			view.GroupDescriptions.Add(new PropertyGroupDescription("Date", new GroupingMonth()));
+			view.GroupDescriptions.Add(new PropertyGroupDescription("Date", new GroupingDate()));
 		}
 	}
 }

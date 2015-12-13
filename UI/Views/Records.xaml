@@ -1,26 +1,10 @@
 ﻿<UserControl x:Class="UI.Views.Records"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:component="clr-namespace:System.ComponentModel;assembly=WindowsBase"
              xmlns:converters="clr-namespace:UI.Views.Converters">
-    
-	<UserControl.Resources>
-		<converters:GroupingMonth x:Key="GroupingMonth" />
-        <converters:GroupingDate x:Key="GroupingDate" />
-		<CollectionViewSource x:Key="Grouped" Source="{Binding List}">
-			<CollectionViewSource.SortDescriptions>
-                <component:SortDescription PropertyName="Date" Direction="Descending" />
-			</CollectionViewSource.SortDescriptions>
-			<CollectionViewSource.GroupDescriptions>
-                <PropertyGroupDescription PropertyName="Date" Converter="{StaticResource GroupingMonth}"></PropertyGroupDescription>
-                <PropertyGroupDescription PropertyName="Date" Converter="{StaticResource GroupingDate}"></PropertyGroupDescription>
-			</CollectionViewSource.GroupDescriptions>
-		</CollectionViewSource>
-	</UserControl.Resources>
-	
-	<DataGrid ItemsSource="{Binding Source={StaticResource Grouped}}">
+	<DataGrid Name="List">
         <DataGrid.GroupStyle>
-            <GroupStyle HeaderTemplateSelector="{StaticResource GroupItemHeaderTemplateSelector}" />
+            <GroupStyle HeaderTemplateSelector="{StaticResource converters:}" />
         </DataGrid.GroupStyle>
     </DataGrid>
 
