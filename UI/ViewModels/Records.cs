@@ -18,10 +18,16 @@ namespace UI.ViewModels
 		{
 			List = expenses.Records;
 
+			ConfigureView();
+		}
+
+		private void ConfigureView()
+		{
 			ICollectionView view = CollectionViewSource.GetDefaultView(List);
 
 			view.SortDescriptions.Clear();
 			view.SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Descending));
+
 			view.GroupDescriptions.Clear();
 			view.GroupDescriptions.Add(new PropertyGroupDescription("Date", new GroupingMonth()));
 			view.GroupDescriptions.Add(new PropertyGroupDescription("Date", new GroupingDate()));
