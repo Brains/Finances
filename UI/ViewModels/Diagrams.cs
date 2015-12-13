@@ -22,7 +22,7 @@ namespace UI.ViewModels
 		public Dictionary<Types, Dictionary<int, decimal>> BalanceByMonth { get; private set; }
 		public Dictionary<Categories, decimal> ExpenseByCategory { get; private set; }
 		public Dictionary<Categories, decimal> IncomeByCategory { get; private set; }
-		public Dictionary<string, Data[]> ExpenseByDay { get; private set; }
+		public Dictionary<string, CategoryData[]> ExpenseByDay { get; private set; }
 
 		protected override void OnInitialize()
 		{
@@ -47,7 +47,7 @@ namespace UI.ViewModels
 			NotifyOfPropertyChange(nameof(ExpenseByDay));
 		}
 
-		public Dictionary<string, Data[]> GroupByDay(IEnumerable<Record> records)
+		public Dictionary<string, CategoryData[]> GroupByDay(IEnumerable<Record> records)
 		{
 			return records.GroupBy(record => record.Date.ToString("%d"))
 			              .OrderBy(day => day.Key)
@@ -80,9 +80,9 @@ namespace UI.ViewModels
 			                            group => group.Sum(record => record.Amount));
 		}
 
-		public Data SquashRecords(IGrouping<Categories, Record> group)
+		public CategoryData SquashRecords(IGrouping<Categories, Record> group)
 		{
-			return new Data
+			return new CategoryData
 			{
 				Category = group.Key,
 				Amount = group.Sum(r => r.Amount),
@@ -96,7 +96,7 @@ namespace UI.ViewModels
 			return records.Where(record => record.Date.Month == month);
 		}
 
-		public class Data
+		public class CategoryData
 		{
 			public Categories Category { get; set; }
 			public decimal Amount { get; set; }
