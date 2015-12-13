@@ -31,7 +31,7 @@ namespace UI.Tests.ViewModels
 			expenses = For<IExpenses>();
 			SetRecords(records);
 
-			return new Diagrams(expenses, analyzer);
+			return new Diagrams(expenses);
 		}
 
 		private void SetRecords(Record[] records)
