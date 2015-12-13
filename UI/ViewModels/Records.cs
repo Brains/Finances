@@ -9,6 +9,7 @@ namespace UI.ViewModels
 	public class Records : PropertyChangedBase, IViewModel
 	{
 		public IEnumerable<Record> RecordsList { get; }
+		public int RowIndex { get; } = 0;
 
 		public Records(IExpenses expenses)
 		{
