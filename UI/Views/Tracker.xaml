@@ -5,5 +5,21 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <ListBox Name="Items" />
+    <ItemsControl Name="Items">
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height = "Auto" />
+                    </Grid.RowDefinitions>
+                </Grid>
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemContainerStyle>
+            <Style>
+                <Setter Property="Grid.Row" Value="{Binding RowIndex}"/>
+            </Style>
+        </ItemsControl.ItemContainerStyle>
+    </ItemsControl>
 </UserControl>
