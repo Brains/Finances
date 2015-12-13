@@ -147,5 +147,74 @@ namespace UI.Tests.ViewModels
 			handler.Received(1).Invoke(diagrams, Arg.Is<Args>(args => args.PropertyName == "IncomeByCategory"));
 			handler.Received(1).Invoke(diagrams, Arg.Is<Args>(args => args.PropertyName == "ExpenseByDay"));
         }
+
+
+		[Test]
+		public void FilterByMonth_Always_GivesRecordsFilteredByMonth()
+		{
+			var diagrams = new Analyzer();
+			Record[] records =
+{
+				new Record(0, 0, 0, "", new DateTime(1, 10, 1)),
+				new Record(0, 0, 0, "", new DateTime(1, 10, 1)),
+				new Record(0, 0, 0, "", new DateTime(1, 11, 1)),
+				new Record(0, 0, 0, "", new DateTime(1, 11, 1)),
+				new Record(0, 0, 0, "", new DateTime(1, 12, 1)),
+				new Record(0, 0, 0, "", new DateTime(1, 12, 1)),
+			};
+
+
+			var actual = diagrams.FilterByMonth(records, 12)
+								 .Select(record => record.Date.Month)
+								 .ToList();
+
+			Expect(actual, All.EqualTo(12));
+			Expect(actual, Count.EqualTo(2));
+		}
+
+		[Test]
+		public void GroupByDay_Always_GroupsThem()
+		{
+			var diagrams = new Analyzer();
+			Record[] records =
+{
+				new Record(0, 0, 0, "", new DateTime(1, 1, 3)),
+				new Record(0, 0, 0, "", new DateTime(1, 1, 3)),
+				new Record(0, 0, 0, "", new DateTime(1, 1, 6)),
+				new Record(0, 0, 0, "", new DateTime(1, 1, 6)),
+				new Record(0, 0, 0, "", new DateTime(1, 1, 9)),
+				new Record(0, 0, 0, "", new DateTime(1, 1, 9)),
+			};
+
+			var actual = diagrams.GroupByDay(records).ToList();
+
+			Expect(actual.Select(g => g.Key), EquivalentTo(new[] { "3", "6", "9" }));
+			Expect(actual.Select(g => g.Key), Ordered);
+			Expect(actual.Select(g => g.Count()), All.EqualTo(2));
+		}
+
+		[Test]
+		public void CalculateTotalByMonth_Always_CalculateSummaryAmountForEachMonth()
+		{
+			var analyzer = new Analyzer();
+			Record[] records =
+{
+				new Record(10, 0, 0, "", new DateTime(1, 10, 1)),
+				new Record(20, 0, 0, "", new DateTime(1, 10, 1)),
+				new Record(30, 0, 0, "", new DateTime(1, 10, 1)),
+				new Record(10, 0, 0, "", new DateTime(1, 11, 1)),
+				new Record(20, 0, 0, "", new DateTime(1, 11, 1)),
+				new Record(30, 0, 0, "", new DateTime(1, 11, 1)),
+				new Record(10, 0, 0, "", new DateTime(1, 12, 1)),
+				new Record(20, 0, 0, "", new DateTime(1, 12, 1)),
+				new Record(30, 0, 0, "", new DateTime(1, 12, 1)),
+			};
+
+			var actual = analyzer.CalculateTotalByMonth(records);
+
+			Expect(actual, Count.EqualTo(3));
+			Expect(actual.Select(p => p.Key), EquivalentTo(new[] { 10, 11, 12 }));
+			Expect(actual.Select(p => p.Value), All.EqualTo(60));
+		}
 	}
 }
