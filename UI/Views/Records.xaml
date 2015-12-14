@@ -23,12 +23,11 @@
             </selectors:GroupHeaderSelector>
         </ResourceDictionary>
     </UserControl.Resources>
-       
 
-    <DataGrid Name="List" AutoGenerateColumns = "False" ColumnWidth = "*" MaxColumnWidth="200" >
+
+    <DataGrid Name="List" AutoGenerateColumns = "False" ColumnWidth = "*" MaxColumnWidth="200" IsReadOnly = "True">
 	    <DataGrid.Columns>
 	        <DataGridTextColumn Header = "Amount" Binding = "{Binding Amount}"/>
-            <DataGridTextColumn Header = "Type" Binding = "{Binding Type}"/>
 	       
 			<DataGridTemplateColumn Header = "Type">
 				<DataGridTemplateColumn.CellTemplate>
@@ -38,8 +37,16 @@
 					</DataTemplate>
 				</DataGridTemplateColumn.CellTemplate>
 			</DataGridTemplateColumn>
+
+            <DataGridTemplateColumn Header = "Category">
+				<DataGridTemplateColumn.CellTemplate>
+					<DataTemplate>
+                        <ComboBox SelectedValue="{Binding Category}" ItemTemplate="{StaticResource EnumTemplate}"
+								  ItemsSource="{Binding Source={extensions:EnumValues {x:Type common:Record+Categories} }}"/>
+					</DataTemplate>
+				</DataGridTemplateColumn.CellTemplate>
+			</DataGridTemplateColumn>
 			
-		    <DataGridTextColumn Header = "Category" Binding = "{Binding Category}"/>
             <DataGridTextColumn Header = "Description" Binding = "{Binding Description}" Foreground = "DimGray" />
         </DataGrid.Columns>
         <DataGrid.GroupStyle>
