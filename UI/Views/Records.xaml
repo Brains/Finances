@@ -22,20 +22,18 @@
                     </DataTemplate>
                 </selectors:GroupHeaderSelector.MonthHeader>
             </selectors:GroupHeaderSelector>
+	        <Style x:Key="DisabledComboBox" TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
+		        <Setter Property="ItemTemplate" Value="{StaticResource EnumTemplate}" />
+		        <Setter Property="IsEditable" Value="False" />
+		        <Setter Property="IsHitTestVisible" Value="False" />
+		        <Setter Property="Focusable" Value="False" />
+		        <Setter Property="BorderBrush" Value="WhiteSmoke" />
+		        <Setter Property="Margin" Value="0, 0, 40, 0" />
+	        </Style>
         </ResourceDictionary>
     </UserControl.Resources>
 
     <DataGrid Name="List" AutoGenerateColumns = "False" ColumnWidth = "*" MaxColumnWidth="200" IsReadOnly = "True">
-	    <DataGrid.Resources>
-		    <Style x:Key="DisabledComboBox" TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
-			    <Setter Property="ItemTemplate" Value="{StaticResource EnumTemplate}" />
-			    <Setter Property="IsEditable" Value="False" />
-			    <Setter Property="IsHitTestVisible" Value="False" />
-			    <Setter Property="Focusable" Value="False" />
-			    <Setter Property="BorderBrush" Value="WhiteSmoke" />
-			    <Setter Property="Margin" Value="0, 0, 40, 0" />
-		    </Style>
-	    </DataGrid.Resources>
 	    <DataGrid.Columns>
             <DataGridTemplateColumn Header = "Amount">
                 <DataGridTemplateColumn.CellTemplate>
