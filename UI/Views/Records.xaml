@@ -27,6 +27,16 @@
 
 
     <DataGrid Name="List" AutoGenerateColumns = "False" ColumnWidth = "*" MaxColumnWidth="200" IsReadOnly = "True">
+	    <DataGrid.Resources>
+		    <Style x:Key="DisabledComboBox" TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
+			    <Setter Property="ItemTemplate" Value="{StaticResource EnumTemplate}" />
+			    <Setter Property="IsEditable" Value="False" />
+			    <Setter Property="IsHitTestVisible" Value="False" />
+			    <Setter Property="Focusable" Value="False" />
+			    <Setter Property="BorderBrush" Value="WhiteSmoke" />
+			    <Setter Property="Margin" Value="0, 0, 40, 0" />
+		    </Style>
+	    </DataGrid.Resources>
 	    <DataGrid.Columns>
             <DataGridTemplateColumn Header = "Amount">
                 <DataGridTemplateColumn.CellTemplate>
@@ -36,11 +46,10 @@
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
 
-
             <DataGridTemplateColumn Header = "Type">
 				<DataGridTemplateColumn.CellTemplate>
 					<DataTemplate>
-                        <ComboBox SelectedValue="{Binding Type}" ItemTemplate="{StaticResource EnumTemplate}" 
+                        <ComboBox SelectedValue="{Binding Type}" Style="{StaticResource DisabledComboBox}" 
 								  ItemsSource="{Binding Source={extensions:EnumValues {x:Type common:Record+Types} }}"/>
 					</DataTemplate>
 				</DataGridTemplateColumn.CellTemplate>
@@ -49,7 +58,7 @@
             <DataGridTemplateColumn Header = "Category">
 				<DataGridTemplateColumn.CellTemplate>
 					<DataTemplate>
-                        <ComboBox SelectedValue="{Binding Category}" ItemTemplate="{StaticResource EnumTemplate}"
+                        <ComboBox SelectedValue="{Binding Category}" Style="{StaticResource DisabledComboBox}" 
 								  ItemsSource="{Binding Source={extensions:EnumValues {x:Type common:Record+Categories} }}"/>
 					</DataTemplate>
 				</DataGridTemplateColumn.CellTemplate>
