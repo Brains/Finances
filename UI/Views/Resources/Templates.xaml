@@ -5,15 +5,18 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../Resources/Icons/Modern.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
-	
-    <DataTemplate x:Key="EnumTemplate">
+
+    <converters:EnumToColor x:Key="EnumToColor"/>
+	<converters:EnumToIcon x:Key="EnumToIcon"/>
+
+	<DataTemplate x:Key="EnumTemplate">
 		<StackPanel  Orientation="Horizontal">
-            <Rectangle Width="20" Height="20" Fill="{Binding Converter={converters:EnumToColor}}">
+            <Rectangle Width="20" Height="20" Fill="{Binding Converter={StaticResource EnumToColor}}">
                 <Rectangle.OpacityMask>
 					<VisualBrush Visual="{StaticResource appbar_adobe_acrobat}" />
 				</Rectangle.OpacityMask>
 			</Rectangle>
-            <TextBlock Text="{Binding}" Foreground="{Binding Converter={converters:EnumToColor}}" FontSize="16" Margin = "10,0,0,0" />
+            <TextBlock Text="{Binding}" Foreground="{Binding Converter={StaticResource EnumToColor}}" FontSize="16" Margin = "10,0,0,0" />
 		</StackPanel>
 	</DataTemplate>
 </ResourceDictionary>
