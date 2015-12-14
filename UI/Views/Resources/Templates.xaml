@@ -8,7 +8,7 @@
 	
     <DataTemplate x:Key="EnumTemplate">
 		<StackPanel  Orientation="Horizontal">
-			<Rectangle Width="20" Height="20" Fill="Orange">
+            <Rectangle Width="20" Height="20" Fill="{Binding Converter={converters:EnumToColor}}">
                 <Rectangle.OpacityMask>
 					<VisualBrush Visual="{StaticResource appbar_adobe_acrobat}" />
 				</Rectangle.OpacityMask>
