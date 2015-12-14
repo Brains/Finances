@@ -13,7 +13,7 @@
 		<StackPanel  Orientation="Horizontal">
             <Rectangle Width="20" Height="20" Fill="{Binding Converter={StaticResource EnumToColor}}">
                 <Rectangle.OpacityMask>
-					<VisualBrush Visual="{StaticResource appbar_adobe_acrobat}" />
+                    <VisualBrush Stretch="Uniform" Visual="{Binding Converter={StaticResource EnumToIcon}}" />
 				</Rectangle.OpacityMask>
 			</Rectangle>
             <TextBlock Text="{Binding}" Foreground="{Binding Converter={StaticResource EnumToColor}}" FontSize="16" Margin = "10,0,0,0" />
