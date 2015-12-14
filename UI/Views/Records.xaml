@@ -7,7 +7,7 @@
 	<UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../Resources/Templates.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Resources/Templates.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
             <selectors:GroupHeaderSelector x:Key="GroupHeaderSelector">
                 <selectors:GroupHeaderSelector.DayHeader>
