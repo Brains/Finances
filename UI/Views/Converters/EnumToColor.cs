@@ -26,7 +26,7 @@ namespace UI.Views.Converters
 				return new SolidColorBrush(colors[key]);
 			}
 
-			return Brushes.Black;
+			return parameter ?? Brushes.Black;
 		}
 
 		public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -11,7 +11,8 @@
 
 	<DataTemplate x:Key="EnumTemplate">
 		<StackPanel  Orientation="Horizontal">
-            <Rectangle Width="20" Height="20" Fill="{Binding Converter={StaticResource EnumToColor}}">
+            <Rectangle Width="20" Height="20" Opacity = "0.7" Fill="{Binding Converter={StaticResource EnumToColor}, 
+				ConverterParameter={StaticResource AccentColorBrush}}">
                 <Rectangle.OpacityMask>
                     <VisualBrush Stretch="Uniform" Visual="{Binding Converter={StaticResource EnumToIcon}}" />
 				</Rectangle.OpacityMask>

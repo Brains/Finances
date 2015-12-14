@@ -28,13 +28,25 @@ namespace UI.Tests.Views.Converters
 		[TestCase(null)]
 		[TestCase(Record.Categories.House)]
 		[TestCase("NoWay")]
-		public void Convert_InvalidValue_ReturnsBlackBrush(object value)
+		public void Convert_InvalidValueWithNullParameter_ReturnsBlackBrush(object value)
 		{
 			EnumToColor converter = new EnumToColor();
 
 			var actual = (SolidColorBrush) converter.Convert(value, null, null, null);
 
 			Assert.That(actual.Color, Is.EqualTo(Colors.Black));
+		}
+
+		[TestCase(null)]
+		[TestCase(Record.Categories.House)]
+		[TestCase("NoWay")]
+		public void Convert_InvalidValueWithBrushInParameter_ReturnsTheBrush(object value)
+		{
+			EnumToColor converter = new EnumToColor();
+
+			var actual = (SolidColorBrush) converter.Convert(value, null, Brushes.DodgerBlue, null);
+
+			Assert.That(actual.Color, Is.EqualTo(Colors.DodgerBlue));
 		}
 
 		[Test]
