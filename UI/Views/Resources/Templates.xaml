@@ -7,10 +7,10 @@
 	
     <DataTemplate x:Key="EnumTemplate">
 		<StackPanel  Orientation="Horizontal">
-			<Rectangle Width="20" Height="20">
-				<Rectangle.Fill>
+			<Rectangle Width="20" Height="20" Fill="Orange">
+                <Rectangle.OpacityMask>
 					<VisualBrush Visual="{StaticResource appbar_adobe_acrobat}" />
-				</Rectangle.Fill>
+				</Rectangle.OpacityMask>
 			</Rectangle>
 			<TextBlock Text="{Binding}"  Margin = "10,0,0,0" />
 		</StackPanel>
