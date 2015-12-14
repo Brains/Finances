@@ -25,7 +25,6 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-
     <DataGrid Name="List" AutoGenerateColumns = "False" ColumnWidth = "*" MaxColumnWidth="200" IsReadOnly = "True">
 	    <DataGrid.Resources>
 		    <Style x:Key="DisabledComboBox" TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
@@ -45,25 +44,12 @@
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
-
-            <DataGridTemplateColumn Header = "Type">
-				<DataGridTemplateColumn.CellTemplate>
-					<DataTemplate>
-                        <ComboBox SelectedValue="{Binding Type}" Style="{StaticResource DisabledComboBox}" 
-								  ItemsSource="{Binding Source={extensions:EnumValues {x:Type common:Record+Types} }}"/>
-					</DataTemplate>
-				</DataGridTemplateColumn.CellTemplate>
-			</DataGridTemplateColumn>
-
-            <DataGridTemplateColumn Header = "Category">
-				<DataGridTemplateColumn.CellTemplate>
-					<DataTemplate>
-                        <ComboBox SelectedValue="{Binding Category}" Style="{StaticResource DisabledComboBox}" 
-								  ItemsSource="{Binding Source={extensions:EnumValues {x:Type common:Record+Categories} }}"/>
-					</DataTemplate>
-				</DataGridTemplateColumn.CellTemplate>
-			</DataGridTemplateColumn>
-			
+            <DataGridComboBoxColumn SelectedValueBinding="{Binding Type}" 
+									ElementStyle="{StaticResource DisabledComboBox}" EditingElementStyle="{StaticResource DisabledComboBox}"
+									ItemsSource="{Binding Source={extensions:EnumValues {x:Type common:Record+Types} }}"/>
+			<DataGridComboBoxColumn SelectedValueBinding="{Binding Category}" 
+									ElementStyle="{StaticResource DisabledComboBox}" EditingElementStyle="{StaticResource DisabledComboBox}"
+									ItemsSource="{Binding Source={extensions:EnumValues {x:Type common:Record+Categories} }}"/>
             <DataGridTextColumn Header = "Description" Binding = "{Binding Description}" Foreground = "DimGray" />
         </DataGrid.Columns>
         <DataGrid.GroupStyle>
