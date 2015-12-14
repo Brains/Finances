@@ -22,7 +22,7 @@
                     </DataTemplate>
                 </selectors:GroupHeaderSelector.MonthHeader>
             </selectors:GroupHeaderSelector>
-	        <Style x:Key="DisabledComboBox" TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
+	        <Style x:Key="DisabledEnumComboBox" TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
 		        <Setter Property="ItemTemplate" Value="{StaticResource EnumTemplate}" />
 		        <Setter Property="IsEditable" Value="False" />
 		        <Setter Property="IsHitTestVisible" Value="False" />
@@ -30,23 +30,21 @@
 		        <Setter Property="BorderBrush" Value="WhiteSmoke" />
 		        <Setter Property="Margin" Value="0, 0, 40, 0" />
 	        </Style>
+	        <Style x:Key="ColoredAmount" TargetType="TextBlock">
+		        <Setter Property="FontSize" Value="20" />
+		        <Setter Property="Foreground" Value="{Binding Path=Type, Converter={converters:EnumToColor}}" />
+	        </Style>
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <DataGrid Name="List" AutoGenerateColumns = "False" ColumnWidth = "*" MaxColumnWidth="200" IsReadOnly = "True">
+    <DataGrid Name="List" AutoGenerateColumns = "False" ColumnWidth = "*" MaxColumnWidth="200" IsReadOnly = "False">
 	    <DataGrid.Columns>
-            <DataGridTemplateColumn Header = "Amount">
-                <DataGridTemplateColumn.CellTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Amount}" FontSize="20" Foreground="{Binding Path=Type, Converter={converters:EnumToColor}}"/>
-                    </DataTemplate>
-                </DataGridTemplateColumn.CellTemplate>
-            </DataGridTemplateColumn>
-            <DataGridComboBoxColumn SelectedValueBinding="{Binding Type}" 
-									ElementStyle="{StaticResource DisabledComboBox}" EditingElementStyle="{StaticResource DisabledComboBox}"
+            <DataGridTextColumn Header = "Amount" Binding = "{Binding Amount}" ElementStyle="{StaticResource ColoredAmount}" />
+		    <DataGridComboBoxColumn SelectedValueBinding="{Binding Type}" 
+									ElementStyle="{StaticResource DisabledEnumComboBox}" EditingElementStyle="{StaticResource DisabledEnumComboBox}"
 									ItemsSource="{Binding Source={extensions:EnumValues {x:Type common:Record+Types} }}"/>
 			<DataGridComboBoxColumn SelectedValueBinding="{Binding Category}" 
-									ElementStyle="{StaticResource DisabledComboBox}" EditingElementStyle="{StaticResource DisabledComboBox}"
+									ElementStyle="{StaticResource DisabledEnumComboBox}" EditingElementStyle="{StaticResource DisabledEnumComboBox}"
 									ItemsSource="{Binding Source={extensions:EnumValues {x:Type common:Record+Categories} }}"/>
             <DataGridTextColumn Header = "Description" Binding = "{Binding Description}" Foreground = "DimGray" />
         </DataGrid.Columns>
