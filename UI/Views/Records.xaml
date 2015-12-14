@@ -5,37 +5,24 @@
              xmlns:common="clr-namespace:Common;assembly=Common">
 	
 	<UserControl.Resources>
-            <ResourceDictionary>
-                <ResourceDictionary.MergedDictionaries>
-                    <ResourceDictionary Source="../Resources/Icons/Modern.xaml"></ResourceDictionary>
-                </ResourceDictionary.MergedDictionaries>
-
-                <selectors:GroupHeaderSelector x:Key="GroupHeaderSelector">
-                    <selectors:GroupHeaderSelector.DayHeader>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Path=Name}" Foreground="LightGray" Margin="0,20,0,0" />
-                        </DataTemplate>
-                    </selectors:GroupHeaderSelector.DayHeader>
-                    <selectors:GroupHeaderSelector.MonthHeader>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Path=Name}" Foreground="LightGray" FontSize="30" Margin="0,40,0,0" />
-                        </DataTemplate>
-                    </selectors:GroupHeaderSelector.MonthHeader>
-                </selectors:GroupHeaderSelector>
-
-                <DataTemplate x:Key="TestTemplate">
-                    <StackPanel  Orientation="Horizontal">
-                        <Rectangle Width="20" Height="20">
-                            <Rectangle.Fill>
-                                <VisualBrush Visual="{StaticResource appbar_adobe_acrobat}" />
-                            </Rectangle.Fill>
-                        </Rectangle>
-                        <TextBlock Text="{Binding}"  Margin = "10,0,0,0" />
-                    </StackPanel>
-                </DataTemplate>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/Templates.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+            <selectors:GroupHeaderSelector x:Key="GroupHeaderSelector">
+                <selectors:GroupHeaderSelector.DayHeader>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path=Name}" Foreground="LightGray" Margin="0,20,0,0" />
+                    </DataTemplate>
+                </selectors:GroupHeaderSelector.DayHeader>
+                <selectors:GroupHeaderSelector.MonthHeader>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path=Name}" Foreground="LightGray" FontSize="30" Margin="0,40,0,0" />
+                    </DataTemplate>
+                </selectors:GroupHeaderSelector.MonthHeader>
+            </selectors:GroupHeaderSelector>
         </ResourceDictionary>
-			
-        </UserControl.Resources>
+    </UserControl.Resources>
        
 
     <DataGrid Name="List" AutoGenerateColumns = "False" ColumnWidth = "*" MaxColumnWidth="200" >
@@ -46,7 +33,7 @@
 			<DataGridTemplateColumn Header = "Type">
 				<DataGridTemplateColumn.CellTemplate>
 					<DataTemplate>
-						<ComboBox SelectedValue="{Binding Type}" ItemTemplate="{StaticResource TestTemplate}"
+						<ComboBox SelectedValue="{Binding Type}" ItemTemplate="{StaticResource EnumTemplate}"
 								  ItemsSource="{Binding Source={extensions:EnumValues {x:Type common:Record+Types} }}"/>
 					</DataTemplate>
 				</DataGridTemplateColumn.CellTemplate>
