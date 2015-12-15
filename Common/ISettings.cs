@@ -14,6 +14,7 @@ namespace Common
 		string Cash { get; set; }
 		PermanentOperation[] PermanentOperations { get; set; }
 		string RecordsPath { get; set; }
+		string[] Descriptions { get; }
 		void Save(string name, decimal value);
 	}
 }

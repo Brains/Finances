@@ -86,6 +86,7 @@
     <Compile Include="ViewModels\Tracker.cs" />
     <Compile Include="ViewModels\Trend.cs" />
     <Compile Include="ViewModels\Trends.cs" />
+    <Compile Include="Views\Behaviors\AutoCompleteBehavior.cs" />
     <Compile Include="Views\Converters\AmountConverter.cs" />
     <Compile Include="Views\Converters\Adder.cs" />
     <Compile Include="Views\Converters\Base.cs" />

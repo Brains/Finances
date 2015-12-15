@@ -45,6 +45,12 @@ namespace Loader.Settings
 		public string Cash			{ get; set; } = AppSettings["Cash"];
 		public string RecordsPath	{ get; set; } = AppSettings["RecordsPath"];
 
+		public string[] Descriptions { get; } = 
+		{
+			"Novus", "Kishenya", "Water", "Hygiene", "Domestic", "Passage", "Pharmacy", "Dinner",
+			"Chasopys", "Freud-House", "BiblioTech", "Vagon", "Ziferblat"
+		};
+
 		public Mapping CategoriesMapping { get; set; } = new Mapping
 		{
 			[Expense] = new[] {Food, Health, Women, House, General, Other},
