@@ -6,15 +6,15 @@ namespace Common
 {
 	public interface ISettings
 	{
-		Dictionary<Types, Categories[]> CategoriesMapping { get; }
-		string ID { get; }
-		string Password { get; }
-		string Card { get; }
-		string BankRequest { get; }
-		string Cash { get; }
-		PermanentOperation[] PermanentOperations { get; }
-		string RecordsPath { get; }
-		string[] Descriptions { get; }
+		Dictionary<Types, Categories[]> CategoriesMapping { get; set; }
+		string ID { get; set; }
+		string Password { get; set; }
+		string Card { get; set; }
+		string BankRequest { get; set; }
+		string Cash { get; set; }
+		PermanentOperation[] PermanentOperations { get; set; }
+		string RecordsPath { get; set; }
+		string[] Descriptions { get; set; }
 		void Save(string name, decimal value);
 	}
 }

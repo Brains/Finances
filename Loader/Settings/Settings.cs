@@ -21,15 +21,15 @@ namespace Loader.Settings
 		}
 
 		#region Config
-		public string ID			{ get; } = Config["ID"];
-		public string Password		{ get; } = Config["Password"];
-		public string Card			{ get; } = Config["Card"];
-		public string Cash			{ get; } = Config["Cash"];
-		public string RecordsPath	{ get; } = Config["RecordsPath"];
-		public string[] Descriptions { get; } = Config["Descriptions"].Replace(" ", string.Empty).Split(',');
+		public string ID			{ get; set; } = Config["ID"];
+		public string Password		{ get; set; } = Config["Password"];
+		public string Card			{ get; set; } = Config["Card"];
+		public string Cash			{ get; set; } = Config["Cash"];
+		public string RecordsPath	{ get; set; } = Config["RecordsPath"];
+		public string[] Descriptions{ get; set; } = Config["Descriptions"].Replace(" ", string.Empty).Split(',');
 		#endregion
 
-		public Mapping CategoriesMapping { get; } = new Mapping
+		public Mapping CategoriesMapping { get; set; } = new Mapping
 		{
 			[Expense] = new[] {Food, Health, Women, House, General, Other},
 			[Debt] =	new[] {Maxim, Andrey},
@@ -37,7 +37,7 @@ namespace Loader.Settings
 			[Shared] =	new[] {Food, House, General, Other}
 		};
 
-		public PermanentOperation[] PermanentOperations { get; } = 
+		public PermanentOperation[] PermanentOperations { get; set; } = 
 		{
 			new PermanentOperation(-2000,	new DateTime(2015, 1, 15),	FromDays(Month),	"House"),
 			new PermanentOperation(2000,	new DateTime(2015, 1, 8),	FromDays(Month)	,	"Deposit"),
@@ -48,7 +48,7 @@ namespace Loader.Settings
 			new PermanentOperation(200,		new DateTime(2015, 1, 7),	FromDays(Month),	"Deposit")
 		};
 
-		public string BankRequest { get; } = 
+		public string BankRequest { get; set; } = 
 			@"<?xml version=""1.0"" encoding=""UTF-8""?>
 			<request version=""1.0"">
 				<merchant>
