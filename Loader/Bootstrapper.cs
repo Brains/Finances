@@ -12,6 +12,7 @@ using Common.Storages;
 using Funds;
 using Funds.Bank;
 using Funds.Sources;
+using MahApps.Metro;
 using UI.Interfaces;
 using UI.ViewModels;
 using UI.Views.Converters;
@@ -120,11 +121,20 @@ namespace Loader
 
 		protected override void OnStartup(object sender, StartupEventArgs e)
 		{
+			SetCustomAccentColor();
+
 			DisplayRootViewFor<IShell>();
 		}
-	}
-}
 
-namespace UI.ViewModels
-{
+		private void SetCustomAccentColor()
+		{
+			var name = "Custom";
+
+			ThemeManager.AddAccent(name, new Uri("pack://application:,,,/UI;component/Views/Resources/Accent.xaml"));
+
+			var theme = ThemeManager.DetectAppStyle(Application.Current);
+
+			ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(name), theme.Item1);
+		}
+	}
 }

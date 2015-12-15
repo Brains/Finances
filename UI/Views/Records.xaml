@@ -24,11 +24,14 @@
             </selectors:GroupHeaderSelector>
 	        <Style x:Key="DisabledEnumComboBox" TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
 		        <Setter Property="ItemTemplate" Value="{StaticResource EnumTemplate}" />
-		        <Setter Property="IsEditable" Value="False" />
-		        <Setter Property="IsHitTestVisible" Value="False" />
-		        <Setter Property="Focusable" Value="False" />
-		        <Setter Property="BorderBrush" Value="WhiteSmoke" />
 		        <Setter Property="Margin" Value="0, 0, 40, 0" />
+				<Setter Property="Template">
+					<Setter.Value>
+                        <ControlTemplate TargetType="ComboBox">
+                            <ContentPresenter ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" Content="{TemplateBinding SelectionBoxItem}"></ContentPresenter>
+                        </ControlTemplate>
+                    </Setter.Value>
+				</Setter>
 	        </Style>
 	        <Style x:Key="ColoredAmount" TargetType="TextBlock">
 		        <Setter Property="FontSize" Value="20" />
@@ -37,9 +40,9 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <DataGrid Name="List" AutoGenerateColumns = "False" ColumnWidth = "*" MaxColumnWidth="200" IsReadOnly = "True">
+    <DataGrid Name="List" AutoGenerateColumns = "False" ColumnWidth = "*" IsReadOnly = "True">
 	    <DataGrid.Columns>
-		    <DataGridComboBoxColumn Header = "Type" SelectedValueBinding="{Binding Type}" 
+			<DataGridComboBoxColumn Header = "Type" SelectedValueBinding="{Binding Type}" 
 									ElementStyle="{StaticResource DisabledEnumComboBox}" EditingElementStyle="{StaticResource DisabledEnumComboBox}"
 									ItemsSource="{Binding Source={extensions:EnumValues {x:Type common:Record+Types} }}"/>
 		    <DataGridTextColumn Header = "Amount" Binding = "{Binding Amount}" ElementStyle="{StaticResource ColoredAmount}" />

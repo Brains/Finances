@@ -31,9 +31,12 @@ namespace UI.Views.Converters
 
 		public override object Convert (object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			var key = mapping[value.ToString()];
+			string key = value?.ToString();
 
-			return Application.Current.FindResource(key) as Visual;
+			if (string.IsNullOrEmpty(key))
+				return null;
+
+			return Application.Current.FindResource(mapping[key]) as Visual;
 		}
 
 		public override object ConvertBack (object value, Type targetType, object parameter, CultureInfo culture)

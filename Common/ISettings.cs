@@ -10,10 +10,11 @@ namespace Common
 		string ID { get; set; }
 		string Password { get; set; }
 		string Card { get; set; }
-		string BankRequest { get; }
+		string BankRequest { get; set; }
 		string Cash { get; set; }
 		PermanentOperation[] PermanentOperations { get; set; }
 		string RecordsPath { get; set; }
+		string[] Descriptions { get; set; }
 		void Save(string name, decimal value);
 	}
 }
