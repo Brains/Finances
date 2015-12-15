@@ -19,6 +19,7 @@ namespace UI.ViewModels
 	{
 		public IFundsSource[] Sources { get; }
 		public decimal Divergence { get; set; }
+		public decimal Total { get; set; }
 
 		public Funds(IFundsSource[] sources, IExpenses expenses)
 		{
@@ -28,6 +29,7 @@ namespace UI.ViewModels
 			Sources.ForEach(source => source.PullValue());
 
 			Divergence = CalculateDivergence(Sources, expenses.Records.ToArray());
+			Total = Sources.Sum(source => source.Value);
 		}
 
 		public decimal CalculateDivergence(IFundsSource[] sources, Record[] records)
