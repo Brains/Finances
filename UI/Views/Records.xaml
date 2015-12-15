@@ -1,5 +1,59 @@
 ﻿<UserControl x:Class="UI.Views.Records"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <DataGrid Name="RecordsList" />
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:selectors="clr-namespace:UI.Views.Selectors" xmlns:extensions="clr-namespace:UI.Views.Extensions"
+             xmlns:common="clr-namespace:Common;assembly=Common"
+             xmlns:converters="clr-namespace:UI.Views.Converters">
+	
+	<UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Templates.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <selectors:GroupHeaderSelector x:Key="GroupHeaderSelector">
+                <selectors:GroupHeaderSelector.DayHeader>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path=Name}" Foreground="LightGray" Margin="0,20,0,0" />
+                    </DataTemplate>
+                </selectors:GroupHeaderSelector.DayHeader>
+                <selectors:GroupHeaderSelector.MonthHeader>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path=Name}" Foreground="LightGray" FontSize="30" Margin="0,40,0,0" />
+                    </DataTemplate>
+                </selectors:GroupHeaderSelector.MonthHeader>
+            </selectors:GroupHeaderSelector>
+	        <Style x:Key="DisabledEnumComboBox" TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
+		        <Setter Property="ItemTemplate" Value="{StaticResource EnumTemplate}" />
+		        <Setter Property="Margin" Value="0, 0, 40, 0" />
+				<Setter Property="Template">
+					<Setter.Value>
+                        <ControlTemplate TargetType="ComboBox">
+                            <ContentPresenter ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" Content="{TemplateBinding SelectionBoxItem}"></ContentPresenter>
+                        </ControlTemplate>
+                    </Setter.Value>
+				</Setter>
+	        </Style>
+	        <Style x:Key="ColoredAmount" TargetType="TextBlock">
+		        <Setter Property="FontSize" Value="20" />
+		        <Setter Property="Foreground" Value="{Binding Path=Type, Converter={converters:EnumToColor}}" />
+	        </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <DataGrid Name="List" AutoGenerateColumns = "False" ColumnWidth = "*" IsReadOnly = "True">
+	    <DataGrid.Columns>
+			<DataGridComboBoxColumn Header = "Type" SelectedValueBinding="{Binding Type}" 
+									ElementStyle="{StaticResource DisabledEnumComboBox}" EditingElementStyle="{StaticResource DisabledEnumComboBox}"
+									ItemsSource="{Binding Source={extensions:EnumValues {x:Type common:Record+Types} }}"/>
+		    <DataGridTextColumn Header = "Amount" Binding = "{Binding Amount}" ElementStyle="{StaticResource ColoredAmount}" />
+		    <DataGridComboBoxColumn Header = "Category" SelectedValueBinding="{Binding Category}" 
+									ElementStyle="{StaticResource DisabledEnumComboBox}" EditingElementStyle="{StaticResource DisabledEnumComboBox}"
+									ItemsSource="{Binding Source={extensions:EnumValues {x:Type common:Record+Categories} }}"/>
+            <DataGridTextColumn Header = "Description" Binding = "{Binding Description}" Foreground = "DimGray" />
+        </DataGrid.Columns>
+        <DataGrid.GroupStyle>
+            <GroupStyle HeaderTemplateSelector="{StaticResource GroupHeaderSelector}" />
+        </DataGrid.GroupStyle>
+    </DataGrid>
+
 </UserControl>

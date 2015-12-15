@@ -86,27 +86,23 @@
     <Compile Include="ViewModels\Tracker.cs" />
     <Compile Include="ViewModels\Trend.cs" />
     <Compile Include="ViewModels\Trends.cs" />
+    <Compile Include="Views\Behaviors\AutoCompleteBehavior.cs" />
     <Compile Include="Views\Converters\AmountConverter.cs" />
     <Compile Include="Views\Converters\Adder.cs" />
+    <Compile Include="Views\Converters\Base.cs" />
+    <Compile Include="Views\Converters\EnumToIcon.cs" />
+    <Compile Include="Views\Converters\GroupingDate.cs" />
+    <Compile Include="Views\Converters\GroupingMonth.cs" />
     <Compile Include="Views\Converters\SharedConverter.cs" />
+    <Compile Include="Views\Converters\EnumToColor.cs" />
+    <Compile Include="Views\Extensions\EnumValuesExtension.cs" />
+    <Compile Include="Views\Selectors\GroupHeaderSelector.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <Resource Include="Resources\Icons\Entypo.ttf" />
+    <Resource Include="Views\Resources\Icons\Entypo.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Resources\Colors.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Icons\Icons.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Icons\Modern.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\Form.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -124,6 +120,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Records.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Resources\Accent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Resources\Icons\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Resources\Templates.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

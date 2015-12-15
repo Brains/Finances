@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="clr-namespace:UI.Views.Converters">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../Resources/Icons/Icons.xaml"></ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+
+    <converters:EnumToColor x:Key="EnumToColor"/>
+	<converters:EnumToIcon x:Key="EnumToIcon"/>
+
+	<DataTemplate x:Key="EnumTemplate">
+		<StackPanel  Orientation="Horizontal">
+            <Rectangle Width="20" Height="20" Opacity = "0.7" Fill="{Binding Converter={StaticResource EnumToColor}, 
+				ConverterParameter={StaticResource AccentColorBrush}}">
+                <Rectangle.OpacityMask>
+                    <VisualBrush Stretch="Uniform" Visual="{Binding Converter={StaticResource EnumToIcon}}" />
+				</Rectangle.OpacityMask>
+			</Rectangle>
+            <TextBlock Text="{Binding}" Foreground="{Binding Converter={StaticResource EnumToColor}}" FontSize="16" Margin = "10,0,0,0" />
+		</StackPanel>
+	</DataTemplate>
+</ResourceDictionary>

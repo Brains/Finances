@@ -24,7 +24,8 @@ namespace UI.ViewModels
 			UpdateCategories(selectedType);
 
 			DateTime = DateTime.Now;
-        }
+			Descriptions = settings.Descriptions;
+		}
 
 		public IEnumerable<Types> Types { get; set; }
 		public IEnumerable<Categories> Categories { get; set; }
@@ -42,8 +43,8 @@ namespace UI.ViewModels
 
 		public Categories SelectedCategory { get; set; }
 		public string Description { get; set; }
+		public string[] Descriptions { get; set; }
 		public DateTime DateTime { get; set; }
-
 		public decimal Amount { get; set; }
 
 		public void Submit()
