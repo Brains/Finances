@@ -32,26 +32,21 @@ namespace Loader.Settings
 				</data>
 			</request>";
 
-		private static readonly NameValueCollection AppSettings;
+		private static readonly NameValueCollection Config;
 
 		static Settings()
 		{
-			AppSettings = ConfigurationManager.AppSettings;
+			Config = ConfigurationManager.AppSettings;
 		}
 
-		public string ID			{ get; set; } = AppSettings["ID"];
-		public string Password		{ get; set; } = AppSettings["Password"];
-		public string Card			{ get; set; } = AppSettings["Card"];
-		public string Cash			{ get; set; } = AppSettings["Cash"];
-		public string RecordsPath	{ get; set; } = AppSettings["RecordsPath"];
+		public string ID			{ get; } = Config["ID"];
+		public string Password		{ get; } = Config["Password"];
+		public string Card			{ get; } = Config["Card"];
+		public string Cash			{ get; } = Config["Cash"];
+		public string RecordsPath	{ get; } = Config["RecordsPath"];
+		public string[] Descriptions { get; } = Config["Descriptions"].Replace(" ", string.Empty).Split(',');
 
-		public string[] Descriptions { get; } = 
-		{
-			"Novus", "Kishenya", "Water", "Hygiene", "Domestic", "Passage", "Pharmacy", "Dinner",
-			"Chasopys", "Freud-House", "BiblioTech", "Vagon", "Ziferblat"
-		};
-
-		public Mapping CategoriesMapping { get; set; } = new Mapping
+		public Mapping CategoriesMapping { get; } = new Mapping
 		{
 			[Expense] = new[] {Food, Health, Women, House, General, Other},
 			[Debt] =	new[] {Maxim, Andrey},
@@ -60,7 +55,7 @@ namespace Loader.Settings
 		};
 
 		private const double Month = 30.436875;
-		public PermanentOperation[] PermanentOperations { get; set; } = 
+		public PermanentOperation[] PermanentOperations { get; } = 
 		{
 			new PermanentOperation(-2000,	new DateTime(2015, 1, 15),	FromDays(Month),	"House"),
 			new PermanentOperation(2000,	new DateTime(2015, 1, 8),	FromDays(Month)	,	"Deposit"),

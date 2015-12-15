@@ -6,14 +6,14 @@ namespace Common
 {
 	public interface ISettings
 	{
-		Dictionary<Types, Categories[]> CategoriesMapping { get; set; }
-		string ID { get; set; }
-		string Password { get; set; }
-		string Card { get; set; }
+		Dictionary<Types, Categories[]> CategoriesMapping { get; }
+		string ID { get; }
+		string Password { get; }
+		string Card { get; }
 		string BankRequest { get; }
-		string Cash { get; set; }
-		PermanentOperation[] PermanentOperations { get; set; }
-		string RecordsPath { get; set; }
+		string Cash { get; }
+		PermanentOperation[] PermanentOperations { get; }
+		string RecordsPath { get; }
 		string[] Descriptions { get; }
 		void Save(string name, decimal value);
 	}
