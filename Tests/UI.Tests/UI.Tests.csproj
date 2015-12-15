@@ -69,6 +69,7 @@
     <Compile Include="ViewModels\TrendTests.cs" />
     <Compile Include="Views\Converters\AdderTests.cs" />
     <Compile Include="Views\Converters\AmountConverterTests.cs" />
+    <Compile Include="Views\Converters\DivergenceColorTests.cs" />
     <Compile Include="Views\Converters\EnumToColorTests.cs" />
     <Compile Include="Views\Converters\SharedConverterTests.cs" />
   </ItemGroup>

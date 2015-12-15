@@ -90,6 +90,7 @@
     <Compile Include="Views\Converters\AmountConverter.cs" />
     <Compile Include="Views\Converters\Adder.cs" />
     <Compile Include="Views\Converters\Base.cs" />
+    <Compile Include="Views\Converters\DivergenceColor.cs" />
     <Compile Include="Views\Converters\EnumToIcon.cs" />
     <Compile Include="Views\Converters\GroupingDate.cs" />
     <Compile Include="Views\Converters\GroupingMonth.cs" />

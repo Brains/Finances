@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -17,17 +18,29 @@ namespace UI.ViewModels
 {
 	public class Funds : PropertyChangedBase, IViewModel
 	{
+		private readonly IExpenses expenses;
 		public IFundsSource[] Sources { get; }
 		public decimal Divergence { get; set; }
+		public decimal Total { get; set; }
 
 		public Funds(IFundsSource[] sources, IExpenses expenses)
 		{
 			if (!sources.Any()) throw new ArgumentException();
 
-			Sources = sources;
-			Sources.ForEach(source => source.PullValue());
+			this.expenses = expenses;
 
+			Sources = sources;
+			Sources.ForEach(source => source.PropertyChanged += Update);
+			Sources.ForEach(source => source.PullValue());
+		}
+
+		private void Update(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+		{
 			Divergence = CalculateDivergence(Sources, expenses.Records.ToArray());
+			Total = Sources.Sum(source => source.Value);
+
+			NotifyOfPropertyChange(nameof(Divergence));
+			NotifyOfPropertyChange(nameof(Total));
 		}
 
 		public decimal CalculateDivergence(IFundsSource[] sources, Record[] records)

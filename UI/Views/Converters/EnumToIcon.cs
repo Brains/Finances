@@ -38,10 +38,5 @@ namespace UI.Views.Converters
 
 			return Application.Current.FindResource(mapping[key]) as Visual;
 		}
-
-		public override object ConvertBack (object value, Type targetType, object parameter, CultureInfo culture)
-		{
-			return DependencyProperty.UnsetValue;
-		}
 	}
 }
