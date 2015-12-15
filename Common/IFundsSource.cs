@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 namespace Common
 {
 	public interface IFundsSource
@@ -5,5 +7,6 @@ namespace Common
 		string Name { get; }
 		decimal Value { get; set; }
 		void PullValue();
+		event PropertyChangedEventHandler PropertyChanged;
 	}
 }
