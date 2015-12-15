@@ -40,7 +40,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <DataGrid Name="List" AutoGenerateColumns = "False" ColumnWidth = "*" MaxColumnWidth="200" IsReadOnly = "True">
+    <DataGrid Name="List" AutoGenerateColumns = "False" ColumnWidth = "*" IsReadOnly = "True">
 	    <DataGrid.Columns>
 			<DataGridComboBoxColumn Header = "Type" SelectedValueBinding="{Binding Type}" 
 									ElementStyle="{StaticResource DisabledEnumComboBox}" EditingElementStyle="{StaticResource DisabledEnumComboBox}"
