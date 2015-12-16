@@ -7,7 +7,7 @@ namespace UI.ViewModels
 	{
 		public Tracker(IViewModel[] viewModels)
 		{
-			Icon = "\uE111";
+			Icon = "\uE14C";
 			DisplayName = "Tracker";
 
 			Items.AddRange(viewModels);

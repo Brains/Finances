@@ -8,7 +8,7 @@ namespace UI.ViewModels
 	{
 		public Trends(IViewModel viewModel)
 		{
-			Icon = "\uE111";
+			Icon = "\uE787";
 			DisplayName = "Trends";
 
 			ActivateItem(viewModel);
