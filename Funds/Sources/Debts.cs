@@ -25,8 +25,10 @@ namespace Funds.Sources
 
 		public override void PullValue()
 		{
-			var debts = expenses.Records.Where(record => record.Type == Debt).ToArray();
-			Validate(debts);
+			//			var debts = expenses.Records.Where(record => record.Type == Debt).ToArray();
+			//			Validate(debts);
+
+			var debts = expenses.Records;
 
 			Dudes = Calculate(debts);
 			Value = Dudes.Sum(pair => pair.Value);
@@ -34,7 +36,7 @@ namespace Funds.Sources
 
 		public Dictionary<Categories, decimal> Calculate(IEnumerable<Record> records)
 		{
-			var debts = CalculateDirections(records);
+			var debts = CalculateDirections(records.Where(record => record.Type == Debt));
 			var shared = records.Where(record => record.Type == Shared)
 								.Sum(record => record.Amount);
 
