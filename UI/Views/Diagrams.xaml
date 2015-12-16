@@ -22,11 +22,10 @@
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="*"/>
 			<ColumnDefinition/>
-			<ColumnDefinition/>
 		</Grid.ColumnDefinitions>
 
 		<!-- Stacked Columns: Spending categories by Day of current month -->
-		<charts:StackedColumnChart Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" SeriesSource="{Binding ExpenseByDay}" ChartTitle="Days"
+		<charts:StackedColumnChart Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" SeriesSource="{Binding ExpenseByDay}" ChartTitle="Days"
 		                           Palette="{StaticResource DefaultPalette}" ChartSubTitle="{Binding Month}" SelectedBrush="Transparent">
 			<charts:StackedColumnChart.SeriesTemplate>
 				<DataTemplate>
@@ -52,7 +51,7 @@
 		</charts:DoughnutChart>
 
 		<!-- Columns: Balance monthly -->
-		<charts:ClusteredColumnChart Grid.Row="2" Grid.ColumnSpan="3" Grid.Column="0" Name="TestChart" ChartTitle="Types" ChartSubTitle="2015"
+		<charts:ClusteredColumnChart Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="0" Name="TestChart" ChartTitle="Types" ChartSubTitle="2015"
 		                             Palette="{StaticResource DoubleColors}" Background="White" IsRowColumnSwitched="True">
 			<charts:ClusteredColumnChart.Series>
 				<charts:ChartSeries ItemsSource="{Binding BalanceByMonth[Expense]}" SeriesTitle="Expense" DisplayMember="Key" ValueMember="Value"/>
@@ -61,7 +60,7 @@
 		</charts:ClusteredColumnChart>
 
 		<!-- Stacked Columns: Spending categories by Month -->
-		<charts:StackedColumnChart Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" SeriesSource="{Binding ExpenseByMonth}"
+		<charts:StackedColumnChart Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" SeriesSource="{Binding ExpenseByMonth}"
 		                           Palette="{StaticResource DefaultPalette}" ChartTitle="Categories" ChartSubTitle="2015" SelectedBrush="Transparent">
 			<charts:StackedColumnChart.SeriesTemplate>
 				<DataTemplate>
