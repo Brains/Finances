@@ -9,7 +9,7 @@
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
-			 FontSize="18" FontWeight="Light" Background="{Binding Background}"
+			 FontSize="16" FontWeight="Light" Background="{Binding Background}"
 			 Margin="5">
 
     <UserControl.Resources>
@@ -17,7 +17,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Templates.xaml" />
             </ResourceDictionary.MergedDictionaries>
-			<system:Double x:Key = "FontSize">18</system:Double>
+			<system:Double x:Key = "FontSize">16</system:Double>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -33,12 +33,12 @@
 				  ItemTemplate="{StaticResource EnumTemplate}" />
         <TextBox Name="Amount" Grid.Column="1" Foreground="{Binding Path=SelectedType, Converter={converters:EnumToColor}}"
 				 HorizontalAlignment="Center" VerticalAlignment="Center" controls:TextBoxHelper.Watermark = "Amount"
-				 FontSize = "{StaticResource FontSize}"/>
+				 FontSize = "{StaticResource FontSize}" MinWidth="100"/>
         <ComboBox Name="Categories" Grid.Column="2" ItemTemplate="{StaticResource EnumTemplate}" 
 				  HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBox Name="Description" Grid.Column="3" Foreground = "DimGray" controls:TextBoxHelper.Watermark = "Description" 
 				 behaviors:AutoCompleteBehavior.AutoCompleteItemsSource = "{Binding Descriptions}" FontSize = "{StaticResource FontSize}" 
-				 HorizontalAlignment="Center" VerticalAlignment="Center"/>
+				 HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100"/>
     </Grid>
 </UserControl>
 
