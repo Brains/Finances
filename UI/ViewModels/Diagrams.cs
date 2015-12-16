@@ -5,6 +5,7 @@ using Caliburn.Micro;
 using Common;
 using Common.Storages;
 using UI.Interfaces;
+using static System.Globalization.DateTimeFormatInfo;
 using static Common.Record;
 using static Common.Record.Types;
 
@@ -23,8 +24,8 @@ namespace UI.ViewModels
 		public Dictionary<int, CategoryData[]> ExpenseByDay { get; private set; }
 		public Dictionary<Categories, decimal> ExpenseByCategory { get; private set; }
 		public Dictionary<Categories, decimal> IncomeByCategory { get; private set; }
-		public Dictionary<Types, Dictionary<int, decimal>> BalanceByMonth { get; private set; }
-		public Dictionary<int, CategoryData[]> ExpenseByMonth { get; set; }
+		public Dictionary<Types, Dictionary<string, decimal>> BalanceByMonth { get; private set; }
+		public Dictionary<string, CategoryData[]> ExpenseByMonth { get; set; }
 
 		protected override void OnInitialize()
 		{
@@ -38,7 +39,8 @@ namespace UI.ViewModels
 			types = expenses.Records.ToLookup(record => record.Type);
 			var expense = types[Expense].Concat(types[Shared]).ToArray();
 
-			ExpenseByMonth = Group(expense, record => record.Date.Month);
+			ExpenseByMonth = Group(expense, record => record.Date.Month)
+				.ToDictionary(month => CurrentInfo.GetMonthName(month.Key), pair => pair.Value);
 
 			ExpenseByDay = Group(expense, record => record.Date.Day);
 			ExpenseByCategory = GroupByCategory(expense);
@@ -68,18 +70,18 @@ namespace UI.ViewModels
 			                            group => group.Sum(record => record.Amount));
 		}
 
-		public Dictionary<Types, Dictionary<int, decimal>> CalculateBalanceByMonth(ILookup<Types, Record> records)
+		public Dictionary<Types, Dictionary<string, decimal>> CalculateBalanceByMonth(ILookup<Types, Record> records)
 		{
-			return new Dictionary<Types, Dictionary<int, decimal>>
+			return new Dictionary<Types, Dictionary<string, decimal>>
 			{
 				[Expense] = CalculateTotalByMonth(records[Expense].Concat(records[Shared])),
 				[Income] = CalculateTotalByMonth(records[Income])
 			};
 		}
 
-		public Dictionary<int, decimal> CalculateTotalByMonth(IEnumerable<Record> records)
+		public Dictionary<string, decimal> CalculateTotalByMonth(IEnumerable<Record> records)
 		{
-			return records.GroupBy(record => record.Date.Month)
+			return records.GroupBy(record => record.Date.ToString("MMMM"))
 			              .ToDictionary(group => group.Key,
 			                            group => group.Sum(record => record.Amount));
 		}

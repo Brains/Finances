@@ -44,7 +44,7 @@
 		</charts:DoughnutChart>
 
 		<!-- Columns: Balance monthly -->
-        <charts:ClusteredColumnChart Grid.Row="2" Grid.ColumnSpan="3" Grid.Column="0" Name="TestChart" ChartTitle="Types" ChartSubTitle="{Binding Month}" Background="White" IsRowColumnSwitched="True">
+        <charts:ClusteredColumnChart Grid.Row="2" Grid.ColumnSpan="3" Grid.Column="0" Name="TestChart" ChartTitle="Types" ChartSubTitle="2015" Background="White" IsRowColumnSwitched="True">
 			<charts:ClusteredColumnChart.Series>
 				<charts:ChartSeries ItemsSource="{Binding BalanceByMonth[Expense]}" SeriesTitle="Expense" DisplayMember="Key" ValueMember="Value" />
 				<charts:ChartSeries ItemsSource="{Binding BalanceByMonth[Income]}" SeriesTitle="Income" DisplayMember="Key" ValueMember="Value" />
@@ -52,7 +52,7 @@
 		</charts:ClusteredColumnChart>
 
         <!-- Stacked Columns: Spending categories by Month -->
-        <charts:StackedColumnChart Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" SeriesSource="{Binding ExpenseByMonth}" ChartTitle="Categories" ChartSubTitle="{Binding Month}" SelectedBrush="Transparent">
+        <charts:StackedColumnChart Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" SeriesSource="{Binding ExpenseByMonth}" ChartTitle="Categories" ChartSubTitle="2015" SelectedBrush="Transparent">
             <charts:StackedColumnChart.SeriesTemplate>
                 <DataTemplate>
                     <charts:ChartSeries SeriesTitle="{Binding Key}" DisplayMember="Category" ValueMember="Amount" ItemsSource="{Binding Value}" />
