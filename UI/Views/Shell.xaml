@@ -4,5 +4,19 @@
                       Width="1000" Height="800"
                       WindowState="Maximized" ShowIconOnTitleBar="True" 
 					  FontFamily="Segoe UI" FontWeight="Light" FontSize="16" >
-	<TabControl x:Name="Items" TabStripPlacement="Left"/>
+    <TabControl x:Name="Items" TabStripPlacement="Left">
+        <TabControl.Resources>
+            <Style TargetType="{x:Type TabPanel}">
+                <Setter Property="Background" Value="{StaticResource AccentColorBrush}"></Setter>
+            </Style>
+        </TabControl.Resources>
+        <TabControl.ItemTemplate>
+            <DataTemplate>
+                <TextBlock FontWeight="Light" FontSize="30" Margin="20" VerticalAlignment="Center" Foreground="White" >
+					<Run Text="{Binding Icon}" FontFamily="Segoe MDL2 Assets" />
+					<Run Text="{Binding DisplayName}" FontSize="40"/>
+                </TextBlock>
+            </DataTemplate>
+        </TabControl.ItemTemplate>
+    </TabControl>
 </controls:MetroWindow>

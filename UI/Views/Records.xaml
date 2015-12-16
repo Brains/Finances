@@ -13,12 +13,12 @@
             <selectors:GroupHeaderSelector x:Key="GroupHeaderSelector">
                 <selectors:GroupHeaderSelector.DayHeader>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Path=Name}" Foreground="LightGray" Margin="0,20,0,0" />
+                        <TextBlock Text="{Binding Path=Name}" Foreground="LightGray" Margin="10,20,0,0" />
                     </DataTemplate>
                 </selectors:GroupHeaderSelector.DayHeader>
                 <selectors:GroupHeaderSelector.MonthHeader>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Path=Name}" Foreground="LightGray" FontSize="30" Margin="0,40,0,0" />
+                        <TextBlock Text="{Binding Path=Name}" Foreground="LightGray" FontSize="30" Margin="15,40,0,0" />
                     </DataTemplate>
                 </selectors:GroupHeaderSelector.MonthHeader>
             </selectors:GroupHeaderSelector>
