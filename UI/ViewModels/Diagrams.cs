@@ -20,10 +20,11 @@ namespace UI.ViewModels
 			this.expenses = expenses;
 		}
 
-		public Dictionary<Types, Dictionary<int, decimal>> BalanceByMonth { get; private set; }
+		public Dictionary<int, CategoryData[]> ExpenseByDay { get; private set; }
 		public Dictionary<Categories, decimal> ExpenseByCategory { get; private set; }
 		public Dictionary<Categories, decimal> IncomeByCategory { get; private set; }
-		public Dictionary<int, CategoryData[]> ExpenseByDay { get; private set; }
+		public Dictionary<Types, Dictionary<int, decimal>> BalanceByMonth { get; private set; }
+		public Dictionary<int, CategoryData[]> ExpenseByMonth { get; set; }
 
 		protected override void OnInitialize()
 		{
@@ -37,6 +38,8 @@ namespace UI.ViewModels
 			types = expenses.Records.ToLookup(record => record.Type);
 			var expense = types[Expense].Concat(types[Shared]).ToArray();
 
+			ExpenseByMonth = GroupByMonth(expense);
+
 			ExpenseByDay = GroupByDay(expense);
 			ExpenseByCategory = GroupByCategory(expense);
 			IncomeByCategory = GroupByCategory(types[Income]);
@@ -48,6 +51,15 @@ namespace UI.ViewModels
 			NotifyOfPropertyChange(nameof(ExpenseByDay));
 		}
 
+		public Dictionary<int, CategoryData[]> GroupByMonth(IEnumerable<Record> records)
+		{
+			return records.GroupBy(record => record.Date.Month)
+						  .OrderBy(month => month.Key)
+						  .ToDictionary(month => month.Key,
+			                            month => month.GroupBy(record => record.Category)
+			                                      .Select(SquashRecords)
+			                                      .ToArray());
+		}
 		public Dictionary<int, CategoryData[]> GroupByDay(IEnumerable<Record> records)
 		{
 			return records.GroupBy(record => record.Date.Day)
