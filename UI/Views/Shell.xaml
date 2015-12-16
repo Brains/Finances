@@ -12,9 +12,9 @@
         </TabControl.Resources>
         <TabControl.ItemTemplate>
             <DataTemplate>
-                <TextBlock FontWeight="Light" FontSize="40" Margin="10" VerticalAlignment="Center" Foreground="White" >
+                <TextBlock FontWeight="Light" FontSize="30" Margin="20" VerticalAlignment="Center" Foreground="White" >
 					<Run Text="{Binding Icon}" FontFamily="Segoe MDL2 Assets" />
-					<Run Text="{Binding DisplayName}" />
+					<Run Text="{Binding DisplayName}" FontSize="40"/>
                 </TextBlock>
             </DataTemplate>
         </TabControl.ItemTemplate>
