@@ -38,9 +38,9 @@ namespace UI.ViewModels
 			types = expenses.Records.ToLookup(record => record.Type);
 			var expense = types[Expense].Concat(types[Shared]).ToArray();
 
-			ExpenseByMonth = GroupByMonth(expense);
+			ExpenseByMonth = Group(expense, record => record.Date.Month);
 
-			ExpenseByDay = GroupByDay(expense);
+			ExpenseByDay = Group(expense, record => record.Date.Day);
 			ExpenseByCategory = GroupByCategory(expense);
 			IncomeByCategory = GroupByCategory(types[Income]);
 			BalanceByMonth = CalculateBalanceByMonth(types);
@@ -51,23 +51,14 @@ namespace UI.ViewModels
 			NotifyOfPropertyChange(nameof(ExpenseByDay));
 		}
 
-		public Dictionary<int, CategoryData[]> GroupByMonth(IEnumerable<Record> records)
+		public Dictionary<int, CategoryData[]> Group(IEnumerable<Record> records, Func<Record, int> selector)
 		{
-			return records.GroupBy(record => record.Date.Month)
-						  .OrderBy(month => month.Key)
-						  .ToDictionary(month => month.Key,
-			                            month => month.GroupBy(record => record.Category)
-			                                      .Select(SquashRecords)
-			                                      .ToArray());
-		}
-		public Dictionary<int, CategoryData[]> GroupByDay(IEnumerable<Record> records)
-		{
-			return records.GroupBy(record => record.Date.Day)
-						  .OrderBy(day => day.Key)
-						  .ToDictionary(day => day.Key,
-			                            day => day.GroupBy(record => record.Category)
-			                                      .Select(SquashRecords)
-			                                      .ToArray());
+			return records.GroupBy(selector)
+			              .OrderBy(grouping => grouping.Key)
+			              .ToDictionary(grouping => grouping.Key,
+			                            grouping => grouping.GroupBy(record => record.Category)
+			                                                .Select(SquashRecords)
+			                                                .ToArray());
 		}
 
 		public Dictionary<Categories, decimal> GroupByCategory(IEnumerable<Record> records)
