@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Caliburn.Micro;
 using Common;
@@ -15,12 +16,13 @@ namespace UI.ViewModels
 	{
 		private readonly IExpenses expenses;
 		private ILookup<Types, Record> types;
+		private int month;
 
 		public Diagrams(IExpenses expenses)
 		{
 			this.expenses = expenses;
 
-			Month = DateTime.Now.ToString("MMMM");
+			month = DateTime.Now.Month - 2;
         }
 
 		public Dictionary<int, CategoryData[]> ExpenseByDay { get; private set; }
@@ -28,7 +30,8 @@ namespace UI.ViewModels
 		public Dictionary<Categories, decimal> IncomeByCategory { get; private set; }
 		public Dictionary<Types, Dictionary<string, decimal>> BalanceByMonth { get; private set; }
 		public Dictionary<string, CategoryData[]> ExpenseByMonth { get; set; }
-		public string Month { get; set; }
+
+		public string Month => CurrentInfo.GetMonthName(month);
 
 		protected override void OnInitialize()
 		{
@@ -39,18 +42,33 @@ namespace UI.ViewModels
 
 		public void Update()
 		{
+			UpdateYearly();
+			UpdateMonthly();
+		}
+
+		private void UpdateYearly()
+		{
 			types = expenses.Records.ToLookup(record => record.Type);
 			var expense = types[Expense].Concat(types[Shared]).ToArray();
 
 			ExpenseByMonth = Group(expense, record => record.Date.Month)
 				.ToDictionary(month => CurrentInfo.GetMonthName(month.Key), pair => pair.Value);
+			BalanceByMonth = CalculateBalanceByMonth(types);
+
+			NotifyOfPropertyChange(nameof(BalanceByMonth));
+			NotifyOfPropertyChange(nameof(ExpenseByMonth));
+		}
+
+		private void UpdateMonthly()
+		{
+			types = expenses.Records.Where(record => record.Date.Month == month)
+			                .ToLookup(record => record.Type);
+			var expense = types[Expense].Concat(types[Shared]).ToArray();
 
 			ExpenseByDay = Group(expense, record => record.Date.Day);
 			ExpenseByCategory = GroupByCategory(expense);
 			IncomeByCategory = GroupByCategory(types[Income]);
-			BalanceByMonth = CalculateBalanceByMonth(types);
 
-			NotifyOfPropertyChange(nameof(BalanceByMonth));
 			NotifyOfPropertyChange(nameof(ExpenseByCategory));
 			NotifyOfPropertyChange(nameof(IncomeByCategory));
 			NotifyOfPropertyChange(nameof(ExpenseByDay));
