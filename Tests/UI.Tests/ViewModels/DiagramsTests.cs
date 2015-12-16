@@ -108,9 +108,9 @@ namespace UI.Tests.ViewModels
 				new Record(0, 0, House, "", Day(9)),
 			};
 
-			var actual = diagrams.GroupByDay(records).ToList();
+			var actual = diagrams.Group(records, r => r.Date.Day).ToList();
 
-			Expect(actual.Select(p => p.Key), EquivalentTo(new[] { "3", "6", "9" }));
+			Expect(actual.Select(p => p.Key), EquivalentTo(new[] { 3, 6, 9 }));
 		}
 
 		[Test]
@@ -127,7 +127,7 @@ namespace UI.Tests.ViewModels
 				new Record(0, 0, House, "", Day(9)),
 			};
 
-			var actual = diagrams.GroupByDay(records).ToList();
+			var actual = diagrams.Group(records, r => r.Date.Day).ToList();
 
 			var categories = actual.SelectMany(p => p.Value.Select(d => d.Category));
 			Expect(categories, EquivalentTo(new[] { Food, House, Food, House, Food, House }));
@@ -141,13 +141,17 @@ namespace UI.Tests.ViewModels
 			{
 				new Record(0, 0, 0, "", Day(6)),
 				new Record(0, 0, 0, "", Day(3)),
+				new Record(0, 0, 0, "", Day(1)),
+				new Record(0, 0, 0, "", Day(13)),
 				new Record(0, 0, 0, "", Day(6)),
 				new Record(0, 0, 0, "", Day(9)),
 				new Record(0, 0, 0, "", Day(3)),
+				new Record(0, 0, 0, "", Day(19)),
 				new Record(0, 0, 0, "", Day(9)),
+				new Record(0, 0, 0, "", Day(16)),
 			};
 
-			var actual = diagrams.GroupByDay(records).ToList();
+			var actual = diagrams.Group(records, r => r.Date.Day).ToList();
 
 			Expect(actual.Select(g => g.Key), Ordered);
 		}
