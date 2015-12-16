@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Caliburn.Micro;
@@ -22,7 +23,7 @@ namespace UI.ViewModels
 		public Dictionary<Types, Dictionary<int, decimal>> BalanceByMonth { get; private set; }
 		public Dictionary<Categories, decimal> ExpenseByCategory { get; private set; }
 		public Dictionary<Categories, decimal> IncomeByCategory { get; private set; }
-		public Dictionary<string, CategoryData[]> ExpenseByDay { get; private set; }
+		public Dictionary<int, CategoryData[]> ExpenseByDay { get; private set; }
 
 		protected override void OnInitialize()
 		{
@@ -47,11 +48,11 @@ namespace UI.ViewModels
 			NotifyOfPropertyChange(nameof(ExpenseByDay));
 		}
 
-		public Dictionary<string, CategoryData[]> GroupByDay(IEnumerable<Record> records)
+		public Dictionary<int, CategoryData[]> GroupByDay(IEnumerable<Record> records)
 		{
-			return records.GroupBy(record => record.Date.ToString("%d"))
-			              .OrderBy(day => day.Key)
-			              .ToDictionary(day => day.Key,
+			return records.GroupBy(record => record.Date.Day)
+						  .OrderBy(day => day.Key)
+						  .ToDictionary(day => day.Key,
 			                            day => day.GroupBy(record => record.Category)
 			                                      .Select(SquashRecords)
 			                                      .ToArray());

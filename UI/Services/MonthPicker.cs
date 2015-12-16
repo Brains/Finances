@@ -10,7 +10,6 @@ namespace UI.Services
 		public MonthPicker()
 		{
 			Month = DateTimeFormatInfo.CurrentInfo.GetMonthName(month);
-
 		}
 		public string Month { get; set; }
 

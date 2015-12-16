@@ -141,10 +141,14 @@ namespace UI.Tests.ViewModels
 			{
 				new Record(0, 0, 0, "", Day(6)),
 				new Record(0, 0, 0, "", Day(3)),
+				new Record(0, 0, 0, "", Day(1)),
+				new Record(0, 0, 0, "", Day(13)),
 				new Record(0, 0, 0, "", Day(6)),
 				new Record(0, 0, 0, "", Day(9)),
 				new Record(0, 0, 0, "", Day(3)),
+				new Record(0, 0, 0, "", Day(19)),
 				new Record(0, 0, 0, "", Day(9)),
+				new Record(0, 0, 0, "", Day(16)),
 			};
 
 			var actual = diagrams.GroupByDay(records).ToList();
