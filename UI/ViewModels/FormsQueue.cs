@@ -1,7 +1,9 @@
 ﻿using System.Linq;
+using System.Windows.Media;
 using Caliburn.Micro;
 using MoreLinq;
 using UI.Interfaces;
+using static System.Windows.Media.ColorConverter;
 
 namespace UI.ViewModels
 {
@@ -12,7 +14,8 @@ namespace UI.ViewModels
 		public IObservableCollection<IForm> Forms { get; set; }
 
 		public int RowIndex { get; } = 1;
-		
+
+		public Brush SelectedForm { get; set; }
 		public bool CanAdd => Forms.Count < Limit;
 		public bool CanRemove => Forms.Any();
 		public bool CanSubmit => Forms.Any();
@@ -21,12 +24,15 @@ namespace UI.ViewModels
 		{
 			Forms = new BindableCollection<IForm>();
 			Factory = factory;
+
+			SelectedForm = new SolidColorBrush((Color) ConvertFromString("#66007C9C"));
 		}
 
 		public void Add()
 		{
 			Forms.Add(Factory.Create());
 
+			SetPrimaryColor();
 			NotifyAllProperties();
 		}
 
@@ -34,6 +40,7 @@ namespace UI.ViewModels
 		{
 			Forms.RemoveAt(Forms.Count - 1);
 
+			SetPrimaryColor();
 			NotifyAllProperties();
 		}
 
@@ -51,6 +58,14 @@ namespace UI.ViewModels
 			var primary = Forms.First();
 			var secondaries = Forms.Skip(1);
 			primary.Amount -= secondaries.Sum(form => form.Amount);
+		}
+
+		private void SetPrimaryColor()
+		{
+			if (Forms.Count > 1)
+				Forms.First().Background = SelectedForm;
+			else
+				Forms.First().Background = Brushes.Transparent;
 		}
 
 		private void NotifyAllProperties()

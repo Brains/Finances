@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Windows.Media;
 using static Common.Record;
 
 namespace UI.Interfaces
@@ -8,6 +9,7 @@ namespace UI.Interfaces
 	{
 		decimal Amount { get; set; }
 		Types SelectedType { get; set; }
+		Brush Background { get; set; }
 		void Submit();
 	}
 }

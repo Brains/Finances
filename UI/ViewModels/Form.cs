@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Media;
 using Caliburn.Micro;
 using Common;
 using Common.Storages;
@@ -14,6 +15,7 @@ namespace UI.ViewModels
 		private readonly IRecordsStorage aggregator;
 		private readonly ISettings settings;
 		private Types selectedType;
+		private Brush background = Brushes.Transparent;
 
 		public Form(ISettings settings, IRecordsStorage aggregator)
 		{
@@ -46,6 +48,17 @@ namespace UI.ViewModels
 		public string[] Descriptions { get; set; }
 		public DateTime DateTime { get; set; }
 		public decimal Amount { get; set; }
+
+		public Brush Background
+		{
+			get { return background; }
+			set
+			{
+				if (Equals(value, background)) return;
+				background = value;
+				NotifyOfPropertyChange();
+			}
+		}
 
 		public void Submit()
 		{
