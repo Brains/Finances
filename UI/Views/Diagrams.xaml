@@ -12,6 +12,7 @@
 			<RowDefinition MinHeight="600"/>
 			<RowDefinition MinHeight="600"/>
 			<RowDefinition MinHeight="600"/>
+            <RowDefinition MinHeight="600"/>
 		</Grid.RowDefinitions>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="*"/>
@@ -19,7 +20,7 @@
 			<ColumnDefinition />
 		</Grid.ColumnDefinitions>
 
-		<!-- Stacked Columns: Spending by Date -->
+        <!-- Stacked Columns: Spending categories by Day of current month -->
 		<charts:StackedColumnChart Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" SeriesSource="{Binding ExpenseByDay}" ChartTitle="Days" ChartSubTitle="{Binding Month}" SelectedBrush="Transparent">
 			<charts:StackedColumnChart.SeriesTemplate>
 				<DataTemplate>
@@ -43,13 +44,22 @@
 		</charts:DoughnutChart>
 
 		<!-- Columns: Balance monthly -->
-		<charts:ClusteredColumnChart Grid.Row="2" Grid.ColumnSpan="3" Grid.Column="0" Name="TestChart" ChartTitle="Types" ChartSubTitle="Test" Background="White" IsRowColumnSwitched="True">
+        <charts:ClusteredColumnChart Grid.Row="2" Grid.ColumnSpan="3" Grid.Column="0" Name="TestChart" ChartTitle="Types" ChartSubTitle="{Binding Month}" Background="White" IsRowColumnSwitched="True">
 			<charts:ClusteredColumnChart.Series>
 				<charts:ChartSeries ItemsSource="{Binding BalanceByMonth[Expense]}" SeriesTitle="Expense" DisplayMember="Key" ValueMember="Value" />
 				<charts:ChartSeries ItemsSource="{Binding BalanceByMonth[Income]}" SeriesTitle="Income" DisplayMember="Key" ValueMember="Value" />
 			</charts:ClusteredColumnChart.Series>
 		</charts:ClusteredColumnChart>
 
-	</Grid>
+        <!-- Stacked Columns: Spending categories by Month -->
+        <charts:StackedColumnChart Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" SeriesSource="{Binding ExpenseByMonth}" ChartTitle="Categories" ChartSubTitle="{Binding Month}" SelectedBrush="Transparent">
+            <charts:StackedColumnChart.SeriesTemplate>
+                <DataTemplate>
+                    <charts:ChartSeries SeriesTitle="{Binding Key}" DisplayMember="Category" ValueMember="Amount" ItemsSource="{Binding Value}" />
+                </DataTemplate>
+            </charts:StackedColumnChart.SeriesTemplate>
+        </charts:StackedColumnChart>
+
+    </Grid>
 
 </UserControl>
