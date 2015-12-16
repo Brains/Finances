@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:selectors="clr-namespace:UI.Views.Selectors" xmlns:extensions="clr-namespace:UI.Views.Extensions"
              xmlns:common="clr-namespace:Common;assembly=Common"
-             xmlns:converters="clr-namespace:UI.Views.Converters">
+             xmlns:converters="clr-namespace:UI.Views.Converters"
+			 FontFamily="Segoe UI" FontWeight="Light" FontSize="16">
 	
 	<UserControl.Resources>
         <ResourceDictionary>
