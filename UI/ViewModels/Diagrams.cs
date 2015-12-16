@@ -19,13 +19,16 @@ namespace UI.ViewModels
 		public Diagrams(IExpenses expenses)
 		{
 			this.expenses = expenses;
-		}
+
+			Month = DateTime.Now.ToString("MMMM");
+        }
 
 		public Dictionary<int, CategoryData[]> ExpenseByDay { get; private set; }
 		public Dictionary<Categories, decimal> ExpenseByCategory { get; private set; }
 		public Dictionary<Categories, decimal> IncomeByCategory { get; private set; }
 		public Dictionary<Types, Dictionary<string, decimal>> BalanceByMonth { get; private set; }
 		public Dictionary<string, CategoryData[]> ExpenseByMonth { get; set; }
+		public string Month { get; set; }
 
 		protected override void OnInitialize()
 		{
