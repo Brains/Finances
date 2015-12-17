@@ -3,26 +3,33 @@
                       Width="1000" Height="800" WindowState="Maximized" ShowIconOnTitleBar="True">
 	<TabControl x:Name="Items" TabStripPlacement="Left">
 		<TabControl.Resources>
-			<Style TargetType="{x:Type TabPanel}">
-				<Setter Property="Background" Value="{StaticResource AccentColorBrush}"/>
-			</Style>
-			<Style x:Key="TabItemText" TargetType="{x:Type TextBlock}">
-				<Style.Triggers>
-					<DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}" Value="True">
-						<Setter Property="FontWeight" Value="Normal"/>
-					</DataTrigger>
-					<DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}" Value="False">
-						<Setter Property="FontWeight" Value="Thin"/>
-					</DataTrigger>
-				</Style.Triggers>
-			</Style>
+			<ResourceDictionary>
+				<ResourceDictionary.MergedDictionaries>
+					<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml"/>
+				</ResourceDictionary.MergedDictionaries>
+
+				<Style TargetType="{x:Type TabPanel}">
+					<Setter Property="Background" Value="{StaticResource AccentColorBrush}"/>
+				</Style>
+				
+				<Style x:Key="TabItemText" TargetType="{x:Type TextBlock}">
+					<Style.Triggers>
+						<DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}" Value="True">
+							<Setter Property="FontWeight" Value="Normal"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}" Value="False">
+							<Setter Property="FontWeight" Value="Thin"/>
+						</DataTrigger>
+					</Style.Triggers>
+				</Style>
+			</ResourceDictionary>
+			
 		</TabControl.Resources>
 		<TabControl.ItemTemplate>
 			<DataTemplate>
 				<StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding DisplayName}" Foreground="White" Style="{StaticResource TabItemText}"
-                               FontFamily="Segoe UI Symbol" FontSize="40" Margin="10, 20, 10, 20">
-					</TextBlock>
+					<TextBlock Text="{Binding DisplayName}" Foreground="White" Style="{StaticResource TabItemText}" FontFamily="Segoe UI Symbol"
+					           FontSize="40" Margin="10, 20, 10, 20"/>
 				</StackPanel>
 			</DataTemplate>
 		</TabControl.ItemTemplate>
