@@ -38,7 +38,7 @@
 				  HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBox Name="Description" Grid.Column="3" Foreground = "DimGray" controls:TextBoxHelper.Watermark = "Description" 
 				 behaviors:AutoCompleteBehavior.AutoCompleteItemsSource = "{Binding Descriptions}" FontSize = "{StaticResource FontSize}" 
-				 HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100"/>
+				 HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100" controls:TextBoxHelper.ClearTextButton="True"/>
     </Grid>
 </UserControl>
 
