@@ -3,16 +3,43 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:charts="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart" 
+             xmlns:charting = "clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+			 xmlns:charts="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart" 
 			 mc:Ignorable="d"
              d:DesignHeight="800" d:DesignWidth="800">
-	<ScrollViewer>
-
-        <charts:ClusteredColumnChart Name="Transactions" ChartTitle="Test" ChartSubTitle="Test" Background="White" IsRowColumnSwitched="True">
-			<charts:ClusteredColumnChart.Series>
-                <charts:ChartSeries ItemsSource="{Binding Transactions}" SeriesTitle="Test" DisplayMember="Date" ValueMember="Amount" />
-			</charts:ClusteredColumnChart.Series>
-		</charts:ClusteredColumnChart>
-
-	</ScrollViewer>
+    <Grid d:DataContext="{Binding Source={d:DesignData Source=Resources/Data.xaml}}"
+		  VerticalAlignment="Top">
+        <charting:Chart x:Name="ExpencesByDate"
+						Grid.Row="0"
+						Template="{StaticResource ChartTemplate}"
+						Foreground="LightGray"
+						FontFamily="Segoe UI"
+						FontSize="16"
+						FontWeight="Light"
+						MinHeight="600">
+            <charting:AreaSeries ItemsSource="{Binding Funds}"
+								 DependentValuePath="Amount"
+								 IndependentValuePath="Date"
+								 Background="#33D2691E"
+								 DataPointStyle="{DynamicResource AreaDataPointStyle}" />
+            <charting:LineSeries ItemsSource="{Binding Funds}"
+								 DependentValuePath="Amount"
+								 IndependentValuePath="Date"
+								 DataPointStyle="{StaticResource LineDataPointStyle}" />
+            <charting:Chart.Axes>
+                <charting:DateTimeAxis Orientation="X"
+									   ShowGridLines="True"
+									   IntervalType="Days"
+									   Interval="3"
+									   AxisLabelStyle="{StaticResource DateTimeAxisLabelStyle}"
+									   GridLineStyle="{StaticResource GridLineStyle}"
+									   MajorTickMarkStyle="{StaticResource MajorTickMarkStyle}" />
+                <charting:LinearAxis Orientation="Y"
+									 ShowGridLines="True"
+									 Interval="1000"
+									 GridLineStyle="{StaticResource GridLineStyle}"
+									 MajorTickMarkStyle="{StaticResource MajorTickMarkStyle}" />
+            </charting:Chart.Axes>
+        </charting:Chart>
+    </Grid>
 </UserControl>
