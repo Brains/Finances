@@ -7,12 +7,9 @@ namespace UI.ViewModels
 	{
 		public Statistics(IViewModel[] viewModels)
 		{
-			Icon = "\uE1E7";
-			DisplayName = "Statistics";
+			DisplayName = "\uE1E7 Statistics";
 
 			Items.AddRange(viewModels);
 		}
-
-		public string Icon { get; set; }
 	}
 }
