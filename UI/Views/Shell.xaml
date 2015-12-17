@@ -1,8 +1,6 @@
 <controls:MetroWindow x:Class="UI.Views.Shell" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-					  xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-                      Width="1000" Height="800" 
-					  WindowState="Maximized" ShowIconOnTitleBar="True">
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      Width="1000" Height="800" WindowState="Maximized" ShowIconOnTitleBar="True">
 	<TabControl x:Name="Items" TabStripPlacement="Left">
 		<TabControl.Resources>
 			<Style TargetType="{x:Type TabPanel}">
@@ -11,20 +9,21 @@
 			<Style x:Key="TabItemText" TargetType="{x:Type TextBlock}">
 				<Style.Triggers>
 					<DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}" Value="True">
-						<Setter Property="FontWeight" Value="Bold"/>
+						<Setter Property="FontWeight" Value="Normal"/>
 					</DataTrigger>
 					<DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}" Value="False">
-						<Setter Property="FontWeight" Value="Light"/>
+						<Setter Property="FontWeight" Value="Thin"/>
 					</DataTrigger>
 				</Style.Triggers>
 			</Style>
 		</TabControl.Resources>
 		<TabControl.ItemTemplate>
 			<DataTemplate>
-				<TextBlock FontSize="30" Margin="20" VerticalAlignment="Center" Style="{StaticResource TabItemText}" Foreground="White">
-					<Run Text="{Binding Icon}" FontFamily="Segoe MDL2 Assets"/>
-					<Run Text="{Binding DisplayName}" FontSize="40"/>
-				</TextBlock>
+				<StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding DisplayName}" Foreground="White" Style="{StaticResource TabItemText}"
+                               FontFamily="Segoe UI Symbol" FontSize="40" Margin="10, 20, 10, 20">
+					</TextBlock>
+				</StackPanel>
 			</DataTemplate>
 		</TabControl.ItemTemplate>
 	</TabControl>
