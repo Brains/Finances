@@ -45,7 +45,7 @@ namespace UI.ViewModels
 			decimal accumulator = startFunds;
 			var seed = new[] {accumulator};
 
-			var calendars = Operations.Select(operation => CalculateCalendar(start, end - start, operation.Period.Ticks));
+			var calendars = Operations.Select(operation => CalculateCalendar(start, end - start, operation));
 
 			var transactions = Operations.Zip(calendars,
 			                                  (operation, dates) => dates.Select(date => new
@@ -65,14 +65,15 @@ namespace UI.ViewModels
 				Amount = amount,
 				Date = transaction.Date,
 				Description = transaction.Description
-			});
+			}).ToList();
 		}
 
-		public IEnumerable<DateTime> CalculateCalendar(DateTime start, TimeSpan interval, long period)
+		public IEnumerable<DateTime> CalculateCalendar(DateTime start, TimeSpan interval, PermanentOperation operation)
 		{
+			var period = operation.Period.Ticks;
 			var quantity = (int) (interval.Ticks / period);
 
-			return Range(0, quantity).Select(index => start + FromTicks(index * period));
+			return Range(0, quantity).Select(index => operation.Start + FromTicks(index * period));
 		}
 
 		public void ShiftTime(PermanentOperation[] operations)

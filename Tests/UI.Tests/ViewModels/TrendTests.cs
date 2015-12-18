@@ -43,10 +43,11 @@ namespace UI.Tests.ViewModels
 			var trend = Create();
 			var start = new DateTime(2, 1, 1);
 			var end = start.AddMonths(1);
+			var operation = new PermanentOperation(-100, new DateTime(1, 1, 1), TimeSpan.FromDays(3), "Test");
 
-			var actual = trend.CalculateCalendar(start, end - start, TimeSpan.FromDays(3).Ticks).ToList();
+			var actual = trend.CalculateCalendar(start, end - start, operation).ToList();
 
-			var intervals = actual.Skip(1).Zip(actual, (a, b) => a - b);
+			var intervals = Enumerable.Zip(actual.Skip(1), actual, (a, b) => a - b);
 			Assert.That(actual.Count, Is.EqualTo(10));
 			Assert.That(intervals, Has.All.EqualTo(TimeSpan.FromDays(3)));
 			Assert.That(actual.Select(item => item.Date), Has.All.GreaterThanOrEqualTo(start).And.LessThan(end));
