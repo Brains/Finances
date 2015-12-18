@@ -73,7 +73,9 @@ namespace UI.ViewModels
 			var period = operation.Period.Ticks;
 			var quantity = (int) (interval.Ticks / period);
 
-			return Range(0, quantity).Select(index => operation.Start + FromTicks(index * period));
+			var calendar = Range(0, quantity).Select(index => operation.Start + FromTicks(index * period));
+			
+			return calendar.Where(date => date > start);
 		}
 
 		public void ShiftTime(PermanentOperation[] operations)
