@@ -12,7 +12,7 @@ namespace UI.ViewModels
 {
 	public class Trend : Screen, IViewModel
 	{
-		private IEnumerable<Transaction> transactions;
+		private IList<Transaction> transactions;
 
 		public Trend(ISettings settings)
 		{
@@ -21,7 +21,7 @@ namespace UI.ViewModels
 
 		public PermanentOperation[] Operations { get; set; }
 
-		public IEnumerable<Transaction> Transactions
+		public IList<Transaction> Transactions
 		{
 			get { return transactions; }
 			set
@@ -37,10 +37,10 @@ namespace UI.ViewModels
 			base.OnInitialize();
 
 			ShiftTime(Operations);
-			Transactions = Calculate(10000, Now, Now.AddMonths(3));
+			Transactions = Calculate(5000, Today, Today.AddMonths(2));
 		}
 
-		public IEnumerable<Transaction> Calculate(decimal startFunds, DateTime start, DateTime end)
+		public IList<Transaction> Calculate(decimal startFunds, DateTime start, DateTime end)
 		{
 			decimal accumulator = startFunds;
 			var seed = new[] {accumulator};

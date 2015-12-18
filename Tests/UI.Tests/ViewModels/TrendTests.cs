@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Common;
+using MoreLinq;
 using NUnit.Framework;
 using UI.ViewModels;
 using static NSubstitute.Substitute;
@@ -68,6 +69,25 @@ namespace UI.Tests.ViewModels
 
 			var hours = trend.Operations.Select(o => o.Start.Hour);
 			Assert.That(hours, Is.EquivalentTo(new[] {1, 2, 3}));
+		}
+
+		[Test]
+		public void TransactionsGetter_Always_ReturnsSameAmountsList()
+		{
+			var trend = Create();
+			trend.Operations = new[]
+			{
+				new PermanentOperation(-100, new DateTime(1, 1, 1), TimeSpan.FromDays(3), "Food")
+			};
+			var initial = 1000;
+			var start = new DateTime(2, 1, 1);
+
+			trend.Transactions = trend.Calculate(initial, start, start.AddMonths(1));
+
+			var expected = new[] { 1000, 900, 800, 700, 600, 500, 400, 300, 200, 100 };
+			Assert.That(trend.Transactions.Select(item => item.Amount), Is.EquivalentTo(expected));
+			Assert.That(trend.Transactions.Select(item => item.Amount), Is.EquivalentTo(expected));
+			Assert.That(trend.Transactions.Select(item => item.Amount), Is.EquivalentTo(expected));
 		}
 	}
 }
