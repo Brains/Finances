@@ -39,13 +39,12 @@ namespace Loader.Settings
 
 		public PermanentOperation[] PermanentOperations { get; set; } = 
 		{
-			new PermanentOperation(-2000,	new DateTime(2015, 1, 15),	FromDays(Month),	"House"),
-			new PermanentOperation(2000,	new DateTime(2015, 1, 8),	FromDays(Month)	,	"Deposit"),
-			new PermanentOperation(-1000,	new DateTime(2015, 5, 30),	FromDays(20),		"Medications"),
-			new PermanentOperation(1000,	new DateTime(2015, 1, 17),	FromDays(Month),	"Deposit"),
-			new PermanentOperation(-300,	new DateTime(2015, 5, 15),	FromDays(3),		"Food"),
-			new PermanentOperation(-500,	new DateTime(2015, 5, 1),	FromDays(7),		"Correction"),
-			new PermanentOperation(200,		new DateTime(2015, 1, 7),	FromDays(Month),	"Deposit")
+			new PermanentOperation(-2500,	new DateTime(2015, 12, 15),	FromDays(Month),	"House"),
+			new PermanentOperation(2500,	new DateTime(2015, 12, 8),	FromDays(Month)	,	"Deposit"),
+			new PermanentOperation(-1000,	new DateTime(2015, 12, 30),	FromDays(20),		"Pharmacy"),
+			new PermanentOperation(1200,	new DateTime(2015, 12, 17),	FromDays(Month),	"Deposit"),
+			new PermanentOperation(-400,	new DateTime(2015, 12, 15),	FromDays(3),		"Food"),
+			new PermanentOperation(-500,	new DateTime(2015, 12, 1),	FromDays(7),		"Correction"),
 		};
 
 		public string BankRequest { get; set; } = 
