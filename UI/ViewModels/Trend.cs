@@ -12,13 +12,25 @@ namespace UI.ViewModels
 {
 	public class Trend : Screen, IViewModel
 	{
+		private IEnumerable<Transaction> transactions;
+
 		public Trend(ISettings settings)
 		{
 			Operations = settings.PermanentOperations;
 		}
 
 		public PermanentOperation[] Operations { get; set; }
-		public IEnumerable<Transaction> Transactions { get; set; }
+
+		public IEnumerable<Transaction> Transactions
+		{
+			get { return transactions; }
+			set
+			{
+				if (Equals(value, transactions)) return;
+				transactions = value;
+				NotifyOfPropertyChange();
+			}
+		}
 
 		protected override void OnInitialize()
 		{
