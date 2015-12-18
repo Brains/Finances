@@ -36,9 +36,10 @@ namespace UI.ViewModels
 
 		public void Remove()
 		{
+			SetPrimaryColor();
+
 			Forms.RemoveAt(Forms.Count - 1);
 
-			SetPrimaryColor();
 			NotifyAllProperties();
 		}
 
