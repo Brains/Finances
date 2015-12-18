@@ -13,15 +13,14 @@
 			</ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 	</UserControl.Resources>
-    <Grid VerticalAlignment="Top">
+    <Grid VerticalAlignment="Stretch">
         <charts:Chart x:Name="Transactions"
 						Grid.Row="0"
 						Template="{StaticResource ChartTemplate}"
 						Foreground="LightGray"
 						FontFamily="Segoe UI"
 						FontSize="16"
-						FontWeight="Light"
-						MinHeight="600">
+						FontWeight="Light">
             <charts:AreaSeries ItemsSource="{Binding Transactions}"
 								 DependentValuePath="Amount"
 								 IndependentValuePath="Date"
