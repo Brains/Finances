@@ -12,28 +12,40 @@ namespace UI.ViewModels
 {
 	public class Trend : Screen, IViewModel
 	{
+		private IList<Transaction> transactions;
+
 		public Trend(ISettings settings)
 		{
 			Operations = settings.PermanentOperations;
 		}
 
 		public PermanentOperation[] Operations { get; set; }
-		public IEnumerable<Transaction> Transactions { get; set; }
+
+		public IList<Transaction> Transactions
+		{
+			get { return transactions; }
+			set
+			{
+				if (Equals(value, transactions)) return;
+				transactions = value;
+				NotifyOfPropertyChange();
+			}
+		}
 
 		protected override void OnInitialize()
 		{
 			base.OnInitialize();
 
 			ShiftTime(Operations);
-			Transactions = Calculate(10000, Now, Now.AddMonths(3));
+			Transactions = Calculate(5000, Today, Today.AddMonths(2));
 		}
 
-		public IEnumerable<Transaction> Calculate(decimal startFunds, DateTime start, DateTime end)
+		public IList<Transaction> Calculate(decimal startFunds, DateTime start, DateTime end)
 		{
 			decimal accumulator = startFunds;
 			var seed = new[] {accumulator};
 
-			var calendars = Operations.Select(operation => CalculateCalendar(start, end - start, operation.Period.Ticks));
+			var calendars = Operations.Select(operation => CalculateCalendar(start, end - start, operation));
 
 			var transactions = Operations.Zip(calendars,
 			                                  (operation, dates) => dates.Select(date => new
@@ -53,14 +65,17 @@ namespace UI.ViewModels
 				Amount = amount,
 				Date = transaction.Date,
 				Description = transaction.Description
-			});
+			}).ToList();
 		}
 
-		public IEnumerable<DateTime> CalculateCalendar(DateTime start, TimeSpan interval, long period)
+		public IEnumerable<DateTime> CalculateCalendar(DateTime start, TimeSpan interval, PermanentOperation operation)
 		{
+			var period = operation.Period.Ticks;
 			var quantity = (int) (interval.Ticks / period);
 
-			return Range(0, quantity).Select(index => start + FromTicks(index * period));
+			var calendar = Range(0, quantity).Select(index => operation.Start + FromTicks(index * period));
+			
+			return calendar.Where(date => date > start);
 		}
 
 		public void ShiftTime(PermanentOperation[] operations)
