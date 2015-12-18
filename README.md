@@ -23,4 +23,4 @@ Also Finances gave a huge practice in `WPF, SOLID, MVVM, LINQ, GIT` and even `R#
 ![3](https://cloud.githubusercontent.com/assets/5301844/11852651/e12272c6-a441-11e5-8902-940df6fd7170.png)
 ![4](https://cloud.githubusercontent.com/assets/5301844/11852652/e122fe3a-a441-11e5-8178-4a7eb61c3676.png)
 ![5](https://cloud.githubusercontent.com/assets/5301844/11852653/e1250e32-a441-11e5-98c4-7956a0a38844.png)
-![6](https://cloud.githubusercontent.com/assets/5301844/11893690/3ec0fe5e-a57b-11e5-8ada-609b77996265.png)
+![6](https://cloud.githubusercontent.com/assets/5301844/11893817/dd60128e-a57b-11e5-8078-0cb00e7ba676.png)
