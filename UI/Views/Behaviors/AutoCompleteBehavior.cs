@@ -1,4 +1,11 @@
-﻿// Author: https://github.com/Nimgoble/WPFTextBoxAutoComplete/. Thank you
+﻿// -----------------------------------------------------------------------
+// -----------------------------------------------------------------------
+// -----------------------------------------------------------------------
+// Author: https://github.com/Nimgoble/WPFTextBoxAutoComplete/. Thank you
+// -----------------------------------------------------------------------
+// -----------------------------------------------------------------------
+// -----------------------------------------------------------------------
+
 
 using System;
 using System.Collections.Generic;
@@ -6,13 +13,14 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using static System.StringComparison;
 
 namespace UI.Views.Behaviors
 {
 	public static class AutoCompleteBehavior
 	{
-		private static TextChangedEventHandler onTextChanged = new TextChangedEventHandler(OnTextChanged);
-		private static KeyEventHandler onKeyDown = new KeyEventHandler(OnPreviewKeyDown);
+		private static readonly TextChangedEventHandler onTextChanged = OnTextChanged;
+		private static readonly KeyEventHandler onKeyDown = OnPreviewKeyDown;
 
 		public static readonly DependencyProperty AutoCompleteItemsSource =
 			DependencyProperty.RegisterAttached
@@ -25,11 +33,8 @@ namespace UI.Views.Behaviors
 
 		public static IEnumerable<String> GetAutoCompleteItemsSource(DependencyObject obj)
 		{
-			object objRtn = obj.GetValue(AutoCompleteItemsSource);
-			if (objRtn is IEnumerable<String>)
-				return (objRtn as IEnumerable<String>);
-
-			return null;
+			object value = obj.GetValue(AutoCompleteItemsSource);
+			return value as IEnumerable<string>;
 		}
 
 		public static void SetAutoCompleteItemsSource(DependencyObject obj, IEnumerable<String> value)
@@ -37,91 +42,96 @@ namespace UI.Views.Behaviors
 			obj.SetValue(AutoCompleteItemsSource, value);
 		}
 
-		private static void OnAutoCompleteItemsSource(object sender, DependencyPropertyChangedEventArgs e)
+		private static void OnAutoCompleteItemsSource(object sender, DependencyPropertyChangedEventArgs args)
 		{
-			TextBox tb = sender as TextBox;
+			TextBox textBox = sender as TextBox;
 			if (sender == null)
 				return;
 
-			if (e.NewValue == null)
+			if (args.NewValue == null)
 			{
-				tb.TextChanged -= onTextChanged;
-				tb.PreviewKeyDown -= onKeyDown;
+				textBox.TextChanged -= onTextChanged;
+				textBox.PreviewKeyDown -= onKeyDown;
 			}
 			else
 			{
-				tb.TextChanged += onTextChanged;
-				tb.PreviewKeyDown += onKeyDown;
+				textBox.TextChanged += onTextChanged;
+				textBox.PreviewKeyDown += onKeyDown;
 			}
 		}
 
-		private static void OnPreviewKeyDown(object sender, KeyEventArgs e)
+		private static void OnPreviewKeyDown(object sender, KeyEventArgs args)
 		{
-			if (e.Key != Key.Enter)
+			if (args.Key != Key.Enter)
 				return;
 
-			TextBox tb = e.OriginalSource as TextBox;
-			if (tb == null)
+			TextBox textBox = args.OriginalSource as TextBox;
+			if (textBox == null)
 				return;
 
 			//If we pressed enter and if the selected text goes all the way to the end, move our caret position to the end
-			if (tb.SelectionLength > 0 && (tb.SelectionStart + tb.SelectionLength == tb.Text.Length))
+			if (textBox.SelectionLength > 0 && (textBox.SelectionStart + textBox.SelectionLength == textBox.Text.Length))
 			{
-				tb.SelectionStart = tb.CaretIndex = tb.Text.Length;
-				tb.SelectionLength = 0;
+				textBox.SelectionStart = textBox.CaretIndex = textBox.Text.Length;
+				textBox.SelectionLength = 0;
 			}
 		}
 
-		private static void OnTextChanged(object sender, TextChangedEventArgs e)
+		private static void OnTextChanged(object sender, TextChangedEventArgs args)
 		{
-			if
-				(
-				(from change in e.Changes where change.RemovedLength > 0 select change).Count() > 0 &&
-				(from change in e.Changes where change.AddedLength > 0 select change).Count() <= 0
-				)
+			var removed = from change in args.Changes
+						  where change.RemovedLength > 0
+						  select change;
+
+			var added = from change in args.Changes
+						where change.AddedLength > 0
+						select change;
+
+			if (removed.Any() && !added.Any())
 				return;
 
-			TextBox tb = e.OriginalSource as TextBox;
+			TextBox textBox = args.OriginalSource as TextBox;
 			if (sender == null)
 				return;
 
-			IEnumerable<String> values = GetAutoCompleteItemsSource(tb);
+			var values = GetAutoCompleteItemsSource(textBox);
 			//No reason to search if we don't have any values.
 			if (values == null)
 				return;
 
 			//No reason to search if there's nothing there.
-			if (String.IsNullOrEmpty(tb.Text))
+			if (String.IsNullOrEmpty(textBox.Text))
 				return;
 
-			Int32 textLength = tb.Text.Length;
+			Int32 textLength = textBox.Text.Length;
 
 			//Do search and changes here.
-			IEnumerable<String> matches =
-				from
-					value
-					in
-					(
-						from subvalue
-							in values
-						where subvalue.Length >= textLength
-						select subvalue
-						)
-				where string.Equals(value.Substring(0, textLength), tb.Text, StringComparison.CurrentCultureIgnoreCase)
-				select value;
+			var matches = from value in (from subvalue in values
+			                             where subvalue.Length >= textLength
+			                             select subvalue)
+			              where string.Equals(value.Substring(0, textLength), textBox.Text, CurrentCultureIgnoreCase)
+			              select value;
 
 			//Nothing.  Leave 'em alone
-			if (matches.Count() == 0)
-				return;
+			if (!matches.Any()) return;
 
 			String match = matches.ElementAt(0);
 			//String remainder = match.Substring(textLength, (match.Length - textLength));
-			tb.TextChanged -= onTextChanged;
-			tb.Text = match;
-			tb.CaretIndex = textLength;
-			tb.SelectionStart = textLength;
-			tb.SelectionLength = (match.Length - textLength);
-			tb.TextChanged += onTextChanged;
+			textBox.TextChanged -= onTextChanged;
+			textBox.Text = match;
+			textBox.CaretIndex = textLength;
+			textBox.SelectionStart = textLength;
+			textBox.SelectionLength = (match.Length - textLength);
+			textBox.TextChanged += onTextChanged;
 		}
 	}
 }
+
+
+// -----------------------------------------------------------------------
+// -----------------------------------------------------------------------
+// -----------------------------------------------------------------------
+// Author: https://github.com/Nimgoble/WPFTextBoxAutoComplete/. Thank you
+// -----------------------------------------------------------------------
+// -----------------------------------------------------------------------
+// -----------------------------------------------------------------------
