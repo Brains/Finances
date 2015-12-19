@@ -25,23 +25,21 @@ namespace Funds.Sources
 
 		public override void PullValue()
 		{
-			//			var debts = expenses.Records.Where(record => record.Type == Debt).ToArray();
-			//			Validate(debts);
-
-			var debts = expenses.Records;
-
-			Dudes = Calculate(debts);
+			Dudes = Calculate(expenses.Records);
 			Value = Dudes.Sum(pair => pair.Value);
         }
 
 		public Dictionary<Categories, decimal> Calculate(IEnumerable<Record> records)
 		{
-			var debts = CalculateDirections(records.Where(record => record.Type == Debt));
-			var shared = records.Where(record => record.Type == Shared)
-								.Sum(record => record.Amount);
+			var types = records.ToLookup(record => record.Type);
 
-			return debts.ToDictionary(dude => dude.Key,
-			                          dude => shared + dude.Value["Out"] - dude.Value["In"]);
+			Validate(types[Debt]);
+
+			var directions = CalculateDirections(types[Debt]);
+			var shared = types[Shared].Sum(record => record.Amount);
+
+			return directions.ToDictionary(dude => dude.Key,
+			                               dude => shared + dude.Value["Out"] - dude.Value["In"]);
 		}
 
 		private Dictionary<Categories, Directions> CalculateDirections(IEnumerable<Record> records)
