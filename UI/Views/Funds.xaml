@@ -34,6 +34,20 @@
             <Setter Property="IsReadOnly" Value="True"/>
             <Setter Property="Margin" Value="0, 5, 0, 0"/>
         </Style>
+        <StackPanel x:Key="DebtsToolTip" Orientation="Vertical">
+            <StackPanel.Resources>
+                <Thickness x:Key="Padding">10, 5, 10, 0</Thickness>
+            </StackPanel.Resources>
+
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Maxim" Padding="{StaticResource Padding}"/>
+                <TextBox Text="{Binding Dudes[Maxim]}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Andrey" Padding="{StaticResource Padding}"/>
+                <TextBox Text="{Binding Dudes[Andrey]}" />
+            </StackPanel>
+        </StackPanel>
     </UserControl.Resources>
 	
 	<StackPanel Orientation="Horizontal">
@@ -42,7 +56,7 @@
 				<DataTemplate>
 					<StackPanel Orientation="Horizontal">
 						<Label Content="{Binding Name}"></Label>
-						<TextBox Text="{Binding Value}"></TextBox>
+						<TextBox Text="{Binding Value}" ></TextBox>
 					</StackPanel>
 				</DataTemplate>
 			</ListBox.ItemTemplate>
@@ -51,7 +65,6 @@
         <Label Content="Divergence" FontSize="{StaticResource BigFontSize}" Margin="{StaticResource BigLeftMargin}"/>
         <TextBox Name="Divergence" Text="{Binding Divergence, StringFormat={}{0:+#;-#;0}}" FontSize="{StaticResource BigFontSize}"
 		         Foreground="{Binding Divergence, Converter={converters:DivergenceColor}}"/>
-
         <Label Content="Total" FontSize="{StaticResource BigFontSize}" Margin="{StaticResource BigLeftMargin}"/>
         <TextBox Name="Total" FontSize="{StaticResource BigFontSize}"/>
     </StackPanel>
