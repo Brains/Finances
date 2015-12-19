@@ -21,6 +21,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -28,7 +29,7 @@
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-		<ComboBox Name="Types" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"
+		<ComboBox Name="Types" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" KeyboardNavigation.TabIndex = "0"
 		          ItemTemplate="{StaticResource EnumTemplate}"/>
 		<controls:NumericUpDown Name="Amount" Grid.Column="1" Foreground="{Binding Path=SelectedType, Converter={converters:EnumToColor}}"
 		                        HorizontalAlignment="Center" VerticalAlignment="Center" controls:TextBoxHelper.Watermark="Amount"
