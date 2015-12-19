@@ -60,8 +60,8 @@ namespace Loader
 		private void ConfigureConverters()
 		{
 			container.RegisterType<IAdder, Adder>(new Singleton());
-			container.RegisterType<IValueConverter, SharedConverter>("AmountConverter", new Singleton(),
-				new InjectionConstructor(new ResolvedParameter<AmountConverter>()));
+			container.RegisterType<IValueConverter, SharedDivision>("AmountSummarizing", new Singleton(),
+				new InjectionConstructor(new ResolvedParameter<AmountSummarizing>()));
 		}
 
 		private void ConfigureViewModels()

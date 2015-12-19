@@ -5,11 +5,11 @@ using System.Windows.Data;
 
 namespace UI.Views.Converters
 {
-	public class AmountConverter : IValueConverter
+	public class AmountSummarizing : IValueConverter
 	{
 		private readonly IAdder adder;
 
-		public AmountConverter(IAdder adder)
+		public AmountSummarizing(IAdder adder)
 		{
 			this.adder = adder;
 		}
