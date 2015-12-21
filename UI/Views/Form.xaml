@@ -29,15 +29,15 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 		<ComboBox Name="Types" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" KeyboardNavigation.TabIndex = "0"
-		          ItemTemplate="{StaticResource EnumTemplate}"/>
+		          ItemTemplate="{StaticResource EnumTemplate}" MinWidth="120"/>
 		<TextBox Name="Amount" Grid.Column="1" Foreground="{Binding Path=SelectedType, Converter={converters:EnumToColor}}"
 		                        HorizontalAlignment="Center" VerticalAlignment="Center" controls:TextBoxHelper.Watermark="Amount"
 		                        FontSize="{StaticResource FontSize}" MinWidth="100"/>
 		<ComboBox Name="Categories" Grid.Column="2" ItemTemplate="{StaticResource EnumTemplate}" HorizontalAlignment="Center"
-		          VerticalAlignment="Center"/>
+		          VerticalAlignment="Center" MinWidth="120"/>
 		<TextBox Name="Description" Grid.Column="3" Foreground="DimGray" controls:TextBoxHelper.Watermark="Description"
 		         behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding Descriptions}" FontSize="{StaticResource FontSize}"
-		         HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100" controls:TextBoxHelper.ClearTextButton="True"/>
+		         HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="150" controls:TextBoxHelper.ClearTextButton="True"/>
 	</Grid>
 </UserControl>
 
