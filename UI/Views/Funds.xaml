@@ -5,8 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:converters="clr-namespace:UI.Views.Converters"
+             xmlns:caliburn="http://www.caliburnproject.org"
+             xmlns:models="clr-namespace:UI.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+			 d:DataContext="{d:DesignInstance models:Funds, IsDesignTimeCreatable=False}" 
+             caliburn:Bind.AtDesignTime="True" 
+			 d:DesignWidth="800" d:DesignHeight="200">
 	
 	<UserControl.Resources>
         <system:Double x:Key="NormalFontSize">22</system:Double>

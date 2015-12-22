@@ -18,6 +18,11 @@ namespace UI.ViewModels
 		private ILookup<Types, Record> types;
 		private int month;
 
+		public Diagrams() : this(new FixedRecords())
+		{
+			Update();
+		}
+
 		public Diagrams(IExpenses expenses)
 		{
 			this.expenses = expenses;

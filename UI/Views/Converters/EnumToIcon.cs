@@ -36,7 +36,7 @@ namespace UI.Views.Converters
 			if (string.IsNullOrEmpty(key))
 				return null;
 
-			return Application.Current.FindResource(mapping[key]) as Visual;
+			return Application.Current.TryFindResource(mapping[key]) as Visual;
 		}
 	}
 }

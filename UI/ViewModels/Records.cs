@@ -11,8 +11,7 @@ namespace UI.ViewModels
 {
 	public class Records : PropertyChangedBase, IViewModel
 	{
-		public IEnumerable<Record> List { get; }
-		public int RowIndex { get; } = 0;
+		public Records() : this(new FixedRecords()) {}
 
 		public Records(IExpenses expenses)
 		{
@@ -21,9 +20,12 @@ namespace UI.ViewModels
 			ConfigureView();
 		}
 
+		public IEnumerable<Record> List { get; }
+		public int RowIndex { get; } = 0;
+
 		private void ConfigureView()
 		{
-			ICollectionView view = CollectionViewSource.GetDefaultView(List);
+			var view = CollectionViewSource.GetDefaultView(List);
 
 			view.SortDescriptions.Clear();
 			view.SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Descending));
