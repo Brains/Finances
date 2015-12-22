@@ -108,6 +108,10 @@
     <Resource Include="Views\Resources\Icons\Entypo.ttf" />
   </ItemGroup>
   <ItemGroup>
+    <DesignData Include="SampleData\Records.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </DesignData>
     <Page Include="Views\Form.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -174,6 +178,9 @@
       <Project>{12291e9c-e39e-4867-9459-9aa6bd4792f7}</Project>
       <Name>Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\SampleData\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
