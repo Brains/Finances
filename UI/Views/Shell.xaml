@@ -36,7 +36,7 @@
 		<TabControl.ItemTemplate>
 			<DataTemplate>
 				<StackPanel Orientation="Horizontal">
-					<TextBlock Text="{Binding DisplayName}" Foreground="White" FontFamily="Segoe UI Symbol" FontSize="40" Margin="0, 20, 0, 20"/>
+					<TextBlock Text="{Binding DisplayName}" Foreground="White" FontFamily="Segoe UI Symbol" FontSize="30" Margin="0, 20, 0, 20"/>
 				</StackPanel>
 			</DataTemplate>
 		</TabControl.ItemTemplate>
