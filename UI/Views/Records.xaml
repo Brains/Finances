@@ -11,54 +11,14 @@
 			 d:DesignWidth="800" d:DesignHeight="800"
 			 caliburn:Bind.AtDesignTime="True">
 
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Resources/Templates.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-            <selectors:GroupHeaderSelector x:Key="GroupHeaderSelector">
-                <selectors:GroupHeaderSelector.DayHeader>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Name}" Foreground="LightGray" Margin="10,20,0,0"/>
-                    </DataTemplate>
-                </selectors:GroupHeaderSelector.DayHeader>
-                <selectors:GroupHeaderSelector.MonthHeader>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Name}" Foreground="LightGray" FontSize="30" Margin="15,40,0,0"/>
-                    </DataTemplate>
-                </selectors:GroupHeaderSelector.MonthHeader>
-            </selectors:GroupHeaderSelector>
-            <Style x:Key="DisabledEnumComboBox" TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
-                <Setter Property="ItemTemplate" Value="{StaticResource EnumTemplate}"/>
-                <Setter Property="Margin" Value="0, 0, 40, 0"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type ComboBox}">
-                            <ContentPresenter ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" Content="{TemplateBinding SelectionBoxItem}"/>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-            <Style x:Key="ColoredAmount" TargetType="{x:Type TextBlock}">
-                <Setter Property="FontSize" Value="20"/>
-                <Setter Property="Foreground" Value="{Binding Type, Converter={converters:EnumToColor}}"/>
-            </Style>
-        </ResourceDictionary>
-    </UserControl.Resources>
-
-    <DataGrid x:Name="List" AutoGenerateColumns="False" ColumnWidth="*" IsReadOnly="True">
+    <DataGrid x:Name="List" AutoGenerateColumns="False" ColumnWidth="*" IsReadOnly="True" 
+			  EnableColumnVirtualization="True" EnableRowVirtualization="True" VirtualizingPanel.IsVirtualizingWhenGrouping="True"
+			   VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit ="Item">
         <DataGrid.Columns>
-            <DataGridComboBoxColumn Header="Type" SelectedValueBinding="{Binding Type}" ElementStyle="{StaticResource DisabledEnumComboBox}"
-			                        EditingElementStyle="{StaticResource DisabledEnumComboBox}"
-			                        ItemsSource="{Binding Source={extensions:EnumValues {x:Type common:Record+Types}}}"/>
-            <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" ElementStyle="{StaticResource ColoredAmount}"/>
-            <DataGridComboBoxColumn Header="Category" SelectedValueBinding="{Binding Category}" ElementStyle="{StaticResource DisabledEnumComboBox}"
-			                        EditingElementStyle="{StaticResource DisabledEnumComboBox}"
-			                        ItemsSource="{Binding Source={extensions:EnumValues {x:Type common:Record+Categories}}}"/>
             <DataGridTextColumn Header="Description" Binding="{Binding Description}" Foreground="DimGray"/>
         </DataGrid.Columns>
         <DataGrid.GroupStyle>
-            <GroupStyle HeaderTemplateSelector="{StaticResource GroupHeaderSelector}"/>
+            <x:Static Member="GroupStyle.Default"/>
         </DataGrid.GroupStyle>
     </DataGrid>
 
