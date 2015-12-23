@@ -4,9 +4,9 @@
     
 	<DataGrid x:Name="List" ColumnWidth="*" IsReadOnly="True" 
 			  EnableColumnVirtualization="True" EnableRowVirtualization="True" VirtualizingPanel.IsVirtualizingWhenGrouping="True"
-			   VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit ="Item">
+			   VirtualizingPanel.IsVirtualizing="True" >
         <DataGrid.GroupStyle>
-            <x:Static Member="GroupStyle.Default"/>
+<!--            <x:Static Member="GroupStyle.Default"/>-->
         </DataGrid.GroupStyle>
     </DataGrid>
 	
