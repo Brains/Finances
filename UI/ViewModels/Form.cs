@@ -70,6 +70,11 @@ namespace UI.ViewModels
 			if (Amount < 1) return false;
 			if (string.IsNullOrWhiteSpace(Description)) return false;
 
+			if (selectedType == Record.Types.Debt 
+				&& Description != "In" 
+				&& Description != "Out") return false;
+
+
 			return true;
 		}
 

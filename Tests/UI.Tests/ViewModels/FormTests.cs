@@ -89,7 +89,7 @@ namespace UI.Tests.ViewModels
 
 			var actual = form.CanSubmit();
 
-			Assert.That(actual, Is.True);
+			Assert.That(actual, True);
 		}
 
 		[TestCase(0)]
@@ -103,7 +103,7 @@ namespace UI.Tests.ViewModels
 
 			var actual = form.CanSubmit();
 
-			Assert.That(actual, Is.False);
+			Assert.That(actual, False);
 		}
 
 		[TestCase("")]
@@ -116,7 +116,7 @@ namespace UI.Tests.ViewModels
 
 			var actual = form.CanSubmit();
 
-			Assert.That(actual, Is.False);
+			Assert.That(actual, False);
 		}
 
 		[Test]
@@ -127,7 +127,7 @@ namespace UI.Tests.ViewModels
 
 			var actual = form.CanSubmit();
 
-			Assert.That(actual, Is.True);
+			Assert.That(actual, True);
 		}
 
 		[Ignore("ToDo")]
@@ -140,5 +140,29 @@ namespace UI.Tests.ViewModels
 			Assert.That(()=> form.CanSubmit(), Throws.Exception);
 		}
 
+		[Test]
+		public void CanSubmit_DebtInvalidDescription_ReturnsFalse()
+		{
+			var form = CreateValidForm();
+			form.SelectedType = Debt;
+			form.Description = "Invalid";
+
+			var actual = form.CanSubmit();
+
+			Assert.That(actual, False);
+		}
+
+		[TestCase("In")]
+		[TestCase("Out")]
+		public void CanSubmit_DebtValidDescription_ReturnsTrue(string description)
+		{
+			var form = CreateValidForm();
+			form.SelectedType = Debt;
+			form.Description = description;
+
+			var actual = form.CanSubmit();
+
+			Assert.That(actual, True);
+		}
 	}
 }
