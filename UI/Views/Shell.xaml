@@ -1,44 +1,13 @@
 <controls:MetroWindow x:Class="UI.Views.Shell" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       Width="1000" Height="800" WindowState="Maximized" ShowIconOnTitleBar="True">
-	<TabControl x:Name="Items" TabStripPlacement="Left">
-		<TabControl.Resources>
-			<ResourceDictionary>
-				<ResourceDictionary.MergedDictionaries>
-					<ResourceDictionary Source="pack://application:,,,/UI;component/Views/Resources/Accent.xaml"/>
-                    <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
-                </ResourceDictionary.MergedDictionaries>
-
-				<Style TargetType="{x:Type TabPanel}">
-					<Setter Property="Background" Value="{StaticResource AccentColorBrush}"/>
-				</Style>
-
-				<Style TargetType="TabItem">
-					<Setter Property="Template">
-						<Setter.Value>
-							<ControlTemplate TargetType="TabItem">
-								<Grid Name="Panel">
-									<ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Left" ContentSource="Header"
-									                  Margin="10,2"/>
-								</Grid>
-								<ControlTemplate.Triggers>
-									<Trigger Property="IsSelected" Value="True">
-										<Setter TargetName="Panel" Property="Background" Value="{StaticResource HighlightBrush}"/>
-									</Trigger>
-								</ControlTemplate.Triggers>
-							</ControlTemplate>
-						</Setter.Value>
-					</Setter>
-				</Style>
-			</ResourceDictionary>
-
-		</TabControl.Resources>
-		<TabControl.ItemTemplate>
-			<DataTemplate>
-				<StackPanel Orientation="Horizontal">
-					<TextBlock Text="{Binding DisplayName}" Foreground="White" FontFamily="Segoe UI Symbol" FontSize="30" Margin="0, 20, 0, 20"/>
-				</StackPanel>
-			</DataTemplate>
-		</TabControl.ItemTemplate>
-	</TabControl>
+    
+	<DataGrid x:Name="List" ColumnWidth="*" IsReadOnly="True" 
+			  EnableColumnVirtualization="True" EnableRowVirtualization="True" VirtualizingPanel.IsVirtualizingWhenGrouping="True"
+			   VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit ="Item">
+        <DataGrid.GroupStyle>
+            <x:Static Member="GroupStyle.Default"/>
+        </DataGrid.GroupStyle>
+    </DataGrid>
+	
 </controls:MetroWindow>
