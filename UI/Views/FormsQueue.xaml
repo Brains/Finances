@@ -33,18 +33,14 @@
 				<ColumnDefinition/>
 				<ColumnDefinition Width="Auto"/>
 			</Grid.ColumnDefinitions>
-			<Grid.RowDefinitions>
-				<RowDefinition/>
-				<RowDefinition/>
-				<RowDefinition/>
-			</Grid.RowDefinitions>
 
-			<ListBox Name="Forms" Grid.Column="0" Grid.RowSpan="3" HorizontalContentAlignment="Stretch" IsTabStop="False"
-			         KeyboardNavigation.TabNavigation="Cycle"/>
-			<Button Name="Submit" Content="_Submit" Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" IsDefault="True"
-			        Style="{StaticResource FlatDisappeared}"/>
-			<Button Name="Remove" Content="_Remove" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" Style="{StaticResource FlatDisappeared}"/>
-			<Button Name="Add" Content="_Add" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" Style="{StaticResource Flat}"/>
+			<ListBox Name="Forms" Grid.Column="0" Grid.RowSpan="3" IsTabStop="False" KeyboardNavigation.TabNavigation="Cycle"/>
+			<StackPanel Grid.Column="1" VerticalAlignment="Bottom">
+				<Button Name="Submit" Content="_Submit" IsDefault="True"
+				        Style="{StaticResource FlatDisappeared}"/>
+				<Button Name="Remove" Content="_Remove" Style="{StaticResource FlatDisappeared}"/>
+				<Button Name="Add" Content="_Add" Style="{StaticResource Flat}"/>
+			</StackPanel>
 		</Grid>
 	</Border>
 </UserControl>
