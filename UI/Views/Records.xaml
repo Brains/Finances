@@ -14,9 +14,11 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Resources/Templates.xaml"/>
+	            <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/controls.datagrid.xaml"/>
+	            <ResourceDictionary Source="Resources/Templates.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <selectors:GroupHeaderSelector x:Key="GroupHeaderSelector">
+            
+			<selectors:GroupHeaderSelector x:Key="GroupHeaderSelector">
                 <selectors:GroupHeaderSelector.DayHeader>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}" Foreground="LightGray" Margin="10,20,0,0"/>
@@ -28,7 +30,8 @@
                     </DataTemplate>
                 </selectors:GroupHeaderSelector.MonthHeader>
             </selectors:GroupHeaderSelector>
-            <Style x:Key="DisabledEnumComboBox" TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
+           
+			<Style x:Key="DisabledEnumComboBox" TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
                 <Setter Property="ItemTemplate" Value="{StaticResource EnumTemplate}"/>
                 <Setter Property="Margin" Value="0, 0, 40, 0"/>
                 <Setter Property="Template">
@@ -39,14 +42,46 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-            <Style x:Key="ColoredAmount" TargetType="{x:Type TextBlock}">
+            
+			<Style x:Key="ColoredAmount" TargetType="{x:Type TextBlock}">
                 <Setter Property="FontSize" Value="20"/>
                 <Setter Property="Foreground" Value="{Binding Type, Converter={converters:EnumToColor}}"/>
             </Style>
+
+            <Style x:Key="DataGridGroupingVirtualized" TargetType="DataGrid">
+                <Style.Setters>
+                    <Setter Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="True"/>
+                    <Setter Property="GridLinesVisibility" Value="None"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="Background" Value="White"/>
+                    <Setter Property="CellStyle" Value="{StaticResource MetroDataGridCell}"/>
+                    <Setter Property="ColumnHeaderStyle" Value="{StaticResource MetroDataGridColumnHeader}"/>
+                    <Setter Property="RowStyle" Value="{StaticResource MetroDataGridRow}"/>
+                    <Setter Property="RowHeaderStyle" Value="{StaticResource MetroDataGridRowHeader}"/>
+                </Style.Setters>
+            </Style>
+
+            <Style TargetType="{x:Type DataGridRowHeader}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="DataGridRowHeader">
+                            <Grid>
+                                <Border IsHitTestVisible="False"
+                            BorderThickness="0"
+                            Background="Transparent"
+                            BorderBrush="{DynamicResource GrayBrush5}" />
+                                <ItemsPresenter />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+			
+			
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <DataGrid x:Name="List" AutoGenerateColumns="False" ColumnWidth="*" IsReadOnly="True">
+    <DataGrid x:Name="List" AutoGenerateColumns="False" ColumnWidth="*" IsReadOnly="True" Style="{StaticResource DataGridGroupingVirtualized}">
         <DataGrid.Columns>
             <DataGridComboBoxColumn Header="Type" SelectedValueBinding="{Binding Type}" ElementStyle="{StaticResource DisabledEnumComboBox}"
 			                        EditingElementStyle="{StaticResource DisabledEnumComboBox}"
