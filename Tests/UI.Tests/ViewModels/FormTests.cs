@@ -66,5 +66,33 @@ namespace UI.Tests.ViewModels
 			var record = new Record(form.Amount, form.SelectedType, form.SelectedCategory, form.Description, form.DateTime);
 			storage.Received().Add(record);
 		}
+
+		[TestCase(1.468)]
+		[TestCase(10)]
+		[TestCase(200)]
+		[TestCase(8000)]
+		public void CanSubmit_CorrectAmount_ReturnsTrue(decimal amount)
+		{
+			var form = CreateForm();
+			form.Amount = amount;
+
+			var actual = form.CanSubmit();
+
+			Assert.That(actual, Is.True);
+		}
+
+		[TestCase(0)]
+		[TestCase(0.4648)]
+		[TestCase(-1)]
+		[TestCase(-10)]
+		public void CanSubmit_WrongAmount_ReturnsFalse(decimal amount)
+		{
+			var form = CreateForm();
+			form.Amount = amount;
+
+			var actual = form.CanSubmit();
+
+			Assert.That(actual, Is.False);
+		}
 	}
 }

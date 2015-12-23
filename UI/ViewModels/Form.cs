@@ -65,6 +65,13 @@ namespace UI.ViewModels
 			aggregator.Add(new Record(Amount, SelectedType, SelectedCategory, Description, DateTime));
 		}
 
+		public bool CanSubmit()
+		{
+			if (Amount < 1) return false;
+
+			return true;
+		}
+
 		private void UpdateCategories(Types type)
 		{
 			Categories = settings.CategoriesMapping[type];
