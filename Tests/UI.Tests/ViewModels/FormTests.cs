@@ -34,6 +34,17 @@ namespace UI.Tests.ViewModels
 			return new Form(settings, storage);
 		}
 
+		private static Form CreateValidForm()
+		{
+			var form = CreateForm();
+
+			form.Amount = 1;
+			form.Description = "Test";
+
+			return form;
+		}
+
+
 		[Test]
 		public void Types_Always_ContainsAllMembersOfTypesEnum()
 		{
@@ -73,7 +84,7 @@ namespace UI.Tests.ViewModels
 		[TestCase(8000)]
 		public void CanSubmit_CorrectAmount_ReturnsTrue(decimal amount)
 		{
-			var form = CreateForm();
+			var form = CreateValidForm();
 			form.Amount = amount;
 
 			var actual = form.CanSubmit();
@@ -87,12 +98,47 @@ namespace UI.Tests.ViewModels
 		[TestCase(-10)]
 		public void CanSubmit_WrongAmount_ReturnsFalse(decimal amount)
 		{
-			var form = CreateForm();
+			var form = CreateValidForm();
 			form.Amount = amount;
 
 			var actual = form.CanSubmit();
 
 			Assert.That(actual, Is.False);
 		}
+
+		[TestCase("")]
+		[TestCase(" ")]
+		[TestCase(null)]
+		public void CanSubmit_WrongDescription_ReturnsFalse(string description)
+		{
+			var form = CreateValidForm();
+			form.Description = description;
+
+			var actual = form.CanSubmit();
+
+			Assert.That(actual, Is.False);
+		}
+
+		[Test]
+		public void CanSubmit_CorrectDescription_ReturnsTrue()
+		{
+			var form = CreateValidForm();
+			form.Description = "Correct";
+
+			var actual = form.CanSubmit();
+
+			Assert.That(actual, Is.True);
+		}
+
+		[Ignore("ToDo")]
+		[Test]
+		public void CanSubmit_WrongDescription_Throws()
+		{
+			var form = CreateValidForm();
+			form.Description = null;
+
+			Assert.That(()=> form.CanSubmit(), Throws.Exception);
+		}
+
 	}
 }

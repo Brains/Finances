@@ -68,6 +68,7 @@ namespace UI.ViewModels
 		public bool CanSubmit()
 		{
 			if (Amount < 1) return false;
+			if (string.IsNullOrWhiteSpace(Description)) return false;
 
 			return true;
 		}
