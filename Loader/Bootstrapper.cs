@@ -121,7 +121,7 @@ namespace Loader
 
 		protected override void OnStartup(object sender, StartupEventArgs e)
 		{
-			SetCustomAccentColor();
+//			SetCustomAccentColor();
 
 			DisplayRootViewFor<IShell>();
 		}
