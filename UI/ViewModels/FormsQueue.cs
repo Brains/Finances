@@ -64,7 +64,7 @@ namespace UI.ViewModels
 		private void SetPrimaryColor()
 		{
 			Forms.First().Background = Forms.Count > 1
-				? (Brush) Application.Current.FindResource("AccentColorBrush3")
+				? (Brush) Application.Current?.FindResource("AccentColorBrush3")
 				: Brushes.Transparent;
 		}
 
