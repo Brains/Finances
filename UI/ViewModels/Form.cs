@@ -16,6 +16,8 @@ namespace UI.ViewModels
 		private readonly ISettings settings;
 		private Types selectedType;
 		private Brush background = Brushes.Transparent;
+		private decimal amount;
+		private string description;
 
 		public Form(ISettings settings, IRecordsStorage aggregator)
 		{
@@ -44,10 +46,31 @@ namespace UI.ViewModels
 		}
 
 		public Categories SelectedCategory { get; set; }
-		public string Description { get; set; }
+
+		public string Description
+		{
+			get { return description; }
+			set
+			{
+				if (value == description) return;
+				description = value;
+				NotifyOfPropertyChange();
+			}
+		}
+
 		public string[] Descriptions { get; set; }
 		public DateTime DateTime { get; set; }
-		public decimal Amount { get; set; }
+
+		public decimal Amount
+		{
+			get { return amount; }
+			set
+			{
+				if (value == amount) return;
+				amount = value;
+				NotifyOfPropertyChange();
+			}
+		}
 
 		public Brush Background
 		{
