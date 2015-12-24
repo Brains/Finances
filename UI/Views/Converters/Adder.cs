@@ -15,7 +15,8 @@ namespace UI.Views.Converters
 			if (string.IsNullOrEmpty(amount))
 				throw new ArgumentNullException(nameof(amount), "Empty");
 
-			var amounts = amount.Split('+');
+			var amounts = amount.Split('+').ToList();
+			amounts.RemoveAll(string.IsNullOrWhiteSpace);
 			var decimals = amounts.Select(decimal.Parse).ToArray();
 			var sum = decimals.Sum();
 
