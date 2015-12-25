@@ -49,23 +49,25 @@
             </StackPanel>
         </StackPanel>
     </UserControl.Resources>
-	
-	<StackPanel Orientation="Horizontal">
-        <ItemsControl Name="Sources">
-            <ItemsControl.ItemTemplate>
-				<DataTemplate>
-					<StackPanel Orientation="Horizontal">
-						<Label Content="{Binding Name}"></Label>
-						<TextBox Text="{Binding Value}" ></TextBox>
-					</StackPanel>
-				</DataTemplate>
-			</ItemsControl.ItemTemplate>
-		</ItemsControl>
-        
-        <Label Content="Divergence" FontSize="{StaticResource BigFontSize}" Margin="{StaticResource BigLeftMargin}"/>
-        <TextBox Name="Divergence" Text="{Binding Divergence, StringFormat={}{0:+#;-#;0}}" FontSize="{StaticResource BigFontSize}"
-		         Foreground="{Binding Divergence, Converter={converters:DivergenceColor}}"/>
-        <Label Content="Total" FontSize="{StaticResource BigFontSize}" Margin="{StaticResource BigLeftMargin}"/>
-        <TextBox Name="Total" FontSize="{StaticResource BigFontSize}"/>
-    </StackPanel>
+
+    <Border BorderThickness="0,0,0,1" BorderBrush="{StaticResource AccentColorBrush}" Margin="0" Padding="0,0,0,10">
+        <StackPanel Orientation="Horizontal">
+			<ItemsControl Name="Sources">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<StackPanel Orientation="Horizontal">
+							<Label Content="{Binding Name}"></Label>
+							<TextBox Text="{Binding Value}"></TextBox>
+						</StackPanel>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+
+			<Label Content="Divergence" FontSize="{StaticResource BigFontSize}" Margin="{StaticResource BigLeftMargin}"/>
+			<TextBox Name="Divergence" Text="{Binding Divergence, StringFormat={}{0:+#;-#;0}}" FontSize="{StaticResource BigFontSize}"
+			         Foreground="{Binding Divergence, Converter={converters:DivergenceColor}}"/>
+			<Label Content="Total" FontSize="{StaticResource BigFontSize}" Margin="{StaticResource BigLeftMargin}"/>
+			<TextBox Name="Total" FontSize="{StaticResource BigFontSize}"/>
+		</StackPanel>
+    </Border>
 </UserControl>
