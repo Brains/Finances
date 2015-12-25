@@ -34,6 +34,17 @@ namespace UI.Tests.ViewModels
 			return new Form(settings, storage);
 		}
 
+		private static Form CreateValidForm()
+		{
+			var form = CreateForm();
+
+			form.Amount = 1;
+			form.Description = "Test";
+
+			return form;
+		}
+
+
 		[Test]
 		public void Types_Always_ContainsAllMembersOfTypesEnum()
 		{
@@ -65,6 +76,93 @@ namespace UI.Tests.ViewModels
 
 			var record = new Record(form.Amount, form.SelectedType, form.SelectedCategory, form.Description, form.DateTime);
 			storage.Received().Add(record);
+		}
+
+		[TestCase(1.468)]
+		[TestCase(10)]
+		[TestCase(200)]
+		[TestCase(8000)]
+		public void CanSubmit_CorrectAmount_ReturnsTrue(decimal amount)
+		{
+			var form = CreateValidForm();
+			form.Amount = amount;
+
+			var actual = form.CanSubmit();
+
+			Assert.That(actual, True);
+		}
+
+		[TestCase(0)]
+		[TestCase(0.4648)]
+		[TestCase(-1)]
+		[TestCase(-10)]
+		public void CanSubmit_WrongAmount_ReturnsFalse(decimal amount)
+		{
+			var form = CreateValidForm();
+			form.Amount = amount;
+
+			var actual = form.CanSubmit();
+
+			Assert.That(actual, False);
+		}
+
+		[TestCase("")]
+		[TestCase(" ")]
+		[TestCase(null)]
+		public void CanSubmit_WrongDescription_ReturnsFalse(string description)
+		{
+			var form = CreateValidForm();
+			form.Description = description;
+
+			var actual = form.CanSubmit();
+
+			Assert.That(actual, False);
+		}
+
+		[Test]
+		public void CanSubmit_CorrectDescription_ReturnsTrue()
+		{
+			var form = CreateValidForm();
+			form.Description = "Correct";
+
+			var actual = form.CanSubmit();
+
+			Assert.That(actual, True);
+		}
+
+		[Ignore("ToDo")]
+		[Test]
+		public void CanSubmit_WrongDescription_Throws()
+		{
+			var form = CreateValidForm();
+			form.Description = null;
+
+			Assert.That(()=> form.CanSubmit(), Throws.Exception);
+		}
+
+		[Test]
+		public void CanSubmit_DebtInvalidDescription_ReturnsFalse()
+		{
+			var form = CreateValidForm();
+			form.SelectedType = Debt;
+			form.Description = "Invalid";
+
+			var actual = form.CanSubmit();
+
+			Assert.That(actual, False);
+		}
+
+		[TestCase("In")]
+		[TestCase("Out")]
+		public void CanSubmit_DebtValidDescription_ReturnsTrue(string description)
+		{
+			var form = CreateValidForm();
+			form.SelectedType = Debt;
+			form.Description = description;
+
+			var actual = form.CanSubmit();
+
+			Assert.That(actual, True);
 		}
 	}
 }

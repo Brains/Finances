@@ -6,11 +6,11 @@ using UI.Interfaces;
 
 namespace UI.Views.Converters
 {
-	public class SharedConverter : IValueConverter
+	public class SharedDivision : IValueConverter
 	{
 		private IValueConverter decorated;
 
-		public SharedConverter(IValueConverter decorated)
+		public SharedDivision(IValueConverter decorated)
 		{
 			this.decorated = decorated;
 		}

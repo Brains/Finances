@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.ComponentModel;
+using System.Linq;
 using Caliburn.Micro;
 using NSubstitute;
 using NUnit.Framework;
@@ -20,8 +21,8 @@ namespace UI.Tests.ViewModels
 		private BindableCollection<IForm> GetForms(int formsCount, int defaultAmount = 10)
 		{
 			var forms = Enumerable.Range(1, formsCount)
-			                           .Select(index => CreateForm(defaultAmount))
-			                           .ToList();
+			                      .Select(index => CreateForm(defaultAmount))
+			                      .ToList();
 
 			return new BindableCollection<IForm>(forms);
 		}
@@ -87,9 +88,15 @@ namespace UI.Tests.ViewModels
 		}
 
 		[Test]
-		public void CanSubmit_OneForm_ReturnsTrue()
+		public void CanSubmit_AllFormsCanSubmit_ReturnsTrue()
 		{
 			var forms = Create();
+			var form = CreateForm(10);
+			form.CanSubmit().Returns(true);
+			forms.Factory.Create().Returns(form);
+
+			forms.Add();
+			forms.Add();
 			forms.Add();
 
 			Expect(forms.CanSubmit, True);
@@ -119,6 +126,23 @@ namespace UI.Tests.ViewModels
 			handler.Received(1).Invoke(forms, Arg.Is<Args>(args => args.PropertyName == "CanAdd"));
 			handler.Received(1).Invoke(forms, Arg.Is<Args>(args => args.PropertyName == "CanRemove"));
 			handler.Received(1).Invoke(forms, Arg.Is<Args>(args => args.PropertyName == "CanSubmit"));
+		}
+
+		[Test]
+		public void FormPropertyChanged_Always_RaisesCanSubmitPropertyChanged()
+		{
+			var queue = Create();
+			var form = CreateForm(10);
+			var handler = For<Handler>();
+			queue.PropertyChanged += handler;
+
+			queue.Factory.Create().Returns(form);
+			queue.Add();
+			handler.ClearReceivedCalls();
+
+            form.PropertyChanged += Raise.Event<Handler>(this, new Args("Amount changed"));
+
+			handler.Received(1).Invoke(queue, Arg.Is<Args>(a => a.PropertyName == "CanSubmit"));
 		}
 
 		[Test]

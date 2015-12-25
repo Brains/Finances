@@ -8,9 +8,9 @@
              xmlns:behaviors="clr-namespace:UI.Views.Behaviors"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300"
-			 FontSize="16" FontWeight="Light" Background="{Binding Background}"
-			 Margin="5">
+             d:DesignHeight="200" d:DesignWidth="800"
+			 FontFamily="Segoe UI" FontSize="16" FontWeight="Light" 
+			 Background="{Binding Background}" Padding="10">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -28,16 +28,16 @@
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-		<ComboBox Name="Types" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"
-		          ItemTemplate="{StaticResource EnumTemplate}"/>
-		<controls:NumericUpDown Name="Amount" Grid.Column="1" Foreground="{Binding Path=SelectedType, Converter={converters:EnumToColor}}"
+		<ComboBox Name="Types" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" KeyboardNavigation.TabIndex = "0"
+		          ItemTemplate="{StaticResource EnumTemplate}" MinWidth="120"/>
+		<TextBox Name="Amount" Grid.Column="1" Foreground="{Binding Path=SelectedType, Converter={converters:EnumToColor}}"
 		                        HorizontalAlignment="Center" VerticalAlignment="Center" controls:TextBoxHelper.Watermark="Amount"
-		                        FontSize="{StaticResource FontSize}" MinWidth="100" Minimum="1" Maximum="10000" Interval="10"/>
+		                        FontSize="{StaticResource FontSize}" MinWidth="100"/>
 		<ComboBox Name="Categories" Grid.Column="2" ItemTemplate="{StaticResource EnumTemplate}" HorizontalAlignment="Center"
-		          VerticalAlignment="Center"/>
+		          VerticalAlignment="Center" MinWidth="120"/>
 		<TextBox Name="Description" Grid.Column="3" Foreground="DimGray" controls:TextBoxHelper.Watermark="Description"
 		         behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding Descriptions}" FontSize="{StaticResource FontSize}"
-		         HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100" controls:TextBoxHelper.ClearTextButton="True"/>
+		         HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="150" controls:TextBoxHelper.ClearTextButton="True"/>
 	</Grid>
 </UserControl>
 

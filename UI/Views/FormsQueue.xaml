@@ -1,47 +1,46 @@
-﻿<UserControl x:Class="UI.Views.FormsQueue" 
-			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
-			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<UserControl x:Class="UI.Views.FormsQueue" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 	<UserControl.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source = "pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
-            </ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
 			<Style x:Key="Flat" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-				<Setter Property="Foreground" Value="White" />
-				<Setter Property="Background" Value="{StaticResource AccentColorBrush}" />
-				<Setter Property="FontSize" Value="18" />
-				<Setter Property="FontFamily" Value="Segoe UI" />
-				<Setter Property="FontWeight" Value="Light" />
-				<Setter Property="MinWidth" Value="80" />
-				<Setter Property="Margin" Value="5" />
-				<Setter Property="HorizontalAlignment" Value="Left" />
-				<Setter Property="BorderThickness" Value="0" />
+				<Setter Property="Foreground" Value="White"/>
+				<Setter Property="Background" Value="{StaticResource AccentColorBrush}"/>
+				<Setter Property="FontSize" Value="18"/>
+				<Setter Property="FontFamily" Value="Segoe UI"/>
+				<Setter Property="FontWeight" Value="Light"/>
+				<Setter Property="MinWidth" Value="80"/>
+				<Setter Property="Margin" Value="5"/>
+				<Setter Property="HorizontalAlignment" Value="Left"/>
+				<Setter Property="BorderThickness" Value="0"/>
 			</Style>
 			<Style x:Key="FlatDisappeared" BasedOn="{StaticResource Flat}" TargetType="Button">
 				<Style.Triggers>
 					<DataTrigger Binding="{Binding Path=Forms.Count}" Value="0">
-						<Setter Property="Visibility" Value="Collapsed" />
+						<Setter Property="Visibility" Value="Collapsed"/>
 					</DataTrigger>
 				</Style.Triggers>
-			</Style></ResourceDictionary>
-    </UserControl.Resources>
+			</Style>
+		</ResourceDictionary>
+	</UserControl.Resources>
 
-	<Border BorderThickness="0,5,0,0" BorderBrush="{StaticResource AccentColorBrush}" Margin="0" Padding="0,10,0,0">
+	<Border BorderThickness="0,5,0,0" BorderBrush="{StaticResource AccentColorBrush}" Margin="0" Padding="0,10,0,0"
+			FocusManager.FocusedElement="{Binding ElementName=Forms}">
 		<Grid>
 			<Grid.ColumnDefinitions>
-				<ColumnDefinition />
-				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition/>
+				<ColumnDefinition Width="Auto"/>
 			</Grid.ColumnDefinitions>
-			<Grid.RowDefinitions>
-				<RowDefinition />
-				<RowDefinition />
-				<RowDefinition />
-			</Grid.RowDefinitions>
 
-			<ListBox Name="Forms" Grid.Column="0" Grid.RowSpan="3" HorizontalContentAlignment="Stretch" IsTabStop="False" />
-            <Button Name="Submit" Content="_Submit" Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" IsDefault="True" Style="{StaticResource FlatDisappeared}" />
-            <Button Name="Remove" Content="_Remove" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom"  Style="{StaticResource FlatDisappeared}" />
-            <Button Name="Add" Content="_Add" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" Style="{StaticResource Flat}" />
+			<ListBox Name="Forms" Grid.Column="0" Grid.RowSpan="3" IsTabStop="False" KeyboardNavigation.TabNavigation="Cycle"/>
+			<StackPanel Grid.Column="1" VerticalAlignment="Bottom">
+				<Button Name="Submit" Content="_Submit" IsDefault="True"
+				        Style="{StaticResource FlatDisappeared}"/>
+				<Button Name="Remove" Content="_Remove" Style="{StaticResource FlatDisappeared}"/>
+				<Button Name="Add" Content="_Add" Style="{StaticResource Flat}"/>
+			</StackPanel>
 		</Grid>
 	</Border>
 </UserControl>

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Windows;
 using System.Windows.Media;
 using Caliburn.Micro;
 using MoreLinq;
@@ -15,22 +16,21 @@ namespace UI.ViewModels
 
 		public int RowIndex { get; } = 1;
 
-		public Brush SelectedForm { get; set; }
 		public bool CanAdd => Forms.Count < Limit;
 		public bool CanRemove => Forms.Any();
-		public bool CanSubmit => Forms.Any();
+		public bool CanSubmit => Forms.Any() && Forms.All(form => form.CanSubmit());
 
 		public FormsQueue(IFormFactory factory)
 		{
 			Forms = new BindableCollection<IForm>();
 			Factory = factory;
-
-			SelectedForm = new SolidColorBrush((Color) ConvertFromString("#66007C9C"));
 		}
 
 		public void Add()
 		{
-			Forms.Add(Factory.Create());
+			var form = Factory.Create();
+			form.PropertyChanged += (s, a) => NotifyOfPropertyChange(nameof(CanSubmit));
+			Forms.Add(form);
 
 			SetPrimaryColor();
 			NotifyAllProperties();
@@ -38,9 +38,10 @@ namespace UI.ViewModels
 
 		public void Remove()
 		{
+			SetPrimaryColor();
+
 			Forms.RemoveAt(Forms.Count - 1);
 
-			SetPrimaryColor();
 			NotifyAllProperties();
 		}
 
@@ -62,10 +63,9 @@ namespace UI.ViewModels
 
 		private void SetPrimaryColor()
 		{
-			if (Forms.Count > 1)
-				Forms.First().Background = SelectedForm;
-			else
-				Forms.First().Background = Brushes.Transparent;
+			Forms.First().Background = Forms.Count > 1
+				? (Brush) Application.Current?.FindResource("AccentColorBrush3")
+				: Brushes.Transparent;
 		}
 
 		private void NotifyAllProperties()

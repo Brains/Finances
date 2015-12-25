@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Media;
 using Common;
+// ReSharper disable PossibleNullReferenceException
 
 namespace UI.Views.Converters
 {
@@ -11,10 +12,10 @@ namespace UI.Views.Converters
 	{
 		private static readonly Dictionary<Record.Types, Color> colors = new Dictionary<Record.Types, Color>
 		{
-			[Record.Types.Expense] = Colors.Chocolate,
-			[Record.Types.Debt] = Colors.SteelBlue,
-			[Record.Types.Shared] = (Color) ColorConverter.ConvertFromString("#E0BB00"),
-			[Record.Types.Income] = (Color) ColorConverter.ConvertFromString("#789E27")
+			[Record.Types.Expense] =(Color) ColorConverter.ConvertFromString("#D6646A"),
+			[Record.Types.Debt] =	(Color) ColorConverter.ConvertFromString("#6685A2"),
+			[Record.Types.Shared] = (Color) ColorConverter.ConvertFromString("#61B7EB"),
+			[Record.Types.Income] = (Color) ColorConverter.ConvertFromString("#8FCD3E")
 		};
 
 		public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)

@@ -1,0 +1,54 @@
+﻿<ViewModels:Records xmlns:ViewModels="clr-namespace:UI.ViewModels" xmlns:Common="clr-namespace:Common;assembly=Common" xmlns:System="clr-namespace:System;assembly=mscorlib" IsNotifying="True" RowIndex="56">
+	<ViewModels:Records.List>
+		<Common:Record Category="General" Date="12/21/2015 21:53:38" Description="Aliquam vestibulum curabitur cras" DateFormatted="Maecenas duis class aenean nunc" Type="Income">
+			<Common:Record.Amount>
+				<System:Decimal/>
+			</Common:Record.Amount>
+		</Common:Record>
+		<Common:Record Category="General" Date="12/21/2015 21:53:38" Description="Praesent integer quisque amet curae" DateFormatted="Phasellus mauris" Type="Expense">
+			<Common:Record.Amount>
+				<System:Decimal/>
+			</Common:Record.Amount>
+		</Common:Record>
+		<Common:Record Category="General" Date="12/21/2015 21:53:38" Description="Ante donec arcu vivamus" DateFormatted="Etiam fusce" Type="Expense">
+			<Common:Record.Amount>
+				<System:Decimal/>
+			</Common:Record.Amount>
+		</Common:Record>
+		<Common:Record Category="General" Date="12/21/2015 21:53:38" Description="Lorem adipiscing aliquam" DateFormatted="Parturient accumsan bibendum" Type="Shared">
+			<Common:Record.Amount>
+				<System:Decimal/>
+			</Common:Record.Amount>
+		</Common:Record>
+		<Common:Record Category="Deposit" Date="12/21/2015 21:53:38" Description="Nam aliquet" DateFormatted="Sed morbi dis dictumst" Type="Expense">
+			<Common:Record.Amount>
+				<System:Decimal/>
+			</Common:Record.Amount>
+		</Common:Record>
+		<Common:Record Category="House" Date="12/21/2015 21:53:38" Description="Nulla est proin blandit" DateFormatted="Eleifend vestibulum consequat facilisi" Type="Expense">
+			<Common:Record.Amount>
+				<System:Decimal/>
+			</Common:Record.Amount>
+		</Common:Record>
+		<Common:Record Category="Health" Date="12/21/2015 21:53:38" Description="Hac vestibulum" DateFormatted="Leo commodo adipiscing" Type="Debt">
+			<Common:Record.Amount>
+				<System:Decimal/>
+			</Common:Record.Amount>
+		</Common:Record>
+		<Common:Record Category="ODesk" Date="12/21/2015 21:53:38" Description="Faucibus convallis mus dignissim conubia" DateFormatted="Elementum augue facilisis" Type="Income">
+			<Common:Record.Amount>
+				<System:Decimal/>
+			</Common:Record.Amount>
+		</Common:Record>
+		<Common:Record Category="General" Date="12/21/2015 21:53:38" Description="Diam habitant" DateFormatted="Fermentum cubilia fringilla" Type="Debt">
+			<Common:Record.Amount>
+				<System:Decimal/>
+			</Common:Record.Amount>
+		</Common:Record>
+		<Common:Record Category="Other" Date="12/21/2015 21:53:38" Description="Nullam dapibus" DateFormatted="Aptent inceptos interdum eget" Type="Debt">
+			<Common:Record.Amount>
+				<System:Decimal/>
+			</Common:Record.Amount>
+		</Common:Record>
+	</ViewModels:Records.List>
+</ViewModels:Records>

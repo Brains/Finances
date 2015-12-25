@@ -91,14 +91,15 @@
     <Compile Include="ViewModels\Trend.cs" />
     <Compile Include="ViewModels\Trends.cs" />
     <Compile Include="Views\Behaviors\AutoCompleteBehavior.cs" />
-    <Compile Include="Views\Converters\AmountConverter.cs" />
+    <Compile Include="Views\Converters\AmountSummarizing.cs" />
     <Compile Include="Views\Converters\Adder.cs" />
     <Compile Include="Views\Converters\Base.cs" />
+    <Compile Include="Views\Converters\DesignTimeViewModelLocator.cs" />
     <Compile Include="Views\Converters\DivergenceColor.cs" />
     <Compile Include="Views\Converters\EnumToIcon.cs" />
     <Compile Include="Views\Converters\GroupingDate.cs" />
     <Compile Include="Views\Converters\GroupingMonth.cs" />
-    <Compile Include="Views\Converters\SharedConverter.cs" />
+    <Compile Include="Views\Converters\SharedDivision.cs" />
     <Compile Include="Views\Converters\EnumToColor.cs" />
     <Compile Include="Views\Extensions\EnumValuesExtension.cs" />
     <Compile Include="Views\Selectors\GroupHeaderSelector.cs" />
@@ -108,6 +109,10 @@
     <Resource Include="Views\Resources\Icons\Entypo.ttf" />
   </ItemGroup>
   <ItemGroup>
+    <DesignData Include="SampleData\Records.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </DesignData>
     <Page Include="Views\Form.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -174,6 +179,9 @@
       <Project>{12291e9c-e39e-4867-9459-9aa6bd4792f7}</Project>
       <Name>Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\SampleData\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

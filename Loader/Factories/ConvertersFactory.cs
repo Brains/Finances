@@ -35,7 +35,7 @@ namespace Loader.Factories
 			{
 				var textBox = (TextBox) element;
 				binding.ConverterParameter = (Form) textBox.DataContext;
-				binding.Converter = container.Resolve<IValueConverter>("AmountConverter");
+				binding.Converter = container.Resolve<IValueConverter>("AmountSummarizing");
 				binding.UpdateSourceTrigger = UpdateSourceTrigger.LostFocus;
 			}
 		}
