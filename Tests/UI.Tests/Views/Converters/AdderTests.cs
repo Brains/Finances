@@ -57,20 +57,13 @@ namespace UI.Tests.Views.Converters
 		}
 
 		[Test]
-		public void Convert_CorrectComplexNumber_ThrowsNothing()
-		{
-			var adder = new Adder();
-
-			Expect(() => adder.Convert("100+"), Throws.Nothing);
-			Expect(() => adder.Convert("100 + "), Throws.Nothing);
-			Expect(() => adder.Convert("100+ "), Throws.Nothing);
-		}
-
-		[Test]
 		public void Convert_IncorrectComplexNumber_ThrowsFormatException()
 		{
 			var adder = new Adder();
 
+			Expect(() => adder.Convert("100 + "), Throws.TypeOf<FormatException>());
+			Expect(() => adder.Convert("100+ "), Throws.TypeOf<FormatException>());
+			Expect(() => adder.Convert("100+"), Throws.TypeOf<FormatException>());
 			Expect(() => adder.Convert("-100-"), Throws.TypeOf<FormatException>());
 			Expect(() => adder.Convert("awd"), Throws.TypeOf<FormatException>());
 			Expect(() => adder.Convert("+@#$"), Throws.TypeOf<FormatException>());
