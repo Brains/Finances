@@ -39,16 +39,15 @@ namespace UI.ViewModels
 
 		private void Update(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
 		{
-			Divergence = CalculateDivergence(Sources, expenses.Records.ToArray());
 			Total = Sources.Sum(source => source.Value);
+			Divergence = CalculateDivergence(Total, expenses.Records.ToArray());
 
 			NotifyOfPropertyChange(nameof(Divergence));
 			NotifyOfPropertyChange(nameof(Total));
 		}
 
-		public decimal CalculateDivergence(IFundsSource[] sources, Record[] records)
+		public decimal CalculateDivergence(decimal real, Record[] records)
 		{
-			var real = sources.Sum(source => source.Value);
 			var estimated = CalculateEstimatedBalance(records);
 
 			return real - estimated;
