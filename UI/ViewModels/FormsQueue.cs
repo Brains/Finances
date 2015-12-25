@@ -18,7 +18,7 @@ namespace UI.ViewModels
 
 		public bool CanAdd => Forms.Count < Limit;
 		public bool CanRemove => Forms.Any();
-		public bool CanSubmit => Forms.Any();
+		public bool CanSubmit => Forms.Any() && Forms.All(form => form.CanSubmit());
 
 		public FormsQueue(IFormFactory factory)
 		{
@@ -28,7 +28,9 @@ namespace UI.ViewModels
 
 		public void Add()
 		{
-			Forms.Add(Factory.Create());
+			var form = Factory.Create();
+			form.PropertyChanged += (s, a) => NotifyOfPropertyChange(nameof(CanSubmit));
+			Forms.Add(form);
 
 			SetPrimaryColor();
 			NotifyAllProperties();
@@ -62,7 +64,7 @@ namespace UI.ViewModels
 		private void SetPrimaryColor()
 		{
 			Forms.First().Background = Forms.Count > 1
-				? (Brush) Application.Current.FindResource("AccentColorBrush3")
+				? (Brush) Application.Current?.FindResource("AccentColorBrush3")
 				: Brushes.Transparent;
 		}
 
