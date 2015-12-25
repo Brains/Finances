@@ -51,16 +51,16 @@
     </UserControl.Resources>
 	
 	<StackPanel Orientation="Horizontal">
-		<ListBox Name="Sources">
-			<ListBox.ItemTemplate>
+        <ItemsControl Name="Sources">
+            <ItemsControl.ItemTemplate>
 				<DataTemplate>
 					<StackPanel Orientation="Horizontal">
 						<Label Content="{Binding Name}"></Label>
 						<TextBox Text="{Binding Value}" ></TextBox>
 					</StackPanel>
 				</DataTemplate>
-			</ListBox.ItemTemplate>
-		</ListBox>
+			</ItemsControl.ItemTemplate>
+		</ItemsControl>
         
         <Label Content="Divergence" FontSize="{StaticResource BigFontSize}" Margin="{StaticResource BigLeftMargin}"/>
         <TextBox Name="Divergence" Text="{Binding Divergence, StringFormat={}{0:+#;-#;0}}" FontSize="{StaticResource BigFontSize}"
