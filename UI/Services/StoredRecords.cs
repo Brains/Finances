@@ -2,8 +2,10 @@
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
+using Common;
+using Common.Storages;
 
-namespace Common.Storages
+namespace UI.Services
 {
 	public class StoredRecords : IExpenses, IRecordsStorage
 	{

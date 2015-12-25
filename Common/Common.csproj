@@ -49,7 +49,6 @@
     <Compile Include="Storages\IExpenses.cs" />
     <Compile Include="Storages\IRecordsStorage.cs" />
     <Compile Include="Storages\RandomRecords.cs" />
-    <Compile Include="Storages\StoredRecords.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
