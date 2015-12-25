@@ -22,6 +22,7 @@ namespace UI.ViewModels
 		public IFundsSource[] Sources { get; }
 		public decimal Divergence { get; set; }
 		public decimal Total { get; set; }
+		public int RowIndex { get; } = 0;
 
 		public Funds(IFundsSource[] sources, IExpenses expenses)
 		{

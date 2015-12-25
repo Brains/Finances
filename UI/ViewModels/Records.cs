@@ -21,7 +21,7 @@ namespace UI.ViewModels
 		}
 
 		public IEnumerable<Record> List { get; }
-		public int RowIndex { get; } = 0;
+		public int RowIndex { get; } = 1;
 
 		private void ConfigureView()
 		{

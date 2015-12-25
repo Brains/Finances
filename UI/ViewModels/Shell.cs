@@ -14,7 +14,7 @@ namespace UI.ViewModels
 
 			Items.AddRange(screens);
 
-			ActivateItem(Items[1]);
+			ActivateItem(Items[0]);
         }
 	}
 }

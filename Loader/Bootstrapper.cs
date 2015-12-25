@@ -70,19 +70,19 @@ namespace Loader
 
 			container.RegisterType<IScreen, Tracker>("Tracker", new InjectionConstructor(
 					new ResolvedArrayParameter<IViewModel>(
+						new ResolvedParameter<IViewModel>("Funds"),
 						new ResolvedParameter<IViewModel>("Records"),
 						new ResolvedParameter<IViewModel>("FormsQueue"))))
-			         .RegisterType<IViewModel, UI.ViewModels.Records>("Records")
+			         .RegisterType<IViewModel, UI.ViewModels.Funds>("Funds")
+					 .RegisterType<IViewModel, UI.ViewModels.Records>("Records")
 			         .RegisterType<IViewModel, FormsQueue>("FormsQueue")
 			         .RegisterType<IFormFactory, FormFactory>(new Singleton())
 			         .RegisterType<IForm, Form>();
 
 			container.RegisterType<IScreen, Statistics>("Statistics", new InjectionConstructor(
 					new ResolvedArrayParameter<IViewModel>(
-						new ResolvedParameter<IViewModel>("Funds"),
 						new ResolvedParameter<IViewModel>("Diagrams"))))
 			         .RegisterType<IViewModel, Diagrams>("Diagrams")
-			         .RegisterType<IViewModel, UI.ViewModels.Funds>("Funds")
 			         .RegisterType<IFundsSource, Card>("Card")
 			         .RegisterType<IFundsSource, Cash>("Cash")
 					 .RegisterType<IFundsSource, Debts>("Debts");
