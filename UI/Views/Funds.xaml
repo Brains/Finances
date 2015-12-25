@@ -14,7 +14,7 @@
 	
 	<UserControl.Resources>
         <system:Double x:Key="NormalFontSize">22</system:Double>
-        <system:Double x:Key="BigFontSize">42</system:Double>
+        <system:Double x:Key="BigFontSize">34</system:Double>
         <Thickness x:Key="BigLeftMargin">50, 0, 10, 0</Thickness>
         <Style TargetType="Label">
             <Setter Property="FontSize" Value="{StaticResource NormalFontSize}"/>
@@ -22,7 +22,8 @@
             <Setter Property="FontFamily" Value="Segoe UI"/>
             <Setter Property="FontWeight" Value="Light"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="30, 5, 10, 0"/>
+            <Setter Property="Padding" Value="15,0,0,0"/>
+            <Setter Property="MinWidth" Value="80"/>
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="FontSize" Value="{StaticResource NormalFontSize}"/>
@@ -32,13 +33,11 @@
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="IsReadOnly" Value="True"/>
-            <Setter Property="Margin" Value="0, 5, 0, 0"/>
         </Style>
         <StackPanel x:Key="DebtsToolTip" Orientation="Vertical">
             <StackPanel.Resources>
                 <Thickness x:Key="Padding">10, 5, 10, 0</Thickness>
             </StackPanel.Resources>
-
             <StackPanel Orientation="Horizontal">
                 <Label Content="Maxim" Padding="{StaticResource Padding}"/>
                 <TextBox Text="{Binding Dudes[Maxim]}"/>

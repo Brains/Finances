@@ -10,7 +10,7 @@ namespace UI.Views.Converters
 
 		public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			return  Math.Abs((decimal) value) < Threshold ? Brushes.Gray : Brushes.OrangeRed;
+			return  Math.Abs((decimal) value) < Threshold ? Brushes.Gray : Brushes.DarkOrange;
 
 		}
 	}
