@@ -2,11 +2,8 @@
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
-using Caliburn.Micro;
-using Common;
-using Common.Storages;
 
-namespace UI.Services
+namespace Common.Storages
 {
 	public class StoredRecords : IExpenses, IRecordsStorage
 	{
@@ -28,7 +25,7 @@ namespace UI.Services
 			Records.Add(record);
 			Save(Records);
 			events.PublishOnUIThread(record);
-        }
+		}
 
 		public ObservableCollection<Record> Load()
 		{

@@ -14,7 +14,6 @@ using Funds.Bank;
 using Funds.Sources;
 using MahApps.Metro;
 using UI.Interfaces;
-using UI.Services;
 using UI.ViewModels;
 using UI.Views.Converters;
 using Singleton = Microsoft.Practices.Unity.ContainerControlledLifetimeManager;
