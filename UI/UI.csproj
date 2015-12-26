@@ -97,6 +97,7 @@
     <Compile Include="Views\Converters\DesignTimeViewModelLocator.cs" />
     <Compile Include="Views\Converters\DivergenceColor.cs" />
     <Compile Include="Views\Converters\EnumToIcon.cs" />
+    <Compile Include="Views\Converters\FundsToolTip.cs" />
     <Compile Include="Views\Converters\GroupingDate.cs" />
     <Compile Include="Views\Converters\GroupingMonth.cs" />
     <Compile Include="Views\Converters\SharedDivision.cs" />
