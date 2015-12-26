@@ -2,6 +2,7 @@
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
+using Caliburn.Micro;
 
 namespace Common.Storages
 {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Caliburn.Micro;
 using Common;
 using Common.Storages;
 using static Common.Record;
@@ -10,13 +11,14 @@ using Directions = System.Collections.Generic.Dictionary<string, decimal>;
 
 namespace Funds.Sources
 {
-	public class Debts : Base
+	public class Debts : Base, IHandle<Record>
 	{
 		private readonly IExpenses expenses;
 
-		public Debts(IExpenses expenses)
+		public Debts(IExpenses expenses, IEventAggregator events)
 		{
 			this.expenses = expenses;
+			events.Subscribe(this);
 
 			Name = "Debts";
 		}
@@ -67,6 +69,11 @@ namespace Funds.Sources
 
 			if (invalid.Any())
 				throw new ArgumentException("Wrong Description for Debt record");
+		}
+
+		public void Handle(Record message)
+		{
+			PullValue();
 		}
 	}
 }

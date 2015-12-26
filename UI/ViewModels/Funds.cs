@@ -10,11 +10,11 @@ using static Common.Record.Types;
 
 namespace UI.ViewModels
 {
-	public class Funds : PropertyChangedBase, IViewModel, IHandle<Record>
+	public class Funds : PropertyChangedBase, IViewModel
 	{
 		private readonly IExpenses expenses;
 
-		public Funds(IFundsSource[] sources, IExpenses expenses, IEventAggregator events)
+		public Funds(IFundsSource[] sources, IExpenses expenses)
 		{
 			if (!sources.Any()) throw new ArgumentException();
 
@@ -23,19 +23,12 @@ namespace UI.ViewModels
 			Sources = sources;
 			Sources.ForEach(source => source.PropertyChanged += Update);
 			Sources.ForEach(source => source.PullValue());
-
-			events.Subscribe(this);
 		}
 
 		public IFundsSource[] Sources { get; }
 		public decimal Divergence { get; set; }
 		public decimal Total { get; set; }
 		public int RowIndex { get; } = 0;
-
-		public void Handle(Record message)
-		{
-			Update(this, null);
-		}
 
 		private void Update(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
 		{
