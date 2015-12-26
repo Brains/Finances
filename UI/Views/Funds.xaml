@@ -14,8 +14,8 @@
 	
 	<UserControl.Resources>
         <system:Double x:Key="NormalFontSize">22</system:Double>
-        <system:Double x:Key="BigFontSize">34</system:Double>
-        <Thickness x:Key="BigLeftMargin">50, 0, 10, 0</Thickness>
+        <system:Double x:Key="BigFontSize">30</system:Double>
+        <Thickness x:Key="BigLeftMargin">40, 0, 10, 0</Thickness>
         <Style TargetType="Label">
             <Setter Property="FontSize" Value="{StaticResource NormalFontSize}"/>
             <Setter Property="Foreground" Value="{StaticResource AccentColorBrush}"/>
@@ -52,8 +52,8 @@
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
 						<StackPanel Orientation="Horizontal">
-							<Label Content="{Binding Name}"></Label>
-                            <TextBox Text="{Binding Value}" 
+							<Label Content="{Binding Name}"/>
+							<TextBox Text="{Binding Value}" 
 									 ToolTip="{Binding Converter={converters:FundsToolTip}, ConverterParameter={StaticResource DebtsToolTip}}"/>
 						</StackPanel>
 					</DataTemplate>
