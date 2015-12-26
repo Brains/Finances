@@ -14,15 +14,16 @@
 	
 	<UserControl.Resources>
         <system:Double x:Key="NormalFontSize">22</system:Double>
-        <system:Double x:Key="BigFontSize">42</system:Double>
-        <Thickness x:Key="BigLeftMargin">50, 0, 10, 0</Thickness>
+        <system:Double x:Key="BigFontSize">30</system:Double>
+        <Thickness x:Key="BigLeftMargin">40, 0, 10, 0</Thickness>
         <Style TargetType="Label">
             <Setter Property="FontSize" Value="{StaticResource NormalFontSize}"/>
             <Setter Property="Foreground" Value="{StaticResource AccentColorBrush}"/>
             <Setter Property="FontFamily" Value="Segoe UI"/>
             <Setter Property="FontWeight" Value="Light"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="30, 5, 10, 0"/>
+            <Setter Property="Padding" Value="15,0,0,0"/>
+            <Setter Property="MinWidth" Value="80"/>
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="FontSize" Value="{StaticResource NormalFontSize}"/>
@@ -32,27 +33,38 @@
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="IsReadOnly" Value="True"/>
-            <Setter Property="Margin" Value="0, 5, 0, 0"/>
         </Style>
+        <StackPanel x:Key="DebtsToolTip" Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Maxim" Padding="0"/>
+                <TextBox Text="{Binding Dudes[Maxim]}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Andrey" Padding="0"/>
+                <TextBox Text="{Binding Dudes[Andrey]}" />
+            </StackPanel>
+        </StackPanel>
     </UserControl.Resources>
-	
-	<StackPanel Orientation="Horizontal">
-		<ListBox Name="Sources">
-			<ListBox.ItemTemplate>
-				<DataTemplate>
-					<StackPanel Orientation="Horizontal">
-						<Label Content="{Binding Name}"></Label>
-						<TextBox Text="{Binding Value}"></TextBox>
-					</StackPanel>
-				</DataTemplate>
-			</ListBox.ItemTemplate>
-		</ListBox>
-        
-        <Label Content="Divergence" FontSize="{StaticResource BigFontSize}" Margin="{StaticResource BigLeftMargin}"/>
-        <TextBox Name="Divergence" Text="{Binding Divergence, StringFormat={}{0:+#;-#;0}}" FontSize="{StaticResource BigFontSize}"
-		         Foreground="{Binding Divergence, Converter={converters:DivergenceColor}}"/>
 
-        <Label Content="Total" FontSize="{StaticResource BigFontSize}" Margin="{StaticResource BigLeftMargin}"/>
-        <TextBox Name="Total" FontSize="{StaticResource BigFontSize}"/>
-    </StackPanel>
+    <Border BorderThickness="0,0,0,1" BorderBrush="{StaticResource AccentColorBrush}" Margin="0" Padding="0,0,0,10">
+        <StackPanel Orientation="Horizontal">
+			<ItemsControl Name="Sources">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<StackPanel Orientation="Horizontal">
+							<Label Content="{Binding Name}"/>
+							<TextBox Text="{Binding Value}" 
+									 ToolTip="{Binding Converter={converters:FundsToolTip}, ConverterParameter={StaticResource DebtsToolTip}}"/>
+						</StackPanel>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+
+			<Label Content="Divergence" FontSize="{StaticResource BigFontSize}" Margin="{StaticResource BigLeftMargin}"/>
+			<TextBox Name="Divergence" Text="{Binding Divergence, StringFormat={}{0:+#;-#;0}}" FontSize="{StaticResource BigFontSize}"
+			         Foreground="{Binding Divergence, Converter={converters:DivergenceColor}}"/>
+			<Label Content="Total" FontSize="{StaticResource BigFontSize}" Margin="{StaticResource BigLeftMargin}"/>
+			<TextBox Name="Total" FontSize="{StaticResource BigFontSize}"/>
+		</StackPanel>
+    </Border>
 </UserControl>

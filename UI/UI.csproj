@@ -97,6 +97,7 @@
     <Compile Include="Views\Converters\DesignTimeViewModelLocator.cs" />
     <Compile Include="Views\Converters\DivergenceColor.cs" />
     <Compile Include="Views\Converters\EnumToIcon.cs" />
+    <Compile Include="Views\Converters\FundsToolTip.cs" />
     <Compile Include="Views\Converters\GroupingDate.cs" />
     <Compile Include="Views\Converters\GroupingMonth.cs" />
     <Compile Include="Views\Converters\SharedDivision.cs" />
@@ -109,10 +110,6 @@
     <Resource Include="Views\Resources\Icons\Entypo.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <DesignData Include="SampleData\Records.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </DesignData>
     <Page Include="Views\Form.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

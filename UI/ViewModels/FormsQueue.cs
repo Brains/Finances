@@ -14,7 +14,7 @@ namespace UI.ViewModels
 		public IFormFactory Factory { get; }
 		public IObservableCollection<IForm> Forms { get; set; }
 
-		public int RowIndex { get; } = 1;
+		public int RowIndex { get; } = 2;
 
 		public bool CanAdd => Forms.Count < Limit;
 		public bool CanRemove => Forms.Any();

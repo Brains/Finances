@@ -26,7 +26,7 @@
 		</ResourceDictionary>
 	</UserControl.Resources>
 
-	<Border BorderThickness="0,5,0,0" BorderBrush="{StaticResource AccentColorBrush}" Margin="0" Padding="0,10,0,0"
+	<Border BorderThickness="0,1,0,0" BorderBrush="{StaticResource AccentColorBrush}" Margin="0" Padding="0,10,0,0"
 			FocusManager.FocusedElement="{Binding ElementName=Forms}">
 		<Grid>
 			<Grid.ColumnDefinitions>
