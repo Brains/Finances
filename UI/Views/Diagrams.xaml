@@ -8,12 +8,12 @@
              xmlns:models="clr-namespace:UI.ViewModels"
 			 d:DataContext="{d:DesignInstance Type=models:Diagrams, IsDesignTimeCreatable=True}" 
              caliburn:Bind.AtDesignTime="True" 
-			 d:DesignWidth="800" d:DesignHeight="2500"
-			 >
+			 d:DesignWidth="800" d:DesignHeight="2500">
 	<UserControl.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="Resources/Colors.xaml"/>
+				<ResourceDictionary Source="Resources/Stacked Chart Styles.xaml"/>
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</UserControl.Resources>
@@ -33,6 +33,7 @@
 
 		<!-- Stacked Columns: Spending categories by Day of current month -->
 		<charts:StackedColumnChart Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" SeriesSource="{Binding ExpenseByDay}" ChartTitle="Days"
+								 PlotterAreaStyle="{StaticResource StackedChartStyle}"
 		                           Palette="{StaticResource DefaultPalette}" ChartSubTitle="{Binding Month}" SelectedBrush="Transparent">
 			<charts:StackedColumnChart.SeriesTemplate>
 				<DataTemplate>
