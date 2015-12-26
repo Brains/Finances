@@ -12,7 +12,7 @@
 	</UserControl.Resources>
 	<Grid VerticalAlignment="Stretch">
 		<charts:Chart x:Name="Transactions" Grid.Row="0" Template="{StaticResource ChartTemplate}" Foreground="LightGray" FontFamily="Segoe UI"
-		              FontSize="16" FontWeight="Light">
+		              FontSize="14" FontWeight="Light">
 			<charts:AreaSeries ItemsSource="{Binding Transactions}" DependentValuePath="Amount" IndependentValuePath="Date" Background="#33D2691E"
 			                   DataPointStyle="{DynamicResource AreaDataPointStyle}"/>
 			<charts:LineSeries ItemsSource="{Binding Transactions}" DependentValuePath="Amount" IndependentValuePath="Date"
