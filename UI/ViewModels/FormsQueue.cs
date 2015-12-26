@@ -38,11 +38,12 @@ namespace UI.ViewModels
 
 		public void Remove()
 		{
-			SetPrimaryColor();
-
 			Forms.RemoveAt(Forms.Count - 1);
 
 			NotifyAllProperties();
+
+			if (Forms.Any())
+				SetPrimaryColor();
 		}
 
 		public void Submit()
