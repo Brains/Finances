@@ -1,6 +1,6 @@
 <controls:MetroWindow x:Class="UI.Views.Shell" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-                      Width="1200" Height="800" WindowState="Normal" ShowIconOnTitleBar="True">
+                      Width="1000" Height="800" WindowState="Normal" ShowIconOnTitleBar="True">
 	<TabControl x:Name="Items" TabStripPlacement="Left">
 		<TabControl.Resources>
 			<ResourceDictionary>
