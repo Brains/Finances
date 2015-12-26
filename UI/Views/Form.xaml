@@ -35,7 +35,8 @@
 		                        FontSize="{StaticResource FontSize}" MinWidth="100"/>
 		<ComboBox Name="Categories" Grid.Column="2" ItemTemplate="{StaticResource EnumTemplate}" HorizontalAlignment="Center"
 		          VerticalAlignment="Center" MinWidth="120"/>
-		<TextBox Name="Description" Grid.Column="3" Foreground="DimGray" controls:TextBoxHelper.Watermark="Description"
+        <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"
+				 Grid.Column="3" Foreground="DimGray" controls:TextBoxHelper.Watermark="Description"
 		         behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding Descriptions}" FontSize="{StaticResource FontSize}"
 		         HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="150" controls:TextBoxHelper.ClearTextButton="True"/>
 	</Grid>

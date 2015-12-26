@@ -24,7 +24,7 @@
 			<selectors:GroupHeaderSelector x:Key="GroupHeaderSelector">
 				<selectors:GroupHeaderSelector.DayHeader>
 					<DataTemplate>
-						<TextBlock Text="{Binding Name}" Foreground="LightGray" Margin="10,15,0,0"/>
+						<TextBlock Text="{Binding Name}" Foreground="LightGray" Margin="8,15,0,0"/>
 					</DataTemplate>
 				</selectors:GroupHeaderSelector.DayHeader>
 				<selectors:GroupHeaderSelector.MonthHeader>
