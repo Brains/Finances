@@ -1,5 +1,4 @@
 using System;
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Media;
@@ -12,7 +11,7 @@ namespace UI.Views.Converters
 	{
 		private static readonly Dictionary<Record.Types, Color> colors = new Dictionary<Record.Types, Color>
 		{
-			[Record.Types.Expense] =(Color) ColorConverter.ConvertFromString("#D6646A"),
+			[Record.Types.Expense] =(Color) ColorConverter.ConvertFromString("#BA55A6"),
 			[Record.Types.Debt] =	(Color) ColorConverter.ConvertFromString("#6685A2"),
 			[Record.Types.Shared] = (Color) ColorConverter.ConvertFromString("#61B7EB"),
 			[Record.Types.Income] = (Color) ColorConverter.ConvertFromString("#8FCD3E")
