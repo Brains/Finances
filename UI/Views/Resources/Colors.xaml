@@ -42,7 +42,7 @@
 
     <charts:ResourceDictionaryCollection x:Key="DoubleColors">
 	    <ResourceDictionary>
-		    <SolidColorBrush x:Key="Brush2" Color="#FFFF7D7D" />
+            <SolidColorBrush x:Key="Brush2" Color="#FFB55E8B" />
 	    </ResourceDictionary>
 	    <ResourceDictionary>
             <SolidColorBrush x:Key="Brush1" Color="#FF4EA2CF" />
