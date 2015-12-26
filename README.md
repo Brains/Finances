@@ -18,5 +18,5 @@ Actually, the main purpose of this project was to practice `TDD` style with `DI`
 Also Finances gave a huge practice in `WPF, SOLID, MVVM, LINQ, GIT` and even `R#`, which I love too. There are many things needs to implement them better, for example, wider tests coverage, more strictly design in `ViewModel-First` style, uniform way to work with `WPF` Templates and so on. I hope to finish it soon and gain my skills far more.
 
 ###Screenshots:
-![tracker](https://cloud.githubusercontent.com/assets/5301844/12006754/480f7c20-abec-11e5-8e58-f73d67e1c521.gif)
-![statistics](https://cloud.githubusercontent.com/assets/5301844/12006799/5a1edb2a-abee-11e5-8e47-4ee2a960eb48.gif)
+![tracker](https://cloud.githubusercontent.com/assets/5301844/12006855/0f75c608-abf1-11e5-809d-d57797e33a60.gif)
+![statistics](https://cloud.githubusercontent.com/assets/5301844/12006854/0f752d1a-abf1-11e5-878f-cb8e1f1e71db.gif)
