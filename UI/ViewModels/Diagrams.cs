@@ -27,7 +27,7 @@ namespace UI.ViewModels
 		{
 			this.expenses = expenses;
 
-			month = DateTime.Now.Month - 2;
+			month = DateTime.Now.Month;
         }
 
 		public Dictionary<int, CategoryData[]> ExpenseByDay { get; private set; }
