@@ -54,29 +54,23 @@ namespace Loader
                      .RegisterType<IEncryption, Encryption>(new Singleton());
 
 			ConfigureViewModels();
-			ConfigureConverters();
-		}
-
-		private void ConfigureConverters()
-		{
-			container.RegisterType<IAdder, Adder>(new Singleton());
-			container.RegisterType<IValueConverter, SharedDivision>("AmountSummarizing", new Singleton(),
-				new InjectionConstructor(new ResolvedParameter<AmountSummarizing>()));
 		}
 
 		private void ConfigureViewModels()
 		{
 			container.RegisterType<IShell, Shell>(new PerResolve());
 
-			container.RegisterType<IScreen, Tracker>("Tracker", new InjectionConstructor(
-					new ResolvedArrayParameter<IViewModel>(
-						new ResolvedParameter<IViewModel>("Funds"),
-						new ResolvedParameter<IViewModel>("Records"),
-						new ResolvedParameter<IViewModel>("FormsQueue"))))
+			container.RegisterType<IScreen, Tracker>(
+				"Tracker", new InjectionConstructor(
+					           new ResolvedArrayParameter<IViewModel>(
+						           new ResolvedParameter<IViewModel>("Funds"),
+						           new ResolvedParameter<IViewModel>("Records"),
+						           new ResolvedParameter<IViewModel>("FormsQueue"))))
 			         .RegisterType<IViewModel, UI.ViewModels.Funds>("Funds")
-					 .RegisterType<IViewModel, UI.ViewModels.Records>("Records")
+			         .RegisterType<IViewModel, UI.ViewModels.Records>("Records")
 			         .RegisterType<IViewModel, FormsQueue>("FormsQueue")
 			         .RegisterType<IFormFactory, FormFactory>(new Singleton())
+			         .RegisterType<IAdder, Adder>(new Singleton())
 			         .RegisterType<IForm, Form>();
 
 			container.RegisterType<IScreen, Statistics>("Statistics", new InjectionConstructor(
@@ -96,8 +90,6 @@ namespace Loader
 		{
 			ViewLocator.NameTransformer.AddRule("Model", string.Empty);
 			AssemblySource.Instance.Add(Assembly.GetAssembly(typeof (UI.ViewModels.Shell)));
-
-			new ConvertersFactory(container).Configure();
 		}
 
 		protected override object GetInstance(Type service, string key)

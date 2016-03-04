@@ -3,7 +3,6 @@ using NSubstitute;
 using NUnit.Framework;
 using Common;
 using UI.Interfaces;
-using UI.Views.Converters;
 using static NSubstitute.Substitute;
 
 namespace UI.Tests.Views.Converters

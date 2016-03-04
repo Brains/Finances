@@ -79,6 +79,7 @@
     <Compile Include="Interfaces\IFormFactory.cs" />
     <Compile Include="Interfaces\IViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Amount.cs" />
     <Compile Include="Services\MonthPicker.cs" />
     <Compile Include="ViewModels\Form.cs" />
     <Compile Include="ViewModels\FormsQueue.cs" />
@@ -91,7 +92,6 @@
     <Compile Include="ViewModels\Trend.cs" />
     <Compile Include="ViewModels\Trends.cs" />
     <Compile Include="Views\Behaviors\AutoCompleteBehavior.cs" />
-    <Compile Include="Views\Converters\AmountSummarizing.cs" />
     <Compile Include="Views\Converters\Adder.cs" />
     <Compile Include="Views\Converters\Base.cs" />
     <Compile Include="Views\Converters\DesignTimeViewModelLocator.cs" />
@@ -100,7 +100,6 @@
     <Compile Include="Views\Converters\FundsToolTip.cs" />
     <Compile Include="Views\Converters\GroupingDate.cs" />
     <Compile Include="Views\Converters\GroupingMonth.cs" />
-    <Compile Include="Views\Converters\SharedDivision.cs" />
     <Compile Include="Views\Converters\EnumToColor.cs" />
     <Compile Include="Views\Extensions\EnumValuesExtension.cs" />
     <Compile Include="Views\Selectors\GroupHeaderSelector.cs" />
