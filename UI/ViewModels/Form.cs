@@ -5,7 +5,10 @@ using System.Windows.Media;
 using Caliburn.Micro;
 using Common;
 using Common.Storages;
+using MoreLinq;
 using UI.Interfaces;
+using UI.Services;
+using UI.Views.Converters;
 using static Common.Record;
 
 namespace UI.ViewModels
@@ -16,16 +19,21 @@ namespace UI.ViewModels
 		private readonly ISettings settings;
 		private Types selectedType;
 		private Brush background = Brushes.Transparent;
-		private decimal amount;
 		private string description;
+		private readonly IAdder adder;
+		private IAmountFactory factory;
+		private IAmount amount;
 
-		public Form(ISettings settings, IRecordsStorage aggregator)
+		public Form(ISettings settings, IRecordsStorage aggregator, IAdder adder, IAmountFactory factory)
 		{
 			this.settings = settings;
 			this.aggregator = aggregator;
+			this.adder = adder;
+			this.factory = factory;
 
 			Types = Enum.GetValues(typeof (Types)).Cast<Types>();
 			UpdateCategories(selectedType);
+			Amount = factory.Create(selectedType);
 
 			DateTime = DateTime.Now;
 			Descriptions = settings.Descriptions;
@@ -40,6 +48,7 @@ namespace UI.ViewModels
 			set
 			{
 				selectedType = value;
+				Amount = factory.Create(value);
 				NotifyOfPropertyChange(nameof(SelectedType));
 				UpdateCategories(selectedType);
 			}
@@ -61,15 +70,10 @@ namespace UI.ViewModels
 		public string[] Descriptions { get; set; }
 		public DateTime DateTime { get; set; }
 
-		public decimal Amount
+		public IAmount Amount
 		{
 			get { return amount; }
-			set
-			{
-				if (value == amount) return;
-				amount = value;
-				NotifyOfPropertyChange();
-			}
+			set { amount = value; }
 		}
 
 		public Brush Background
@@ -85,18 +89,17 @@ namespace UI.ViewModels
 
 		public void Submit()
 		{
-			aggregator.Add(new Record(Amount, SelectedType, SelectedCategory, Description, DateTime));
+			aggregator.Add(new Record(Amount.Value, SelectedType, SelectedCategory, Description, DateTime));
 		}
 
 		public bool CanSubmit()
 		{
-			if (Amount < 1) return false;
+			if (Amount.Value < 1) return false;
 			if (string.IsNullOrWhiteSpace(Description)) return false;
 
 			if (selectedType == Record.Types.Debt 
 				&& Description != "In" 
 				&& Description != "Out") return false;
-
 
 			return true;
 		}

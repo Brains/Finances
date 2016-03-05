@@ -5,6 +5,7 @@ using NSubstitute;
 using NUnit.Framework;
 using Common;
 using Common.Storages;
+using UI.Services;
 using UI.ViewModels;
 using static NSubstitute.Substitute;
 using static Common.Record;
@@ -38,7 +39,7 @@ namespace UI.Tests.ViewModels
 		{
 			var form = CreateForm();
 
-			form.Amount = 1;
+			form.amount = 1;
 			form.Description = "Test";
 
 			return form;
@@ -74,7 +75,7 @@ namespace UI.Tests.ViewModels
 
 			form.Submit();
 
-			var record = new Record(form.Amount, form.SelectedType, form.SelectedCategory, form.Description, form.DateTime);
+			var record = new Record(form.amount, form.SelectedType, form.SelectedCategory, form.Description, form.DateTime);
 			storage.Received().Add(record);
 		}
 
@@ -85,7 +86,7 @@ namespace UI.Tests.ViewModels
 		public void CanSubmit_CorrectAmount_ReturnsTrue(decimal amount)
 		{
 			var form = CreateValidForm();
-			form.Amount = amount;
+			form.amount = amount;
 
 			var actual = form.CanSubmit();
 
@@ -99,7 +100,7 @@ namespace UI.Tests.ViewModels
 		public void CanSubmit_WrongAmount_ReturnsFalse(decimal amount)
 		{
 			var form = CreateValidForm();
-			form.Amount = amount;
+			form.amount = amount;
 
 			var actual = form.CanSubmit();
 
