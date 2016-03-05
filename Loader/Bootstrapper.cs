@@ -73,6 +73,9 @@ namespace Loader
 			         .RegisterType<IViewModel, FormsQueue>("FormsQueue")
 			         .RegisterType<IFormFactory, FormFactory>(new Singleton())
 			         .RegisterType<IAdder, Adder>(new Singleton())
+			         .RegisterType<IAmount, Amount>()
+			         .RegisterType<IAmount, SharedAmount>("Shared")
+			         .RegisterType<IAmountFactory, AmountFactory>()
 			         .RegisterType<IForm, Form>();
 
 			container.RegisterType<IScreen, Statistics>("Statistics", new Constructor(
