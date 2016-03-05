@@ -14,10 +14,12 @@ using Funds.Bank;
 using Funds.Sources;
 using MahApps.Metro;
 using UI.Interfaces;
+using UI.Services;
 using UI.ViewModels;
 using UI.Views.Converters;
 using Singleton = Microsoft.Practices.Unity.ContainerControlledLifetimeManager;
 using PerResolve = Microsoft.Practices.Unity.PerResolveLifetimeManager;
+using Constructor = Microsoft.Practices.Unity.InjectionConstructor;
 
 namespace Loader
 {
@@ -43,7 +45,7 @@ namespace Loader
 			container.RegisterType<IWindowManager, WindowManager>(new Singleton());
 			container.RegisterType<IEventAggregator, EventAggregator>(new Singleton());
 
-			container.RegisterType<Random>(new Singleton(), new InjectionConstructor());
+			container.RegisterType<Random>(new Singleton(), new Constructor());
 			container.RegisterType<ISettings, Settings.Settings>(new Singleton());
 
 			container.RegisterType<IExpenses, StoredRecords>(new Singleton())
@@ -61,7 +63,7 @@ namespace Loader
 			container.RegisterType<IShell, Shell>(new PerResolve());
 
 			container.RegisterType<IScreen, Tracker>(
-				"Tracker", new InjectionConstructor(
+				"Tracker", new Constructor(
 					           new ResolvedArrayParameter<IViewModel>(
 						           new ResolvedParameter<IViewModel>("Funds"),
 						           new ResolvedParameter<IViewModel>("Records"),
@@ -73,7 +75,7 @@ namespace Loader
 			         .RegisterType<IAdder, Adder>(new Singleton())
 			         .RegisterType<IForm, Form>();
 
-			container.RegisterType<IScreen, Statistics>("Statistics", new InjectionConstructor(
+			container.RegisterType<IScreen, Statistics>("Statistics", new Constructor(
 					new ResolvedArrayParameter<IViewModel>(
 						new ResolvedParameter<IViewModel>("Diagrams"))))
 			         .RegisterType<IViewModel, Diagrams>("Diagrams")
@@ -81,7 +83,7 @@ namespace Loader
 			         .RegisterType<IFundsSource, Cash>("Cash")
 					 .RegisterType<IFundsSource, Debts>("Debts");
 
-			container.RegisterType<IScreen, Trends>("Trends", new InjectionConstructor(
+			container.RegisterType<IScreen, Trends>("Trends", new Constructor(
 						new ResolvedParameter<IViewModel>("Trend")))
 			         .RegisterType<IViewModel, Trend>("Trend");
         }

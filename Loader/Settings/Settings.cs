@@ -27,6 +27,8 @@ namespace Loader.Settings
 		public string Cash			{ get; set; } = Config["Cash"];
 		public string RecordsPath	{ get; set; } = Config["RecordsPath"];
 		public string[] Descriptions{ get; set; } = Config["Descriptions"].Replace(" ", string.Empty).Split(',');
+		public int Customers		{ get; set; } = int.Parse(Config["Customers"]);
+
 		#endregion
 
 		public Mapping CategoriesMapping { get; set; } = new Mapping
