@@ -30,6 +30,12 @@ namespace UI.ViewModels
 		{
 			var form = Factory.Create();
 			form.PropertyChanged += (s, a) => NotifyOfPropertyChange(nameof(CanSubmit));
+			form.PropertyChanged += (s, a) =>
+			{
+				if (a.PropertyName == "AmountFormatted")
+					SubstractFromPrimary();
+					
+			} ;
 			Forms.Add(form);
 
 			SetPrimaryColor();

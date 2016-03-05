@@ -76,6 +76,13 @@ namespace UI.ViewModels
 			set { amount = value; }
 		}
 
+		public string AmountFormatted
+		{
+			get { return Amount.Value == 0 
+					? string.Empty 
+					: Amount.Value.ToString("N0"); }
+			set { Amount.Value = adder.Convert(value); NotifyOfPropertyChange();}
+		}
 		public Brush Background
 		{
 			get { return background; }

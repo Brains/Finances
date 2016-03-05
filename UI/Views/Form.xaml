@@ -30,7 +30,7 @@
 		</Grid.ColumnDefinitions>
 		<ComboBox Name="Types" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"
 		          ItemTemplate="{StaticResource EnumTemplate}" MinWidth="120" />
-		<TextBox Name="Amount" Text="{Binding Amount, UpdateSourceTrigger=LostFocus}"
+		<TextBox Name="Amount" Text="{Binding AmountFormatted, UpdateSourceTrigger=LostFocus}"
 		         Grid.Column="1" Foreground="{Binding Path=SelectedType, Converter={converters:EnumToColor}}"
 		         HorizontalAlignment="Center" VerticalAlignment="Center" controls:TextBoxHelper.Watermark="Amount"
 		         FontSize="{StaticResource FontSize}" MinWidth="100" />
