@@ -59,7 +59,7 @@ namespace UI.ViewModels
 		{
 			var primary = Forms.First();
 			var secondaries = Forms.Skip(1);
-			primary.Amount -= secondaries.Sum(form => form.Amount);
+			primary.Subtract(secondaries);
 		}
 
 		private void SetPrimaryColor()

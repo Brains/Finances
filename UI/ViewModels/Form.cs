@@ -104,6 +104,14 @@ namespace UI.ViewModels
 			return true;
 		}
 
+		public void Subtract(IEnumerable<IForm> forms)
+		{
+			Amount.Value -= forms.Sum(form => form.Amount.Total);
+
+
+//			forms.ForEach(form => form.NotifyOfPropertyChange(nameof(AmountFormatted)));
+		}
+
 		private void UpdateCategories(Types type)
 		{
 			Categories = settings.CategoriesMapping[type];
