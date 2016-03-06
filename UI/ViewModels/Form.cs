@@ -22,7 +22,6 @@ namespace UI.ViewModels
 		private string description;
 		private readonly IAdder adder;
 		private IAmountFactory factory;
-		private IAmount amount;
 
 		public Form(ISettings settings, IRecordsStorage aggregator, IAdder adder, IAmountFactory factory)
 		{
@@ -70,19 +69,8 @@ namespace UI.ViewModels
 		public string[] Descriptions { get; set; }
 		public DateTime DateTime { get; set; }
 
-		public IAmount Amount
-		{
-			get { return amount; }
-			set { amount = value; }
-		}
+		public IAmount Amount { get; set; }
 
-		public string AmountFormatted
-		{
-			get { return Amount.Value == 0 
-					? string.Empty 
-					: Amount.Value.ToString("N0"); }
-			set { Amount.Value = adder.Convert(value); NotifyOfPropertyChange();}
-		}
 		public Brush Background
 		{
 			get { return background; }
@@ -114,9 +102,6 @@ namespace UI.ViewModels
 		public void Subtract(IEnumerable<IForm> forms)
 		{
 			Amount.Value -= forms.Sum(form => form.Amount.Total);
-
-
-//			forms.ForEach(form => form.NotifyOfPropertyChange(nameof(AmountFormatted)));
 		}
 
 		private void UpdateCategories(Types type)
