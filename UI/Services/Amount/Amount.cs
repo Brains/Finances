@@ -1,19 +1,8 @@
 ﻿using Common;
 using UI.Views.Converters;
 
-namespace UI.Services
+namespace UI.Services.Amount
 {
-	public interface IAmountFactory
-	{
-		IAmount Create(Record.Types type);
-	}
-
-	public interface IAmount
-	{
-		decimal Value { get; set; }
-		decimal Total { get; }
-	}
-
 	public class Amount : IAmount
 	{
 		private readonly IAdder adder;
@@ -51,5 +40,16 @@ namespace UI.Services
 		}
 
 		public override decimal Total => Value*customers;
+	}
+
+	public interface IAmount
+	{
+		decimal Value { get; set; }
+		decimal Total { get; }
+	}
+
+	public interface IAmountFactory
+	{
+		IAmount Create(Record.Types type);
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using Common;
 using Microsoft.Practices.Unity;
 using UI.Services;
+using UI.Services.Amount;
 
 namespace Loader.Factories
 {
