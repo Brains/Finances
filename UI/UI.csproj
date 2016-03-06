@@ -80,6 +80,8 @@
     <Compile Include="Interfaces\IViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Amount\Amount.cs" />
+    <Compile Include="Services\Amount\IAmount.cs" />
+    <Compile Include="Services\Amount\SharedAmount.cs" />
     <Compile Include="Services\MonthPicker.cs" />
     <Compile Include="ViewModels\Form.cs" />
     <Compile Include="ViewModels\FormsQueue.cs" />
