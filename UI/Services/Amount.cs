@@ -16,21 +16,22 @@ namespace UI.Services
 
 	public class Amount : IAmount
 	{
+		private readonly IAdder adder;
+
+		public Amount(IAdder adder)
+		{
+			this.adder = adder;
+		}
+
+		public string Formatted
+		{
+			get { return Value == 0 ? string.Empty : Value.ToString("N0"); }
+			set { Value = adder.Convert(value); }
+		}
+
 		public virtual decimal Value { get; set; }
 
 		public virtual decimal Total => Value;
-
-		public static implicit operator decimal(Amount amount)
-		{
-			return amount.Value;
-		}
-
-		public override string ToString()
-		{
-			return Value == 0
-				       ? string.Empty
-				       : Value.ToString("N0");
-		}
 	}
 
 	public class SharedAmount : Amount
@@ -38,7 +39,7 @@ namespace UI.Services
 		private readonly int customers;
 		private decimal value;
 
-		public SharedAmount(ISettings settings)
+		public SharedAmount(IAdder adder, ISettings settings) : base(adder)
 		{
 			customers = settings.Customers;
 		}
@@ -46,11 +47,9 @@ namespace UI.Services
 		public override decimal Value
 		{
 			get { return value; }
-			set { this.value = value / customers; }
+			set { this.value = value/customers; }
 		}
 
-		public override decimal Total => Value * customers;
-
-		
+		public override decimal Total => Value*customers;
 	}
 }
