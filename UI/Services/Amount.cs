@@ -19,6 +19,12 @@ namespace UI.Services
 		public virtual decimal Value { get; set; }
 
 		public virtual decimal Total => Value;
+
+		public static implicit operator decimal(Amount amount)
+		{
+			return amount.Value;
+		}
+
 		public override string ToString()
 		{
 			return Value == 0
@@ -44,5 +50,7 @@ namespace UI.Services
 		}
 
 		public override decimal Total => Value * customers;
+
+		
 	}
 }
