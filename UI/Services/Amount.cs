@@ -19,6 +19,12 @@ namespace UI.Services
 		public virtual decimal Value { get; set; }
 
 		public virtual decimal Total => Value;
+		public override string ToString()
+		{
+			return Value == 0
+				       ? string.Empty
+				       : Value.ToString("N0");
+		}
 	}
 
 	public class SharedAmount : Amount
