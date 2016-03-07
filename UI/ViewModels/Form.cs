@@ -22,7 +22,7 @@ namespace UI.ViewModels
 		private Brush background = Brushes.Transparent;
 		private string description;
 		private readonly IAdder adder;
-		private IAmountFactory factory;
+		private readonly IAmountFactory factory;
 
 		public Form(ISettings settings, IRecordsStorage aggregator, IAdder adder, IAmountFactory factory)
 		{
@@ -31,9 +31,9 @@ namespace UI.ViewModels
 			this.adder = adder;
 			this.factory = factory;
 
+			Amount = factory.Create(selectedType);
 			Types = Enum.GetValues(typeof (Types)).Cast<Types>();
 			UpdateCategories(selectedType);
-			Amount = factory.Create(selectedType);
 
 			DateTime = DateTime.Now;
 			Descriptions = settings.Descriptions;
