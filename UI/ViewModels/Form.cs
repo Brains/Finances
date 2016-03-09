@@ -23,6 +23,7 @@ namespace UI.ViewModels
 		private string description;
 		private readonly IAdder adder;
 		private readonly IAmountFactory factory;
+		private IAmount amount;
 
 		public Form(ISettings settings, IRecordsStorage aggregator, IAdder adder, IAmountFactory factory)
 		{
@@ -31,7 +32,7 @@ namespace UI.ViewModels
 			this.adder = adder;
 			this.factory = factory;
 
-			Amount = factory.Create(selectedType);
+			amount = factory.Create(selectedType);
 			Types = Enum.GetValues(typeof (Types)).Cast<Types>();
 			UpdateCategories(selectedType);
 
@@ -48,7 +49,8 @@ namespace UI.ViewModels
 			set
 			{
 				selectedType = value;
-				Amount = factory.Create(value);
+				amount = factory.Create(value);
+				NotifyOfPropertyChange(nameof(Amount));
 				NotifyOfPropertyChange(nameof(SelectedType));
 				UpdateCategories(selectedType);
 			}
@@ -70,7 +72,11 @@ namespace UI.ViewModels
 		public string[] Descriptions { get; set; }
 		public DateTime DateTime { get; set; }
 
-		public IAmount Amount { get; set; }
+		public string Amount
+		{
+			get { return amount.Formatted; }
+			set { amount.Formatted = value; NotifyOfPropertyChange();}
+		}
 
 		public Brush Background
 		{
@@ -85,12 +91,12 @@ namespace UI.ViewModels
 
 		public void Submit()
 		{
-			aggregator.Add(new Record(Amount.Value, SelectedType, SelectedCategory, Description, DateTime));
+			aggregator.Add(new Record(amount.Value, SelectedType, SelectedCategory, Description, DateTime));
 		}
 
 		public bool CanSubmit()
 		{
-			if (Amount.Value < 1) return false;
+			if (amount.Value < 1) return false;
 			if (string.IsNullOrWhiteSpace(Description)) return false;
 
 			if (selectedType == Record.Types.Debt 
@@ -102,7 +108,11 @@ namespace UI.ViewModels
 
 		public void Subtract(IEnumerable<IForm> forms)
 		{
-			Amount.Value -= forms.Sum(form => form.Amount.Total);
+			amount.Value -= forms.Sum(form =>
+			{
+				var converted = (Form) form;
+				return converted.amount.Total;
+			});
 		}
 
 		private void UpdateCategories(Types type)

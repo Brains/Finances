@@ -6,6 +6,7 @@ namespace UI.Services.Amount
 	{
 		decimal Value { get; set; }
 		decimal Total { get; }
+		string Formatted { get; set; }
 	}
 
 	public interface IAmountFactory
