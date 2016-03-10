@@ -19,8 +19,6 @@ namespace UI.ViewModels
 		private readonly IRecordsStorage aggregator;
 		private readonly ISettings settings;
 		private Types selectedType;
-		private Brush background = Brushes.Transparent;
-		private string description;
 		private readonly IAdder adder;
 		private readonly IAmountFactory factory;
 		private IAmount amount;
@@ -58,16 +56,8 @@ namespace UI.ViewModels
 
 		public Categories SelectedCategory { get; set; }
 
-		public string Description
-		{
-			get { return description; }
-			set
-			{
-				if (value == description) return;
-				description = value;
-				NotifyOfPropertyChange();
-			}
-		}
+		[Magic]
+		public string Description { get; set; }
 
 		public string[] Descriptions { get; set; }
 		public DateTime DateTime { get; set; }
@@ -78,16 +68,8 @@ namespace UI.ViewModels
 			set { amount.Formatted = value; NotifyOfPropertyChange();}
 		}
 
-		public Brush Background
-		{
-			get { return background; }
-			set
-			{
-				if (Equals(value, background)) return;
-				background = value;
-				NotifyOfPropertyChange();
-			}
-		}
+		[Magic]
+		public Brush Background { get; set; } = Brushes.Transparent;
 
 		public void Submit()
 		{
@@ -123,5 +105,7 @@ namespace UI.ViewModels
 			NotifyOfPropertyChange(nameof(Categories));
 			NotifyOfPropertyChange(nameof(SelectedCategory));
 		}
+
+		public void RaisePropertyChanged(string name) => NotifyOfPropertyChange(name);
 	}
 }
