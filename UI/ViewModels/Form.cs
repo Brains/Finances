@@ -61,6 +61,7 @@ namespace UI.ViewModels
 		public string[] Descriptions { get; set; }
 		public DateTime DateTime { get; set; }
 
+		[Notify]
 		public string Amount
 		{
 			get { return amount.Formatted; }

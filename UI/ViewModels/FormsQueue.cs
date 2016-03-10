@@ -30,6 +30,11 @@ namespace UI.ViewModels
 		{
 			var form = Factory.Create();
 			form.PropertyChanged += (s, a) => NotifyOfPropertyChange(nameof(CanSubmit));
+			form.PropertyChanged += (s, args) =>
+			{
+				if (args.PropertyName == nameof(Form.Amount))
+					SubtractSecondaries();
+			};
 			Forms.Add(form);
 
 			SetPrimaryColor();
@@ -42,20 +47,19 @@ namespace UI.ViewModels
 
 			Refresh();
 
-			if (Forms.Any())
+			if (Forms.Any()) 
 				SetPrimaryColor();
 		}
 
 		public void Submit()
 		{
-			SubstractFromPrimary();
 			Forms.ForEach(form => form.Submit());
 			Forms.Clear();
 
 			Refresh();
 		}
 
-		private void SubstractFromPrimary()
+		private void SubtractSecondaries()
 		{
 			var primary = Forms.First();
 			var secondaries = Forms.Skip(1);
