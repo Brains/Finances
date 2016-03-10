@@ -86,6 +86,7 @@
     <Compile Include="Services\Amount\SharedAmount.cs" />
     <Compile Include="Services\NotifyAttribute.cs" />
     <Compile Include="Services\MonthPicker.cs" />
+    <Compile Include="Services\Subtractor.cs" />
     <Compile Include="ViewModels\Form.cs" />
     <Compile Include="ViewModels\FormsQueue.cs" />
     <Compile Include="ViewModels\Diagrams.cs" />
