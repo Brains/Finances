@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Caliburn.Micro;
 using Common;
 using Common.Storages;
 using Funds.Sources;
@@ -24,12 +25,17 @@ namespace Funds.Tests.Sources
 			new Record(100, Debt, Andrey, "In",  new DateTime(1, 1, 1)),
 		};
 
+		private Debts Create(IExpenses expenses = null)
+		{
+			return new Debts(expenses, For<IEventAggregator>());
+		}
+
 		[Test]
 		public void PullValue_Always_SetsValueToTotalDebt()
 		{
 			var expenses = For<IExpenses>();
 			expenses.Records = new ObservableCollection<Record>(Data);
-			var debts = new Debts(expenses);
+			var debts = Create(expenses);
 
 			debts.PullValue();
 
@@ -39,7 +45,7 @@ namespace Funds.Tests.Sources
 		[Test]
 		public void CalculateAmountsPerDude_Always_ReturnsTotalByDudeForEachDirection()
 		{
-			var debts = new Debts(null);
+			var debts = Create();
 			var expected = new Dictionary<Record.Categories, decimal>
 			{
 				[Maxim] = 100,
@@ -54,7 +60,7 @@ namespace Funds.Tests.Sources
 		[Test]
 		public void Validate_ValidRecords_DoesNotThrowExceptions()
 		{
-			var debts = new Debts(null);
+			var debts = Create();
 
 			Assert.That(() => debts.Validate(Data), Throws.Nothing);
 		}
@@ -62,7 +68,7 @@ namespace Funds.Tests.Sources
 		[Test]
 		public void Validate_InvalidRecords_ThrowsArgumentException()
 		{
-			var debts = new Debts(null);
+			var debts = Create();
 			var invalid = Data.ToList();
 			invalid.Add(new Record(100, Debt, Maxim, "ERROR", new DateTime(1, 1, 1)));
 
