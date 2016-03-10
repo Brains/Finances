@@ -48,9 +48,8 @@ namespace UI.ViewModels
 			{
 				selectedType = value;
 				amount = factory.Create(value);
-				NotifyOfPropertyChange(nameof(Amount));
-				NotifyOfPropertyChange(nameof(SelectedType));
 				UpdateCategories(selectedType);
+				Refresh();
 			}
 		}
 
@@ -102,8 +101,6 @@ namespace UI.ViewModels
 			Categories = settings.CategoriesMapping[type];
 			SelectedCategory = Categories.First();
 
-			NotifyOfPropertyChange(nameof(Categories));
-			NotifyOfPropertyChange(nameof(SelectedCategory));
 		}
 
 		public void RaisePropertyChanged(string name) => NotifyOfPropertyChange(name);
