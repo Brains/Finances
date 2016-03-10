@@ -55,7 +55,7 @@ namespace UI.ViewModels
 
 		public Categories SelectedCategory { get; set; }
 
-		[Magic]
+		[Notify]
 		public string Description { get; set; }
 
 		public string[] Descriptions { get; set; }
@@ -67,7 +67,7 @@ namespace UI.ViewModels
 			set { amount.Formatted = value;}
 		}
 
-		[Magic]
+		[Notify]
 		public Brush Background { get; set; } = Brushes.Transparent;
 
 		public void Submit()
@@ -102,7 +102,5 @@ namespace UI.ViewModels
 			SelectedCategory = Categories.First();
 
 		}
-
-		public void RaisePropertyChanged(string name) => NotifyOfPropertyChange(name);
 	}
 }

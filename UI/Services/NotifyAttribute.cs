@@ -2,5 +2,5 @@
 
 namespace UI.Services
 {
-	class MagicAttribute : Attribute { }
+	class NotifyAttribute : Attribute { }
 }
