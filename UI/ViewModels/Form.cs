@@ -64,7 +64,7 @@ namespace UI.ViewModels
 		public string Amount
 		{
 			get { return amount.Formatted; }
-			set { amount.Formatted = value; NotifyOfPropertyChange();}
+			set { amount.Formatted = value;}
 		}
 
 		[Magic]
