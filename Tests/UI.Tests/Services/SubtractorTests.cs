@@ -1,49 +1,52 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using NSubstitute;
 using NUnit.Framework;
 using UI.Interfaces;
 using UI.Services;
+using static NSubstitute.Arg;
+using static NSubstitute.Substitute;
 
 namespace UI.Tests.Services
 {
 	public class SubtractorTests
 	{
 		[Test]
-		public void ChangedPrimaryFormAmount_WithSingleForm_DoesNotCallSubtract()
+		public void ChangedPrimaryFormAmount_WithSingleForm_DoesNotCallPrimarySubtract()
 		{
 			Subtractor subtractor = new Subtractor();
-			IForm primary = Substitute.For<IForm>();
+			IForm primary = For<IForm>();
 			subtractor.Add(primary);
 
 			primary.Amount = "5";
 
-			primary.DidNotReceive().Subtract(Arg.Any<IEnumerable<IForm>>());
+			primary.DidNotReceive().Subtract(Any<IEnumerable<IForm>>());
 		} 
 		[Test]
-		public void ChangedPrimaryFormAmount_WithTwoForms_DoesNotCallSubtract()
+		public void ChangedPrimaryFormAmount_WithTwoForms_DoesNotCallPrimarySubtract()
 		{
 			Subtractor subtractor = new Subtractor();
-			IForm primary = Substitute.For<IForm>();
+			IForm primary = For<IForm>();
 			subtractor.Add(primary);
-			subtractor.Add(Substitute.For<IForm>());
+			subtractor.Add(For<IForm>());
 
 			primary.Amount = "5";
 
-			primary.DidNotReceive().Subtract(Arg.Any<IEnumerable<IForm>>());
+			primary.DidNotReceive().Subtract(Any<IEnumerable<IForm>>());
 		} 
 
 		[Test]
-		public void ChangedPrimaryFormAmount_Never_CallsSubtract()
+		public void ChangedSecondaryFormAmount_Always_CallsPrimarySubtract()
 		{
 			Subtractor subtractor = new Subtractor();
-			IForm first = Substitute.For<IForm>();
-			IForm second = Substitute.For<IForm>();
-			subtractor.Add(first);
-			subtractor.Add(second);
+			IForm primary = For<IForm>();
+			IForm secondary = For<IForm>();
+			subtractor.Add(primary);
+			subtractor.Add(secondary);
 
-			first.Amount = "5";
+			secondary.PropertyChanged += Raise.Event<PropertyChangedEventHandler>(new PropertyChangedEventArgs("Test"));
 
-			first.DidNotReceive().Subtract(Arg.Any<IEnumerable<IForm>>());
+			primary.Received(1).Subtract(new []{secondary});
 		} 
 	}
 }

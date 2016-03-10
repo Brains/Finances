@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UI.Interfaces;
 
 namespace UI.Services
@@ -15,6 +16,7 @@ namespace UI.Services
 		public void Add(IForm form)
 		{
 			forms.Add(form);
+			form.PropertyChanged += (sender, args) => forms.First().Subtract(new[] {forms.Last()});
 		}
 	}
 }
