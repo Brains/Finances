@@ -22,6 +22,8 @@ namespace UI.ViewModels
 		private readonly IAdder adder;
 		private readonly IAmountFactory factory;
 		private IAmount amount;
+		private decimal previous;
+		private decimal previousSum;
 
 		public Form(ISettings settings, IRecordsStorage aggregator, IAdder adder, IAmountFactory factory)
 		{
@@ -90,11 +92,17 @@ namespace UI.ViewModels
 
 		public void Subtract(IEnumerable<IForm> forms)
 		{
-			amount.Value -= forms.Sum(form =>
-			{
-				var converted = (Form) form;
-				return converted.amount.Total;
-			});
+			var sum = forms.Sum(form => ((Form) form).amount.Total);
+
+			if (amount.Value == previous && sum == previousSum)
+				return;
+
+			amount.Value -= sum;
+
+			previous = amount.Value;
+			previousSum = sum;
+
+			NotifyOfPropertyChange(nameof(Amount));
 		}
 
 		private void UpdateCategories(Types type)
