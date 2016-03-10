@@ -8,6 +8,7 @@ using static NSubstitute.Substitute;
 
 namespace UI.Tests.Views.Converters
 {
+#if Disable
 	public class AmountSummarizingTests : AssertionHelper
 	{
 		[Test]
@@ -57,4 +58,5 @@ namespace UI.Tests.Views.Converters
 		}
 
 	}
+#endif
 }

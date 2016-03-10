@@ -30,7 +30,7 @@ namespace UI.Tests.ViewModels
 		private static IForm CreateForm(int defaultAmount)
 		{
 			var form = For<IForm>();
-			form.Amount = defaultAmount;
+			form.Amount = defaultAmount.ToString();
 
 			return form;
 		}
@@ -232,7 +232,7 @@ namespace UI.Tests.ViewModels
 		{
 			var forms = Create();
 			forms.Forms = GetForms(3);
-			forms.Forms[0].Amount = 100;
+			forms.Forms[0].Amount = "100";
 			var saved = forms.Forms.ToList();
 
 			forms.Submit();

@@ -6,7 +6,9 @@ using NUnit.Framework;
 using Common;
 using Common.Storages;
 using UI.Services;
+using UI.Services.Amount;
 using UI.ViewModels;
+using UI.Views.Converters;
 using static NSubstitute.Substitute;
 using static Common.Record;
 using static Common.Record.Categories;
@@ -32,14 +34,14 @@ namespace UI.Tests.ViewModels
 				[Shared]	= new[] {Food, House, General, Other},
 			};
 
-			return new Form(settings, storage);
+			return new Form(settings, storage, For<IAdder>(), For<IAmountFactory>());
 		}
 
 		private static Form CreateValidForm()
 		{
 			var form = CreateForm();
 
-			form.amount = 1;
+			form.Amount = "1";
 			form.Description = "Test";
 
 			return form;
@@ -75,7 +77,7 @@ namespace UI.Tests.ViewModels
 
 			form.Submit();
 
-			var record = new Record(form.amount, form.SelectedType, form.SelectedCategory, form.Description, form.DateTime);
+			var record = new Record(Convert.ToDecimal(form.Amount), form.SelectedType, form.SelectedCategory, form.Description, form.DateTime);
 			storage.Received().Add(record);
 		}
 
@@ -86,7 +88,7 @@ namespace UI.Tests.ViewModels
 		public void CanSubmit_CorrectAmount_ReturnsTrue(decimal amount)
 		{
 			var form = CreateValidForm();
-			form.amount = amount;
+			form.Amount = amount.ToString();
 
 			var actual = form.CanSubmit();
 
@@ -100,7 +102,7 @@ namespace UI.Tests.ViewModels
 		public void CanSubmit_WrongAmount_ReturnsFalse(decimal amount)
 		{
 			var form = CreateValidForm();
-			form.amount = amount;
+			form.Amount = amount.ToString();
 
 			var actual = form.CanSubmit();
 

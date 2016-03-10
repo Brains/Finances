@@ -7,6 +7,7 @@ using static NSubstitute.Substitute;
 
 namespace UI.Tests.Views.Converters
 {
+#if Disable
 	public class SharedDivisionTests : AssertionHelper
 	{
 		[Test]
@@ -39,4 +40,6 @@ namespace UI.Tests.Views.Converters
 			Expect(actual, EqualTo(10));
 		}
 	}
+
+#endif
 }
