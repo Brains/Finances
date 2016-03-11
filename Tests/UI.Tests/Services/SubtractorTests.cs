@@ -1,70 +1,76 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using NSubstitute;
+using NSubstitute.Core.Events;
 using NUnit.Framework;
 using UI.Interfaces;
 using UI.Services;
 using static NSubstitute.Arg;
 using static NSubstitute.Substitute;
-using Handler = System.ComponentModel.PropertyChangedEventHandler;
-using Args = System.ComponentModel.PropertyChangedEventArgs;
 
 namespace UI.Tests.Services
 {
 	public class SubtractorTests
 	{
-		[Test]
-		public void PropertyChanged_PrimaryFormAmountWithSingleForm_DoesNotCallPrimarySubtract()
+		private Subtractor Create()
 		{
-			Subtractor subtractor = new Subtractor();
+			return new Subtractor();
+		}
+
+		private DelegateEventWrapper<PropertyChangedEventHandler> Raise(string propertyName)
+		{
+			return NSubstitute.Raise.Event<PropertyChangedEventHandler>(new PropertyChangedEventArgs(propertyName));
+		}
+
+		[Test]
+		public void PropertyChanged_PrimaryNotAmount_DoesNotCallPrimarySubtract()
+		{
+			Subtractor subtractor = Create();
 			IForm primary = For<IForm>();
 			subtractor.Add(primary);
 
-			primary.Amount = "5";
-			primary.PropertyChanged += Raise.Event<Handler>(new Args("Amount"));
-
-			primary.DidNotReceive().Subtract(Any<IForm>());
-		} 
-		[Test]
-		public void PropertyChanged_PrimaryFormAmountWithTwoForms_DoesNotCallPrimarySubtract()
-		{
-			Subtractor subtractor = new Subtractor();
-			IForm primary = For<IForm>();
-			subtractor.Add(primary);
-			subtractor.Add(For<IForm>());
-
-			primary.Amount = "5";
-			primary.PropertyChanged += Raise.Event<Handler>(new Args("Amount"));
+			primary.PropertyChanged += Raise("NotAmount");
 
 			primary.DidNotReceive().Subtract(Any<IForm>());
 		}
 
 		[Test]
-		public void PropertyChanged_NotAmount_DoesNotCallPrimarySubtract()
+		public void PropertyChanged_SecondaryNotAmount_DoesNotCallPrimarySubtract()
 		{
-			Subtractor subtractor = new Subtractor();
+			Subtractor subtractor = Create();
 			IForm primary = For<IForm>();
 			IForm secondary = For<IForm>();
 			subtractor.Add(primary);
 			subtractor.Add(secondary);
 
-			secondary.PropertyChanged += Raise.Event<Handler>(new Args("NotAmount"));
+			secondary.PropertyChanged += Raise("NotAmount");
 
 			primary.DidNotReceive().Subtract(Any<IForm>());
 		}
 
 		[Test]
-		public void PropertyChanged_SecondaryFormAmount_CallsPrimarySubtract()
+		public void PropertyChanged_PrimaryAmount_DoesNotCallPrimarySubtract()
 		{
-			Subtractor subtractor = new Subtractor();
+			Subtractor subtractor = Create();
+			IForm primary = For<IForm>();
+			subtractor.Add(primary);
+
+			primary.PropertyChanged += Raise("Amount");
+
+			primary.DidNotReceive().Subtract(Any<IForm>());
+		}
+
+		[Test]
+		public void PropertyChanged_SecondaryAmount_CallsPrimarySubtract()
+		{
+			Subtractor subtractor = Create();
 			IForm primary = For<IForm>();
 			IForm secondary = For<IForm>();
 			subtractor.Add(primary);
 			subtractor.Add(secondary);
 
-			secondary.PropertyChanged += Raise.Event<Handler>(new Args("Amount"));
+			secondary.PropertyChanged += Raise("Amount");
 
-			primary.Received(1).Subtract(secondary);
+			primary.Received().Subtract(secondary);
 		}
 	}
 }

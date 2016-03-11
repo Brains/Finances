@@ -26,7 +26,12 @@ namespace UI.Services
 			if (arguments.PropertyName != nameof(Form.Amount))
 				return;
 
-			forms.First().Subtract(forms.Last());
+			var primary = forms.First();
+
+			if (sender == primary)
+				return;
+
+			primary.Subtract(forms.Last());
 		}
 	}
 }
