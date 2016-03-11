@@ -36,7 +36,7 @@ namespace UI.Tests.ViewModels
 
 			var expenses = For<IExpenses>( );
 			expenses.Records = new ObservableCollection<Record>(Enumerable.Empty<Record>());
-			return new Funds(sources, expenses, For<IEventAggregator>());
+			return new Funds(sources, expenses);
 		}
 
 		[Test]

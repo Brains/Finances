@@ -30,6 +30,7 @@ namespace UI.ViewModels
 		{
 			var form = Factory.Create();
 			form.PropertyChanged += (s, a) => NotifyOfPropertyChange(nameof(CanSubmit));
+			
 			Forms.Add(form);
 
 			SetPrimaryColor();
@@ -42,30 +43,22 @@ namespace UI.ViewModels
 
 			Refresh();
 
-			if (Forms.Any())
+			if (Forms.Any()) 
 				SetPrimaryColor();
 		}
 
 		public void Submit()
 		{
-			SubstractFromPrimary();
 			Forms.ForEach(form => form.Submit());
 			Forms.Clear();
 
 			Refresh();
 		}
 
-		private void SubstractFromPrimary()
-		{
-			var primary = Forms.First();
-			var secondaries = Forms.Skip(1);
-			primary.Subtract(secondaries);
-		}
-
 		private void SetPrimaryColor()
 		{
 			Forms.First().Background = Forms.Count > 1
-				? (Brush) Application.Current?.FindResource("AccentColorBrush3")
+				? (Brush) Application.Current?.FindResource("AccentColorBrush4")
 				: Brushes.Transparent;
 		}
 	}
