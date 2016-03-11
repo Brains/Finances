@@ -22,7 +22,7 @@ namespace UI.Tests.Services
 		}
 
 		[Test]
-		public void PropertyChanged_PrimaryNotAmount_DoesNotCallPrimarySubtract()
+		public void PropertyChanged_PrimaryNotAmount_DoesNotCallSubtract()
 		{
 			Subtractor subtractor = Create();
 			IForm primary = For<IForm>();
@@ -34,7 +34,7 @@ namespace UI.Tests.Services
 		}
 
 		[Test]
-		public void PropertyChanged_SecondaryNotAmount_DoesNotCallPrimarySubtract()
+		public void PropertyChanged_SecondaryNotAmount_DoesNotCallSubtract()
 		{
 			Subtractor subtractor = Create();
 			IForm primary = For<IForm>();
@@ -48,11 +48,12 @@ namespace UI.Tests.Services
 		}
 
 		[Test]
-		public void PropertyChanged_PrimaryAmount_DoesNotCallPrimarySubtract()
+		public void PropertyChanged_PrimaryAmount_DoesNotCallSubtract()
 		{
 			Subtractor subtractor = Create();
 			IForm primary = For<IForm>();
 			subtractor.Add(primary);
+			subtractor.Add(For<IForm>());
 
 			primary.PropertyChanged += Raise("Amount");
 
@@ -60,7 +61,7 @@ namespace UI.Tests.Services
 		}
 
 		[Test]
-		public void PropertyChanged_SecondaryAmount_CallsPrimarySubtract()
+		public void PropertyChanged_SecondaryAmount_CallsSubtract()
 		{
 			Subtractor subtractor = Create();
 			IForm primary = For<IForm>();

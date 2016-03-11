@@ -4,11 +4,15 @@ using System.Linq;
 using UI.Interfaces;
 using UI.ViewModels;
 
+// TODO: Eliminate forms
+// TODO: Subtract decimal
+
 namespace UI.Services
 {
 	public class Subtractor
 	{
 		private readonly IList<IForm> forms;
+		private IForm primary;
 
 		public Subtractor()
 		{
@@ -19,19 +23,16 @@ namespace UI.Services
 		{
 			forms.Add(form);
 			form.PropertyChanged += OnPropertyChanged;
+
+			primary = primary ?? form;
 		}
 
 		private void OnPropertyChanged(object sender, PropertyChangedEventArgs arguments)
 		{
-			if (arguments.PropertyName != nameof(Form.Amount))
-				return;
+			if (sender == primary) return;
+			if (arguments.PropertyName != nameof(Form.Amount)) return;
 
-			var primary = forms.First();
-
-			if (sender == primary)
-				return;
-
-			primary.Subtract(forms.Last());
+			primary.Subtract((IForm) sender);
 		}
 	}
 }
