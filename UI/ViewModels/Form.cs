@@ -90,17 +90,17 @@ namespace UI.ViewModels
 			return true;
 		}
 
-		public void Subtract(IEnumerable<IForm> forms)
+		public void Subtract(IForm form)
 		{
-			var sum = forms.Sum(form => ((Form) form).amount.Total);
+			var value = ((Form) form).amount.Total;
 
-			if (amount.Value == previous && sum == previousSum)
+			if (amount.Value == previous && value == previousSum)
 				return;
 
-			amount.Value -= sum;
+			amount.Value -= value;
 
 			previous = amount.Value;
-			previousSum = sum;
+			previousSum = value;
 
 			NotifyOfPropertyChange(nameof(Amount));
 		}

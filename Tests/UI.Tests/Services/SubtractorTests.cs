@@ -20,7 +20,7 @@ namespace UI.Tests.Services
 
 			primary.Amount = "5";
 
-			primary.DidNotReceive().Subtract(Any<IEnumerable<IForm>>());
+			primary.DidNotReceive().Subtract(Any<IForm>());
 		} 
 		[Test]
 		public void ChangedPrimaryFormAmount_WithTwoForms_DoesNotCallPrimarySubtract()
@@ -32,7 +32,7 @@ namespace UI.Tests.Services
 
 			primary.Amount = "5";
 
-			primary.DidNotReceive().Subtract(Any<IEnumerable<IForm>>());
+			primary.DidNotReceive().Subtract(Any<IForm>());
 		} 
 
 		[Test]
@@ -46,7 +46,7 @@ namespace UI.Tests.Services
 
 			secondary.PropertyChanged += Raise.Event<PropertyChangedEventHandler>(new PropertyChangedEventArgs("Test"));
 
-			primary.Received(1).Subtract(new []{secondary});
-		} 
+			primary.Received(1).Subtract(secondary);
+		}
 	}
 }

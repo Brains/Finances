@@ -16,7 +16,7 @@ namespace UI.Services
 		public void Add(IForm form)
 		{
 			forms.Add(form);
-			form.PropertyChanged += (sender, args) => forms.First().Subtract(new[] {forms.Last()});
+			form.PropertyChanged += (sender, args) => forms.First().Subtract(forms.Last());
 		}
 	}
 }
