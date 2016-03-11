@@ -33,14 +33,14 @@ namespace UI.ViewModels
 			Forms.Add(form);
 
 			SetPrimaryColor();
-			NotifyAllProperties();
+			Refresh();
 		}
 
 		public void Remove()
 		{
 			Forms.RemoveAt(Forms.Count - 1);
 
-			NotifyAllProperties();
+			Refresh();
 
 			if (Forms.Any())
 				SetPrimaryColor();
@@ -52,14 +52,14 @@ namespace UI.ViewModels
 			Forms.ForEach(form => form.Submit());
 			Forms.Clear();
 
-			NotifyAllProperties();
+			Refresh();
 		}
 
 		private void SubstractFromPrimary()
 		{
 			var primary = Forms.First();
 			var secondaries = Forms.Skip(1);
-			primary.Amount -= secondaries.Sum(form => form.Amount);
+			primary.Subtract(secondaries);
 		}
 
 		private void SetPrimaryColor()
@@ -67,13 +67,6 @@ namespace UI.ViewModels
 			Forms.First().Background = Forms.Count > 1
 				? (Brush) Application.Current?.FindResource("AccentColorBrush3")
 				: Brushes.Transparent;
-		}
-
-		private void NotifyAllProperties()
-		{
-			NotifyOfPropertyChange(nameof(CanAdd));
-			NotifyOfPropertyChange(nameof(CanRemove));
-			NotifyOfPropertyChange(nameof(CanSubmit));
 		}
 	}
 }

@@ -5,7 +5,11 @@ using System.Windows.Media;
 using Caliburn.Micro;
 using Common;
 using Common.Storages;
+using MoreLinq;
 using UI.Interfaces;
+using UI.Services;
+using UI.Services.Amount;
+using UI.Views.Converters;
 using static Common.Record;
 
 namespace UI.ViewModels
@@ -15,15 +19,18 @@ namespace UI.ViewModels
 		private readonly IRecordsStorage aggregator;
 		private readonly ISettings settings;
 		private Types selectedType;
-		private Brush background = Brushes.Transparent;
-		private decimal amount;
-		private string description;
+		private readonly IAdder adder;
+		private readonly IAmountFactory factory;
+		private IAmount amount;
 
-		public Form(ISettings settings, IRecordsStorage aggregator)
+		public Form(ISettings settings, IRecordsStorage aggregator, IAdder adder, IAmountFactory factory)
 		{
 			this.settings = settings;
 			this.aggregator = aggregator;
+			this.adder = adder;
+			this.factory = factory;
 
+			amount = factory.Create(selectedType);
 			Types = Enum.GetValues(typeof (Types)).Cast<Types>();
 			UpdateCategories(selectedType);
 
@@ -40,65 +47,53 @@ namespace UI.ViewModels
 			set
 			{
 				selectedType = value;
-				NotifyOfPropertyChange(nameof(SelectedType));
+				amount = factory.Create(value);
 				UpdateCategories(selectedType);
+				Refresh();
 			}
 		}
 
 		public Categories SelectedCategory { get; set; }
 
-		public string Description
-		{
-			get { return description; }
-			set
-			{
-				if (value == description) return;
-				description = value;
-				NotifyOfPropertyChange();
-			}
-		}
+		[Notify]
+		public string Description { get; set; }
 
 		public string[] Descriptions { get; set; }
 		public DateTime DateTime { get; set; }
 
-		public decimal Amount
+		public string Amount
 		{
-			get { return amount; }
-			set
-			{
-				if (value == amount) return;
-				amount = value;
-				NotifyOfPropertyChange();
-			}
+			get { return amount.Formatted; }
+			set { amount.Formatted = value;}
 		}
 
-		public Brush Background
-		{
-			get { return background; }
-			set
-			{
-				if (Equals(value, background)) return;
-				background = value;
-				NotifyOfPropertyChange();
-			}
-		}
+		[Notify]
+		public Brush Background { get; set; } = Brushes.Transparent;
 
 		public void Submit()
 		{
-			aggregator.Add(new Record(Amount, SelectedType, SelectedCategory, Description, DateTime));
+			aggregator.Add(new Record(amount.Value, SelectedType, SelectedCategory, Description, DateTime));
 		}
 
 		public bool CanSubmit()
 		{
-			if (Amount < 1) return false;
+			if (amount.Value < 1) return false;
 			if (string.IsNullOrWhiteSpace(Description)) return false;
 
 			if (selectedType == Record.Types.Debt 
 				&& Description != "In" 
 				&& Description != "Out") return false;
 
-
 			return true;
+		}
+
+		public void Subtract(IEnumerable<IForm> forms)
+		{
+			amount.Value -= forms.Sum(form =>
+			{
+				var converted = (Form) form;
+				return converted.amount.Total;
+			});
 		}
 
 		private void UpdateCategories(Types type)
@@ -106,8 +101,6 @@ namespace UI.ViewModels
 			Categories = settings.CategoriesMapping[type];
 			SelectedCategory = Categories.First();
 
-			NotifyOfPropertyChange(nameof(Categories));
-			NotifyOfPropertyChange(nameof(SelectedCategory));
 		}
 	}
 }
