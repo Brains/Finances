@@ -73,5 +73,20 @@ namespace UI.Tests.Services
 
 			primary.Received().Subtract(secondary);
 		}
+
+		[Test]
+		public void PropertyChanged_SecondaryAmountTwoTimes_CallsSubtractOnlyOnce()
+		{
+			Subtractor subtractor = Create();
+			IForm primary = For<IForm>();
+			IForm secondary = For<IForm>();
+			subtractor.Add(primary);
+			subtractor.Add(secondary);
+
+			secondary.PropertyChanged += Raise("Amount");
+			secondary.PropertyChanged += Raise("Amount");
+
+			primary.Received(1).Subtract(secondary);
+		}
 	}
 }

@@ -32,7 +32,9 @@ namespace UI.Services
 			if (sender == primary) return;
 			if (arguments.PropertyName != nameof(Form.Amount)) return;
 
-			primary.Subtract((IForm) sender);
-		}
-	}
+		    var form = (IForm) sender;
+            primary.Subtract(form);
+			form.PropertyChanged -= OnPropertyChanged;
+        }
+    }
 }
