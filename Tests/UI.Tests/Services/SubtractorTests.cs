@@ -16,7 +16,16 @@ namespace UI.Tests.Services
 			return new Subtractor();
 		}
 
-		private DelegateEventWrapper<PropertyChangedEventHandler> Raise(string propertyName)
+	    private IForm AddForm(Subtractor subtractor)
+	    {
+	        var form = For<IForm>();
+	        subtractor.Add(form);
+	        
+
+	        return form;
+	    }
+
+	    private DelegateEventWrapper<PropertyChangedEventHandler> Raise(string propertyName)
 		{
 			return NSubstitute.Raise.Event<PropertyChangedEventHandler>(new PropertyChangedEventArgs(propertyName));
 		}
@@ -25,8 +34,8 @@ namespace UI.Tests.Services
 		public void PropertyChanged_PrimaryNotAmount_DoesNotCallSubtract()
 		{
 			Subtractor subtractor = Create();
-			IForm primary = For<IForm>();
-			subtractor.Add(primary);
+			IForm primary = AddForm(subtractor);
+			
 
 			primary.PropertyChanged += Raise("NotAmount");
 
@@ -37,10 +46,10 @@ namespace UI.Tests.Services
 		public void PropertyChanged_SecondaryNotAmount_DoesNotCallSubtract()
 		{
 			Subtractor subtractor = Create();
-			IForm primary = For<IForm>();
-			IForm secondary = For<IForm>();
-			subtractor.Add(primary);
-			subtractor.Add(secondary);
+			IForm primary = AddForm(subtractor);
+		    IForm secondary = AddForm(subtractor);
+			
+			
 
 			secondary.PropertyChanged += Raise("NotAmount");
 
@@ -51,8 +60,8 @@ namespace UI.Tests.Services
 		public void PropertyChanged_PrimaryAmount_DoesNotCallSubtract()
 		{
 			Subtractor subtractor = Create();
-			IForm primary = For<IForm>();
-			subtractor.Add(primary);
+			IForm primary =  AddForm(subtractor);
+			
 			subtractor.Add(For<IForm>());
 
 			primary.PropertyChanged += Raise("Amount");
@@ -64,24 +73,22 @@ namespace UI.Tests.Services
 		public void PropertyChanged_SecondaryAmount_CallsSubtract()
 		{
 			Subtractor subtractor = Create();
-			IForm primary = For<IForm>();
-			IForm secondary = For<IForm>();
-			subtractor.Add(primary);
-			subtractor.Add(secondary);
+			IForm primary = AddForm(subtractor);
+			IForm secondary = AddForm(subtractor);
 
 			secondary.PropertyChanged += Raise("Amount");
 
 			primary.Received().Subtract(secondary.Amount);
 		}
 
-		[Test]
+	    [Test]
 		public void PropertyChanged_SecondaryAmountTwoTimes_CallsSubtractOnlyOnce()
 		{
 			Subtractor subtractor = Create();
-			IForm primary = For<IForm>();
-			IForm secondary = For<IForm>();
-			subtractor.Add(primary);
-			subtractor.Add(secondary);
+			IForm primary = AddForm(subtractor);
+	        IForm secondary = AddForm(subtractor);
+			
+			
 
 			secondary.PropertyChanged += Raise("Amount");
 			secondary.PropertyChanged += Raise("Amount");
@@ -93,9 +100,9 @@ namespace UI.Tests.Services
 		public void Add_FormFirstTime_MakesItPrimary()
 		{
 			Subtractor subtractor = Create();
-			IForm primary = For<IForm>();
+			IForm primary = AddForm(subtractor);
 
-            subtractor.Add(primary);
+            
 
 		    Expect(subtractor.Primary, EqualTo(primary));
 		}
@@ -104,11 +111,11 @@ namespace UI.Tests.Services
 		public void Add_FormSecondTime_DoesNotMakeItPrimary()
 		{
 			Subtractor subtractor = Create();
-			IForm primary = For<IForm>();
-            IForm secondary = For<IForm>();
+			IForm primary = AddForm(subtractor);
+		    IForm secondary = AddForm(subtractor);
 
-            subtractor.Add(primary);
-            subtractor.Add(secondary);
+            
+            
 
             Expect(subtractor.Primary, Not.EqualTo(secondary));
 		}
@@ -117,8 +124,8 @@ namespace UI.Tests.Services
 		public void Remove_PrimaryForm_SetsPrimaryToNull()
 		{
 			Subtractor subtractor = Create();
-			IForm primary = For<IForm>();
-            subtractor.Add(primary);
+			IForm primary = AddForm(subtractor);
+            
 
             subtractor.Remove(primary);
 
