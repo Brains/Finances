@@ -21,8 +21,8 @@ namespace UI.Services
 
 		private void OnPropertyChanged(object sender, PropertyChangedEventArgs arguments)
 		{
-			if (sender == primary) return;
-			if (arguments.PropertyName != nameof(Form.Amount)) return;
+		    if (arguments.PropertyName != nameof(Form.Amount)) return;
+		    if (sender == primary) return;
 
 		    var form = (IForm) sender;
             primary.Subtract(form);

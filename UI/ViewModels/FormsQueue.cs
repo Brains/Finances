@@ -4,13 +4,15 @@ using System.Windows.Media;
 using Caliburn.Micro;
 using MoreLinq;
 using UI.Interfaces;
+using UI.Services;
 using static System.Windows.Media.ColorConverter;
 
 namespace UI.ViewModels
 {
 	public class FormsQueue : PropertyChangedBase, IViewModel
 	{
-		private const int Limit = 5;
+	    private readonly ISubtractor subtractor;
+	    private const int Limit = 5;
 		public IFormFactory Factory { get; }
 		public IObservableCollection<IForm> Forms { get; set; }
 
@@ -20,9 +22,10 @@ namespace UI.ViewModels
 		public bool CanRemove => Forms.Any();
 		public bool CanSubmit => Forms.Any() && Forms.All(form => form.CanSubmit());
 
-		public FormsQueue(IFormFactory factory)
+		public FormsQueue(IFormFactory factory, ISubtractor subtractor)
 		{
-			Forms = new BindableCollection<IForm>();
+		    this.subtractor = subtractor;
+		    Forms = new BindableCollection<IForm>();
 			Factory = factory;
 		}
 
@@ -32,8 +35,9 @@ namespace UI.ViewModels
 			form.PropertyChanged += (s, a) => NotifyOfPropertyChange(nameof(CanSubmit));
 			
 			Forms.Add(form);
+            subtractor.Add(form);
 
-			SetPrimaryColor();
+            SetPrimaryColor();
 			Refresh();
 		}
 
