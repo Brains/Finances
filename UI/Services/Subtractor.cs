@@ -19,7 +19,13 @@ namespace UI.Services
 			Primary = Primary ?? form;
 		}
 
-		private void OnPropertyChanged(object sender, PropertyChangedEventArgs arguments)
+        public void Remove(IForm form)
+        {
+            if (form == Primary)
+                Primary = null;
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs arguments)
 		{
 		    if (arguments.PropertyName != nameof(Form.Amount)) return;
 		    if (sender == Primary) return;
@@ -33,5 +39,6 @@ namespace UI.Services
     public interface ISubtractor
     {
         void Add(IForm form);
+        void Remove(IForm last);
     }
 }

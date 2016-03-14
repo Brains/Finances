@@ -43,9 +43,11 @@ namespace UI.ViewModels
 
 		public void Remove()
 		{
-			Forms.RemoveAt(Forms.Count - 1);
+		    var last = Forms.Last();
+		    Forms.Remove(last);
+		    subtractor.Remove(last);
 
-			Refresh();
+            Refresh();
 
 			if (Forms.Any()) 
 				SetPrimaryColor();

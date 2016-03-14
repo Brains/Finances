@@ -112,5 +112,28 @@ namespace UI.Tests.Services
 
             Expect(subtractor.Primary, Not.EqualTo(secondary));
 		}
+
+		[Test]
+		public void Remove_PrimaryForm_SetsPrimaryToNull()
+		{
+			Subtractor subtractor = Create();
+			IForm primary = For<IForm>();
+            subtractor.Add(primary);
+
+            subtractor.Remove(primary);
+
+            Expect(subtractor.Primary, Null);
+		}
+
+		[Test]
+		public void Remove_NotPrimaryForm_DoesNotSetPrimaryToNull()
+		{
+			Subtractor subtractor = Create();
+		    subtractor.Add(For<IForm>());
+
+            subtractor.Remove(For<IForm>());
+
+            Expect(subtractor.Primary, Not.Null);
+		}
 	}
 }
