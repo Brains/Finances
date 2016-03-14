@@ -10,22 +10,22 @@ namespace UI.Services
 {
     public class Subtractor : ISubtractor
     {
-	    private IForm primary;
+        public IForm Primary { get; private set; }
 
-		public void Add(IForm form)
+        public void Add(IForm form)
 		{
 			form.PropertyChanged += OnPropertyChanged;
 
-			primary = primary ?? form;
+			Primary = Primary ?? form;
 		}
 
 		private void OnPropertyChanged(object sender, PropertyChangedEventArgs arguments)
 		{
 		    if (arguments.PropertyName != nameof(Form.Amount)) return;
-		    if (sender == primary) return;
+		    if (sender == Primary) return;
 
 		    var form = (IForm) sender;
-            primary.Subtract(form);
+            Primary.Subtract(form);
 			form.PropertyChanged -= OnPropertyChanged;
         }
     }

@@ -15,7 +15,7 @@ namespace UI.Tests.ViewModels
 	{
 		private FormsQueue Create()
 		{
-			return new FormsQueue(For<IFormFactory>());
+			return new FormsQueue(For<IFormFactory>(), null);
 		}
 
 		private BindableCollection<IForm> GetForms(int formsCount, int defaultAmount = 10)

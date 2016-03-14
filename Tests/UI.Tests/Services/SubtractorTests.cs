@@ -9,7 +9,7 @@ using static NSubstitute.Substitute;
 
 namespace UI.Tests.Services
 {
-	public class SubtractorTests
+	public class SubtractorTests : AssertionHelper
 	{
 		private Subtractor Create()
 		{
@@ -87,6 +87,30 @@ namespace UI.Tests.Services
 			secondary.PropertyChanged += Raise("Amount");
 
 			primary.Received(1).Subtract(secondary);
+		}
+
+		[Test]
+		public void Add_FormFirstTime_MakesItPrimary()
+		{
+			Subtractor subtractor = Create();
+			IForm primary = For<IForm>();
+
+            subtractor.Add(primary);
+
+		    Expect(subtractor.Primary, EqualTo(primary));
+		}
+
+		[Test]
+		public void Add_FormSecondTime_DoesNotMakeItPrimary()
+		{
+			Subtractor subtractor = Create();
+			IForm primary = For<IForm>();
+            IForm secondary = For<IForm>();
+
+            subtractor.Add(primary);
+            subtractor.Add(secondary);
+
+            Expect(subtractor.Primary, Not.EqualTo(secondary));
 		}
 	}
 }
