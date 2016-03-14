@@ -90,11 +90,9 @@ namespace UI.ViewModels
 
 		public void Subtract(IForm form)
 		{
-			amount.Value -= forms.Sum(form =>
-			{
-				var converted = (Form) form;
-				return converted.amount.Total;
-			});
+			var converted = (Form) form;
+		    amount.Value -= converted.amount.Total;
+            NotifyOfPropertyChange(nameof(Amount));
 		}
 
 		private void UpdateCategories(Types type)
