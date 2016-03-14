@@ -4,24 +4,16 @@ using System.Linq;
 using UI.Interfaces;
 using UI.ViewModels;
 
-// TODO: Eliminate forms
 // TODO: Subtract decimal
 
 namespace UI.Services
 {
 	public class Subtractor
 	{
-		private readonly IList<IForm> forms;
-		private IForm primary;
-
-		public Subtractor()
-		{
-			forms = new List<IForm>();
-		}
+	    private IForm primary;
 
 		public void Add(IForm form)
 		{
-			forms.Add(form);
 			form.PropertyChanged += OnPropertyChanged;
 
 			primary = primary ?? form;
