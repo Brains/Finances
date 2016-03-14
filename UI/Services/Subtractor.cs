@@ -8,8 +8,8 @@ using UI.ViewModels;
 
 namespace UI.Services
 {
-	public class Subtractor
-	{
+    public class Subtractor : ISubtractor
+    {
 	    private IForm primary;
 
 		public void Add(IForm form)
@@ -28,5 +28,10 @@ namespace UI.Services
             primary.Subtract(form);
 			form.PropertyChanged -= OnPropertyChanged;
         }
+    }
+
+    public interface ISubtractor
+    {
+        void Add(IForm form);
     }
 }
