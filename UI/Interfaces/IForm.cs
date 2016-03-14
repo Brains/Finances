@@ -16,6 +16,6 @@ namespace UI.Interfaces
 		Brush Background { get; set; }
 		void Submit();
 		bool CanSubmit();
-		void Subtract(IForm form);
+		void Subtract(decimal value);
 	}
 }

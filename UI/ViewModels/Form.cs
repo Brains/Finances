@@ -95,10 +95,9 @@ namespace UI.ViewModels
 			return true;
 		}
 
-		public void Subtract(IForm form)
+		public void Subtract(decimal value)
 		{
-			var converted = (Form) form;
-		    amount.Value -= converted.amount.Total;
+            amount.Value -= value;
             NotifyOfPropertyChange(nameof(Amount));
 		}
 

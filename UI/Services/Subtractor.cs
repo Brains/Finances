@@ -31,7 +31,7 @@ namespace UI.Services
 		    if (sender == Primary) return;
 
 		    var form = (IForm) sender;
-            Primary.Subtract(form);
+            Primary.Subtract(form.Amount);
 			form.PropertyChanged -= OnPropertyChanged;
         }
     }

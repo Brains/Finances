@@ -30,7 +30,7 @@ namespace UI.Tests.Services
 
 			primary.PropertyChanged += Raise("NotAmount");
 
-			primary.DidNotReceive().Subtract(Any<IForm>());
+			primary.DidNotReceive().Subtract(Any<decimal>());
 		}
 
 		[Test]
@@ -44,7 +44,7 @@ namespace UI.Tests.Services
 
 			secondary.PropertyChanged += Raise("NotAmount");
 
-			primary.DidNotReceive().Subtract(Any<IForm>());
+			primary.DidNotReceive().Subtract(Any<decimal>());
 		}
 
 		[Test]
@@ -57,7 +57,7 @@ namespace UI.Tests.Services
 
 			primary.PropertyChanged += Raise("Amount");
 
-			primary.DidNotReceive().Subtract(Any<IForm>());
+			primary.DidNotReceive().Subtract(Any<decimal>());
 		}
 
 		[Test]
@@ -71,7 +71,7 @@ namespace UI.Tests.Services
 
 			secondary.PropertyChanged += Raise("Amount");
 
-			primary.Received().Subtract(secondary);
+			primary.Received().Subtract(secondary.Amount);
 		}
 
 		[Test]
@@ -86,7 +86,7 @@ namespace UI.Tests.Services
 			secondary.PropertyChanged += Raise("Amount");
 			secondary.PropertyChanged += Raise("Amount");
 
-			primary.Received(1).Subtract(secondary);
+			primary.Received(1).Subtract(secondary.Amount);
 		}
 
 		[Test]
