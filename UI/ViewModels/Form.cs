@@ -69,11 +69,7 @@ namespace UI.ViewModels
 		}
 
 		[Notify]
-        decimal IForm.Amount
-	    {
-            get { return amount.Value; }
-            set { amount.Value = value; }
-        }
+        decimal IForm.Amount => amount.Total;
 
 	    [Notify]
 		public Brush Background { get; set; } = Brushes.Transparent;

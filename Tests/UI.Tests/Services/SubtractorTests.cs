@@ -19,7 +19,7 @@ namespace UI.Tests.Services
         private IForm AddForm(Subtractor subtractor)
         {
             var form = For<IForm>();
-            form.Amount = 5;
+//            form.Amount = 5;
             subtractor.Add(form);
 
             return form;

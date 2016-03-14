@@ -11,7 +11,7 @@ namespace UI.Interfaces
 {
 	public interface IForm : INotifyPropertyChangedEx
 	{
-		decimal Amount { get; set; }
+		decimal Amount { get; }
 		Types SelectedType { get; set; }
 		Brush Background { get; set; }
 		void Submit();
