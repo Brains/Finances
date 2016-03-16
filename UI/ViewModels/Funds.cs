@@ -22,7 +22,7 @@ namespace UI.ViewModels
             events.Subscribe(this);
 
             Sources = sources;
-			Sources.ForEach(source => source.PropertyChanged += Update);
+			Sources.ForEach(source => source.Update += Update);
 			Sources.ForEach(source => source.PullValue());
 		}
 
@@ -31,7 +31,7 @@ namespace UI.ViewModels
 		public decimal Total { get; set; }
 		public int RowIndex { get; } = 0;
 
-		private void Update(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+		private void Update()
 		{
 			Total = Sources.Sum(source => source.Value);
 			Divergence = CalculateDivergence(Total, expenses.Records.ToArray());

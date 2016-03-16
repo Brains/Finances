@@ -11,7 +11,7 @@ namespace Funds.Sources
 			this.settings = settings;
 			Name = "Cash";
 
-			PropertyChanged += (s, a) => settings.Save("Cash", Value);
+			Update += () => settings.Save("Cash", Value);
 		}
 
 		public override void PullValue()

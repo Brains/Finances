@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 
 namespace Common
@@ -7,6 +8,6 @@ namespace Common
 		string Name { get; }
 		decimal Value { get; set; }
 		void PullValue();
-		event PropertyChangedEventHandler PropertyChanged;
+		event Action Update;
 	}
 }
