@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Caliburn.Micro;
 using Common;
 using Common.Storages;
 using Funds.Sources;
@@ -27,7 +26,7 @@ namespace Funds.Tests.Sources
 
 		private Debts Create(IExpenses expenses = null)
 		{
-			return new Debts(expenses, For<IEventAggregator>());
+			return new Debts(expenses);
 		}
 
 		[Test]

@@ -10,17 +10,18 @@ using static Common.Record.Types;
 
 namespace UI.ViewModels
 {
-	public class Funds : PropertyChangedBase, IViewModel
+	public class Funds : PropertyChangedBase, IViewModel, IHandle<Record>
 	{
 		private readonly IExpenses expenses;
 
-		public Funds(IFundsSource[] sources, IExpenses expenses)
+		public Funds(IFundsSource[] sources, IExpenses expenses, IEventAggregator events)
 		{
 			if (!sources.Any()) throw new ArgumentException();
 
 			this.expenses = expenses;
+            events.Subscribe(this);
 
-			Sources = sources;
+            Sources = sources;
 			Sources.ForEach(source => source.PropertyChanged += Update);
 			Sources.ForEach(source => source.PullValue());
 		}
@@ -57,5 +58,10 @@ namespace UI.ViewModels
 
 			return income - spending;
 		}
+
+	    public void Handle(Record message)
+	    {
+            Sources.ForEach(source => source.PullValue());
+        }
 	}
 }
