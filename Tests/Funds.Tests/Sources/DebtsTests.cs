@@ -35,10 +35,12 @@ namespace Funds.Tests.Sources
 			var expenses = For<IExpenses>();
 			expenses.Records = new ObservableCollection<Record>(Data);
 			var debts = Create(expenses);
+		    decimal actual = 0;
+		    debts.Update += value => actual = value;
 
-			debts.PullValue();
+            debts.PullValue();
 
-			Assert.That(debts.Value, Is.EqualTo(200));
+			Assert.That(actual, Is.EqualTo(200));
 		}
 
 		[Test]
