@@ -7,6 +7,7 @@ using Common;
 using Common.Storages;
 using MoreLinq;
 using UI.Interfaces;
+using UI.Services;
 using static Common.Record.Types;
 
 namespace UI.ViewModels
@@ -37,19 +38,16 @@ namespace UI.ViewModels
         }
 
 	    public IFund[] Sources { get; }
-        public decimal Divergence { get; set; }
-		public decimal Total { get; set; }
-		public int RowIndex { get; } = 0;
+	    public int RowIndex { get; } = 0;
+	    [Notify] public decimal Divergence { get; set; }
+	    [Notify] public decimal Total { get; set; }
 
-		private void Update(object sender, PropertyChangedEventArgs arguments)
+	    private void Update(object sender, PropertyChangedEventArgs arguments)
 		{
 		    if (arguments.PropertyName != "Value") return;
 
 		    Total = Sources.Sum(source => source.Value);
 			Divergence = CalculateDivergence(Total, expenses.Records.ToArray());
-
-			NotifyOfPropertyChange(nameof(Divergence));
-			NotifyOfPropertyChange(nameof(Total));
 		}
 
 		public decimal CalculateDivergence(decimal real, Record[] records)
