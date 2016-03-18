@@ -89,9 +89,25 @@ namespace Loader
 		             .RegisterType<IFundsSource, Cash>("Cash")
 		             .RegisterType<IFundsSource, Debts>("Debts");
 
-		    container.RegisterType<IFund, Fund>("Card", new Constructor(new Parameter<IFundsSource>("Card"), false))
-		             .RegisterType<IFund, Fund>("Cash", new Constructor(new Parameter<IFundsSource>("Cash"), true))
-		             .RegisterType<IFund, Fund>("Debts", new Constructor(new Parameter<IFundsSource>("Debts"), false));
+		    container.RegisterType<IFund, Fund>(
+		        "Card",
+		        new Constructor(new Parameter<IFundsSource>("Card"),
+		                        new Parameter<ISettings>()));
+
+		    container.RegisterType<IFund, Fund>(
+		        "Cash",
+		        new Constructor(
+		            new Parameter<IFundsSource>("Cash"),
+		            new Parameter<ISettings>()),
+		        new InjectionProperty("IsEditable", true));
+
+		    container.RegisterType<IFund, Fund>(
+		        "Debts",
+		        new Constructor(new Parameter<IFundsSource>("Debts"),
+		                        new Parameter<ISettings>()));
+
+
+
 
             container.RegisterType<IScreen, Trends>("Trends", new Constructor(
 						new Parameter<IViewModel>("Trend")))
