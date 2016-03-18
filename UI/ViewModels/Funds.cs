@@ -16,14 +16,14 @@ namespace UI.ViewModels
 		private readonly IExpenses expenses;
 	    private readonly IEventAggregator events;
 
-	    public Funds(IFundsSource[] sources, IExpenses expenses, IEventAggregator events)
+	    public Funds(IFund[] sources, IExpenses expenses, IEventAggregator events)
 		{
 			if (!sources.Any()) throw new ArgumentException();
 
 			this.expenses = expenses;
 	        this.events = events;
 
-	        this.Sources = sources;
+	        Sources = sources;
         }
 
 	    protected override void OnInitialize()
@@ -31,18 +31,21 @@ namespace UI.ViewModels
 	        base.OnInitialize();
 
             events.Subscribe(this);
-            Sources.ForEach(source => source.Update += Update);
+
+            Sources.ForEach(source => source.PropertyChanged += Update);
             Sources.ForEach(source => source.PullValue());
         }
 
-	    public IFundsSource[] Sources { get; }
+	    public IFund[] Sources { get; }
         public decimal Divergence { get; set; }
 		public decimal Total { get; set; }
 		public int RowIndex { get; } = 0;
 
-		private void Update()
+		private void Update(object sender, PropertyChangedEventArgs arguments)
 		{
-			Total = Sources.Sum(source => source.Value);
+		    if (arguments.PropertyName != "Value") return;
+
+		    Total = Sources.Sum(source => source.Value);
 			Divergence = CalculateDivergence(Total, expenses.Records.ToArray());
 
 			NotifyOfPropertyChange(nameof(Divergence));
