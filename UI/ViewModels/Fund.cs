@@ -21,7 +21,7 @@ namespace UI.ViewModels
         }
 
         public string Name { get; }
-        public bool IsEditable => Saver != null;
+        public bool IsReadOnly => Saver == null;
 
         [Notify]
         public decimal Value
