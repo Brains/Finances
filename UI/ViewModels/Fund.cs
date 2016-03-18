@@ -3,6 +3,7 @@ using System.ComponentModel;
 using Caliburn.Micro;
 using Common;
 using UI.Services;
+using UI.Views.Converters;
 
 namespace UI.ViewModels
 {
@@ -10,7 +11,6 @@ namespace UI.ViewModels
     {
         private readonly IFundsSource source;
         private decimal value;
-        public ISaver Saver { get; set; }
 
         public Fund(IFundsSource source)
         {
@@ -20,6 +20,8 @@ namespace UI.ViewModels
             Name = source.GetType().Name;
         }
 
+        public ISaver Saver { get; set; }
+        public IAdder Adder { get; set; }
         public string Name { get; }
         public bool IsReadOnly => Saver == null;
         public bool IsHitTestVisible => Saver != null;

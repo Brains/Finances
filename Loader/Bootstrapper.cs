@@ -85,25 +85,31 @@ namespace Loader
 		            new Parameter<IViewModel>("Diagrams"))))
 		        .RegisterType<IViewModel, Diagrams>("Diagrams");
 
-		    container.RegisterType<ISaver, Saver>();
-
-		    container.RegisterType<IFundsSource, Card>("Card")
-		             .RegisterType<IFundsSource, Cash>("Cash")
-		             .RegisterType<IFundsSource, Debts>("Debts");
-
-		    container.RegisterType<IFund, Fund>("Card", new Constructor(new Parameter<IFundsSource>("Card")));
-		    container.RegisterType<IFund, Fund>("Debts", new Constructor(new Parameter<IFundsSource>("Debts")));
-		    container.RegisterType<IFund, Fund>(
-                "Cash", 
-                new Constructor(new Parameter<IFundsSource>("Cash")),
-		        new InjectionProperty("Saver", new Parameter<ISaver>()));
-
-            container.RegisterType<IScreen, Trends>("Trends", new Constructor(
+		    container.RegisterType<IScreen, Trends>("Trends", new Constructor(
 						new Parameter<IViewModel>("Trend")))
 			         .RegisterType<IViewModel, Trend>("Trend");
-        }
 
-		private void ConfigureCaliburn()
+		    RegisterFunds();
+		}
+
+	    private void RegisterFunds()
+	    {
+		    container.RegisterType<ISaver, Saver>();
+
+            container.RegisterType<IFundsSource, Card>("Card")
+	                 .RegisterType<IFundsSource, Cash>("Cash")
+	                 .RegisterType<IFundsSource, Debts>("Debts");
+
+	        container.RegisterType<IFund, Fund>("Card", new Constructor(new Parameter<IFundsSource>("Card")));
+	        container.RegisterType<IFund, Fund>("Debts", new Constructor(new Parameter<IFundsSource>("Debts")));
+	        container.RegisterType<IFund, Fund>(
+	            "Cash",
+	            new Constructor(new Parameter<IFundsSource>("Cash")),
+                new InjectionProperty("Saver", new Parameter<ISaver>()),
+                new InjectionProperty("Adder", new Parameter<IAdder>()));
+	    }
+
+	    private void ConfigureCaliburn()
 		{
 			ViewLocator.NameTransformer.AddRule("Model", string.Empty);
 			AssemblySource.Instance.Add(Assembly.GetAssembly(typeof (UI.ViewModels.Shell)));
