@@ -20,7 +20,7 @@
     </UserControl.Resources>
     <StackPanel Orientation="Horizontal">
         <Label Content="{Binding Name}"/>
-        <TextBox Text="{Binding Value}" IsReadOnly="{Binding IsReadOnly}"
+        <TextBox Text="{Binding Value}" IsReadOnly="{Binding IsReadOnly}" IsHitTestVisible="{Binding IsHitTestVisible}"
 	        ToolTip="{Binding Converter={converters:FundsToolTip}, ConverterParameter={StaticResource DebtsToolTip}}"/>
     </StackPanel>
 </UserControl>

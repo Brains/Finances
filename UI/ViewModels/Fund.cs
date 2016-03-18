@@ -22,6 +22,7 @@ namespace UI.ViewModels
 
         public string Name { get; }
         public bool IsReadOnly => Saver == null;
+        public bool IsHitTestVisible => Saver != null;
 
         [Notify]
         public decimal Value
