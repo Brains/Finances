@@ -85,29 +85,18 @@ namespace Loader
 		            new Parameter<IViewModel>("Diagrams"))))
 		        .RegisterType<IViewModel, Diagrams>("Diagrams");
 
+		    container.RegisterType<ISaver, Saver>();
+
 		    container.RegisterType<IFundsSource, Card>("Card")
 		             .RegisterType<IFundsSource, Cash>("Cash")
 		             .RegisterType<IFundsSource, Debts>("Debts");
 
+		    container.RegisterType<IFund, Fund>("Card", new Constructor(new Parameter<IFundsSource>("Card")));
+		    container.RegisterType<IFund, Fund>("Debts", new Constructor(new Parameter<IFundsSource>("Debts")));
 		    container.RegisterType<IFund, Fund>(
-		        "Card",
-		        new Constructor(new Parameter<IFundsSource>("Card"),
-		                        new Parameter<ISettings>()));
-
-		    container.RegisterType<IFund, Fund>(
-		        "Cash",
-		        new Constructor(
-		            new Parameter<IFundsSource>("Cash"),
-		            new Parameter<ISettings>()),
-		        new InjectionProperty("IsEditable", true));
-
-		    container.RegisterType<IFund, Fund>(
-		        "Debts",
-		        new Constructor(new Parameter<IFundsSource>("Debts"),
-		                        new Parameter<ISettings>()));
-
-
-
+                "Cash", 
+                new Constructor(new Parameter<IFundsSource>("Cash")),
+		        new InjectionProperty("Saver", new Parameter<ISaver>()));
 
             container.RegisterType<IScreen, Trends>("Trends", new Constructor(
 						new Parameter<IViewModel>("Trend")))

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using Caliburn.Micro;
 using Common;
 using UI.Services;
@@ -8,20 +9,19 @@ namespace UI.ViewModels
     public class Fund : PropertyChangedBase, IFund
     {
         private readonly IFundsSource source;
-        private readonly ISettings settings;
         private decimal value;
+        public ISaver Saver { get; set; }
 
-        public Fund(IFundsSource source, ISettings settings)
+        public Fund(IFundsSource source)
         {
             this.source = source;
             this.source.Update += value => Value = value;
-            this.settings = settings;
 
             Name = source.GetType().Name;
         }
 
         public string Name { get; }
-        public bool IsEditable { get; set; }
+        public bool IsEditable => Saver != null;
 
         [Notify]
         public decimal Value
@@ -29,8 +29,8 @@ namespace UI.ViewModels
             get { return value; }
             set
             {
-                settings.Save("Cash", value);
                 this.value = value;
+                Saver?.Save(Name, value);
             }
         }
 
