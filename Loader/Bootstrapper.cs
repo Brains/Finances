@@ -26,9 +26,9 @@ namespace Loader
 {
 	public class Bootstrapper : BootstrapperBase
 	{
-		private IUnityContainer container;
+	    private IUnityContainer container;
 
-		public Bootstrapper()
+	    public Bootstrapper()
 		{
 			Initialize();
 		}
@@ -66,9 +66,9 @@ namespace Loader
 			container.RegisterType<IScreen, Tracker>(
 				"Tracker", new Constructor(
 					           new ResolvedArrayParameter<IViewModel>(
-						           new ResolvedParameter<IViewModel>("Funds"),
-						           new ResolvedParameter<IViewModel>("Records"),
-						           new ResolvedParameter<IViewModel>("FormsQueue"))))
+						           new Parameter<IViewModel>("Funds"),
+						           new Parameter<IViewModel>("Records"),
+						           new Parameter<IViewModel>("FormsQueue"))))
 			         .RegisterType<IViewModel, UI.ViewModels.Funds>("Funds")
 			         .RegisterType<IViewModel, UI.ViewModels.Records>("Records")
 			         .RegisterType<IViewModel, FormsQueue>("FormsQueue")
@@ -82,19 +82,19 @@ namespace Loader
 
 		    container.RegisterType<IScreen, Statistics>("Statistics", new Constructor(
 		        new ResolvedArrayParameter<IViewModel>(
-		            new ResolvedParameter<IViewModel>("Diagrams"))))
+		            new Parameter<IViewModel>("Diagrams"))))
 		        .RegisterType<IViewModel, Diagrams>("Diagrams");
 
 		    container.RegisterType<IFundsSource, Card>("Card")
 		             .RegisterType<IFundsSource, Cash>("Cash")
 		             .RegisterType<IFundsSource, Debts>("Debts");
 
-		    container.RegisterType<IFund, Fund>("Card", new Constructor(new ResolvedParameter<IFundsSource>("Card"), false))
-		             .RegisterType<IFund, Fund>("Cash", new Constructor(new ResolvedParameter<IFundsSource>("Cash"), true))
-		             .RegisterType<IFund, Fund>("Debts", new Constructor(new ResolvedParameter<IFundsSource>("Debts"), false));
+		    container.RegisterType<IFund, Fund>("Card", new Constructor(new Parameter<IFundsSource>("Card"), false))
+		             .RegisterType<IFund, Fund>("Cash", new Constructor(new Parameter<IFundsSource>("Cash"), true))
+		             .RegisterType<IFund, Fund>("Debts", new Constructor(new Parameter<IFundsSource>("Debts"), false));
 
             container.RegisterType<IScreen, Trends>("Trends", new Constructor(
-						new ResolvedParameter<IViewModel>("Trend")))
+						new Parameter<IViewModel>("Trend")))
 			         .RegisterType<IViewModel, Trend>("Trend");
         }
 
@@ -140,5 +140,11 @@ namespace Loader
 
 			ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(name), theme.Item1);
 		}
-	}
+
+        class Parameter<T> : ResolvedParameter<T>
+        {
+            public Parameter() { }
+            public Parameter(string name) : base(name) { }
+        }
+    }
 }
