@@ -10,7 +10,6 @@ namespace UI.ViewModels
     public class Fund : PropertyChangedBase, IFund
     {
         private readonly IFundsSource source;
-        private decimal value;
 
         public Fund(IFundsSource source)
         {
@@ -20,21 +19,23 @@ namespace UI.ViewModels
             Name = source.GetType().Name;
         }
 
-        public ISaver Saver { get; set; }
-        public IAdder Adder { get; set; }
+        [Notify] public decimal Value { get; set; }
+        [Notify] public string Text
+        {
+            get { return Value.ToString("G"); }
+            set { SetValue(value); }
+        }
         public string Name { get; }
         public bool IsReadOnly => Saver == null;
         public bool IsHitTestVisible => Saver != null;
+        public ISaver Saver { get; set; }
+        public IAdder Adder { get; set; }
 
-        [Notify]
-        public decimal Value
+        private void SetValue(string value)
         {
-            get { return value; }
-            set
-            {
-                this.value = value;
-                Saver?.Save(Name, value);
-            }
+            Value = Adder?.Convert(value) ?? decimal.Parse(value);
+
+            Saver?.Save(Name, Value);
         }
 
         public void PullValue() => source.PullValue();
