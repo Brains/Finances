@@ -9,17 +9,18 @@ namespace UI.ViewModels
     {
         private readonly IFundsSource source;
 
-        public Fund(IFundsSource source)
+        public Fund(IFundsSource source, bool isEditable)
         {
             this.source = source;
             this.source.Update += value => Value = value;
+
+            Name = source.GetType().Name;
+            IsEditable = isEditable;
         }
 
-        public string Name { get; set; }
-        public bool IsEditable { get; set; }
-
-        [Notify]
-        public decimal Value { get; set; }
+        public string Name { get; }
+        public bool IsEditable { get; }
+        [Notify] public decimal Value { get; set; }
 
         public void PullValue() => source.PullValue();
     }

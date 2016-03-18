@@ -80,15 +80,20 @@ namespace Loader
 			         .RegisterType<ISubtractor, Subtractor>()
 			         .RegisterType<IForm, Form>();
 
-			container.RegisterType<IScreen, Statistics>("Statistics", new Constructor(
-					new ResolvedArrayParameter<IViewModel>(
-						new ResolvedParameter<IViewModel>("Diagrams"))))
-			         .RegisterType<IViewModel, Diagrams>("Diagrams")
-			         .RegisterType<IFundsSource, Card>("Card")
-			         .RegisterType<IFundsSource, Cash>("Cash")
-					 .RegisterType<IFundsSource, Debts>("Debts");
+		    container.RegisterType<IScreen, Statistics>("Statistics", new Constructor(
+		        new ResolvedArrayParameter<IViewModel>(
+		            new ResolvedParameter<IViewModel>("Diagrams"))))
+		        .RegisterType<IViewModel, Diagrams>("Diagrams");
 
-			container.RegisterType<IScreen, Trends>("Trends", new Constructor(
+		    container.RegisterType<IFundsSource, Card>("Card")
+		             .RegisterType<IFundsSource, Cash>("Cash")
+		             .RegisterType<IFundsSource, Debts>("Debts");
+
+		    container.RegisterType<IFund, Fund>("Card", new Constructor(new ResolvedParameter<IFundsSource>("Card"), false))
+		             .RegisterType<IFund, Fund>("Cash", new Constructor(new ResolvedParameter<IFundsSource>("Cash"), true))
+		             .RegisterType<IFund, Fund>("Debts", new Constructor(new ResolvedParameter<IFundsSource>("Debts"), false));
+
+            container.RegisterType<IScreen, Trends>("Trends", new Constructor(
 						new ResolvedParameter<IViewModel>("Trend")))
 			         .RegisterType<IViewModel, Trend>("Trend");
         }
