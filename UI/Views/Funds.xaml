@@ -40,9 +40,9 @@
         <StackPanel Orientation="Horizontal">
 			<ItemsControl Name="Sources" />
             <Label Content="Total" FontSize="{StaticResource BigFontSize}" Margin="{StaticResource BigLeftMargin}"/>
-            <TextBox Name="Total" FontSize="{StaticResource BigFontSize}"/>
+            <TextBox Text="{Binding Total, StringFormat={}{0:N0}}" FontSize="{StaticResource BigFontSize}"/>
             <Label Content="Divergence" FontSize="{StaticResource BigFontSize}" Margin="{StaticResource BigLeftMargin}"/>
-            <TextBox Name="Divergence" Text="{Binding Divergence, StringFormat={}{0:+#;-#;0}}" FontSize="{StaticResource BigFontSize}"
+            <TextBox Text="{Binding Divergence, StringFormat={}{0:+#;-#;0}}" FontSize="{StaticResource BigFontSize}"
                      Foreground="{Binding Divergence, Converter={converters:DivergenceColor}}"/>
         </StackPanel>
     </Border>
