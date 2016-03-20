@@ -62,11 +62,14 @@
 					<Setter Property="RowHeaderStyle" Value="{StaticResource MetroDataGridRowHeader}"/>
 				</Style.Setters>
 			</Style>
-		</ResourceDictionary>
+            <Style TargetType="{x:Type DataGridCell}">
+                <Setter Property="IsHitTestVisible" Value="False"/>
+            </Style>
+        </ResourceDictionary>
 	</UserControl.Resources>
 
 	<DataGrid x:Name="List" AutoGenerateColumns="False" ColumnWidth="*" IsReadOnly="True" Style="{StaticResource DataGridGroupingVirtualized}" 
-			  HeadersVisibility="None">
+			  HeadersVisibility="None" SelectionUnit="Cell">
 		<DataGrid.Columns>
 			<DataGridComboBoxColumn Header="Type" SelectedValueBinding="{Binding Type}" ElementStyle="{StaticResource DisabledEnumComboBox}"
 			                        EditingElementStyle="{StaticResource DisabledEnumComboBox}"
