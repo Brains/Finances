@@ -71,7 +71,7 @@
 			<DataGridComboBoxColumn Header="Type" SelectedValueBinding="{Binding Type}" ElementStyle="{StaticResource DisabledEnumComboBox}"
 			                        EditingElementStyle="{StaticResource DisabledEnumComboBox}"
 			                        ItemsSource="{Binding Source={extensions:EnumValues {x:Type common:Record+Types}}}"/>
-			<DataGridTextColumn Header="Amount" Binding="{Binding Amount}" ElementStyle="{StaticResource ColoredAmount}"/>
+			<DataGridTextColumn Header="Amount" Binding="{Binding Amount, StringFormat={}{0:N0}}" ElementStyle="{StaticResource ColoredAmount}"/>
 			<DataGridComboBoxColumn Header="Category" SelectedValueBinding="{Binding Category}" ElementStyle="{StaticResource DisabledEnumComboBox}"
 			                        EditingElementStyle="{StaticResource DisabledEnumComboBox}"
 			                        ItemsSource="{Binding Source={extensions:EnumValues {x:Type common:Record+Categories}}}"/>
