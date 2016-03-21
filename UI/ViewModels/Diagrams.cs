@@ -7,6 +7,7 @@ using Common;
 using Common.Storages;
 using UI.Interfaces;
 using static System.Globalization.DateTimeFormatInfo;
+using static System.Math;
 using static Common.Record;
 using static Common.Record.Types;
 
@@ -93,7 +94,7 @@ namespace UI.ViewModels
 		{
 			return records.GroupBy(record => record.Category)
 			              .ToDictionary(group => group.Key,
-			                            group => group.Sum(record => record.Amount));
+			                            group => group.Sum(record => Round(record.Amount)));
 		}
 
 		public Dictionary<Types, Dictionary<string, decimal>> CalculateBalanceByMonth(ILookup<Types, Record> records)
@@ -110,7 +111,7 @@ namespace UI.ViewModels
 			return records.GroupBy(record => record.Date.Month)
 			              .OrderBy(month => month.Key)
 			              .ToDictionary(month => CurrentInfo.GetMonthName(month.Key),
-										month => month.Sum(record => record.Amount));
+										month => month.Sum(record => Round(record.Amount)));
 
 		}
 
@@ -119,7 +120,7 @@ namespace UI.ViewModels
 			return new CategoryData
 			{
 				Category = group.Key,
-				Amount = group.Sum(r => r.Amount),
+				Amount = group.Sum(r => Round(r.Amount)),
 				Description = group.Select(r => r.Description)
 				                   .Aggregate((a, b) => $"{a}\n{b}")
 			};
