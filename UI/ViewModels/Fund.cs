@@ -14,7 +14,11 @@ namespace UI.ViewModels
         public Fund(IFundsSource source)
         {
             this.source = source;
-            this.source.Update += value => Value = value;
+            this.source.Update += value =>
+            {
+                Value = value;
+                NotifyOfPropertyChange(nameof(Text));
+            };
 
             Name = source.GetType().Name;
         }
