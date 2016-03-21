@@ -26,9 +26,9 @@ namespace Loader
 {
 	public class Bootstrapper : BootstrapperBase
 	{
-		private IUnityContainer container;
+	    private IUnityContainer container;
 
-		public Bootstrapper()
+	    public Bootstrapper()
 		{
 			Initialize();
 		}
@@ -66,9 +66,9 @@ namespace Loader
 			container.RegisterType<IScreen, Tracker>(
 				"Tracker", new Constructor(
 					           new ResolvedArrayParameter<IViewModel>(
-						           new ResolvedParameter<IViewModel>("Funds"),
-						           new ResolvedParameter<IViewModel>("Records"),
-						           new ResolvedParameter<IViewModel>("FormsQueue"))))
+						           new Parameter<IViewModel>("Funds"),
+						           new Parameter<IViewModel>("Records"),
+						           new Parameter<IViewModel>("FormsQueue"))))
 			         .RegisterType<IViewModel, UI.ViewModels.Funds>("Funds")
 			         .RegisterType<IViewModel, UI.ViewModels.Records>("Records")
 			         .RegisterType<IViewModel, FormsQueue>("FormsQueue")
@@ -80,20 +80,36 @@ namespace Loader
 			         .RegisterType<ISubtractor, Subtractor>()
 			         .RegisterType<IForm, Form>();
 
-			container.RegisterType<IScreen, Statistics>("Statistics", new Constructor(
-					new ResolvedArrayParameter<IViewModel>(
-						new ResolvedParameter<IViewModel>("Diagrams"))))
-			         .RegisterType<IViewModel, Diagrams>("Diagrams")
-			         .RegisterType<IFundsSource, Card>("Card")
-			         .RegisterType<IFundsSource, Cash>("Cash")
-					 .RegisterType<IFundsSource, Debts>("Debts");
+		    container.RegisterType<IScreen, Statistics>("Statistics", new Constructor(
+		        new ResolvedArrayParameter<IViewModel>(
+		            new Parameter<IViewModel>("Diagrams"))))
+		        .RegisterType<IViewModel, Diagrams>("Diagrams");
 
-			container.RegisterType<IScreen, Trends>("Trends", new Constructor(
-						new ResolvedParameter<IViewModel>("Trend")))
+		    container.RegisterType<IScreen, Trends>("Trends", new Constructor(
+						new Parameter<IViewModel>("Trend")))
 			         .RegisterType<IViewModel, Trend>("Trend");
-        }
 
-		private void ConfigureCaliburn()
+		    RegisterFunds();
+		}
+
+	    private void RegisterFunds()
+	    {
+		    container.RegisterType<ISaver, Saver>();
+
+            container.RegisterType<IFundsSource, Card>("Card")
+	                 .RegisterType<IFundsSource, Cash>("Cash")
+	                 .RegisterType<IFundsSource, Debts>("Debts");
+
+	        container.RegisterType<IFund, Fund>("Card", new Constructor(new Parameter<IFundsSource>("Card")));
+	        container.RegisterType<IFund, Fund>("Debts", new Constructor(new Parameter<IFundsSource>("Debts")));
+	        container.RegisterType<IFund, Fund>(
+	            "Cash",
+	            new Constructor(new Parameter<IFundsSource>("Cash")),
+                new InjectionProperty("Saver", new Parameter<ISaver>()),
+                new InjectionProperty("Adder", new Parameter<IAdder>()));
+	    }
+
+	    private void ConfigureCaliburn()
 		{
 			ViewLocator.NameTransformer.AddRule("Model", string.Empty);
 			AssemblySource.Instance.Add(Assembly.GetAssembly(typeof (UI.ViewModels.Shell)));
@@ -135,5 +151,11 @@ namespace Loader
 
 			ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(name), theme.Item1);
 		}
-	}
+
+        class Parameter<T> : ResolvedParameter<T>
+        {
+            public Parameter() { }
+            public Parameter(string name) : base(name) { }
+        }
+    }
 }

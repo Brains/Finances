@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Caliburn.Micro;
 using Common;
 using Common.Storages;
 using Funds.Sources;
@@ -27,7 +26,7 @@ namespace Funds.Tests.Sources
 
 		private Debts Create(IExpenses expenses = null)
 		{
-			return new Debts(expenses, For<IEventAggregator>());
+			return new Debts(expenses);
 		}
 
 		[Test]
@@ -36,10 +35,12 @@ namespace Funds.Tests.Sources
 			var expenses = For<IExpenses>();
 			expenses.Records = new ObservableCollection<Record>(Data);
 			var debts = Create(expenses);
+		    decimal actual = 0;
+		    debts.Update += value => actual = value;
 
-			debts.PullValue();
+            debts.PullValue();
 
-			Assert.That(debts.Value, Is.EqualTo(200));
+			Assert.That(actual, Is.EqualTo(200));
 		}
 
 		[Test]

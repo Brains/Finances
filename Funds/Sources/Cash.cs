@@ -1,22 +1,19 @@
-﻿using Common;
+﻿using System;
+using Common;
 
 namespace Funds.Sources
 {
-	public class Cash : Base
-	{
-		private readonly ISettings settings;
+    public class Cash : IFundsSource
+    {
+        private readonly ISettings settings;
 
-		public Cash(ISettings settings)
-		{
-			this.settings = settings;
-			Name = "Cash";
+        public Cash(ISettings settings)
+        {
+            this.settings = settings;
+        }
 
-			PropertyChanged += (s, a) => settings.Save("Cash", Value);
-		}
+        public event Action<decimal> Update = delegate { };
 
-		public override void PullValue()
-		{
-			Value = decimal.Parse(settings.Cash);
-		}
-	}
+        public void PullValue() => Update(decimal.Parse(settings.Cash));
+    }
 }

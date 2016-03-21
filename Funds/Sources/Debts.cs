@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using Caliburn.Micro;
 using Common;
 using Common.Storages;
 using static Common.Record;
@@ -11,69 +9,62 @@ using Directions = System.Collections.Generic.Dictionary<string, decimal>;
 
 namespace Funds.Sources
 {
-	public class Debts : Base, IHandle<Record>
-	{
-		private readonly IExpenses expenses;
+    public class Debts : IFundsSource
+    {
+        private readonly IExpenses expenses;
 
-		public Debts(IExpenses expenses, IEventAggregator events)
-		{
-			this.expenses = expenses;
-			events.Subscribe(this);
-
-			Name = "Debts";
-		}
-
-		public Dictionary<Categories, decimal> Dudes { get; set; }
-
-		public override void PullValue()
-		{
-			Dudes = Calculate(expenses.Records);
-			Value = Dudes.Sum(pair => pair.Value);
+        public Debts(IExpenses expenses)
+        {
+            this.expenses = expenses;
         }
 
-		public Dictionary<Categories, decimal> Calculate(IEnumerable<Record> records)
-		{
-			var types = records.ToLookup(record => record.Type);
+        public Dictionary<Categories, decimal> Dudes { get; set; }
+        public event Action<decimal> Update = delegate { };
 
-			Validate(types[Debt]);
+        public virtual void PullValue()
+        {
+            Dudes = Calculate(expenses.Records);
+            Update(Dudes.Sum(pair => pair.Value));
+        }
 
-			var directions = CalculateDirections(types[Debt]);
-			var shared = types[Shared].Sum(record => record.Amount);
+        public Dictionary<Categories, decimal> Calculate(IEnumerable<Record> records)
+        {
+            var types = records.ToLookup(record => record.Type);
 
-			return directions.ToDictionary(dude => dude.Key,
-			                               dude => shared + dude.Value["Out"] - dude.Value["In"]);
-		}
+            Validate(types[Debt]);
 
-		private Dictionary<Categories, Directions> CalculateDirections(IEnumerable<Record> records)
-		{
-			return records.ToLookup(record => record.Category)
-			              .ToDictionary(dude => dude.Key, CalculateTotalForDirections);
-		}
+            var directions = CalculateDirections(types[Debt]);
+            var shared = types[Shared].Sum(record => record.Amount);
 
-		private Directions CalculateTotalForDirections(IGrouping<Categories, Record> dude)
-		{
-			return dude.ToLookup(record => record.Description)
-			           .ToDictionary(direction => direction.Key,
-			                         direction => direction.Sum(record => record.Amount));
-		}
+            return directions.ToDictionary(dude => dude.Key,
+                dude => shared + dude.Value["Out"] - dude.Value["In"]);
+        }
 
-		public void Validate(IEnumerable<Record> records)
-		{
-			var invalid = records.Where(record =>
-			{
-				var input = record.Description.Equals("In");
-				var output = record.Description.Equals("Out");
+        private Dictionary<Categories, Directions> CalculateDirections(IEnumerable<Record> records)
+        {
+            return records.ToLookup(record => record.Category)
+                .ToDictionary(dude => dude.Key, CalculateTotalForDirections);
+        }
 
-				return !input && !output;
-			});
+        private Directions CalculateTotalForDirections(IGrouping<Categories, Record> dude)
+        {
+            return dude.ToLookup(record => record.Description)
+                .ToDictionary(direction => direction.Key,
+                    direction => direction.Sum(record => record.Amount));
+        }
 
-			if (invalid.Any())
-				throw new ArgumentException("Wrong Description for Debt record");
-		}
+        public void Validate(IEnumerable<Record> records)
+        {
+            var invalid = records.Where(record =>
+            {
+                var input = record.Description.Equals("In");
+                var output = record.Description.Equals("Out");
 
-		public void Handle(Record message)
-		{
-			PullValue();
-		}
-	}
+                return !input && !output;
+            });
+
+            if (invalid.Any())
+                throw new ArgumentException("Wrong Description for Debt record");
+        }
+    }
 }

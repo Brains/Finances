@@ -91,7 +91,9 @@
     <Compile Include="ViewModels\FormsQueue.cs" />
     <Compile Include="ViewModels\Diagrams.cs" />
     <Compile Include="ViewModels\Funds.cs" />
+    <Compile Include="ViewModels\Fund.cs" />
     <Compile Include="ViewModels\Records.cs" />
+    <Compile Include="ViewModels\Saver.cs" />
     <Compile Include="ViewModels\Shell.cs" />
     <Compile Include="ViewModels\Statistics.cs" />
     <Compile Include="ViewModels\Tracker.cs" />
@@ -124,6 +126,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Diagrams.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Fund.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

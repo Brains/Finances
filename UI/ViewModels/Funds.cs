@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Caliburn.Micro;
@@ -6,37 +7,47 @@ using Common;
 using Common.Storages;
 using MoreLinq;
 using UI.Interfaces;
+using UI.Services;
 using static Common.Record.Types;
 
 namespace UI.ViewModels
 {
-	public class Funds : PropertyChangedBase, IViewModel
+	public class Funds : Screen, IViewModel, IHandle<Record>
 	{
 		private readonly IExpenses expenses;
+	    private readonly IEventAggregator events;
 
-		public Funds(IFundsSource[] sources, IExpenses expenses)
+	    public Funds(IFund[] sources, IExpenses expenses, IEventAggregator events)
 		{
 			if (!sources.Any()) throw new ArgumentException();
 
 			this.expenses = expenses;
+	        this.events = events;
 
-			Sources = sources;
-			Sources.ForEach(source => source.PropertyChanged += Update);
-			Sources.ForEach(source => source.PullValue());
-		}
+	        Sources = sources;
+        }
 
-		public IFundsSource[] Sources { get; }
-		public decimal Divergence { get; set; }
-		public decimal Total { get; set; }
-		public int RowIndex { get; } = 0;
+	    protected override void OnInitialize()
+	    {
+	        base.OnInitialize();
 
-		private void Update(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+            events.Subscribe(this);
+
+            Sources.ForEach(source => source.PropertyChanged += Update);
+            Sources.ForEach(source => source.PullValue());
+        }
+
+	    public IFund[] Sources { get; }
+	    public int RowIndex { get; } = 0;
+	    [Notify] public decimal Divergence { get; set; }
+	    [Notify] public decimal Total { get; set; }
+
+	    private void Update(object sender, PropertyChangedEventArgs arguments)
 		{
-			Total = Sources.Sum(source => source.Value);
-			Divergence = CalculateDivergence(Total, expenses.Records.ToArray());
+		    if (arguments.PropertyName != "Value") return;
 
-			NotifyOfPropertyChange(nameof(Divergence));
-			NotifyOfPropertyChange(nameof(Total));
+		    Total = Sources.Sum(source => source.Value);
+			Divergence = CalculateDivergence(Total, expenses.Records.ToArray());
 		}
 
 		public decimal CalculateDivergence(decimal real, Record[] records)
@@ -57,5 +68,10 @@ namespace UI.ViewModels
 
 			return income - spending;
 		}
+
+	    public void Handle(Record message)
+	    {
+            Sources.ForEach(source => source.PullValue());
+        }
 	}
 }

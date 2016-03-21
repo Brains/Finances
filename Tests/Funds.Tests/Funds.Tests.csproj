@@ -55,6 +55,7 @@
     <Compile Include="Bank\RequestBuilderTests.cs" />
     <Compile Include="Bank\ResponceParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sources\CashTests.cs" />
     <Compile Include="Sources\DebtsTests.cs" />
   </ItemGroup>
   <ItemGroup>
