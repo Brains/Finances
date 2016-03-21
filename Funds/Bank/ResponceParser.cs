@@ -26,7 +26,7 @@ namespace Funds.Bank
 				element = "0";
 			}
 
-			return Math.Round(decimal.Parse(element));
+			return decimal.Parse(element);
 		}
 	}
 }
