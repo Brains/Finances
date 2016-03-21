@@ -6,20 +6,20 @@ namespace UI.Services.Amount
 {
     public class SharedAmount : Amount
     {
-        private readonly int customers;
+        private readonly ISettings settings;
         private decimal value;
 
         public SharedAmount(IAdder adder, ISettings settings) : base(adder)
         {
-            customers = settings.Customers;
+            this.settings = settings;
         }
 
         public override decimal Value
         {
             get { return value; }
-            set { this.value = Math.Round(value/customers, 3); }
+            set { this.value = Math.Round(value/settings.Customers, settings.Precision); }
         }
 
-        public override decimal Total => Value*customers;
+        public override decimal Total => Value*settings.Customers;
     }
 }
