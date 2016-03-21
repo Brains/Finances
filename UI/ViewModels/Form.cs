@@ -54,25 +54,19 @@ namespace UI.ViewModels
 		}
 
 		public Categories SelectedCategory { get; set; }
+	    public string[] Descriptions { get; set; }
+	    public DateTime DateTime { get; set; }
+	    [Notify] public string Description { get; set; }
+	    [Notify] decimal IForm.Amount => amount.Total;
+        [Notify] public Brush Background { get; set; } = Brushes.Transparent;
 
-		[Notify]
-		public string Description { get; set; }
-
-		public string[] Descriptions { get; set; }
-		public DateTime DateTime { get; set; }
-
-		[Notify]
+        [Notify]
 		public string Amount
 		{
 			get { return amount.Formatted; }
 			set { amount.Formatted = value;}
 		}
 
-		[Notify]
-        decimal IForm.Amount => amount.Total;
-
-	    [Notify]
-		public Brush Background { get; set; } = Brushes.Transparent;
 
 		public void Submit()
 		{

@@ -16,6 +16,7 @@ namespace Common
 		string RecordsPath { get; set; }
 		string[] Descriptions { get; set; }
 		int Customers { get; set; }
-		void Save(string name, decimal value);
+	    int Precision { get; set; }
+	    void Save(string name, decimal value);
 	}
 }

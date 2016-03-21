@@ -22,7 +22,7 @@ namespace UI.ViewModels
         [Notify] public decimal Value { get; set; }
         [Notify] public string Text
         {
-            get { return Value.ToString("G"); }
+            get { return Value.ToString("N0"); }
             set { SetValue(value); }
         }
         public string Name { get; }

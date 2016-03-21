@@ -28,10 +28,10 @@ namespace Loader.Settings
 		public string RecordsPath	{ get; set; } = Config["RecordsPath"];
 		public string[] Descriptions{ get; set; } = Config["Descriptions"].Replace(" ", string.Empty).Split(',');
 		public int Customers		{ get; set; } = int.Parse(Config["Customers"]);
+        public int Precision        { get; set; } = int.Parse(Config["Precision"]);
+        #endregion
 
-		#endregion
-
-		public Mapping CategoriesMapping { get; set; } = new Mapping
+        public Mapping CategoriesMapping { get; set; } = new Mapping
 		{
 			[Expense] = new[] {Food, Health, Women, House, General, Other},
 			[Debt] =	new[] {Maxim, Andrey},
@@ -69,7 +69,7 @@ namespace Loader.Settings
 				</data>
 			</request>";
 
-		public void Save(string name, decimal value)
+	    public void Save(string name, decimal value)
 		{
 			var path = System.Reflection.Assembly.GetExecutingAssembly().Location;
 			Configuration config = ConfigurationManager.OpenExeConfiguration(path);
