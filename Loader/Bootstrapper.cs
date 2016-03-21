@@ -77,6 +77,7 @@ namespace Loader
 			         .RegisterType<IAmount, Amount>()
 			         .RegisterType<IAmount, SharedAmount>("Shared")
 			         .RegisterType<IAmountFactory, AmountFactory>()
+			         .RegisterType<ISubtractor, Subtractor>()
 			         .RegisterType<IForm, Form>();
 
 			container.RegisterType<IScreen, Statistics>("Statistics", new Constructor(

@@ -11,11 +11,11 @@ namespace UI.Interfaces
 {
 	public interface IForm : INotifyPropertyChangedEx
 	{
-		string Amount { get; set; }
+		decimal Amount { get; }
 		Types SelectedType { get; set; }
 		Brush Background { get; set; }
 		void Submit();
 		bool CanSubmit();
-		void Subtract(IForm form);
+		void Subtract(decimal value);
 	}
 }

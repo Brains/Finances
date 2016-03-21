@@ -15,7 +15,7 @@ namespace UI.Tests.ViewModels
 	{
 		private FormsQueue Create()
 		{
-			return new FormsQueue(For<IFormFactory>());
+			return new FormsQueue(For<IFormFactory>(), null);
 		}
 
 		private BindableCollection<IForm> GetForms(int formsCount, int defaultAmount = 10)
@@ -30,7 +30,7 @@ namespace UI.Tests.ViewModels
 		private static IForm CreateForm(int defaultAmount)
 		{
 			var form = For<IForm>();
-			form.Amount = defaultAmount.ToString();
+//		    form.Amount = defaultAmount;
 
 			return form;
 		}
@@ -232,7 +232,7 @@ namespace UI.Tests.ViewModels
 		{
 			var forms = Create();
 			forms.Forms = GetForms(3);
-			forms.Forms[0].Amount = "100";
+//			forms.Forms[0].Amount = 100;
 			var saved = forms.Forms.ToList();
 
 			forms.Submit();

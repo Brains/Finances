@@ -22,8 +22,6 @@ namespace UI.ViewModels
 		private readonly IAdder adder;
 		private readonly IAmountFactory factory;
 		private IAmount amount;
-		private decimal previous;
-		private decimal previousSum;
 
 		public Form(ISettings settings, IRecordsStorage aggregator, IAdder adder, IAmountFactory factory)
 		{
@@ -71,6 +69,9 @@ namespace UI.ViewModels
 		}
 
 		[Notify]
+        decimal IForm.Amount => amount.Total;
+
+	    [Notify]
 		public Brush Background { get; set; } = Brushes.Transparent;
 
 		public void Submit()
@@ -90,19 +91,10 @@ namespace UI.ViewModels
 			return true;
 		}
 
-		public void Subtract(IForm form)
+		public void Subtract(decimal value)
 		{
-			var value = ((Form) form).amount.Total;
-
-			if (amount.Value == previous && value == previousSum)
-				return;
-
-			amount.Value -= value;
-
-			previous = amount.Value;
-			previousSum = value;
-
-			NotifyOfPropertyChange(nameof(Amount));
+            amount.Value -= value;
+            NotifyOfPropertyChange(nameof(Amount));
 		}
 
 		private void UpdateCategories(Types type)
