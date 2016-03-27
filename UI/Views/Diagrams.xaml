@@ -21,7 +21,7 @@
 	<Grid>
 
 		<Grid.RowDefinitions>
-			<RowDefinition MinHeight="600"/>
+			<RowDefinition MinHeight="900"/>
 			<RowDefinition MinHeight="600"/>
 			<RowDefinition MinHeight="600"/>
 			<RowDefinition MinHeight="600"/>

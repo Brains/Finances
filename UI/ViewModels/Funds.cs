@@ -20,11 +20,10 @@ namespace UI.ViewModels
 	    public Funds(IFund[] sources, IExpenses expenses, IEventAggregator events)
 		{
 			if (!sources.Any()) throw new ArgumentException();
+            Sources = sources;
 
-			this.expenses = expenses;
+            this.expenses = expenses;
 	        this.events = events;
-
-	        Sources = sources;
         }
 
 	    protected override void OnInitialize()
