@@ -23,6 +23,12 @@ namespace UI.ViewModels
             Name = source.GetType().Name;
         }
 
+        public event Action<decimal> Update
+        {
+            add { source.Update += value; }
+            remove { source.Update -= value; }
+        }
+
         [Notify] public decimal Value { get; set; }
         [Notify] public string Text
         {
@@ -49,5 +55,6 @@ namespace UI.ViewModels
     {
         decimal Value { get; set; }
 		void PullValue();
+        event Action<decimal> Update;
     }
 }

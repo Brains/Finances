@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using Caliburn.Micro;
 using Common;
@@ -32,7 +31,7 @@ namespace UI.ViewModels
 
             events.Subscribe(this);
 
-            Sources.ForEach(source => source.PropertyChanged += Update);
+            Sources.ForEach(source => source.Update += value => Update());
             Sources.ForEach(source => source.PullValue());
         }
 
@@ -41,10 +40,8 @@ namespace UI.ViewModels
 	    [Notify] public decimal Divergence { get; set; }
 	    [Notify] public decimal Total { get; set; }
 
-	    private void Update(object sender, PropertyChangedEventArgs arguments)
+	    private void Update()
 		{
-		    if (arguments.PropertyName != "Value") return;
-
 		    Total = Sources.Sum(source => source.Value);
 			Divergence = CalculateDivergence(Total, expenses.Records.ToArray());
 		}
@@ -71,6 +68,7 @@ namespace UI.ViewModels
 	    public void Handle(Record message)
 	    {
             Sources.ForEach(source => source.PullValue());
+            Update();
         }
 	}
 }
