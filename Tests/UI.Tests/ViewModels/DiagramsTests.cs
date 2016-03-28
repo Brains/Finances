@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using MoreLinq;
 using NSubstitute;
@@ -178,6 +179,31 @@ namespace UI.Tests.ViewModels
 			Expect(actual, Count.EqualTo(3));
 			Expect(actual.Select(p => p.Key), EquivalentTo(new[] { 10, 11, 12 }));
 			Expect(actual.Select(p => p.Value), All.EqualTo(300));
+		}
+
+		[Test]
+		public void CalculateTotalByMonth_InTwoYears_OrdersMonthConsideringYear()
+		{
+		    var info = DateTimeFormatInfo.CurrentInfo;
+            var diagrams = Create();
+			Record[] records =
+			{
+				new Record(100, 0, 0, "", new DateTime(1, 1, 1)),
+				new Record(100, 0, 0, "", new DateTime(1, 2, 1)),
+				new Record(100, 0, 0, "", new DateTime(1, 3, 1)),
+				new Record(100, 0, 0, "", new DateTime(2, 1, 1)),
+				new Record(100, 0, 0, "", new DateTime(2, 2, 1)),
+				new Record(100, 0, 0, "", new DateTime(2, 3, 1)),
+			};
+
+			var actual = diagrams.CalculateTotalByMonth(records);
+
+		    var expected = new[]
+		    {
+		        "January 0001", "February 0001", "March 0001",
+		        "January 0002", "February 0002", "March 0002",
+		    };
+		    Expect(actual.Select(p => p.Key), EqualTo(expected));
 		}
 
 		[Test]

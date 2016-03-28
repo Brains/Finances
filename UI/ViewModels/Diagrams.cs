@@ -108,9 +108,9 @@ namespace UI.ViewModels
 
 		public Dictionary<string, decimal> CalculateTotalByMonth(IEnumerable<Record> records)
 		{
-			return records.GroupBy(record => record.Date.Month)
-			              .OrderBy(month => month.Key)
-			              .ToDictionary(month => CurrentInfo.GetMonthName(month.Key),
+			return records.GroupBy(record => new DateTime(record.Date.Year, record.Date.Month, 1))
+			              .OrderBy(date => date.Key)
+			              .ToDictionary(month => month.Key.Date.ToString("MMMM-yy"),
 										month => month.Sum(record => Round(record.Amount)));
 
 		}

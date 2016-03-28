@@ -29,14 +29,14 @@ namespace UI.Tests.ViewModels
 			                        .Select(i =>
 			                        {
 				                        var source = For<IFundsSource>();
-				                        source.Value = 100;
+//				                        source.Value = 100;
 				                        return source;
 			                        })
 			                        .ToArray();
 
 			var expenses = For<IExpenses>( );
 			expenses.Records = new ObservableCollection<Record>(Enumerable.Empty<Record>());
-			return new Funds(sources, expenses, null);
+			return new Funds(For<IFund[]>(), expenses, null);
 		}
 
 		[Test]

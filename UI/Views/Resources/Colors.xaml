@@ -45,7 +45,7 @@
             <SolidColorBrush x:Key="Brush2" Color="#FFB55E8B" />
 	    </ResourceDictionary>
 	    <ResourceDictionary>
-            <SolidColorBrush x:Key="Brush1" Color="#FF4EA2CF" />
+            <SolidColorBrush x:Key="Brush1" Color="#FF82B93A" />
         </ResourceDictionary>
     </charts:ResourceDictionaryCollection>
 
