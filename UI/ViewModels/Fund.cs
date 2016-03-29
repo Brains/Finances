@@ -4,33 +4,39 @@ using Caliburn.Micro;
 using Common;
 using UI.Services;
 using UI.Views.Converters;
+using Action = System.Action;
 
 namespace UI.ViewModels
 {
     public class Fund : PropertyChangedBase, IFund
     {
         private readonly IFundsSource source;
+        private decimal value;
 
         public Fund(IFundsSource source)
         {
             this.source = source;
-            this.source.Updated += value =>
-            {
-                Value = value;
-                NotifyOfPropertyChange(nameof(Text));
-            };
+            this.source.Updated += value => Value = value;
 
             Name = source.GetType().Name;
         }
 
-        public event Action<decimal> Updated
+        public event Action Updated = delegate {};
+
+        public decimal Value
         {
-            add { source.Updated += value; }
-            remove { source.Updated -= value; }
+            get { return value; }
+            set
+            {
+                if (value == this.value) return;
+                this.value = value;
+                Updated();
+                NotifyOfPropertyChange();
+                NotifyOfPropertyChange(nameof(Text));
+            }
         }
 
-        [Notify] public decimal Value { get; set; }
-        [Notify] public string Text
+        public string Text
         {
             get { return Value.ToString("N0"); }
             set { SetValue(value); }
@@ -41,9 +47,9 @@ namespace UI.ViewModels
         public ISaver Saver { get; set; }
         public IAdder Adder { get; set; }
 
-        private void SetValue(string value)
+        private void SetValue(string text)
         {
-            Value = Adder?.Convert(value) ?? decimal.Parse(value);
+            Value = Adder?.Convert(text) ?? decimal.Parse(text);
 
             Saver?.Save(Name, Value);
         }
@@ -55,6 +61,6 @@ namespace UI.ViewModels
     {
         decimal Value { get; set; }
 		void PullValue();
-        event Action<decimal> Updated;
+        event Action Updated;
     }
 }

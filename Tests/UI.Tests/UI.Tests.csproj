@@ -67,6 +67,7 @@
     <Compile Include="ViewModels\FormTests.cs" />
     <Compile Include="ViewModels\DiagramsTests.cs" />
     <Compile Include="ViewModels\FundsTests.cs" />
+    <Compile Include="ViewModels\FundTests.cs" />
     <Compile Include="ViewModels\TrendTests.cs" />
     <Compile Include="Views\Converters\AdderTests.cs" />
     <Compile Include="Views\Converters\AmountSummarizingTests.cs" />
