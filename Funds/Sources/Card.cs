@@ -18,7 +18,7 @@ namespace Funds.Sources
             this.parser = parser;
         }
 
-        public event Action<decimal> Update = delegate { };
+        public event Action<decimal> Updated = delegate { };
 
         public async void PullValue()
         {
@@ -27,7 +27,7 @@ namespace Funds.Sources
             var request = builder.Build();
             var responce = await client.UploadStringTaskAsync(Url, request);
 
-            Update(parser.ParseBalance(responce));
+            Updated(parser.ParseBalance(responce));
         }
     }
 }

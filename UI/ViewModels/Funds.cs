@@ -31,7 +31,7 @@ namespace UI.ViewModels
 
             events.Subscribe(this);
 
-            Sources.ForEach(source => source.Update += value => Update());
+            Sources.ForEach(source => source.Updated += value => Update());
             Sources.ForEach(source => source.PullValue());
         }
 

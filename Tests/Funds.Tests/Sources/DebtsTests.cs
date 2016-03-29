@@ -36,7 +36,7 @@ namespace Funds.Tests.Sources
 			expenses.Records = new ObservableCollection<Record>(Data);
 			var debts = Create(expenses);
 		    decimal actual = 0;
-		    debts.Update += value => actual = value;
+		    debts.Updated += value => actual = value;
 
             debts.PullValue();
 

@@ -12,8 +12,8 @@ namespace Funds.Sources
             this.settings = settings;
         }
 
-        public event Action<decimal> Update = delegate { };
+        public event Action<decimal> Updated = delegate { };
 
-        public void PullValue() => Update(decimal.Parse(settings.Cash));
+        public void PullValue() => Updated(decimal.Parse(settings.Cash));
     }
 }

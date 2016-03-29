@@ -19,12 +19,12 @@ namespace Funds.Sources
         }
 
         public Dictionary<Categories, decimal> Dudes { get; set; }
-        public event Action<decimal> Update = delegate { };
+        public event Action<decimal> Updated = delegate { };
 
         public virtual void PullValue()
         {
             Dudes = Calculate(expenses.Records);
-            Update(Dudes.Sum(pair => pair.Value));
+            Updated(Dudes.Sum(pair => pair.Value));
         }
 
         public Dictionary<Categories, decimal> Calculate(IEnumerable<Record> records)

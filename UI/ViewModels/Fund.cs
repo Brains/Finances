@@ -14,7 +14,7 @@ namespace UI.ViewModels
         public Fund(IFundsSource source)
         {
             this.source = source;
-            this.source.Update += value =>
+            this.source.Updated += value =>
             {
                 Value = value;
                 NotifyOfPropertyChange(nameof(Text));
@@ -23,10 +23,10 @@ namespace UI.ViewModels
             Name = source.GetType().Name;
         }
 
-        public event Action<decimal> Update
+        public event Action<decimal> Updated
         {
-            add { source.Update += value; }
-            remove { source.Update -= value; }
+            add { source.Updated += value; }
+            remove { source.Updated -= value; }
         }
 
         [Notify] public decimal Value { get; set; }
@@ -55,6 +55,6 @@ namespace UI.ViewModels
     {
         decimal Value { get; set; }
 		void PullValue();
-        event Action<decimal> Update;
+        event Action<decimal> Updated;
     }
 }

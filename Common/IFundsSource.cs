@@ -6,6 +6,6 @@ namespace Common
 	public interface IFundsSource
 	{
 		void PullValue();
-		event Action<decimal> Update;
+		event Action<decimal> Updated;
 	}
 }
