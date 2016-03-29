@@ -57,8 +57,10 @@ namespace UI.ViewModels
 		{
 			Forms.ForEach(form => form.Submit());
 			Forms.Clear();
+            subtractor.Clear();
 
-			Refresh();
+
+            Refresh();
 		}
 
 		private void SetPrimaryColor()

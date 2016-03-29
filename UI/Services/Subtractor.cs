@@ -22,8 +22,10 @@ namespace UI.Services
         public void Remove(IForm form)
         {
             if (form == Primary)
-                Primary = null;
+                Clear();
         }
+
+        public void Clear() => Primary = null;
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs arguments)
 		{
@@ -40,5 +42,6 @@ namespace UI.Services
     {
         void Add(IForm form);
         void Remove(IForm last);
+        void Clear();
     }
 }
