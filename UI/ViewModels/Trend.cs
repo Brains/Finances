@@ -50,8 +50,13 @@ namespace UI.ViewModels
 
 	        return CombineByDay(records).OrderBy(record => record.Date)
 	                                    .Select(record => new Transaction(accumulator += record.Amount, record))
-	                                    .Skip(200)
+	                                    .Where(IsShown)
                                         .ToList();
+	    }
+
+	    private bool IsShown(Transaction transaction)
+	    {
+	        return Now - transaction.Date < FromDays(40);
 	    }
 
 	    private IEnumerable<Record> CombineByDay(IEnumerable<Record> records)
