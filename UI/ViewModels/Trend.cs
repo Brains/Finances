@@ -47,7 +47,7 @@ namespace UI.ViewModels
 
 		}
 
-        private decimal CalculateValue(Record record)
+        private decimal CalculateAmount(Record record)
         {
             if (record.Type == Record.Types.Income)
                 return record.Amount;
@@ -62,6 +62,7 @@ namespace UI.ViewModels
 		public class Transaction
 		{
 			public decimal Amount { get; set; }
+			public decimal Total { get; set; }
 			public DateTime Date { get; set; }
 			public string Description { get; set; }
 		}

@@ -68,7 +68,7 @@
                         <TextBlock Text="{Binding Description}" Margin="0" Padding="0" Foreground="{StaticResource HighlightBrush}" Canvas.Left="-2" Canvas.Bottom="5"/>
 						<ToolTipService.ToolTip>
 							<StackPanel Margin="2,2,2,2">
-								<ContentControl Content="{TemplateBinding DependentValue}" ContentStringFormat="{}{0}" Foreground="{TemplateBinding Background}"
+                                <ContentControl Content="{Binding Amount}" ContentStringFormat="{}{0:+#;-#;0}" Foreground="{TemplateBinding Background}"
 								                FontSize="16"/>
 								<ContentControl Content="{TemplateBinding IndependentValue}" ContentStringFormat="{}{0:d MMMM}"/>
 								<TextBlock Text="{Binding Description}" Foreground="Gray"/>
