@@ -1,92 +1,96 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Caliburn.Micro;
 using Common;
+using Common.Storages;
 using UI.Interfaces;
 using static System.DateTime;
 using static System.Linq.Enumerable;
 using static System.TimeSpan;
+using static Common.Record.Types;
 
 namespace UI.ViewModels
 {
 	public class Trend : Screen, IViewModel
 	{
-		private IList<Transaction> transactions;
+	    private readonly IExpenses expenses;
+	    private readonly ISettings settings;
 
-		public Trend(ISettings settings)
-		{
-			Operations = settings.PermanentOperations;
-		}
+	    public Trend(IExpenses expenses, ISettings settings)
+	    {
+	        this.expenses = expenses;
+	        this.settings = settings;
 
-		public PermanentOperation[] Operations { get; set; }
+	        Interval = settings.HistoryInterval;
+	    }
 
-		public IList<Transaction> Transactions
-		{
-			get { return transactions; }
-			set
-			{
-				if (Equals(value, transactions)) return;
-				transactions = value;
-				NotifyOfPropertyChange();
-			}
-		}
+	    public IEnumerable<Transaction> Transactions { get; set; }
+        public int Interval { get; set; }
+	    public DateTime Now { get; set; } = DateTime.Now;
 
-		protected override void OnInitialize()
+        protected override void OnInitialize()
 		{
 			base.OnInitialize();
 
-			ShiftTime(Operations);
-			Transactions = Calculate(5000, Today, Today.AddMonths(2));
+            Transactions = Calculate(expenses.Records);
 		}
 
-		public IList<Transaction> Calculate(decimal startFunds, DateTime start, DateTime end)
+	    public IEnumerable<Transaction> Calculate(IEnumerable<Record> records)
+	    {
+	        decimal accumulator = 0;
+
+	        var transactions = CombineByDay(records)
+	            .OrderBy(record => record.Date)
+                .Select(transaction =>
+	            {
+	                transaction.Total = accumulator += transaction.Amount;
+	                return transaction;
+	            })
+	            .Where(IsShown)
+	            .ToList();
+
+            return transactions;
+	    }
+
+	    public IEnumerable<Transaction> CombineByDay(IEnumerable<Record> records)
+	    {
+	        return records.GroupBy(record => record.Date.Date)
+	                      .Select(day => new Transaction
+	                      {
+	                          Date = day.Key,
+	                          Amount = day.Sum(record => GetAmount(record)),
+	                          Category = day.GroupBy(record => record.Category)
+	                                        .Select(record => record.Key.ToString())
+	                                        .Aggregate((a, b) => $"{a}\n{b}"),
+	                          Description = day.Select(record => record.Description)
+	                                           .Aggregate((a, b) => $"{a}\n{b}")
+	                      });
+	    }
+
+	    public decimal GetAmount(Record record)
+        {
+	        var amount = record.Amount;
+
+	        if (record.Type == Debt && record.Description == "In") return amount;
+	        if (record.Type == Income) return amount;
+	        if (record.Type == Shared) return -amount * settings.Customers;
+
+	        return -amount;
+        }
+
+	    public bool IsShown(Transaction transaction)
+	    {
+	        return Now - transaction.Date < FromDays(Interval);
+	    }
+
+	    public class Transaction
 		{
-			decimal accumulator = startFunds;
-			var seed = new[] {accumulator};
-
-			var calendars = Operations.Select(operation => CalculateCalendar(start, end - start, operation));
-
-			var transactions = Operations.Zip(calendars,
-			                                  (operation, dates) => dates.Select(date => new
-			                                  {
-				                                  operation.Amount,
-				                                  Date = date,
-				                                  operation.Description
-			                                  }))
-			                             .SelectMany(operation => operation.ToArray())
-			                             .OrderBy(transaction => transaction.Date);
-
-			var amounts = transactions.Select(transaction => accumulator += transaction.Amount);
-			amounts = seed.Concat(amounts);
-
-			return transactions.Zip(amounts, (transaction, amount) => new Transaction
-			{
-				Amount = amount,
-				Date = transaction.Date,
-				Description = transaction.Description
-			}).ToList();
-		}
-
-		public IEnumerable<DateTime> CalculateCalendar(DateTime start, TimeSpan interval, PermanentOperation operation)
-		{
-			var period = operation.Period.Ticks;
-			var quantity = (int) (interval.Ticks / period);
-
-			var calendar = Range(0, quantity).Select(index => operation.Start + FromTicks(index * period));
-			
-			return calendar.Where(date => date > start);
-		}
-
-		public void ShiftTime(PermanentOperation[] operations)
-		{
-			MoreLinq.MoreEnumerable.ForEach(operations, (operation, index) => operation.Start += FromHours(index + 1));
-		}
-
-		public class Transaction
-		{
-			public decimal Amount { get; set; }
+		    public decimal Amount { get; set; }
+			public decimal Total { get; set; }
 			public DateTime Date { get; set; }
+			public string Category { get; set; }
 			public string Description { get; set; }
 		}
 	}

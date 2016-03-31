@@ -11,19 +11,23 @@
 		</ResourceDictionary>
 	</UserControl.Resources>
 	<Grid VerticalAlignment="Stretch">
-		<charts:Chart x:Name="Transactions" Grid.Row="0" Template="{StaticResource ChartTemplate}" Foreground="LightGray" FontFamily="Segoe UI"
-		              FontSize="14" FontWeight="Light">
-			<charts:AreaSeries ItemsSource="{Binding Transactions}" DependentValuePath="Amount" IndependentValuePath="Date" Background="#33D2691E"
-			                   DataPointStyle="{DynamicResource AreaDataPointStyle}"/>
-			<charts:LineSeries ItemsSource="{Binding Transactions}" DependentValuePath="Amount" IndependentValuePath="Date"
-			                   DataPointStyle="{StaticResource LineDataPointStyle}"/>
-			<charts:Chart.Axes>
-				<charts:DateTimeAxis Orientation="X" ShowGridLines="True" IntervalType="Days" Interval="3"
-				                     AxisLabelStyle="{StaticResource DateTimeAxisLabelStyle}" GridLineStyle="{StaticResource GridLineStyle}"
-				                     MajorTickMarkStyle="{StaticResource MajorTickMarkStyle}"/>
-				<charts:LinearAxis Orientation="Y" ShowGridLines="True" Interval="1000" GridLineStyle="{StaticResource GridLineStyle}"
-				                   MajorTickMarkStyle="{StaticResource MajorTickMarkStyle}"/>
-			</charts:Chart.Axes>
-		</charts:Chart>
+	    <charts:Chart x:Name="Transactions" Grid.Row="0" Template="{StaticResource ChartTemplate}" Foreground="LightGray"
+	                  FontFamily="Segoe UI"
+	                  FontSize="14" FontWeight="Light">
+	        <charts:AreaSeries ItemsSource="{Binding Transactions}" DependentValuePath="Total" IndependentValuePath="Date"
+	                           Background="#33D2691E"
+	                           DataPointStyle="{DynamicResource AreaDataPointStyle}" />
+	        <charts:LineSeries ItemsSource="{Binding Transactions}" DependentValuePath="Total" IndependentValuePath="Date"
+	                           DataPointStyle="{StaticResource LineDataPointStyle}" />
+	        <charts:Chart.Axes>
+	            <charts:DateTimeAxis Orientation="X" ShowGridLines="True" IntervalType="Days" Interval="1"
+	                                 AxisLabelStyle="{StaticResource DateTimeAxisLabelStyle}"
+	                                 GridLineStyle="{StaticResource GridLineStyle}"
+	                                 MajorTickMarkStyle="{StaticResource MajorTickMarkStyle}" />
+	            <charts:LinearAxis Orientation="Y" ShowGridLines="True" Interval="500"
+	                               GridLineStyle="{StaticResource GridLineStyle}"
+	                               MajorTickMarkStyle="{StaticResource MajorTickMarkStyle}" />
+	        </charts:Chart.Axes>
+	    </charts:Chart>
 	</Grid>
 </UserControl>

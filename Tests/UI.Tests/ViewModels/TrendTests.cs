@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Common;
+using Common.Storages;
 using MoreLinq;
 using NUnit.Framework;
 using UI.ViewModels;
@@ -10,84 +11,159 @@ namespace UI.Tests.ViewModels
 {
 	public class TrendTests
 	{
-		private static Trend Create()
-		{
-			var settings = For<ISettings>();
+		private readonly DateTime date = new DateTime(1, 1, 1);
+	    private ISettings settings;
 
-			return new Trend(settings);
-		}
+	    private Trend Create()
+	    {
+	        settings = For<ISettings>();
+	        return new Trend(For<IExpenses>(), settings);
+	    }
 
-		[Test]
-		public void Calculate_Always_CalculatesFundsAfterEachOccurrenceOfOperation()
-		{
-			var trend = Create();
-			trend.Operations = new[]
-			{
-				new PermanentOperation(-100, new DateTime(1, 1, 1), TimeSpan.FromDays(3), "Food")
-			};
-			var initial = 1000;
-			var start = new DateTime(2, 1, 1);
+	    private DateTime Month(int month) => new DateTime(1, month, 1);
+	    private DateTime Day(int day) => new DateTime(1, 1, day);
 
-			var actual = trend.Calculate(initial, start, start.AddMonths(1)).ToList();
 
-			var expectedAmounts = new[] {1000, 900, 800, 700, 600, 500, 400, 300, 200, 100};
-			var expectedDays = new[] {1, 4, 7, 10, 13, 16, 19, 22, 25, 28};
-			Assert.That(actual.Select(item => item.Amount), Is.EquivalentTo(expectedAmounts));
-			Assert.That(actual.Select(item => item.Date.Day), Is.EquivalentTo(expectedDays));
-			Assert.That(actual.Select(item => item.Description), Has.All.EqualTo("Food"));
-			Assert.That(actual.First().Amount, Is.EqualTo(initial));
-		}
+	    [Test]
+	    public void IsShown_Within10Days_ReturnsTrueForTranscation()
+	    {
+            var trend = Create();
+            trend.Now = Month(3);
+            trend.Interval = 10;
+            Record[] records =
+            {
+                new Record(0, 0, 0, "", Month(1)),
+                new Record(0, 0, 0, "", Month(2)),
+                new Record(0, 0, 0, "", Month(3)),
+            };
 
-		[Test]
-		public void CalculateCalendar_Always_ReturnsCalendarWithAllTransactionsUntilEndDate()
-		{
-			var trend = Create();
-			var start = new DateTime(2, 1, 1);
-			var end = start.AddMonths(1);
-			var operation = new PermanentOperation(-100, new DateTime(1, 1, 1), TimeSpan.FromDays(3), "Test");
+            var actual = records.Select(record =>
+            {
+                var transaction = new Trend.Transaction()
+                {
+                    Date = record.Date
+                };
+                return trend.IsShown(transaction);
+            }).ToArray();
 
-			var actual = trend.CalculateCalendar(start, end - start, operation).ToList();
+            Assert.That(actual, Is.EqualTo(new [] {false, false , true}));
+	    }
 
-			var intervals = Enumerable.Zip(actual.Skip(1), actual, (a, b) => a - b);
-			Assert.That(actual.Count, Is.EqualTo(10));
-			Assert.That(intervals, Has.All.EqualTo(TimeSpan.FromDays(3)));
-			Assert.That(actual.Select(item => item.Date), Has.All.GreaterThanOrEqualTo(start).And.LessThan(end));
-		}
+	    [TestCase(Record.Types.Expense, -100)]
+        [TestCase(Record.Types.Income, 100)]
+	    public void GetAmount_ForRecordType_ReturnRightAmountWithSign(Record.Types type, int expected)
+	    {
+            var trend = Create();
+	        settings.Customers = 3;
+            Record record = new Record(100, type, 0, "", date);
 
-		[Test]
-		public void ShiftTime_Always_AddsTimeShiftForOperations()
-		{
-			var trend = Create();
-			trend.Operations = new[]
-			{
-				new PermanentOperation(-100, new DateTime(1, 1, 1), TimeSpan.FromDays(3), "Test"),
-				new PermanentOperation(-100, new DateTime(1, 1, 1), TimeSpan.FromDays(3), "Test"),
-				new PermanentOperation(-100, new DateTime(1, 1, 1), TimeSpan.FromDays(3), "Test")
-			};
+            var actual = trend.GetAmount(record);
 
-			trend.ShiftTime(trend.Operations);
+            Assert.That(actual, Is.EqualTo(expected));
+	    }
 
-			var hours = trend.Operations.Select(o => o.Start.Hour);
-			Assert.That(hours, Is.EquivalentTo(new[] {1, 2, 3}));
-		}
+	    public void GetAmount_ForSharedType_ReturnRightAmountWithSign()
+	    {
+            var trend = Create();
+	        settings.Customers = 3;
+            Record record = new Record(100, Record.Types.Shared, 0, "", date);
 
-		[Test]
-		public void TransactionsGetter_Always_ReturnsSameAmountsList()
-		{
-			var trend = Create();
-			trend.Operations = new[]
-			{
-				new PermanentOperation(-100, new DateTime(1, 1, 1), TimeSpan.FromDays(3), "Food")
-			};
-			var initial = 1000;
-			var start = new DateTime(2, 1, 1);
+            var actual = trend.GetAmount(record);
 
-			trend.Transactions = trend.Calculate(initial, start, start.AddMonths(1));
+            Assert.That(actual, Is.EqualTo(-300));
+	    }
 
-			var expected = new[] { 1000, 900, 800, 700, 600, 500, 400, 300, 200, 100 };
-			Assert.That(trend.Transactions.Select(item => item.Amount), Is.EquivalentTo(expected));
-			Assert.That(trend.Transactions.Select(item => item.Amount), Is.EquivalentTo(expected));
-			Assert.That(trend.Transactions.Select(item => item.Amount), Is.EquivalentTo(expected));
-		}
+	    [TestCase(Record.Types.Debt, "Out", -100)]
+        [TestCase(Record.Types.Debt, "In", 100)]
+	    public void GetAmount_ForDebtType_ReturnRightAmountWithSign(Record.Types type, string description, int expected)
+	    {
+            var trend = Create();
+            Record record = new Record(100, type, 0, description, date);
+
+            var actual = trend.GetAmount(record);
+
+            Assert.That(actual, Is.EqualTo(expected));
+	    }
+
+	    [Test]
+	    public void CombineByDay_FewRecordsWithSameDate_GroupsThemTogether()
+	    {
+	        var trend = Create();
+	        Record[] records =
+	        {
+	            new Record(0, 0, 0, "", Day(1)),
+	            new Record(0, 0, 0, "", Day(1)),
+	            new Record(0, 0, 0, "", Day(2)),
+	            new Record(0, 0, 0, "", Day(2)),
+	            new Record(0, 0, 0, "", Day(3)),
+	            new Record(0, 0, 0, "", Day(3)),
+	        };
+
+	        var actual = trend.CombineByDay(records)
+	                          .Select(record => record.Date)
+	                          .ToList();
+
+	        Assert.That(actual, Has.Count.EqualTo(3));
+	        Assert.That(actual, Is.Unique);
+	    }
+
+	    [Test]
+	    public void CombineByDay_FewRecordsWithSameDate_CalculatesSumOfTheirAmounts()
+	    {
+	        var trend = Create();
+	        Record[] records =
+	        {
+	            new Record(100, 0, 0, "", Day(1)),
+	            new Record(100, 0, 0, "", Day(1)),
+	            new Record(100, 0, 0, "", Day(1)),
+	        };
+
+	        var actual = trend.CombineByDay(records)
+	                          .Select(record => record.Amount)
+	                          .Single();
+
+	        Assert.That(actual, Is.EqualTo(-300));
+	    }
+
+	    [Test]
+	    public void CombineByDay_FewRecordsWithSameDate_AggregatesTheirDescriptions()
+	    {
+	        var trend = Create();
+	        Record[] records =
+	        {
+	            new Record(0, 0, 0, "Test", Day(1)),
+	            new Record(0, 0, 0, "Test", Day(1)),
+	            new Record(0, 0, 0, "Test", Day(1)),
+	        };
+
+	        var actual = trend.CombineByDay(records)
+	                          .Select(record => record.Description)
+	                          .Single();
+
+	        Assert.That(actual, Is.EqualTo("Test\nTest\nTest"));
+	    }
+
+	    [Test]
+	    public void Calculate_Always_ReturnsCollectionOfTotals()
+	    {
+	        var trend = Create();
+	        settings.Customers = 3;
+	        trend.Interval = 20;
+            trend.Now = date.AddDays(10);
+            Record[] records =
+	        {
+	            new Record(1000, Record.Types.Income, 0, "", Day(1)),
+	            new Record(100, Record.Types.Expense, 0, "", Day(2)),
+	            new Record(100, Record.Types.Shared, 0, "", Day(3)),
+	            new Record(100, Record.Types.Debt, 0, "Out", Day(4)),
+	            new Record(100, Record.Types.Debt, 0, "In", Day(5)),
+	        };
+
+	        var actual = trend.Calculate(records)
+	                          .Select(transaction => transaction.Total)
+                              .ToArray();
+
+	        Assert.That(actual, Is.EqualTo(new [] {1000, 900, 600, 500, 600}));
+	    }
 	}
 }

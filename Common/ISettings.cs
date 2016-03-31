@@ -12,11 +12,11 @@ namespace Common
 		string Card { get; set; }
 		string BankRequest { get; set; }
 		string Cash { get; set; }
-		PermanentOperation[] PermanentOperations { get; set; }
 		string RecordsPath { get; set; }
 		string[] Descriptions { get; set; }
 		int Customers { get; set; }
 	    int Precision { get; set; }
+	    int HistoryInterval { get; set; }
 	    void Save(string name, decimal value);
 	}
 }

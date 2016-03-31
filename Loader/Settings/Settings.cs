@@ -29,6 +29,7 @@ namespace Loader.Settings
 		public string[] Descriptions{ get; set; } = Config["Descriptions"].Replace(" ", string.Empty).Split(',');
 		public int Customers		{ get; set; } = int.Parse(Config["Customers"]);
         public int Precision        { get; set; } = int.Parse(Config["Precision"]);
+	    public int HistoryInterval  { get; set; } = int.Parse(Config["HistoryInterval"]);
         #endregion
 
         public Mapping CategoriesMapping { get; set; } = new Mapping
@@ -37,16 +38,6 @@ namespace Loader.Settings
 			[Debt] =	new[] {Maxim, Andrey},
 			[Income] =	new[] {Deposit, ODesk, Other},
 			[Shared] =	new[] {Food, House, General, Other}
-		};
-
-		public PermanentOperation[] PermanentOperations { get; set; } = 
-		{
-			new PermanentOperation(-2500,	new DateTime(2015, 12, 15),	FromDays(Month),	"House"),
-			new PermanentOperation(2500,	new DateTime(2015, 12, 8),	FromDays(Month)	,	"Deposit"),
-			new PermanentOperation(-1000,	new DateTime(2015, 12, 30),	FromDays(20),		"Pharmacy"),
-			new PermanentOperation(1200,	new DateTime(2015, 12, 17),	FromDays(Month),	"Deposit"),
-			new PermanentOperation(-400,	new DateTime(2015, 12, 15),	FromDays(3),		"Food"),
-			new PermanentOperation(-500,	new DateTime(2015, 12, 1),	FromDays(7),		"Correction"),
 		};
 
 		public string BankRequest { get; set; } = 
