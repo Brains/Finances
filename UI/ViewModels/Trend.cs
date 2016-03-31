@@ -48,14 +48,8 @@ namespace UI.ViewModels
 	    {
 	        decimal accumulator = 0;
 
-	        Transactions = records.GroupBy(record => record.Date.Date)
-	                              .Select(group => new Record
-	                              {
-	                                  Date = @group.Key,
-	                                  Amount = @group.Sum(record => CalculateAmount(record)),
-	                                  Description =
-	                                      @group.Select(record => record.Description).Aggregate((a, b) => $"{a}, {b}")
-	                              })
+	        var combined = CombineByDay(records);
+	        Transactions = combined
 	                              .OrderBy(record => record.Date)
 	                              .Select(transaction => new Transaction
 	                              {
@@ -68,7 +62,19 @@ namespace UI.ViewModels
 	                              .ToList();
 	    }
 
-	    private decimal CalculateAmount(Record record)
+	    private IEnumerable<Record> CombineByDay(IEnumerable<Record> records)
+	    {
+	        return records.GroupBy(record => record.Date.Date)
+	                      .Select(day => new Record
+	                      {
+	                          Date = day.Key,
+	                          Amount = day.Sum(record => GetAmount(record)),
+	                          Description = day.Select(record => record.Description)
+	                                           .Aggregate((a, b) => $"{a}\n{b}")
+	                      });
+	    }
+
+	    private decimal GetAmount(Record record)
         {
             if (record.Type == Record.Types.Income)
                 return record.Amount;
