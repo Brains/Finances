@@ -41,18 +41,17 @@ namespace UI.ViewModels
 
 		    var records = expenses.Records.Where(record => record.Type != Record.Types.Debt);
 
-            Calculate(records);
+            Transactions = Calculate(records);
 		}
 
-	    private void Calculate(IEnumerable<Record> records)
+	    private IList<Transaction> Calculate(IEnumerable<Record> records)
 	    {
 	        decimal accumulator = 0;
 
-	        var combined = CombineByDay(records);
-	        Transactions = combined.OrderBy(record => record.Date)
-	                              .Select(record => new Transaction(accumulator += record.Amount, record))
-	                              .Skip(200)
-	                              .ToList();
+	        return CombineByDay(records).OrderBy(record => record.Date)
+	                                    .Select(record => new Transaction(accumulator += record.Amount, record))
+	                                    .Skip(200)
+	                                    .ToList();
 	    }
 
 	    private IEnumerable<Record> CombineByDay(IEnumerable<Record> records)
