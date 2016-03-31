@@ -14,7 +14,7 @@ namespace UI.ViewModels
 	public class Trend : Screen, IViewModel
 	{
 	    private readonly IExpenses expenses;
-	    private IList<Transaction> transactions;
+	    private IEnumerable<Transaction> transactions;
 
 		public Trend(IExpenses expenses, ISettings settings)
 		{
@@ -24,7 +24,7 @@ namespace UI.ViewModels
 
 	    public PermanentOperation[] Operations { get; set; }
 
-		public IList<Transaction> Transactions
+		public IEnumerable<Transaction> Transactions
 		{
 			get { return transactions; }
 			set
@@ -44,14 +44,14 @@ namespace UI.ViewModels
             Transactions = Calculate(records);
 		}
 
-	    private IList<Transaction> Calculate(IEnumerable<Record> records)
+	    private IEnumerable<Transaction> Calculate(IEnumerable<Record> records)
 	    {
 	        decimal accumulator = 0;
 
 	        return CombineByDay(records).OrderBy(record => record.Date)
 	                                    .Select(record => new Transaction(accumulator += record.Amount, record))
 	                                    .Skip(200)
-	                                    .ToList();
+                                        .ToList();
 	    }
 
 	    private IEnumerable<Record> CombineByDay(IEnumerable<Record> records)
