@@ -15,7 +15,7 @@ namespace UI.Tests.ViewModels
 		{
 			var settings = For<ISettings>();
 
-			return new Trend(For<IExpenses>(), settings);
+			return new Trend(For<IExpenses>());
 		}
 	}
 }

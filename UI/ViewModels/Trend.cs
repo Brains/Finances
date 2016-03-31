@@ -14,28 +14,15 @@ namespace UI.ViewModels
 	public class Trend : Screen, IViewModel
 	{
 	    private readonly IExpenses expenses;
-	    private IEnumerable<Transaction> transactions;
 
-		public Trend(IExpenses expenses, ISettings settings)
+	    public Trend(IExpenses expenses)
 		{
 		    this.expenses = expenses;
-		    Operations = settings.PermanentOperations;
 		}
 
-	    public PermanentOperation[] Operations { get; set; }
+		public IEnumerable<Transaction> Transactions { get; set; }
 
-		public IEnumerable<Transaction> Transactions
-		{
-			get { return transactions; }
-			set
-			{
-				if (Equals(value, transactions)) return;
-				transactions = value;
-				NotifyOfPropertyChange();
-			}
-		}
-
-		protected override void OnInitialize()
+	    protected override void OnInitialize()
 		{
 			base.OnInitialize();
 
@@ -52,12 +39,6 @@ namespace UI.ViewModels
 	                                    .Select(record => new Transaction(accumulator += record.Amount, record))
 	                                    .Where(IsShown)
                                         .ToList();
-	    }
-
-	    private bool IsShown(Transaction transaction)
-	    {
-	        var interval = 60;
-	        return Now - transaction.Date < FromDays(interval);
 	    }
 
 	    private IEnumerable<Record> CombineByDay(IEnumerable<Record> records)
@@ -84,7 +65,13 @@ namespace UI.ViewModels
             return -record.Amount;
         }
 
-		public class Transaction
+	    private bool IsShown(Transaction transaction)
+	    {
+	        var interval = 60;
+	        return Now - transaction.Date < FromDays(interval);
+	    }
+
+	    public class Transaction
 		{
 		    public Transaction(decimal total, Record record)
 		    {
