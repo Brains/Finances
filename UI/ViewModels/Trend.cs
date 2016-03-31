@@ -56,7 +56,8 @@ namespace UI.ViewModels
 
 	    private bool IsShown(Transaction transaction)
 	    {
-	        return Now - transaction.Date < FromDays(40);
+	        var interval = 60;
+	        return Now - transaction.Date < FromDays(interval);
 	    }
 
 	    private IEnumerable<Record> CombineByDay(IEnumerable<Record> records)
