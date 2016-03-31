@@ -148,7 +148,8 @@ namespace UI.Tests.ViewModels
 	    {
 	        var trend = Create();
 	        settings.Customers = 3;
-	        trend.Now = date;
+	        trend.Interval = 20;
+            trend.Now = date.AddDays(10);
             Record[] records =
 	        {
 	            new Record(1000, Record.Types.Income, 0, "", Day(1)),

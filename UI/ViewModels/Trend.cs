@@ -42,12 +42,12 @@ namespace UI.ViewModels
 	        decimal accumulator = 0;
 
 	        var transactions = CombineByDay(records)
-	            .Select(transaction =>
+	            .OrderBy(record => record.Date)
+                .Select(transaction =>
 	            {
 	                transaction.Total = accumulator += transaction.Amount;
 	                return transaction;
 	            })
-	            .OrderBy(record => record.Date)
 	            .Where(IsShown)
 	            .ToList();
 
