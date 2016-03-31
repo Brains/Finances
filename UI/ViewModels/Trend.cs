@@ -21,8 +21,10 @@ namespace UI.ViewModels
 		}
 
 		public IEnumerable<Transaction> Transactions { get; set; }
+        public int Interval { get; set; } = 60;
+	    public DateTime Now { get; set; } = DateTime.Now;
 
-	    protected override void OnInitialize()
+        protected override void OnInitialize()
 		{
 			base.OnInitialize();
 
@@ -41,7 +43,7 @@ namespace UI.ViewModels
                                         .ToList();
 	    }
 
-	    private IEnumerable<Record> CombineByDay(IEnumerable<Record> records)
+	    public IEnumerable<Record> CombineByDay(IEnumerable<Record> records)
 	    {
 	        return records.GroupBy(record => record.Date.Date)
 	                      .Select(day => new Record
@@ -53,7 +55,7 @@ namespace UI.ViewModels
 	                      });
 	    }
 
-	    private decimal GetAmount(Record record)
+	    public decimal GetAmount(Record record)
         {
             if (record.Type == Record.Types.Income)
                 return record.Amount;
@@ -65,10 +67,9 @@ namespace UI.ViewModels
             return -record.Amount;
         }
 
-	    private bool IsShown(Transaction transaction)
+	    public bool IsShown(Transaction transaction)
 	    {
-	        var interval = 60;
-	        return Now - transaction.Date < FromDays(interval);
+	        return Now - transaction.Date < FromDays(Interval);
 	    }
 
 	    public class Transaction
