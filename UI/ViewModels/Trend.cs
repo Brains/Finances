@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Caliburn.Micro;
 using Common;
@@ -8,19 +9,22 @@ using UI.Interfaces;
 using static System.DateTime;
 using static System.Linq.Enumerable;
 using static System.TimeSpan;
+using static Common.Record.Types;
 
 namespace UI.ViewModels
 {
 	public class Trend : Screen, IViewModel
 	{
 	    private readonly IExpenses expenses;
+	    private readonly ISettings settings;
 
-	    public Trend(IExpenses expenses)
-		{
-		    this.expenses = expenses;
-		}
+	    public Trend(IExpenses expenses, ISettings settings)
+	    {
+	        this.expenses = expenses;
+	        this.settings = settings;
+	    }
 
-		public IEnumerable<Transaction> Transactions { get; set; }
+	    public IEnumerable<Transaction> Transactions { get; set; }
         public int Interval { get; set; } = 60;
 	    public DateTime Now { get; set; } = DateTime.Now;
 
@@ -28,9 +32,7 @@ namespace UI.ViewModels
 		{
 			base.OnInitialize();
 
-		    var records = expenses.Records.Where(record => record.Type != Record.Types.Debt);
-
-            Transactions = Calculate(records);
+            Transactions = Calculate(expenses.Records);
 		}
 
 	    public IEnumerable<Transaction> Calculate(IEnumerable<Record> records)
@@ -57,13 +59,13 @@ namespace UI.ViewModels
 
 	    public decimal GetAmount(Record record)
         {
-            if (record.Type == Record.Types.Income)
-                return record.Amount;
-            if (record.Type == Record.Types.Debt
-                && record.Description == "In")
-                return record.Amount;
+	        var amount = record.Amount;
 
-            return -record.Amount;
+	        if (record.Type == Debt && record.Description == "In") return amount;
+	        if (record.Type == Income) return amount;
+	        if (record.Type == Shared) return -amount * settings.Customers;
+
+	        return -amount;
         }
 
 	    public bool IsShown(Transaction transaction)

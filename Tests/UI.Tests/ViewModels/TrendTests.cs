@@ -12,8 +12,14 @@ namespace UI.Tests.ViewModels
 	public class TrendTests
 	{
 		private readonly DateTime date = new DateTime(1, 1, 1);
+	    private ISettings settings;
 
-        private Trend Create() => new Trend(For<IExpenses>());
+	    private Trend Create()
+	    {
+	        settings = For<ISettings>();
+	        return new Trend(For<IExpenses>(), settings);
+	    }
+
 	    private DateTime Month(int month) => new DateTime(1, month, 1);
 	    private DateTime Day(int day) => new DateTime(1, 1, day);
 
@@ -41,16 +47,27 @@ namespace UI.Tests.ViewModels
 	    }
 
 	    [TestCase(Record.Types.Expense, -100)]
-        [TestCase(Record.Types.Shared, -100)]
         [TestCase(Record.Types.Income, 100)]
 	    public void GetAmount_ForRecordType_ReturnRightAmountWithSign(Record.Types type, int expected)
 	    {
             var trend = Create();
+	        settings.Customers = 3;
             Record record = new Record(100, type, 0, "", date);
 
             var actual = trend.GetAmount(record);
 
             Assert.That(actual, Is.EqualTo(expected));
+	    }
+
+	    public void GetAmount_ForSharedType_ReturnRightAmountWithSign()
+	    {
+            var trend = Create();
+	        settings.Customers = 3;
+            Record record = new Record(100, Record.Types.Shared, 0, "", date);
+
+            var actual = trend.GetAmount(record);
+
+            Assert.That(actual, Is.EqualTo(-300));
 	    }
 
 	    [TestCase(Record.Types.Debt, "Out", -100)]
@@ -127,21 +144,22 @@ namespace UI.Tests.ViewModels
 	    public void Calculate_Always_ReturnsCollectionOfTotals()
 	    {
 	        var trend = Create();
+	        settings.Customers = 3;
 	        trend.Now = date;
             Record[] records =
 	        {
 	            new Record(1000, Record.Types.Income, 0, "", Day(1)),
 	            new Record(100, Record.Types.Expense, 0, "", Day(2)),
-	            new Record(100, Record.Types.Shared, 0, "", Day(2)),
-	            new Record(100, Record.Types.Debt, 0, "Out", Day(3)),
-	            new Record(100, Record.Types.Debt, 0, "In", Day(4)),
+	            new Record(100, Record.Types.Shared, 0, "", Day(3)),
+	            new Record(100, Record.Types.Debt, 0, "Out", Day(4)),
+	            new Record(100, Record.Types.Debt, 0, "In", Day(5)),
 	        };
 
 	        var actual = trend.Calculate(records)
 	                          .Select(transaction => transaction.Total)
                               .ToArray();
 
-	        Assert.That(actual, Is.EqualTo(new [] {1000, 800, 700, 800}));
+	        Assert.That(actual, Is.EqualTo(new [] {1000, 900, 600, 500, 600}));
 	    }
 	}
 }
