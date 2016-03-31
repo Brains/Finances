@@ -39,7 +39,10 @@ namespace UI.Tests.ViewModels
 
             var actual = records.Select(record =>
             {
-                var transaction = new Trend.Transaction(0, record);
+                var transaction = new Trend.Transaction()
+                {
+                    Date = record.Date
+                };
                 return trend.IsShown(transaction);
             }).ToArray();
 

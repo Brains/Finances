@@ -59,25 +59,29 @@
 		<Setter Property="IsTabStop" Value="False"/>
 		<Setter Property="Width" Value="Auto"/>
 		<Setter Property="Height" Value="Auto"/>
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="charts:LineDataPoint">
-					<Canvas x:Name="Root" Opacity="1" ToolTipService.InitialShowDelay="0">
-						<Ellipse StrokeThickness="1" Stroke="White" Fill="{TemplateBinding Background}" Width="10" Height="10" Canvas.Left="-5"
-						         Canvas.Top="-5" Margin="0"/>
-                        <TextBlock Text="{Binding Description}" Margin="0" Padding="0" Foreground="{StaticResource HighlightBrush}" Canvas.Left="-2" Canvas.Bottom="5"/>
-						<ToolTipService.ToolTip>
-							<StackPanel Margin="2,2,2,2">
-                                <ContentControl Content="{Binding Amount}" ContentStringFormat="{}{0:+#;-#;0}" Foreground="{TemplateBinding Background}"
-								                FontSize="16"/>
-								<ContentControl Content="{TemplateBinding IndependentValue}" ContentStringFormat="{}{0:d MMMM}"/>
-								<TextBlock Text="{Binding Description}" Foreground="Gray"/>
-							</StackPanel>
-						</ToolTipService.ToolTip>
-					</Canvas>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
+	    <Setter Property="Template">
+	        <Setter.Value>
+	            <ControlTemplate TargetType="charts:LineDataPoint">
+	                <Canvas x:Name="Root" Opacity="1" ToolTipService.InitialShowDelay="0">
+	                    <Ellipse StrokeThickness="1" Stroke="White" Fill="{TemplateBinding Background}" Width="10"
+	                             Height="10" Canvas.Left="-5"
+	                             Canvas.Top="-5" Margin="0" />
+	                    <TextBlock Text="{Binding Category}" Margin="0" Padding="0"
+	                               Foreground="{StaticResource HighlightBrush}" Canvas.Left="-2" Canvas.Bottom="5" />
+	                    <ToolTipService.ToolTip>
+	                        <StackPanel Margin="2,2,2,2">
+	                            <ContentControl Content="{Binding Amount}" ContentStringFormat="{}{0:+#;-#;0}"
+	                                            Foreground="{TemplateBinding Background}"
+	                                            FontSize="16" />
+	                            <ContentControl Content="{TemplateBinding IndependentValue}"
+	                                            ContentStringFormat="{}{0:d MMMM}" />
+	                            <TextBlock Text="{Binding Description}" Foreground="Gray" />
+	                        </StackPanel>
+	                    </ToolTipService.ToolTip>
+	                </Canvas>
+	            </ControlTemplate>
+	        </Setter.Value>
+	    </Setter>
 	</Style>
 
 	<Style x:Key="AreaDataPointStyle" TargetType="{x:Type charts:AreaDataPoint}">

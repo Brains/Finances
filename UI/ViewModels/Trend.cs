@@ -41,19 +41,29 @@ namespace UI.ViewModels
 	    {
 	        decimal accumulator = 0;
 
-	        return CombineByDay(records).OrderBy(record => record.Date)
-	                                    .Select(record => new Transaction(accumulator += record.Amount, record))
-	                                    .Where(IsShown)
-                                        .ToList();
+	        var transactions = CombineByDay(records)
+	            .Select(transaction =>
+	            {
+	                transaction.Total = accumulator += transaction.Amount;
+	                return transaction;
+	            })
+	            .OrderBy(record => record.Date)
+	            .Where(IsShown)
+	            .ToList();
+
+            return transactions;
 	    }
 
-	    public IEnumerable<Record> CombineByDay(IEnumerable<Record> records)
+	    public IEnumerable<Transaction> CombineByDay(IEnumerable<Record> records)
 	    {
 	        return records.GroupBy(record => record.Date.Date)
-	                      .Select(day => new Record
+	                      .Select(day => new Transaction
 	                      {
 	                          Date = day.Key,
 	                          Amount = day.Sum(record => GetAmount(record)),
+	                          Category = day.GroupBy(record => record.Category)
+	                                        .Select(record => record.Key.ToString())
+	                                        .Aggregate((a, b) => $"{a}\n{b}"),
 	                          Description = day.Select(record => record.Description)
 	                                           .Aggregate((a, b) => $"{a}\n{b}")
 	                      });
@@ -77,17 +87,10 @@ namespace UI.ViewModels
 
 	    public class Transaction
 		{
-		    public Transaction(decimal total, Record record)
-		    {
-		        Total = total;
-                Amount = record.Amount;
-		        Date = record.Date;
-		        Description = record.Description;
-		    }
-
 		    public decimal Amount { get; set; }
 			public decimal Total { get; set; }
 			public DateTime Date { get; set; }
+			public string Category { get; set; }
 			public string Description { get; set; }
 		}
 	}
