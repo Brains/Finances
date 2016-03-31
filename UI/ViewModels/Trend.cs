@@ -48,7 +48,14 @@ namespace UI.ViewModels
 	    {
 	        decimal accumulator = 0;
 
-	        Transactions = records
+	        Transactions = records.GroupBy(record => record.Date.Date)
+	                              .Select(group => new Record
+	                              {
+	                                  Date = @group.Key,
+	                                  Amount = @group.Sum(record => CalculateAmount(record)),
+	                                  Description =
+	                                      @group.Select(record => record.Description).Aggregate((a, b) => $"{a}, {b}")
+	                              })
 	                              .OrderBy(record => record.Date)
 	                              .Select(transaction => new Transaction
 	                              {
@@ -57,7 +64,7 @@ namespace UI.ViewModels
 	                                  Date = transaction.Date,
 	                                  Description = transaction.Description
 	                              })
-	                              .Skip(700)
+	                              .Skip(200)
 	                              .ToList();
 	    }
 
