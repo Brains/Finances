@@ -14,15 +14,15 @@ namespace UI.ViewModels
 	public class Trend : Screen, IViewModel
 	{
 	    private readonly IExpenses expenses;
-		private IList<Transaction> transactions;
+	    private IList<Transaction> transactions;
 
 		public Trend(IExpenses expenses, ISettings settings)
 		{
 		    this.expenses = expenses;
-			Operations = settings.PermanentOperations;
+		    Operations = settings.PermanentOperations;
 		}
 
-		public PermanentOperation[] Operations { get; set; }
+	    public PermanentOperation[] Operations { get; set; }
 
 		public IList<Transaction> Transactions
 		{
@@ -39,15 +39,36 @@ namespace UI.ViewModels
 		{
 			base.OnInitialize();
 
-		    var records = expenses.Records
-		                          .Where(record => record.Type != Record.Types.Debt);
+		    var records = expenses.Records.Where(record => record.Type != Record.Types.Debt);
 
-
-            decimal accumulator = 0;
-
+            Calculate(records);
 		}
 
-        private decimal CalculateAmount(Record record)
+	    private void Calculate(IEnumerable<Record> records)
+	    {
+	        decimal accumulator = 0;
+
+	        Transactions = records.GroupBy(record => record.Date.Date)
+	                              .Select(group => new Record
+	                              {
+	                                  Date = @group.Key,
+	                                  Amount = @group.Sum(record => CalculateAmount(record)),
+	                                  Description =
+	                                      @group.Select(record => record.Description).Aggregate((a, b) => $"{a}, {b}")
+	                              })
+	                              .OrderBy(record => record.Date)
+	                              .Select(transaction => new Transaction
+	                              {
+	                                  Total = accumulator += transaction.Amount,
+	                                  Amount = transaction.Amount,
+	                                  Date = transaction.Date,
+	                                  Description = transaction.Description
+	                              })
+	                              .Skip(200)
+	                              .ToList();
+	    }
+
+	    private decimal CalculateAmount(Record record)
         {
             if (record.Type == Record.Types.Income)
                 return record.Amount;
