@@ -13,8 +13,6 @@ namespace UI.Tests.ViewModels
 	{
 		private static Trend Create()
 		{
-			var settings = For<ISettings>();
-
 			return new Trend(For<IExpenses>());
 		}
 	}
