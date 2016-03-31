@@ -22,10 +22,12 @@ namespace UI.ViewModels
 	    {
 	        this.expenses = expenses;
 	        this.settings = settings;
+
+	        Interval = settings.HistoryInterval;
 	    }
 
 	    public IEnumerable<Transaction> Transactions { get; set; }
-        public int Interval { get; set; } = 60;
+        public int Interval { get; set; }
 	    public DateTime Now { get; set; } = DateTime.Now;
 
         protected override void OnInitialize()

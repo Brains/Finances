@@ -16,6 +16,7 @@ namespace Common
 		string[] Descriptions { get; set; }
 		int Customers { get; set; }
 	    int Precision { get; set; }
+	    int HistoryInterval { get; set; }
 	    void Save(string name, decimal value);
 	}
 }

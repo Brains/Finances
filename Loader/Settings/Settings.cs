@@ -29,6 +29,7 @@ namespace Loader.Settings
 		public string[] Descriptions{ get; set; } = Config["Descriptions"].Replace(" ", string.Empty).Split(',');
 		public int Customers		{ get; set; } = int.Parse(Config["Customers"]);
         public int Precision        { get; set; } = int.Parse(Config["Precision"]);
+	    public int HistoryInterval  { get; set; } = int.Parse(Config["HistoryInterval"]);
         #endregion
 
         public Mapping CategoriesMapping { get; set; } = new Mapping
