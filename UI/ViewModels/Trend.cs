@@ -49,15 +49,8 @@ namespace UI.ViewModels
 	        decimal accumulator = 0;
 
 	        var combined = CombineByDay(records);
-	        Transactions = combined
-	                              .OrderBy(record => record.Date)
-	                              .Select(transaction => new Transaction
-	                              {
-	                                  Total = accumulator += transaction.Amount,
-	                                  Amount = transaction.Amount,
-	                                  Date = transaction.Date,
-	                                  Description = transaction.Description
-	                              })
+	        Transactions = combined.OrderBy(record => record.Date)
+	                              .Select(record => new Transaction(accumulator += record.Amount, record))
 	                              .Skip(200)
 	                              .ToList();
 	    }
@@ -88,7 +81,15 @@ namespace UI.ViewModels
 
 		public class Transaction
 		{
-			public decimal Amount { get; set; }
+		    public Transaction(decimal total, Record record)
+		    {
+		        Total = total;
+                Amount = record.Amount;
+		        Date = record.Date;
+		        Description = record.Description;
+		    }
+
+		    public decimal Amount { get; set; }
 			public decimal Total { get; set; }
 			public DateTime Date { get; set; }
 			public string Description { get; set; }
