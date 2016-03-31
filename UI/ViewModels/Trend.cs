@@ -47,6 +47,17 @@ namespace UI.ViewModels
 
 		}
 
+        private decimal CalculateValue(Record record)
+        {
+            if (record.Type == Record.Types.Income)
+                return record.Amount;
+
+            if (record.Type == Record.Types.Debt
+                && record.Description == "In")
+                return record.Amount;
+
+            return -record.Amount;
+        }
 
 		public class Transaction
 		{
