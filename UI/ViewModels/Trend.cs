@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Caliburn.Micro;
 using Common;
+using Common.Storages;
 using UI.Interfaces;
 using static System.DateTime;
 using static System.Linq.Enumerable;
@@ -12,10 +13,12 @@ namespace UI.ViewModels
 {
 	public class Trend : Screen, IViewModel
 	{
+	    private readonly IExpenses expenses;
 		private IList<Transaction> transactions;
 
-		public Trend(ISettings settings)
+		public Trend(IExpenses expenses, ISettings settings)
 		{
+		    this.expenses = expenses;
 			Operations = settings.PermanentOperations;
 		}
 
@@ -35,6 +38,13 @@ namespace UI.ViewModels
 		protected override void OnInitialize()
 		{
 			base.OnInitialize();
+
+		    var records = expenses.Records
+		                          .Where(record => record.Type != Record.Types.Debt);
+
+
+            decimal accumulator = 0;
+
 		}
 
 
