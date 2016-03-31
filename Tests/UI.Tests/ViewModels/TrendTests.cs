@@ -122,5 +122,26 @@ namespace UI.Tests.ViewModels
 
 	        Assert.That(actual, Is.EqualTo("Test\nTest\nTest"));
 	    }
+
+	    [Test]
+	    public void Calculate_Always_ReturnsCollectionOfTotals()
+	    {
+	        var trend = Create();
+	        trend.Now = date;
+            Record[] records =
+	        {
+	            new Record(1000, Record.Types.Income, 0, "", Day(1)),
+	            new Record(100, Record.Types.Expense, 0, "", Day(2)),
+	            new Record(100, Record.Types.Shared, 0, "", Day(2)),
+	            new Record(100, Record.Types.Debt, 0, "Out", Day(3)),
+	            new Record(100, Record.Types.Debt, 0, "In", Day(4)),
+	        };
+
+	        var actual = trend.Calculate(records)
+	                          .Select(transaction => transaction.Total)
+                              .ToArray();
+
+	        Assert.That(actual, Is.EqualTo(new [] {1000, 800, 700, 800}));
+	    }
 	}
 }

@@ -33,7 +33,7 @@ namespace UI.ViewModels
             Transactions = Calculate(records);
 		}
 
-	    private IEnumerable<Transaction> Calculate(IEnumerable<Record> records)
+	    public IEnumerable<Transaction> Calculate(IEnumerable<Record> records)
 	    {
 	        decimal accumulator = 0;
 
@@ -59,7 +59,6 @@ namespace UI.ViewModels
         {
             if (record.Type == Record.Types.Income)
                 return record.Amount;
-
             if (record.Type == Record.Types.Debt
                 && record.Description == "In")
                 return record.Amount;
