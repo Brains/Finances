@@ -13,23 +13,14 @@ namespace Loader.Settings
 	public class Settings : ISettings
 	{
 		private static readonly NameValueCollection Config;
-	    private static readonly AppSettingsSection Section;
-	    private const double Month = 30.436875;
+		private const double Month = 30.436875;
 
 		static Settings()
 		{
-		    Config = ConfigurationManager.AppSettings;
-            Section = (AppSettingsSection) ConfigurationManager.GetSection("appSettings");
-
-            Read("Cash");
+			Config = ConfigurationManager.AppSettings;
 		}
 
-	    private static string Read(string cash)
-	    {
-	        return Section.Settings[cash].Value;
-	    }
-
-	    #region Config
+		#region Config
 		public string ID			{ get; set; } = Config["ID"];
 		public string Password		{ get; set; } = Config["Password"];
 		public string Card			{ get; set; } = Config["Card"];
@@ -82,7 +73,6 @@ namespace Loader.Settings
 			config.AppSettings.Settings.Remove("Card");
 
 			config.Save(ConfigurationSaveMode.Minimal);
-            ConfigurationManager.RefreshSection("appSettings");
 		}
 	}
 }
