@@ -13,9 +13,8 @@ namespace Loader.Settings
 	public class Settings : ISettings
 	{
 		private static readonly NameValueCollection Config;
-		private const double Month = 30.436875;
 
-		static Settings()
+	    static Settings()
 		{
 			Config = ConfigurationManager.AppSettings;
 		}

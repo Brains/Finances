@@ -94,7 +94,7 @@ namespace Loader
 
 	    private void RegisterFunds()
 	    {
-		    container.RegisterType<ISaver, Saver>();
+		    container.RegisterType<ISaver, Cash>("Cash", new Singleton());
 
             container.RegisterType<IFundsSource, Card>("Card")
 	                 .RegisterType<IFundsSource, Cash>("Cash")
@@ -105,8 +105,8 @@ namespace Loader
 	        container.RegisterType<IFund, Fund>(
 	            "Cash",
 	            new Constructor(new Parameter<IFundsSource>("Cash")),
-                new InjectionProperty("Saver", new Parameter<ISaver>()),
-                new InjectionProperty("Adder", new Parameter<IAdder>()));
+                new InjectionProperty("Saver", new Parameter<ISaver>("Cash")),
+                new InjectionProperty("Adder"));
 	    }
 
 	    private void ConfigureCaliburn()
